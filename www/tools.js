@@ -1,9 +1,8 @@
-document.addEventListener("deviceready", onDeviceReady, false);
-function onDeviceReady() {
-    var ref = cordova.InAppBrowser.open('01_Splash.html', '_self', 'location=no,zoom=no,enableviewportscale=yes');    
+$(function() {
     checkConnection();
-	getDeviceProperty();
-}
+    getDeviceProperty();
+});
+
 function getDeviceProperty() {
     console.log("getDeviceProperty");
     var deviceOS = device.platform;  //fetch the device operating system
