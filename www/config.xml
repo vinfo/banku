@@ -15,6 +15,8 @@
     <content src="index.html" />
     <access origin="*" />
     <preference name="EnableViewportScale" value="true"/>
+    <preference name="orientation" value="portrait" />
+    
     <plugin name="cordova-plugin-inappbrowser" spec="~1.7.1" />
     <plugin name="cordova-plugin-whitelist" version="1.3.2" />
     <plugin name="cordova-plugin-network-information" version="1.3.2" />
