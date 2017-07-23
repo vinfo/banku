@@ -1,6 +1,9 @@
 document.addEventListener("deviceready", onDeviceReady, false);
 function onDeviceReady() {
-    var ref = cordova.InAppBrowser.open('https://bankucolombia.com/mobil/www/02_Login.html', '_self', 'location=no,zoom=no,enableviewportscale=yes');
+    setTimeout(function(){ 
+        var ref = cordova.InAppBrowser.open('https://bankucolombia.com/mobil/www/02_Login.html', '_self', 'location=no,zoom=no,enableviewportscale=yes');
+    }, 2000);
+    
     checkConnection();
 	getDeviceProperty();
 }
