@@ -17,6 +17,8 @@
     <preference name="EnableViewportScale" value="true"/>
     <plugin name="cordova-plugin-inappbrowser" spec="~1.7.1" />
     <plugin name="cordova-plugin-whitelist" version="1.3.2" />
+    <plugin name="cordova-plugin-network-information" version="1.3.2" />
+    <plugin name="cordova-plugin-geolocation" version="2.4.3" />
 
     <!-- Define app icon for each platform. -->
     <icon src="icon.png" />
