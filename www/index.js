@@ -11,10 +11,10 @@ function getDeviceProperty() {
     var uuid = device.uuid;
     localStorage.setItem("OS", deviceOS);
     localStorage.setItem("UUID", uuid);
-    console.log("Plataforma registrada " + device.platform);
+    alert("Plataforma registrada " + device.platform);
 }
 function checkConnection() {
-    console.log("checkConnection");
+    alert("checkConnection");
     var state = true;
     var networkState = navigator.connection.type;
     var states = {};
