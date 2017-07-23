@@ -1,10 +1,10 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget xmlns     = "http://www.w3.org/ns/widgets"
-        xmlns:gap = "http://phonegap.com/ns/1.0"
-        id        = "com.vinfo.banku"
-         versionCode = "1"
-         version     = "1.0.1"
-         versionName = "1.0.1" >
+    xmlns:gap = "http://phonegap.com/ns/1.0"
+    id        = "com.vinfo.banku"
+    versionCode = "1"
+    version     = "1.0.1"
+    versionName = "1.0.1" >
     <name>BANKUCOLOMBIA</name>
     <description>
         Sistema que une a personas de todo el país (prestatarios e inversionistas), mediante una comunidad segura y confiable de inversión.
@@ -19,6 +19,13 @@
     <plugin name="cordova-plugin-whitelist" version="1.3.2" />
     <plugin name="cordova-plugin-network-information" version="1.3.2" />
     <plugin name="cordova-plugin-geolocation" version="2.4.3" />
+    <plugin name="cordova-plugin-console" version="1.0.6" />
+    <plugin name="cordova-plugin-device" version="1.1.6" />
+    <plugin name="cordova-plugin-device-motion" version="1.2.5" />
+    <plugin name="cordova-plugin-device-orientation" version="1.0.7" />
+    <plugin name="cordova-plugin-dialogs" version="1.3.3" />
+    <plugin name="cordova-plugin-network-information" version="1.3.3" />
+    <plugin name="cordova-plugin-vibration" version="2.1.5" />   
 
     <!-- Define app icon for each platform. -->
     <icon src="icon.png" />
@@ -44,5 +51,5 @@
     <gap:splash src="res/screen/ios/screen-iphone-portrait-568h-2x.png" gap:platform="ios"     width="640" height="1136" />
     <gap:splash src="res/screen/ios/screen-ipad-portrait.png"           gap:platform="ios"     width="768" height="1024" />
     <gap:splash src="res/screen/ios/screen-ipad-landscape.png"          gap:platform="ios"     width="1024" height="768" />
-   
+
 </widget>
