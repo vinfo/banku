@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+ <html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <!--Import Google Icon Font-->
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        
+        <!--Import materialize.css-->
+        <link type="text/css" rel="stylesheet" href="assets/css/materialize.min.css"  media="screen,projection"/>
+        <!--Import my style-->
+        <link type="text/css" href="assets/css/custom.css" rel="stylesheet"/>
+        <!--Let browser know website is optimized for mobile-->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+
+    <body class="profile">
+        <!--Nav Main-->
+        <div class="navbar-fixed nav-descktop">
+            <ul id="dropdown2" class="nav-dropdown dropdown-content">
+                <li><a href="#!">Ver mis inversiones</a></li>            
+                <li class="divider"></li> 
+                <li><a href="#!">Historial</a></li>            
+                <li class="divider"></li>  
+                <li><a href="#!">Facturación</a></li>            
+                <li class="divider"></li>  
+                <li><a href="#!">Comentarios</a></li>            
+                <li class="divider"></li>                  
+            </ul>
+            <ul id="dropdown1" class="nav-dropdown dropdown-content">
+                <li><a href="#!">Invitar a amigos <i class="material-icons right">card_giftcard</i></a></li>            
+                <li class="divider"></li> 
+                <li><a href="#!">Configuración <i class="material-icons right">settings</i></a></li>            
+                <li class="divider"></li>  
+                <li><a href="#!">Soporte y ayuda <i class="material-icons right">help_outline</i></a></li>            
+                <li class="divider"></li>  
+                <li><a href="#!">Favoritos <i class="material-icons right">favorite_border</i></a></li>            
+                <li class="divider"></li>  
+                <li><a href="#!">Historial <i class="material-icons right">description</i></a></li>                                   
+            </ul>            
+            <nav>
+                <div class="nav-wrapper container">
+                    <a href="#" class="brand-logo"><img class="responsive-img" src="assets/images/logoHeaderComplete.png" alt="BankU"></a>
+                    <ul id="nav-mobile" class="right hide-on-med-and-down">
+                        <li><a class="dropdown-button" href="#!" data-activates="dropdown2">Mis Inversiones<i class="material-icons right">expand_more</i></a></li>
+                        <li><a href="#!">Negociar</a></li>
+                        <li class="active"><a href="#!">Mis Ganacias</a></li>                    
+                        <li><a class="dropdown-button" href="#!" data-activates="dropdown1">Mi Perfil<i class="material-icons right">expand_more</i></a></li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+
+        <!--Nav Responsive-->
+        <nav class="nav-app">
+            <div class="nav-wrapper">
+                <a href="#!" class="brand-logo center">Mis Ganancias</a>
+            </div>
+        </nav>
+
+        <div class="wrapper edit-profile">
+            <div class="container">
+                <div class="row">
+                <div class="col s12">          
+                        <h3 class="hide-on-med-and-down center">Mis Ganancias<br><br></h3>
+                        <h5>Bienvenido Inversionista</h5>
+                        <p>Aquí podrás administrar todas tus inversiones, a cuánto tiempo tienes prestado, a qué usuarios y los pagos que te han realizado desde la comunidad BankU. </p>
+                        <div class="divider"></div>
+                        <div class="row">
+                            <div class="col s6 left-align">
+                                <p class="grey-text">Cupo disponible<br>
+                                Préstamos<br>
+                                Próximo pago</p>
+                            </div>  
+                            <div class="col s6 right-align">
+                                <p><strong>$ 2.000.000<br>
+                                $ 100.000<br>
+                                23/13/2017</strong></p>
+                            </div>                                
+                        </div>                                                                 
+                    </div>                                      
+                </div>                                                                                
+            </div>
+
+            <div class="info-user-earning">
+                <div class="container">
+                    <div class="row">
+                        <div class="col s12">
+                            Monto disponible para inversiones
+                            <h2 class="green-text text-lighten-1">$17.000.000</h2>
+                        </div>
+                    </div>                    
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="row">
+                    <div class="col s12 center margin-bottom-40 btn-register">
+                        <ul>
+                            <li><a class="waves-effect waves-light btn grey lighten-1 btn-large">Detalle de mis inversiones</a></li>
+                            <li><a class="waves-effect waves-light btn green lighten-1 btn-large">Incrementar inversión</a></li>
+                        </ul>
+                    </div> 
+                </div>
+            </div>
+        </div>  
+
+
+        <footer class="page-footer">
+            <div class="footer-copyright">
+                <div class="container">
+                    © 2017 BankU                    
+                </div>
+            </div>
+        </footer>            
+        
+        <div class="footer-nav">                          
+            <ul>
+                <li class="link1"><a href="#!">Mi Perfil</a></li>
+                <li class="link2"><a href="#!">Mis Inversiones</a></li>
+                <li class="link3"><a href="#!">Negociar</a></li>
+                <li class="link4"><a class="active" href="#!">Mis Ganacias</a></li>                                    
+            </ul>            
+        </div>
+            
+        <!--Import jQuery before materialize.js-->
+        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+        <script type="text/javascript" src="assets/js/materialize.min.js"></script>
+        <script type="text/javascript">
+        	$( document ).ready(function(){
+        		// Initialize collapse button
+                $(".button-collapse").sideNav();
+        	})
+        </script>
+    </body>
+</html>
