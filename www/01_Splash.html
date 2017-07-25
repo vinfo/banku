@@ -28,7 +28,23 @@
         <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
         <script type="text/javascript" src="assets/js/materialize.min.js"></script>
         <script>
-            setTimeout(function(){ window.location = "02_Login.html"; }, 3000);
+        alert(sessionStorage.initial);
+        if(!sessionStorage.initial){
+            alert("redirect");
+            setTimeout(function(){
+                sessionStorage.setItem("initial",1);
+                window.location = "02_Login.html";
+            }, 3000);
+        }else{
+            alert("salir");
+            if (navigator.app) {
+                navigator.app.exitApp();
+            } else if (navigator.device) {
+                navigator.device.exitApp();
+            } else {
+                window.close();
+            }
+        }
         </script>
     </body>
 </html>
