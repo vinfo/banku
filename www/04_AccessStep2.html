@@ -67,32 +67,32 @@
                 <div class="row">
                     <div class="col s12 pag-nav">
                         <span class="btn-nav-pag">
-                            <a href="#!" class="btn grey lighten-1"><i class="material-icons left">keyboard_arrow_left</i>Volver</a>                            
+                            <a href="#!" class="btn grey lighten-1 back"><i class="material-icons left">keyboard_arrow_left</i>Volver</a>                            
                         </span>
                     </div>
                     <div class="col s12 center">          
                         <h4 class="hide-on-med-and-down">Confirmación de autenticidad <br><br></h4>              
-                        <h5>Pon tu cóodigo</h5>                        
+                        <h5>Pon tu código</h5>                        
                         <hr>                     
                     </div>
                     <div class="col s12">
                         <form class="col s12 form-general-data code-phone">
                             <div class="row">
                                 <div class="input-field col s3">
-                                    <input id="last_name" type="text" class="validate">
-                                    <label for="last_name">1</label>
+                                    <input id="number1" type="number" class="validate">
+                                    <label for="number1">#</label>
                                 </div>
                                 <div class="input-field col s3">
-                                    <input id="last_name" type="text" class="validate">
-                                    <label for="last_name">2</label>
+                                    <input id="number2" type="number" class="validate">
+                                    <label for="number2">#</label>
                                 </div>
                                 <div class="input-field col s3">
-                                    <input id="last_name" type="text" class="validate">
-                                    <label for="last_name">3</label>
+                                    <input id="number3" type="number" class="validate">
+                                    <label for="number3">#</label>
                                 </div>
                                 <div class="input-field col s3">
-                                    <input id="last_name" type="text" class="validate">
-                                    <label for="last_name">4</label>
+                                    <input id="number4" type="number" class="validate">
+                                    <label for="number4">#</label>
                                 </div>
                             </div>
                         </form> 
@@ -115,13 +115,17 @@
                 </div>
             </div>
         </footer>           
-                    
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="index.js"></script>                     
         <!--Import jQuery before materialize.js-->
         <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
         <script type="text/javascript" src="assets/js/materialize.min.js"></script>
         <script type="text/javascript">
         	$( document ).ready(function(){
         		$(".button-collapse").sideNav();
+                $( ".back" ).click(function() {
+                  window.history.back();
+                });                
         	})
         </script>
     </body>

@@ -729,9 +729,9 @@ padding-top: 10px;
 
 /*Login*/
 .login{
-	background-image: url(../images/bgLogin.jpg);	
-    background-size: auto 100%;
-    background-repeat: no-repeat;
+	background-image: url('../../assets/images/bgLogin.jpg');	
+/*    background-size: auto 100%;
+    background-repeat: no-repeat;*/
     background-position: center top;
     background-attachment: fixed;
 }
