@@ -17,8 +17,8 @@
         <!--Nav Main-->
         <div class="navbar-fixed nav-descktop">
             <ul id="dropdown1" class="dropdown-content">
-                <li><a href="#!">Invitar a amigos <i class="material-icons right">card_giftcard</i></a></li>            
-                <li class="divider"></li> 
+/*                <li><a href="#!">Invitar a amigos <i class="material-icons right">card_giftcard</i></a></li>            
+                <li class="divider"></li> */
                 <li><a href="#!">Configuración <i class="material-icons right">settings</i></a></li>            
                 <li class="divider"></li>  
                 <li><a href="#!">Soporte y ayuda <i class="material-icons right">help_outline</i></a></li>            
@@ -109,7 +109,7 @@
                             </li>                                         
                             <li><a href="#!">Métodos de pago <i class="material-icons right">keyboard_arrow_right</i></a></li>            
                             <li><a href="#!">Términos y condiciones <i class="material-icons right">keyboard_arrow_right</i></a></li>  
-                            <li class="grey lighten-3"><a href="#!">Cerrar sesión</a></li>                                   
+                            <li class="grey lighten-3 close-session"><a href="#!">Cerrar sesión</a></li>                                   
                         </ul>
                         <div class="center margin-top-40 margin-bottom-40">
                             <a class="waves-effect waves-light red darken-2 btn-large">Borrar cuenta</a>
@@ -143,6 +143,9 @@
         <script type="text/javascript">
         	$( document ).ready(function(){
         		$(".button-collapse").sideNav();
+                $( ".close-session" ).click(function() {
+                  navigator.app.exitApp();
+                });                 
         	})
         </script>
     </body>

@@ -27,8 +27,8 @@
                 <li class="divider"></li>                  
             </ul>
             <ul id="dropdown1" class="nav-dropdown dropdown-content">
-                <li><a href="#!">Invitar a amigos <i class="material-icons right">card_giftcard</i></a></li>            
-                <li class="divider"></li> 
+<!--                <li><a href="#!">Invitar a amigos <i class="material-icons right">card_giftcard</i></a></li>            
+                <li class="divider"></li> -->
                 <li><a href="#!">Configuración <i class="material-icons right">settings</i></a></li>            
                 <li class="divider"></li>  
                 <li><a href="#!">Soporte y ayuda <i class="material-icons right">help_outline</i></a></li>            
@@ -80,12 +80,12 @@
                         <form class="col s12 form-general-data">
                             <div class="row">
                                 <div class="input-field col s3">
-                                    <input id="last_name" type="text" class="validate">
-                                    <label for="last_name">+57</label>
+                                    <input id="code" type="number" class="validate">
+                                    <label for="code">+57</label>
                                 </div>
                                 <div class="input-field col s9">
-                                    <input id="last_name" type="text" class="validate">
-                                    <label for="last_name">Número</label>
+                                    <input id="cellphone_u" type="number" class="validate">
+                                    <label for="cellphone_u">Número</label>
                                 </div>
                             </div>
                         </form> 
@@ -95,7 +95,7 @@
                         <p>Ingresando tu número de celular nos estas permitiendo enviarte mensajes de texto y llamarte si es necesario.</p>
                     </div>
                     <div class="col s12 center margin-top-40 btn-register">
-                        <a class="waves-effect waves-light yellow accent-4 btn-large">He leído y acepto</a>
+                        <a href="04_AccessStep2.html" class="waves-effect waves-light yellow accent-4 btn-large">He leído y acepto</a>
                     </div> 
                 </div>                                                                                
             </div>
@@ -108,13 +108,17 @@
                 </div>
             </div>
         </footer>           
-                    
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="index.js"></script>                    
         <!--Import jQuery before materialize.js-->
         <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
         <script type="text/javascript" src="assets/js/materialize.min.js"></script>
         <script type="text/javascript">
         	$( document ).ready(function(){
         		$(".button-collapse").sideNav();
+                $( ".back" ).click(function() {
+                  window.history.back();
+                });                
         	})
         </script>
     </body>

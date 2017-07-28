@@ -27,15 +27,15 @@
                 <li class="divider"></li>                  
             </ul>
             <ul id="dropdown1" class="nav-dropdown dropdown-content">
-                <li><a href="#!">Invitar a amigos <i class="material-icons right">card_giftcard</i></a></li>            
-                <li class="divider"></li> 
+                <!-- <li><a href="#!">Invitar a amigos <i class="material-icons right">card_giftcard</i></a></li>         
+                <li class="divider"></li> --> 
                 <li><a href="#!">Configuración <i class="material-icons right">settings</i></a></li>            
                 <li class="divider"></li>  
-                <li><a href="#!">Soporte y ayuda <i class="material-icons right">help_outline</i></a></li>            
+                <li><a href="#!">Soporte y ayuda <i class="material-icons right">help_outline</i></a></li>          
                 <li class="divider"></li>  
-                <li><a href="#!">Favoritos <i class="material-icons right">favorite_border</i></a></li>            
+                <!-- <li><a href="#!">Favoritos <i class="material-icons right">favorite_border</i></a></li>            
                 <li class="divider"></li>  
-                <li><a href="#!">Historial <i class="material-icons right">description</i></a></li>                                   
+                <li><a href="#!">Historial <i class="material-icons right">description</i></a></li> -->                                   
             </ul>            
             <nav>
                 <div class="nav-wrapper container">
@@ -63,7 +63,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col s9 m8 l10">
-                        <a href="#!">
+                        <a href="05_Profile_Incomplete-2.html">
                             <h4 class="margin-bottom-0">Julio César Ortiz</h4>
                             <h6>Ver y editar perfil</h6>
                         </a>
@@ -93,11 +93,11 @@
                 <div class="row">
                     <div class="col s12">
                         <ul class="item-profile">
-                            <li><a href="#!">Invitar a amigos <i class="material-icons right">card_giftcard</i></a></li>                                    
-                            <li><a href="#!">Configuración <i class="material-icons right">settings</i></a></li>                                    
+                            <!-- <li><a href="#!">Invitar a amigos <i class="material-icons right">card_giftcard</i></a></li> -->                                    
+                            <li><a href="07_Profile_Setting.html">Configuración <i class="material-icons right">settings</i></a></li>                                    
                             <li><a href="#!">Soporte y ayuda <i class="material-icons right">help_outline</i></a></li>                                   
-                            <li><a href="#!">Favoritos <i class="material-icons right">favorite_border</i></a></li>            
-                            <li><a href="#!">Historial <i class="material-icons right">description</i></a></li>                                   
+                            <!-- <li><a href="#!">Favoritos <i class="material-icons right">favorite_border</i></a></li>            
+                            <li><a href="#!">Historial <i class="material-icons right">description</i></a></li> -->                                   
                         </ul>
                     </div>
                 </div>                                                                                
@@ -110,19 +110,23 @@
         
         <div class="footer-nav">                          
             <ul>
-                <li class="link1"><a class="active" href="#!">Mi Perfil</a></li>
-                <li class="link2"><a href="#!">Mis Inversiones</a></li>
-                <li class="link3"><a href="#!">Negociar</a></li>
-                <li class="link4"><a href="#!">Mis Ganacias</a></li>                                    
+                <li class="link1"><a class="active" href="06_Profile_Complete.html">Mi Perfil</a></li>
+                <li class="link2"><a href="08_InvestmentsStep1.html">Mis Inversiones</a></li>
+                <li class="link3"><a href="10_LoansStep1.html">Negociar</a></li>
+                <li class="link4"><a href="11_EarningsStep1.html">Mis Ganacias</a></li>                                    
             </ul>            
         </div>
-            
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="index.js"></script>             
         <!--Import jQuery before materialize.js-->
         <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
         <script type="text/javascript" src="assets/js/materialize.min.js"></script>
         <script type="text/javascript">
         	$( document ).ready(function(){
         		$(".button-collapse").sideNav();
+                $( ".back" ).click(function() {
+                  window.history.back();
+                });                
         	})
         </script>
     </body>
