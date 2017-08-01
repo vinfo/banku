@@ -1,9 +1,11 @@
 $( document ).ready(function(){    
+    localStorage.setItem("site_url","http://localhost:6002");
     $('select').material_select();
     $('.modal').modal();
     $( ".back" ).click(function() {
       window.history.back();
-  });                
+    });
+
 })
 
 var getUrlParameter = function getUrlParameter(sParam) {
