@@ -40,12 +40,6 @@
             <nav>
                 <div class="nav-wrapper container">
                     <a href="#" class="brand-logo"><img class="responsive-img" src="assets/images/logoHeaderComplete.png" alt="BankU"></a>
-                    <ul id="nav-mobile" class="right hide-on-med-and-down">
-                        <li><a class="dropdown-button" href="#!" data-activates="dropdown2">Mis Inversiones<i class="material-icons right">expand_more</i></a></li>
-                        <li><a href="#!">Negociar</a></li>
-                        <li><a href="#!">Mis Ganacias</a></li>                    
-                        <li class="active"><a class="dropdown-button" href="#!" data-activates="dropdown1">Mi Perfil<i class="material-icons right">expand_more</i></a></li>
-                    </ul>
                 </div>
             </nav>
         </div>
@@ -67,7 +61,7 @@
                 <div class="row">
                     <div class="col s12 pag-nav">
                         <span class="btn-nav-pag">
-                            <a href="#!" class="btn grey lighten-1"><i class="material-icons left">keyboard_arrow_left</i>Volver</a>                            
+                            <a href="#!" class="btn grey lighten-1 back"><i class="material-icons left">keyboard_arrow_left</i>Volver</a>                            
                         </span>
                     </div>
                     <div class="col s12 center">          
@@ -77,14 +71,15 @@
                         <hr>                     
                     </div>
                     <div class="col s12">
-                        <form class="col s12 form-general-data">
+                        <form id="frm_register" name="frm_register" method="POST" action="http://localhost:6002/user/register" enctype="multipart/form-data" class="col s12 form-general-data">
                             <div class="row">
                                 <div class="input-field col s3">
-                                    <input id="code" type="number" class="validate">
+                                    <input id="code" name="code" type="number" value="57" min="1" max="99" class="validate" required>
                                     <label for="code">+57</label>
                                 </div>
                                 <div class="input-field col s9">
-                                    <input id="cellphone_u" type="number" class="validate">
+                                    <input id="cellphone_u" name="cellphone_u" value="3147039139" type="number" class="validate" required>
+                                    <input type="hidden" id="action" name="action" value="sendSMS">
                                     <label for="cellphone_u">Número</label>
                                 </div>
                             </div>
@@ -95,7 +90,7 @@
                         <p>Ingresando tu número de celular nos estas permitiendo enviarte mensajes de texto y llamarte si es necesario.</p>
                     </div>
                     <div class="col s12 center margin-top-40 btn-register">
-                        <a href="04_AccessStep2.html" class="waves-effect waves-light yellow accent-4 btn-large">He leído y acepto</a>
+                        <a href="#" class="waves-effect waves-light yellow accent-4 btn-large">He leído y acepto</a>
                     </div> 
                 </div>                                                                                
             </div>
@@ -113,13 +108,38 @@
         <!--Import jQuery before materialize.js-->
         <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
         <script type="text/javascript" src="assets/js/materialize.min.js"></script>
+        <script type="text/javascript" src="assets/js/jquery.validate.min.js"></script>
+        <script type="text/javascript" src="assets/js/tools.js"></script>
         <script type="text/javascript">
-        	$( document ).ready(function(){
-        		$(".button-collapse").sideNav();
+            $( document ).ready(function(){
+                $(".button-collapse").sideNav();
                 $( ".back" ).click(function() {
                   window.history.back();
-                });                
-        	})
+                });
+                $( ".number" ).change(function() {
+                  this.value= fMatch2(field);
+                });                                
+                var type_user = localStorage.type_user;
+                $( ".accent-4" ).click(function() {
+                    var validator = $("#frm_register").validate({errorPlacement: function(error,element) {return true;}});
+                    validator.form();
+                    if(validator.valid()){
+                        var dat = $("#frm_register").serialize();
+                        $.ajax({
+                            crossDomain: true,
+                            type:"POST",
+                            contentType: "application/json; charset=utf-8",
+                            async:false,
+                            url: "http://bankucolombia.com/lib/ajax_services.php?callback=?",
+                            data: dat,
+                            dataType: "jsonp",                
+                            success: function(msg){
+                                alert(333);
+                            }
+                        });                
+                    }
+                });
+            })
         </script>
     </body>
 </html>

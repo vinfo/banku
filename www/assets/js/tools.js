@@ -23,3 +23,15 @@ var getUrlParameter = function getUrlParameter(sParam) {
     }
 };
 
+//Solo numeros y puntos
+function fMatch(field){
+    field.value = field.value.replace(/[^0-9-.]/g, "");
+}
+//Solo numeros
+function fMatch2(field){
+    field.value = field.value.replace(/[^0-9]/g, "");
+}
+//Solo letras y numeros
+function fMatch3(field){
+    field.value = field.value.replace(/[^A-Z-a-z-0-9_ -.]/g, "");
+}

@@ -47,22 +47,22 @@
                         <img class="responsive-img" src="assets/images/logoRegister.png" alt="BankU">
                         <h5 class="hide-on-med-and-down">Crean una cuenta</h5>
                     </div>                    
-                    <form id="frm_register" name="frm_register" class="col s12 form-general-data">
+                    <form id="frm_register" name="frm_register" method="POST" action="http://localhost:6002/user/register" enctype="multipart/form-data" class="col s12 form-general-data">
                         <div class="row">
                             <div class="input-field col s6 m6">
-                                <input placeholder="Ingresa tu nombre" id="names_u" name="names_u" type="text" class="validate" required>
+                                <input placeholder="Ingresa tu nombre" id="names_u" name="names_u" type="text" value="xxx" class="validate" required>
                                 <label for="names_u">Nombre</label>
                             </div>
                             <div class="input-field col s6 m6">
-                                <input placeholder="Ingresa tus apellidos" id="lastnames_u" name="lastnames_u" type="text" class="validate" required>
+                                <input placeholder="Ingresa tus apellidos" id="lastnames_u" name="lastnames_u" type="text" value="xx" class="validate" required>
                                 <label for="lastnames_u">Apellido</label>
                             </div>
                             <div class="input-field col s12">
-                                <input value="" placeholder="correo@correo.com" id="email_u" name="email_u" type="email" class="validate" required>
+                                <input value="correo@correo.com" placeholder="correo@correo.com" id="email_u" name="email_u" type="email" class="validate" required>
                                 <label for="email_u">Email</label>
                             </div>
                             <div class="input-field col s12">                                
-                                <input placeholder="Ingresa tu contraseña" id="password_u" name="password_u" type="password" class="validate" required>
+                                <input placeholder="Ingresa tu contraseña" id="password_u" name="password_u" type="password" value="xx" class="validate" required>
                                 <label for="password_u">Contraseña</label>
                             </div>
                         </div>
@@ -96,23 +96,25 @@
         	$( document ).ready(function(){
                 var type_user = getUrlParameter('type_user');
                 $("#type_user").val(type_user);
-                var validator = $("#frm_register").validate({errorPlacement: function(error,element) {return true;}});
-                validator.form();
+                localStorage.setItem("type_user",type_user);
                 $( ".accent-4" ).click(function() {
-                  if(validator.valid()){
-                        $.ajax({ 
-                            type: "POST",
-                            //crossDomain: true,
-                            //async: false,
-                            enctype: 'multipart/form-data',
-                            data: $("#frm_register").serialize(),
-                            url: localStorage.site_url+"/user/register",           
-                            success: function(msg){
-                                alert(msg);
-                                window.location = "04_AccessStep1.html";
-                            }           
-                        });                    
-                  }
+                    var validator = $("#frm_register").validate({errorPlacement: function(error,element) {return true;}});
+                    validator.form();
+                    if(validator.valid()){
+                        var dat = new FormData(jQuery('form')[0]);
+                        $.ajax({
+                          type: "POST",                      
+                          url: localStorage.site_url+"/user/register",
+                          cache: false,
+                          contentType: false,
+                          processData: false,                          
+                          data: dat,
+                          success: function(msg){
+                            //alert(JSON.stringify(msg));
+                            window.location = "04_AccessStep1.html";
+                        }
+                    });                  
+                    }
                 });
             })
         </script>

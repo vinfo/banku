@@ -915,7 +915,6 @@ padding-top: 10px;
 
 /* Personalizados */
 .error{
-	background-color:#f79494;
-	border: 1px solid red; 
+	border-bottom: 2px solid red!important; 
 }
 
