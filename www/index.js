@@ -3,6 +3,7 @@ function onDeviceReady() {
     //var ref = cordova.InAppBrowser.open('01_Splash.html', '_self', 'location=no,zoom=no,enableviewportscale=yes');
     checkConnection();
 	getDeviceProperty();
+    console.log(navigator.camera);
 }
 function getDeviceProperty() {
     console.log("getDeviceProperty");
@@ -35,5 +36,15 @@ function checkConnection() {
 }
 function registerLog(log){
     console.log(log);
-
+}
+function takePicture(){
+    alert("Open camara");
+    navigator.camera.getPicture(cameraSuccess, cameraError,{ quality: 50,destinationType: Camera.DestinationType.DATA_URL}); 
+}
+function cameraSuccess(imageData){
+    $(".responsive-img").attr("src","data:image/jpeg;base64," + imageData);                
+    alert("Captura realizada");
+}
+function cameraError(error){
+    alert("Problemas Captura"+error);
 }
