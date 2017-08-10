@@ -78,7 +78,7 @@
                                     <label for="code">+57</label>
                                 </div>
                                 <div class="input-field col s9">
-                                    <input id="cellphone_u" name="cellphone_u" value="3147039139" type="number" class="validate" required>
+                                    <input id="cellphone_u" name="cellphone_u" value="" type="number" class="validate" required>
                                     <input type="hidden" id="action" name="action" value="sendSMS">
                                     <label for="cellphone_u">Número</label>
                                 </div>
@@ -124,17 +124,18 @@
                     var validator = $("#frm_register").validate({errorPlacement: function(error,element) {return true;}});
                     validator.form();
                     if(validator.valid()){
-                        var dat = $("#frm_register").serialize();
-                        $.ajax({
-                            crossDomain: true,
+                        var cellphone_u= $("#cellphone_u").val();
+                        $.ajax({                            
                             type:"POST",
-                            contentType: "application/json; charset=utf-8",
-                            async:false,
-                            url: "http://bankucolombia.com/lib/ajax_services.php?callback=?",
-                            data: dat,
-                            dataType: "jsonp",                
+                            url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
+                            data: $("#frm_register").serialize(),
+                            dataType:'JSON',
                             success: function(msg){
-                                alert(333);
+                                if(msg.status==200){
+                                    localStorage.setItem("code",msg.data.code);
+                                    localStorage.setItem("cellphone_u",cellphone_u);
+                                    window.location = "04_AccessStep2.html";
+                                }
                             }
                         });                
                     }
