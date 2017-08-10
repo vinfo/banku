@@ -30,6 +30,9 @@
         },
         "cordova-plugin-vibration": {
             "PACKAGE_NAME": "com.vinfo.banku"
+        },
+        "cordova-plugin-camera": {
+            "PACKAGE_NAME": "com.vinfo.banku"
         }
     },
     "dependent_plugins": {
