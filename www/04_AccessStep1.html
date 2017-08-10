@@ -112,6 +112,7 @@
         <script type="text/javascript" src="assets/js/tools.js"></script>
         <script type="text/javascript">
             $( document ).ready(function(){
+                registerLog("Página de SMS");
                 $(".button-collapse").sideNav();
                 $( ".back" ).click(function() {
                   window.history.back();
@@ -135,8 +136,13 @@
                                     localStorage.setItem("code",msg.data.code);
                                     localStorage.setItem("cellphone_u",cellphone_u);
                                     window.location = "04_AccessStep2.html";
-                                }
-                            }
+                                }else{
+									alert("No se pudo enviar el mensaje, vuelve a inetntarlo.");
+								}
+                            },
+							error: function(XMLHttpRequest, textStatus, errorThrown) { 
+								alert("Problemas procesando datos: " + textStatus +" - "+errorThrown);
+							}
                         });                
                     }
                 });

@@ -33,8 +33,7 @@ function checkConnection() {
     }
     return state;
 }
-function toTimestamp(){
-    var d = new Date();
-    var datum = new Date(Date.UTC(2017,08,09,00,00,00));
-    return datum.getTime()/1000;
-} 
+function registerLog(log){
+    console.log(log);
+
+}

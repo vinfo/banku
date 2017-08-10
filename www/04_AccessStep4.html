@@ -97,11 +97,26 @@
         <script type="text/javascript" src="assets/js/tools.js"></script>        
         <script type="text/javascript">
         	$( document ).ready(function(){
-        		$(".button-collapse").sideNav();
+        		registerLog("Página de selfie");
+                $(".button-collapse").sideNav();
                 $( ".back" ).click(function() {
                   window.history.back();
-                });                
+                });
+                $( ".responsive-img" ).click(function() {
+                  alert("Capturar foto");
+                  navigator.camera.getPicture(cameraSuccess, cameraError, cameraOptions);  
+                });
+                $( ".accent-4" ).click(function() {
+                    window.location = "05_Profile_Incomplete-1.html";
+                });                             
         	})
+            function cameraSuccess(imageData){
+                $(".responsive-img").attr("src","data:image/jpeg;base64," + imageData);                
+                alert("Captura realizada");
+            }
+            function cameraError(){
+                alert("Problemas Captura");
+            }                       
         </script>
     </body>
 </html>

@@ -119,6 +119,7 @@
         <script type="text/javascript" src="assets/js/tools.js"></script>
         <script type="text/javascript">
             $( document ).ready(function(){
+                registerLog("Página de confirmación SMS: "+localStorage.code);
                 $(".button-collapse").sideNav();
                 $( ".back" ).click(function() {
                   window.history.back();

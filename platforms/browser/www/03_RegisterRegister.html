@@ -94,14 +94,15 @@
         <script type="text/javascript" src="assets/js/jquery.validate.min.js"></script>
         <script type="text/javascript" src="assets/js/tools.js"></script>
         <script type="text/javascript">
-        	$( document ).ready(function(){
+        	$( document ).ready(function(){                
                 var type_user = getUrlParameter('type_user');
+                registerLog("Página de registro: "+type_user);
                 $("#type_user").val(type_user);
                 localStorage.setItem("type_user",type_user);
                 $( ".accent-4" ).click(function() {
                     var validator = $("#frm_register").validate({errorPlacement: function(error,element) {return true;}});
                     validator.form();
-                    if(validator.valid()){ 
+                    if(validator.valid()){
                         $.ajax({
                             type: "POST",
                             url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
@@ -112,7 +113,10 @@
                                     localStorage.setItem("id_u",msg.data.id);
                                     window.location = "04_AccessStep1.html";
                                 }
-                            }
+                            },
+							error: function(XMLHttpRequest, textStatus, errorThrown) { 
+								alert("Problemas procesando datos: " + textStatus +" - "+errorThrown);
+							}
                         });                 
                     }
                 });
