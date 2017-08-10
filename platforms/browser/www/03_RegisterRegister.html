@@ -68,8 +68,8 @@
                         </div>
                         <div class="col s12 center margin-top-40 btn-register">
                             <a class="waves-effect waves-light yellow accent-4 btn-large">Regístrate</a>
-                            <button type="submit">send</button>
                             <input type="hidden" id="type_user" name="type_user" value="">
+                            <input type="hidden" id="action" name="action" value="registerUser">
                             <br><br>
                             <h5 class="grey-text text-grey"><small>O bien, <a href="03_RegisterLogin.html">inicia sesión</a></small></h5>
                         </div>                         
@@ -97,20 +97,26 @@
         	$( document ).ready(function(){
                 var type_user = getUrlParameter('type_user');
                 $("#type_user").val(type_user);
-                var validator = $("#frm_register").validate({errorPlacement: function(error,element) {return true;}});
-                validator.form();
+                localStorage.setItem("type_user",type_user);
                 $( ".accent-4" ).click(function() {
-                  if(validator.valid()){
+                    var validator = $("#frm_register").validate({errorPlacement: function(error,element) {return true;}});
+                    validator.form();
+                    if(validator.valid()){
+                        var dat = new FormData(jQuery('form')[0]);
                         $.ajax({
                           type: "POST",                      
-                          url: localStorage.site_url+"/user/register", 
-                          data: $("#frm_register").serialize(),
+                          url: "http://bankucolombia.com/lib/ajax_mobil_services.php",
+                          crossDomain: true,
+                          cache: false,
+                          contentType: false,
+                          processData: false,                          
+                          data: dat,
                           success: function(msg){
-                            alert(msg);
-                            window.location = "04_AccessStep1.html";
-                            }                          
-                        });                  
-                  }
+                            alert(JSON.stringify(msg));
+                            //window.location = "04_AccessStep1.html";
+                        }
+                    });                  
+                    }
                 });
             })
         </script>

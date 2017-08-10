@@ -30,6 +30,8 @@
         <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
         <script type="text/javascript" src="assets/js/materialize.min.js"></script>
         <script>
+        var key= toTimestamp();
+        alert(key);
         if(!sessionStorage.initial){
             setTimeout(function(){
                 sessionStorage.setItem("initial",1);

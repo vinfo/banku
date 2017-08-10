@@ -69,6 +69,7 @@
                         <div class="col s12 center margin-top-40 btn-register">
                             <a class="waves-effect waves-light yellow accent-4 btn-large">Regístrate</a>
                             <input type="hidden" id="type_user" name="type_user" value="">
+                            <input type="hidden" id="action" name="action" value="registerUser">
                             <br><br>
                             <h5 class="grey-text text-grey"><small>O bien, <a href="03_RegisterLogin.html">inicia sesión</a></small></h5>
                         </div>                         
@@ -104,14 +105,15 @@
                         var dat = new FormData(jQuery('form')[0]);
                         $.ajax({
                           type: "POST",                      
-                          url: localStorage.site_url+"/user/register",
+                          url: "http://bankucolombia.com/lib/ajax_mobil_services.php",
+                          crossDomain: true,
                           cache: false,
                           contentType: false,
                           processData: false,                          
                           data: dat,
                           success: function(msg){
-                            //alert(JSON.stringify(msg));
-                            window.location = "04_AccessStep1.html";
+                            alert(JSON.stringify(msg));
+                            //window.location = "04_AccessStep1.html";
                         }
                     });                  
                     }
