@@ -103,10 +103,10 @@
                   window.history.back();
                 });
                 $( ".responsive-img" ).click(function() {
-                  alert("Capturar foto");
                   takePicture();                   
                 });
                 $( ".accent-4" ).click(function() {
+                    localStorage.setItem("session", true);
                     window.location = "05_Profile_Incomplete-1.html";
                 });                             
         	})                       

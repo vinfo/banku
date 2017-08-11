@@ -73,21 +73,21 @@
                         <form id="frm_register" name="frm_register" class="col s12 form-general-data code-phone">
                             <div class="row">
                                 <div class="input-field col s3">
-                                    <input id="number1" name="number1" type="number" min="0" max="9" class="validate" required>
+                                    <input id="number1" name="number1" type="number" maxlength="1" min="0" max="9" class="validate" required>
                                     <label for="number1">#</label>
                                 </div>
                                 <div class="input-field col s3">
-                                    <input id="number2" name="number2" type="number" min="0" max="9" class="validate" required>
+                                    <input id="number2" name="number2" type="number" maxlength="1" min="0" max="9" class="validate" required>
                                     <label for="number2">#</label>
                                 </div>
                                 <div class="input-field col s3">
-                                    <input id="number3" name="number3" type="number" min="0" max="9" class="validate" required>
+                                    <input id="number3" name="number3" type="number" maxlength="1" min="0" max="9" class="validate" required>
                                     <label for="number3">#</label>
                                 </div>
                                 <div class="input-field col s3">
-                                    <input id="number4" name="number4" type="number" min="0" max="9" class="validate" required>
-                                    <input type="hidden" id="action" name="action" value="updateUser">
+                                    <input id="number4" name="number4" type="number" maxlength="1" min="0" max="9" class="validate" required>                                    
                                     <label for="number4">#</label>
+                                    <input type="hidden" id="action" name="action" value="updateUser">
                                 </div>
                             </div>
                         </form> 
@@ -148,6 +148,12 @@
                     }
                 });
             })
+            $("input").on("keypress", function(evt) {
+              var keycode = evt.charCode || evt.keyCode;
+              if (keycode == 46 || this.value.length==1) {
+                return false;
+              }
+            });            
         </script>
     </body>
 </html>
