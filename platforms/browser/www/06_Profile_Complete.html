@@ -17,15 +17,15 @@
         <!--Nav Main-->
         <div class="navbar-fixed nav-descktop">
             <ul id="dropdown1" class="dropdown-content">
-<!--                <li><a href="#!">Invitar a amigos <i class="material-icons right">card_giftcard</i></a></li>            
-                <li class="divider"></li> -->
-                <li><a href="#!">Configuración <i class="material-icons right">settings</i></a></li>            
+               <li><a href="#!">Invitar a amigos <i class="material-icons right">card_giftcard</i></a></li>          
+                <li class="divider"></li>
+                <li><a href="07_Profile_Setting.html">Configuración <i class="material-icons right">settings</i></a></li>            
                 <li class="divider"></li>  
-                <li><a href="#!">Soporte y ayuda <i class="material-icons right">help_outline</i></a></li>            
+                <li><a href="14_Support&Help.html">Soporte y ayuda <i class="material-icons right">help_outline</i></a></li>            
                 <li class="divider"></li>  
                 <li><a href="#!">Favoritos <i class="material-icons right">favorite_border</i></a></li>            
                 <li class="divider"></li>  
-                <li><a href="#!">Historial <i class="material-icons right">description</i></a></li>                                   
+                <li><a href="13_History.html">Historial <i class="material-icons right">description</i></a></li>                                   
             </ul>
             <nav>
                 <div class="nav-wrapper container">
@@ -54,12 +54,12 @@
                 <div class="row">
                     <div class="col s9 m8 l10">
                         <a href="05_Profile_Incomplete-2.html">
-                            <h4 class="margin-bottom-0">Julio César Ortiz</h4>
+                            <h4 class="margin-bottom-0 names">&nbsp;</h4>
                             <h6>Ver y editar perfil</h6>
                         </a>
                     </div>
                     <div class="col s3 m4 l2">
-                        <a href="#!" class="right"><img src="assets/images/avatar.jpg" alt="" class="circle responsive-img"></a> <!-- notice the "circle" class -->
+                        <a href="#!" class="right"><img src="assets/images/avatarUser.jpg" alt="" class="circle responsive-img photo"></a> <!-- notice the "circle" class -->
                     </div> 
                 </div>                                                                                
             </div>
@@ -67,31 +67,25 @@
                 <div class="container">  
                     <div class="row">
                         <div class="col s12 center">   
-                            <div class="star-user">                                         
-                                <i class="material-icons yellow-text text-accent-4">star_border</i>
-                                <i class="material-icons yellow-text text-accent-4">star_border</i>
-                                <i class="material-icons yellow-text text-accent-4">star_border</i>
-                                <i class="material-icons">star_border</i>
-                                <i class="material-icons">star_border</i>
-                            </div>
+                            <div class="star-user"></div>
                             <div class="divider"></div>
                             <div class="row">
                                 <div class="col s6 left-align">
                                     <p class="grey-text">Cupo disponible<br>
-                                    Préstamos<br>
-                                    Próximo pago</p>
+                                    Préstamos
+                                    <span class="prestatario"><br>Próximo pago</span></p>
                                 </div>  
                                 <div class="col s6 right-align">
-                                    <p><strong>$ 2.000.000<br>
-                                    $ 100.000<br>
-                                    23/13/2017</strong></p>
+                                    <p><strong>$ <span class="monto"></span><br>
+                                    $ <span class="amount"></span>
+                                    <span class="prestatario"><br>23/13/2017</span></strong></p>
                                 </div>                                 
                             </div> 
                             <div class="divider"></div>
-                            <p class="grey-text"><small><e>Vigencia de estudio: 21/12/2017</e></small></p>                                            
+                            <p class="grey-text"><small><e>Vigencia de estudio: <span class="days_study"></span></e></small></p>                                            
 
                             <div id="progress">
-                                <span id="percent">Tu perfil esta en un <strong>30%</strong></span>
+                                <span id="percent">Tu perfil esta en un <strong class="percent">&nbsp;</strong></span>
                                 <div id="bar"></div>
                             </div>
                        </div>
@@ -103,10 +97,10 @@
                     <div class="col s12">
                         <ul class="item-profile">
                             <li><a href="#!">Invitar a amigos <i class="material-icons right">card_giftcard</i></a></li>                                    
-                            <li><a href="#!">Configuración <i class="material-icons right">settings</i></a></li>                                    
-                            <li><a href="#!">Soporte y ayuda <i class="material-icons right">help_outline</i></a></li>                                   
+                            <li><a href="07_Profile_Setting.html">Configuración <i class="material-icons right">settings</i></a></li>                                    
+                            <li><a href="14_Support&Help.html">Soporte y ayuda <i class="material-icons right">help_outline</i></a></li>                                   
                             <li><a href="#!">Favoritos <i class="material-icons right">favorite_border</i></a></li>            
-                            <li><a href="#!">Historial <i class="material-icons right">description</i></a></li>                                   
+                            <li><a href="13_History.html">Historial <i class="material-icons right">description</i></a></li>                                   
                         </ul>
                     </div>
                 </div>                                                                                
@@ -134,9 +128,13 @@
         <!--Import jQuery before materialize.js-->
         <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
         <script type="text/javascript" src="assets/js/materialize.min.js"></script>
+        <script type="text/javascript" src="assets/js/jquery.validate.min.js"></script>
+        <script type="text/javascript" src="assets/js/numeral.min.js"></script>
+        <script type="text/javascript" src="assets/js/tools.js"></script>         
         <script type="text/javascript">
         	$( document ).ready(function(){
-        		$(".button-collapse").sideNav();
+        		getUserData();
+                $(".button-collapse").sideNav();
         	})
         </script>
     </body>

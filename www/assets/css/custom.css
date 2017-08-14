@@ -917,4 +917,6 @@ padding-top: 10px;
 .error{
 	border-bottom: 2px solid red!important; 
 }
-
+.prestatario{
+	display: none;
+}

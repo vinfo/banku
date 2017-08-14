@@ -142,7 +142,10 @@
                                 }
                             }); 
                         }else{
-                            alert("Código ingresado no valido");
+                            navigator.vibrate(500);
+                            Materialize.toast('Código ingresado no valido', 1000, 'rounded');
+                            $("input").val('');
+                            $("#number1").focus();
                         }
                 
                     }
@@ -153,7 +156,14 @@
               if (keycode == 46 || this.value.length==1) {
                 return false;
               }
-            });            
+            });
+            $(".validate").keyup(function () {
+                var id= this.id.split("number");
+                if (this.value!="") {
+                  var sig= parseInt(id[1]) + 1;
+                  $("#number"+sig).focus();
+              }
+          });
         </script>
     </body>
 </html>

@@ -50,19 +50,19 @@
                     <form id="frm_register" name="frm_register" method="POST" action="http://localhost:6002/user/register" enctype="multipart/form-data" class="col s12 form-general-data">
                         <div class="row">
                             <div class="input-field col s6 m6">
-                                <input placeholder="Ingresa tu nombre" id="names_u" name="names_u" type="text" value="xxx" class="validate" required>
+                                <input placeholder="Ingresa tu nombre" id="names_u" name="names_u" type="text" value="" class="validate" required>
                                 <label for="names_u">Nombre</label>
                             </div>
                             <div class="input-field col s6 m6">
-                                <input placeholder="Ingresa tus apellidos" id="lastnames_u" name="lastnames_u" type="text" value="xx" class="validate" required>
+                                <input placeholder="Ingresa tus apellidos" id="lastnames_u" name="lastnames_u" type="text" value="" class="validate" required>
                                 <label for="lastnames_u">Apellido</label>
                             </div>
                             <div class="input-field col s12">
-                                <input value="correo@correo.com" placeholder="correo@correo.com" id="email_u" name="email_u" type="email" class="validate" required>
+                                <input value="" placeholder="correo@correo.com" id="email_u" name="email_u" type="email" class="validate" required>
                                 <label for="email_u">Email</label>
                             </div>
                             <div class="input-field col s12">                                
-                                <input placeholder="Ingresa tu contraseña" id="password_u" name="password_u" type="password" value="xx" class="validate" required>
+                                <input placeholder="Ingresa tu contraseña" id="password_u" name="password_u" type="password" value="" class="validate" required>
                                 <label for="password_u">Contraseña</label>
                             </div>
                         </div>
@@ -99,6 +99,25 @@
                 registerLog("Página de registro: "+type_user);
                 $("#type_user").val(type_user);
                 localStorage.setItem("type_user",type_user);
+                $( "#email_u" ).change(function() {
+                    if(this.value!=""){
+                        $.ajax({
+                            type: "POST",
+                            url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
+                            data: "action=checkExists&t=users&f=email_u&v="+this.value,
+                            dataType:'JSON',
+                            success: function(msg){
+                                if(msg.data==1){
+                                    Materialize.toast('El Email ya existe en nuestro sistema', 1500, 'rounded',function(){$("#email_u").val('');});
+
+                                }
+                            },
+                            error: function(XMLHttpRequest, textStatus, errorThrown) { 
+                                alert("Problemas procesando datos: " + textStatus +" - "+errorThrown);
+                            }
+                        }); 
+                    }
+                });
                 $( ".accent-4" ).click(function() {
                     var validator = $("#frm_register").validate({errorPlacement: function(error,element) {return true;}});
                     validator.form();
@@ -110,7 +129,7 @@
                             dataType:'JSON',
                             success: function(msg){
                                 if(msg.status==200){
-                                    localStorage.setItem("id_u",msg.data.id);
+                                    localStorage.setItem("id_u",msg.data.id_u);
                                     window.location = "04_AccessStep1.html";
                                 }
                             },

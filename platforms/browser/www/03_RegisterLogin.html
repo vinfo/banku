@@ -47,20 +47,21 @@
                         <img class="responsive-img" src="assets/images/logoRegister.png" alt="BankU">
                         <h5 class="hide-on-med-and-down">Inicia sesión</h5>
                     </div>
-                    <form class="col s12 form-general-data">
+                    <form id="frm_register" name="frm_register" class="col s12 form-general-data">
                         <div class="row">
                             <div class="input-field col s12">
-                                <input value="" placeholder="correo@correo.com" id="disabled" type="email" class="validate">
+                                <input value="" placeholder="correo@correo.com" id="email" name="email" type="email" class="validate" required>
                                 <label for="email">Email</label>
                             </div>
                             <div class="input-field col s12">                                
-                                <input placeholder="Ingresa tu contraseña" id="password" type="password" class="validate">
+                                <input placeholder="Ingresa tu contraseña" id="password" name="password" type="password" class="validate" required>
+                                <input type="hidden" id="action" name="action" value="loginUser">
                                 <label for="password">Contraseña</label>
                             </div>
                         </div>
                     </form>  
                     <div class="col s12 center margin-top-40 btn-register">
-                        <a href="05_Profile_Incomplete-1.html" class="waves-effect waves-light yellow accent-4 btn-large">Iniciar sesión</a>
+                        <a href="#" class="waves-effect waves-light yellow accent-4 btn-large">Iniciar sesión</a>
                         <br><br>
                         <h5 class="grey-text text-grey"><small>O bien, <a href="03_RegisterRegister.html">crea una cuenta</a></small></h5>
                     </div>                  
@@ -81,13 +82,41 @@
         <!--Import jQuery before materialize.js-->
         <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
         <script type="text/javascript" src="assets/js/materialize.min.js"></script>
+        <script type="text/javascript" src="assets/js/jquery.validate.min.js"></script>
+        <script type="text/javascript" src="assets/js/tools.js"></script>        
         <script type="text/javascript">
         	$( document ).ready(function(){
         		$('select').material_select();
                 $('.modal').modal();
                 $( ".back" ).click(function() {
                   window.history.back();
-                });                
+                });
+                $( ".accent-4" ).click(function() {
+                    var validator = $("#frm_register").validate({errorPlacement: function(error,element) {return true;}});
+                    validator.form();
+                    if(validator.valid()){
+                        $.ajax({
+                            type: "POST",
+                            url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
+                            data: $("#frm_register").serialize(),
+                            dataType:'JSON',
+                            success: function(msg){
+                                if(msg.data){
+                                    localStorage.setItem("id_u",msg.data.id_u);
+                                    var type_user='prestatario';
+                                    if(msg.data.rol_u==3)type_user='inversionista';
+                                    localStorage.setItem("type_user",type_user);
+                                    window.location = "05_Profile_Incomplete-1.html";
+                                }else{
+                                    Materialize.toast('Email/Contraseña no validos', 1000, 'rounded');
+                                }
+                            },
+                            error: function(XMLHttpRequest, textStatus, errorThrown) { 
+                                alert("Problemas procesando datos: " + textStatus +" - "+errorThrown);
+                            }
+                        });                 
+                    }
+                });                                
         	})
         </script>
     </body>

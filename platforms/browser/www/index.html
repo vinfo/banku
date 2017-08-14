@@ -1,5 +1,5 @@
-<!DOCTYPE html>
- <html lang="en">
+<!doctype html>
+ <html lang="es">
     <head>
         <meta charset="utf-8">
         <!--Import Google Icon Font-->
@@ -29,15 +29,10 @@
         <!--Import jQuery before materialize.js-->
         <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
         <script type="text/javascript" src="assets/js/materialize.min.js"></script>
-        <script>
-        if(!sessionStorage.initial){
-            setTimeout(function(){
-                sessionStorage.setItem("initial",1);
+        <script>        
+            setTimeout(function(){                
                 window.location = "02_Login.html";
             }, 1000);
-        }else{
-            navigator.app.exitApp();
-        }
         </script>
     </body>
 </html>

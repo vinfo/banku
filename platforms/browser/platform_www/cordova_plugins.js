@@ -145,6 +145,22 @@ module.exports = [
         "id": "cordova-plugin-camera.CameraProxy",
         "pluginId": "cordova-plugin-camera",
         "runs": true
+    },
+    {
+        "file": "plugins/satpal-phonegap-smsplugin/www/smsplugin.js",
+        "id": "satpal-phonegap-smsplugin.smsplugin",
+        "pluginId": "satpal-phonegap-smsplugin",
+        "clobbers": [
+            "smsplugin"
+        ]
+    },
+    {
+        "file": "plugins/satpal-phonegap-smsplugin/www/smsplugin.js",
+        "id": "satpal-phonegap-smsplugin.smsplugin",
+        "pluginId": "satpal-phonegap-smsplugin",
+        "clobbers": [
+            "smsplugin"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -159,7 +175,8 @@ module.exports.metadata =
     "cordova-plugin-device": "1.1.6",
     "cordova-plugin-dialogs": "1.3.3",
     "cordova-plugin-vibration": "2.1.5",
-    "cordova-plugin-camera": "2.4.1"
+    "cordova-plugin-camera": "2.4.1",
+    "satpal-phonegap-smsplugin": "0.0.1"
 }
 // BOTTOM OF METADATA
 });

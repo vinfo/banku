@@ -86,7 +86,7 @@
                     </div>
                     <div class="col s12 m6 center">
                         <div class="avatar-edit">                    
-                            <img src="assets/images/avatar.jpg" class="circle responsive-img">                                                           
+                            <img src="assets/images/avatarUser.jpg" class="circle responsive-img photo">                                                           
                             <a class="btn-floating halfway-fab waves-effect waves-light grey lighten-1"><i class="material-icons">photo_camera</i></a>                            
                         </div>
                     </div> 
@@ -218,10 +218,13 @@
         <!--Import jQuery before materialize.js-->
         <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
         <script type="text/javascript" src="assets/js/materialize.min.js"></script>
+        <script type="text/javascript" src="assets/js/jquery.validate.min.js"></script>
+        <script type="text/javascript" src="assets/js/tools.js"></script>         
         <script type="text/javascript">
         	$( document ).ready(function(){
         		$('select').material_select();
                 $('.modal').modal();
+                getUserData();
         	})
         </script>
     </body>

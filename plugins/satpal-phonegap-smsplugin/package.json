@@ -1,0 +1,23 @@
+{
+    "name": "satpal-phonegap-smsplugin",
+    "version": "0.0.1",
+    "description": "Sms Plugin",
+    "cordova": {
+        "id": "satpal-phonegap-smsplugin",
+        "platforms": [
+            "android"
+        ]
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/tanansatpal/Phonegap-SMS"
+    },
+    "keywords": [
+        "cordova",
+        "smsplugin",
+        "ecosystem:cordova",
+        "satpal-android"
+    ],
+    "author": "Satpal Tanan",
+    "license": "MIT"
+}

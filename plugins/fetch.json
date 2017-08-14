@@ -78,5 +78,13 @@
         },
         "is_top_level": true,
         "variables": {}
+    },
+    "satpal-phonegap-smsplugin": {
+        "source": {
+            "type": "registry",
+            "id": "satpal-phonegap-smsplugin@0.0.1"
+        },
+        "is_top_level": true,
+        "variables": {}
     }
 }
