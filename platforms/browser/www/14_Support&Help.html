@@ -63,11 +63,11 @@
                                 </div>
                                 <div class="row">                                    
                                     <div class="col s9"> 
-                                        <h5 class="margin-bottom-0">Hola Julio</h5>
-                                        <h6>¡Hoy te ves muy bien!</h6>
+                                        <h5 class="margin-bottom-0">Hola <span class="names">&nbsp;</span></h5>
+                                        <h6>¡Bienvenido a tú comunidad!</h6>
                                     </div>
                                     <div class="col s3"> 
-                                        <a href="#!user"><img class="circle" src="assets/images/avatar.jpg"></a>
+                                        <a href="#!user"><img class="circle photo" src="assets/images/avatarUser.jpg"></a>
                                     </div>
                                 </div>                                                                
                             </div>
@@ -85,7 +85,7 @@
                     <li><a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a></li>
                 </ul>
                 <ul class="right ">
-                    <li><a href="#!"><i class="material-icons">settings</i></a></li>
+                    <li><a href="07_Profile_Setting.html"><i class="material-icons">settings</i></a></li>
                 </ul>
             </div>
         </nav>
@@ -140,23 +140,23 @@
             </div>
         </footer>            
         
-        <div class="footer-nav">                          
-            <ul>
-                <li class="link1"><a href="#!">Mi Perfil</a></li>
-                <li class="link2"><a class="active" href="#!">Mis Inversiones</a></li>
-                <li class="link3"><a href="#!">Negociar</a></li>
-                <li class="link4"><a href="#!">Mis Ganacias</a></li>                                    
-            </ul>            
+        <div class="footer-nav">
+
         </div>
             
         <!--Import jQuery before materialize.js-->
         <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
         <script type="text/javascript" src="assets/js/materialize.min.js"></script>
+        <script type="text/javascript" src="assets/js/jquery.validate.min.js"></script>
+        <script type="text/javascript" src="assets/js/numeral.min.js"></script>
+        <script type="text/javascript" src="assets/js/tools.js"></script>          
         <script type="text/javascript">
         	$( document ).ready(function(){
-        		// Initialize collapse button
+        		var type_user= localStorage.type_user; 
                 $(".button-collapse").sideNav();
                 $('select').material_select();
+                $( ".footer-nav" ).load( "includes/menu_footer_"+type_user+".html");
+                getUserData();
         	})
         </script>
     </body>

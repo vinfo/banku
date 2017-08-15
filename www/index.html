@@ -31,7 +31,11 @@
         <script type="text/javascript" src="assets/js/materialize.min.js"></script>
         <script>        
             setTimeout(function(){                
-                window.location = "02_Login.html";
+                if(localStorage.id_u&&localStorage.type_user){
+                    window.location = "05_Profile_Incomplete-1.html";
+                }else{
+                    window.location = "02_Login.html";
+                }
             }, 1000);
         </script>
     </body>

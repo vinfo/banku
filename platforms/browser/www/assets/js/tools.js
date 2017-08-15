@@ -3,9 +3,12 @@ $( document ).ready(function(){
     var type_user= localStorage.type_user;
     if(type_user=="prestatario"){
         $(".inversionista").remove();
+        $(".msg-action").html("prestar");
     }else{
         $(".prestatario").remove();
+        $(".msg-action").html("invertir");
     }
+
     $('select').material_select();
     $('.modal').modal();
     $( ".back" ).click(function() {
@@ -101,7 +104,7 @@ var getUserData= function getUserData(){
                     $(".status").html(msg.data.status);
                     if(msg.data.status_u!="0")$(".msg1").hide();
                     $("#bar").css("width",msg.data.percent+"%");
-                    $(".percent").html(msg.data.percent+"%");
+                    $(".percent").html(msg.data.percent+"%");                                     
                     var starts='';
                     for(var i=0;i<5;i++){
                         if(i < msg.data.calification2_u){

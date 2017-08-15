@@ -107,7 +107,11 @@
                 });
                 $( ".accent-4" ).click(function() {
                     localStorage.setItem("session", true);
-                    window.location = "05_Profile_Incomplete-1.html";
+                    if(localStorage.foto){
+                        window.location = "05_Profile_Incomplete-1.html";
+                    }else{
+                        Materialize.toast('Captura de selfie es obligatoria', 1500, 'rounded');
+                    }                    
                 });                             
         	})
           function takePicture(){
