@@ -140,11 +140,12 @@ var getFullUserData= function getFullUserData(){
                       if($("#"+index).length>0){                          
                           var text= $("#"+index).is('input:text');
                           var tel= $("#"+index).is('[type=tel]');
+                          var number= $("#"+index).is('[type=number]');
                           var password= $("#"+index).is('input:password');
                           var select= $("#"+index).is('select');
                           var checkbox= $("#"+index).is('input:checkbox');                         
                           
-                          if(text||tel){
+                          if(text||tel||number){
                             $("#"+index).val(value);
                           }
                           if(password){
