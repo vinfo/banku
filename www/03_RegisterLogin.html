@@ -33,7 +33,7 @@
                 <h4>¡Tus cambios están<br>
                 siendo analizados!</h4>
                 <hr>
-                <p>Pronto te estaremos confirmando de su actualización! Recuerda que estos cambios tiene un costo de $4.500, según términos y condición del contrato.</p>
+                <p>Pronto te estaremos confirmando de su actualización! Recuerda que estos cambios tiene un costo de $<span class="costs"></span>, según términos y condición del contrato.</p>
                 <p>Gracias!</p>
             </div>
         </div>
@@ -106,7 +106,7 @@
                                     var type_user='prestatario';
                                     if(msg.data.rol_u==3)type_user='inversionista';
                                     localStorage.setItem("type_user",type_user);
-                                    window.location = "05_Profile_Incomplete-1.html";
+                                    window.location = "05_Profile_Incomplete-1.html?section=mi_perfil";
                                 }else{
                                     Materialize.toast('Email/Contraseña no validos', 1000, 'rounded');
                                 }

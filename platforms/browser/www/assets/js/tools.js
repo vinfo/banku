@@ -14,7 +14,8 @@ $( document ).ready(function(){
     $( ".back" ).click(function() {
       window.history.back();
     });
-
+    var section= getUrlParameter("section");
+    setTimeout(function(){ $("."+section).addClass('active'); }, 200);
 })
 
 var getUrlParameter = function getUrlParameter(sParam) {
@@ -43,6 +44,14 @@ function fMatch2(field){
 //Solo letras y numeros
 function fMatch3(field){
     field.value = field.value.replace(/[^A-Z-a-z-0-9_ -.]/g, "");
+}
+//reemplazar format money
+function rplMoney(str) {    
+    return str.replace(/[^0-9]/g, "");
+}
+//reemplazar format percent
+function rplPerc(str) {    
+    return str.replace(/[^0-9-.]/g, "");
 }
 function spanishDate(d){
     var weekday=["Domingo","Lunes","Martes","Miercoles","Jueves","Viernes","Sabado"];
@@ -92,6 +101,15 @@ var getUserData= function getUserData(){
                     $(".phone").html(msg.data.phone_u);
                     $(".cellphone").html(msg.data.cellphone_u);
                     $(".address").html(msg.data.address_u);
+                    $(".costs").html(msg.data.costs);
+
+                    localStorage.setItem("costs", msg.data.costs);
+                    localStorage.setItem("mount1", msg.data.mount1);
+                    localStorage.setItem("mount2", msg.data.mount2);
+                    localStorage.setItem("interes1", msg.data.interes1);
+                    localStorage.setItem("interes2", msg.data.interes2);
+                    localStorage.setItem("duration1", msg.data.duration1);
+                    localStorage.setItem("duration2", msg.data.duration2);                                        
                     var bank="";
                     if(msg.data.banktype_u!=""&&msg.data.banktype_u!=null)bank+= msg.data.banktype_u;
                     if(msg.data.bank_u!=""&&msg.data.bank_u!=null)bank+= ", "+msg.data.bank_u;
@@ -119,7 +137,7 @@ var getUserData= function getUserData(){
                     $(".days_study").html(msg.data.days_study);
                     $(".wrapper").show();
                     $(".progress").hide();                                        
-                    console.log("Datos usuario");
+                    //console.log("Datos usuario");
                 }
             }
         });         

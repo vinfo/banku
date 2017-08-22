@@ -18,20 +18,20 @@
     <div class="navbar-fixed nav-descktop"></div>
 
 
-<!--Nav Responsive-->
-<nav class="nav-app">
-    <div class="nav-wrapper">
-        <a href="#!" class="brand-logo center">Mi Perfil</a>
-    </div>
-</nav>        
-  <div class="progress">
+    <!--Nav Responsive-->
+    <nav class="nav-app">
+        <div class="nav-wrapper">
+            <a href="#!" class="brand-logo center">Mi Perfil</a>
+        </div>
+    </nav>       
+    <div class="progress">
       <div class="indeterminate"></div>
   </div>
-<div class="wrapper">
+  <div class="wrapper">
     <div class="container">
         <div class="row">
             <div class="col s9 m8 l10">
-                <a href="05_Profile_Incomplete-2.html">
+                <a href="05_Profile_Incomplete-2.html?section=mi_perfil">
                     <h4 class="margin-bottom-0 names">&nbsp;</h4>
                     <h6>Ver y editar perfil</h6>
                 </a>
@@ -76,8 +76,8 @@
     <div class="container">© 2017 BankU</div>
 </div>             
 
-        <!--Nav footer Responsive-->
-        <div class="footer-nav"></div>
+<!--Nav footer Responsive-->
+<div class="footer-nav menu_footer"></div>
 <script type="text/javascript" src="cordova.js"></script>
 <script type="text/javascript" src="index.js"></script>             
 <!--Import jQuery before materialize.js-->
@@ -88,10 +88,10 @@
 <script type="text/javascript" src="assets/js/tools.js?v=1.0.0"></script>         
 <script type="text/javascript" src="assets/js/includes.js?v=1.0.0"></script>      
 <script type="text/javascript">
- $( document ).ready(function(){
- });
- history.pushState(null, null, location.href);
- window.onpopstate = function(event) {
+   $( document ).ready(function(){
+   });
+   history.pushState(null, null, location.href);
+   window.onpopstate = function(event) {
     history.go(1);
 };            
 </script>

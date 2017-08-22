@@ -13,10 +13,10 @@ $( document ).ready(function(){
     }
     );
   });
-  $( ".nav-app" ).load( "includes/menu_left_"+type_user+".html", function() {
+  $( ".menu_left" ).load( "includes/menu_left_"+type_user+".html", function() {
     $(".button-collapse").sideNav();
   });
-  $( ".footer-nav" ).load( "includes/menu_footer_"+type_user+".html");
+  $( ".menu_footer" ).load( "includes/menu_footer_"+type_user+".html");
   $(".button-collapse").sideNav();
   $('select').material_select();
   $('.modal').modal();
