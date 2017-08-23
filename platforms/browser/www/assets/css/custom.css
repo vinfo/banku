@@ -920,3 +920,6 @@ padding-top: 10px;
 .prestatario,.inversionista{
 	display: none;
 }
+.noUi-handle{
+	background-color: #26A69A!important;
+}

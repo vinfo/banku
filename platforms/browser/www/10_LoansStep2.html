@@ -29,6 +29,7 @@
         </nav>
 
         <div class="wrapper">
+        <form id="frm_register" action="#">
             <div class="container">
                 <div class="row">
                     <div class="col s12 pag-nav">
@@ -48,12 +49,10 @@
                 <div class="card-panel white">
                     <div class="container">
                         <div class="row">
-                            <div class="col s10 offset-s1">   
-                                <form action="#">
+                            <div class="col s10 offset-s1">
                                     <h5><small>Capital:</small> 2 - 6 Mill.</h5>
                                     <div id="capital"></div>
-                                    <input type="hidden" id="amount" name="amount" value="2000000">
-                                </form>                          
+                                    <input type="hidden" id="monto" name="monto" value="2000000">
                             </div>
                         </div>                                            
                     </div>
@@ -61,12 +60,10 @@
                 <div class="card-panel white">
                     <div class="container">
                         <div class="row">
-                            <div class="col s10 offset-s1">   
-                                <form action="#">
+                            <div class="col s10 offset-s1">
                                     <h5><small>Interes:</small> 0,8 - 2,3 % E.M.</h5>
                                     <div id="interest"></div>
-                                    <input type="hidden" id="rate" name="rate" value="0.8">
-                                </form>                              
+                                    <input type="hidden" id="interes" name="interes" value="0.8">
                             </div>
                         </div>                                            
                     </div>
@@ -74,12 +71,13 @@
                 <div class="card-panel white">
                     <div class="container">
                         <div class="row">
-                            <div class="col s10 offset-s1">   
-                                <form action="#">
+                            <div class="col s10 offset-s1">
                                     <h5><small>Duración:</small> 0 - 12 Meses</h5>
                                     <div id="duration"></div>
-                                    <input type="hidden" id="time" name="time" value="6">
-                                </form>                              
+                                    <input type="hidden" id="duracion" name="duracion" value="6">
+                                    <input type="hidden" id="action" name="action" value="setDataBusinnes">
+                                    <input type="hidden" id="type" name="type" value="">
+                                    <input type="hidden" id="id_u" name="id_u" value="">
                             </div>
                         </div>                                            
                     </div>
@@ -102,17 +100,18 @@
                     </div>
                     <div class="col s12 center payment-month">
                         <p>Pago (mes)</p>
-                        <h2>$200.000</h2>
+                        <h2>$<span class="cuota">0</span></h2>
                     </div>
                 </div>
             </div>
             <div class="container margin-top-40">  
                 <div class="row"> 
                     <div class="col s12 center margin-top-40 btn-register btn-find-proyects">
-                        <a href="#modal3" class="waves-effect waves-light green accent-4 btn-large">Guardar y solicitar préstamos</a>
+                        <a href="#!" class="waves-effect waves-light green accent-4 btn-large">Guardar y solicitar préstamos</a>
                     </div> 
                 </div>                                                                                
             </div>
+        </form>
         </div>  
 
         <!-- Modal Structure Load -->
@@ -150,71 +149,129 @@
         <script type="text/javascript" src="assets/js/wNumb.js"></script>
         <script type="text/javascript">
          $( document ).ready(function(){
+            $("#id_u").val(localStorage.id_u);
+            var type=3;
+            if(localStorage.type_user=="prestatario")type=4;
+            $("#type").val(type);
+            getConfig();
+            $( ".accent-4" ).click(function() {
+                $.ajax({
+                    type: "POST",
+                    url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
+                    data: $("#frm_register").serialize(),
+                    dataType:'JSON',
+                    success: function(msg){
+                        $(".progress").show();
+                        $('#modal3').modal('open');
+                        setTimeout(function(){ $('#modal3').modal('close');window.location = "10_LoansStep3.html"; }, 2000);
+                        Materialize.toast('Datos guardados exitosamente', 3000, 'rounded');
+                    },
+                    error: function(XMLHttpRequest, textStatus, errorThrown) { 
+                        alert("Problemas procesando datos: " + textStatus +" - "+errorThrown);
+                    }
+                });              
+            });            
          });
-        var capital = document.getElementById('capital');
-        var interest = document.getElementById('interest');
-        var duration = document.getElementById('duration');
-        var mount1= parseInt(localStorage.mount1);
-        var mount2= parseInt(localStorage.mount2);
-        var interes1= parseFloat(localStorage.interes1);
-        var interes2= parseFloat(localStorage.interes2);        
-        var duration1= parseInt(localStorage.duration1);
-        var duration2= parseInt(localStorage.duration2);
-        var amount= $("#amount").val();
-        var rate= $("#rate").val();
-        var time= $("#time").val();
-        var find = ["$","%","."];
-        var replace = ['','',''];
-        noUiSlider.create(capital, {
-            start: [ amount ],
-            connect: true,
-            tooltips: [ true ],
-            step: 100000,
-            range: {
-                'min': mount1,
-                'max': mount2
-            },
-            format: wNumb({
-                decimals: 0,
-                thousand: '.',
-                prefix: '$',
-            })           
-        });
-        capital.noUiSlider.on('change', function(data){
-            $("#amount").val(rplMoney(data.toString()));
-        });        
-        noUiSlider.create(interest, {
-            start: [ rate ],
-            connect: true,
-            tooltips: [ true ],
-            range: {
-                'min': interes1,
-                'max': interes2
-            },
-            format: wNumb({
-                decimals: 2,
-                mark: '.',
-                suffix: '%',
-            }) 
-        });
-        interest.noUiSlider.on('change', function(data){
-            $("#rate").val(rplPerc(data.toString()));
-        });        
-        noUiSlider.create(duration, {
-            start: [ time ],
-            connect: true,
-            tooltips: [ true ],
-            range: {
-                'min': duration1,
-                'max': duration2
-            },
-            format: wNumb({
-                decimals: 0
-            })             
-        });
-        duration.noUiSlider.on('change', function(data){
-            $("#time").val(data.toString());
-        });                       
+
+        function calcCuota(){            
+            var monto = $("#monto").val();
+            var interes = $("#interes").val()/100;
+            var duracion = $("#duracion").val();
+            var cuota= (interes * Math.pow(interes+1,duracion))*monto;
+            var cuota2= Math.pow(interes+1,duracion)-1;
+            $(".cuota").html(numeral(Math.round(cuota/cuota2)).format('0,0'));
+        }
+        function getConfig(){
+            $.ajax({
+                type: "POST",
+                url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
+                data: "action=getConfig&id_u="+localStorage.id_u,
+                dataType:'JSON',
+                success: function(msg){
+                    if(msg.data.amount)$("#monto").val(msg.data.amount);
+                    if(msg.data.interest)$("#interes").val(msg.data.interest);
+                    if(msg.data.duration)$("#duracion").val(msg.data.duration);
+                    if(msg.data.destination){
+                        $('#motivo option[value='+msg.data.destination+']').attr('selected','selected');
+                        $('#motivo').material_select();   
+                    }
+                    setSliders();
+                    calcCuota();
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown) { 
+                    alert("Problemas procesando datos: " + textStatus +" - "+errorThrown);
+                }
+            });             
+        }
+        function setSliders(){
+            var capital = document.getElementById('capital');
+            var interest = document.getElementById('interest');
+            var duration = document.getElementById('duration');
+            var mount1= parseInt(localStorage.mount1);
+            var mount2= parseInt(localStorage.mount2);
+            var interes1= parseFloat(localStorage.interes1);
+            var interes2= parseFloat(localStorage.interes2);        
+            var duration1= parseInt(localStorage.duration1);
+            var duration2= parseInt(localStorage.duration2);
+            var monto= $("#monto").val();
+            var interes= $("#interes").val();
+            var duracion= $("#duracion").val();
+            var find = ["$","%","."];
+            var replace = ['','',''];
+            noUiSlider.create(capital, {
+                start: [ monto ],
+                connect: true,
+                tooltips: [ true ],
+                step: 100000,
+                range: {
+                    'min': mount1,
+                    'max': mount2
+                },
+                format: wNumb({
+                    decimals: 0,
+                    thousand: '.',
+                    prefix: '$',
+                })           
+            });
+            capital.noUiSlider.on('change', function(data){
+                $("#monto").val(rplMoney(data.toString()));
+                calcCuota();
+            });        
+            noUiSlider.create(interest, {
+                start: [ interes ],
+                connect: true,
+                tooltips: [ true ],
+                range: {
+                    'min': interes1,
+                    'max': interes2
+                },
+                format: wNumb({
+                    decimals: 2,
+                    mark: '.',
+                    suffix: '%',
+                }) 
+            });
+            interest.noUiSlider.on('change', function(data){
+                $("#interes").val(rplPerc(data.toString()));
+                calcCuota();
+            });        
+            noUiSlider.create(duration, {
+                start: [ duracion ],
+                connect: true,
+                tooltips: [ true ],
+                range: {
+                    'min': duration1,
+                    'max': duration2
+                },
+                format: wNumb({
+                    decimals: 0
+                })             
+            });
+            duration.noUiSlider.on('change', function(data){
+                $("#duracion").val(data.toString());
+                calcCuota();
+            });            
+        }                            
         </script>
     </body>
 </html>
