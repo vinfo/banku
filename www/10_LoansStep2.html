@@ -188,12 +188,14 @@
                 data: "action=getConfig&id_u="+localStorage.id_u,
                 dataType:'JSON',
                 success: function(msg){
-                    if(msg.data.amount)$("#monto").val(msg.data.amount);
-                    if(msg.data.interest)$("#interes").val(msg.data.interest);
-                    if(msg.data.duration)$("#duracion").val(msg.data.duration);
-                    if(msg.data.destination){
-                        $('#motivo option[value='+msg.data.destination+']').attr('selected','selected');
-                        $('#motivo').material_select();   
+                    if(msg.data!==null){
+                        if(msg.data.amount)$("#monto").val(msg.data.amount);
+                        if(msg.data.interest)$("#interes").val(msg.data.interest);
+                        if(msg.data.duration)$("#duracion").val(msg.data.duration);
+                        if(msg.data.destination){
+                            $('#motivo option[value='+msg.data.destination+']').attr('selected','selected');
+                            $('#motivo').material_select();   
+                        }
                     }
                     setSliders();
                     calcCuota();
@@ -213,9 +215,9 @@
             var interes2= parseFloat(localStorage.interes2);        
             var duration1= parseInt(localStorage.duration1);
             var duration2= parseInt(localStorage.duration2);
-            var monto= $("#monto").val();
-            var interes= $("#interes").val();
-            var duracion= $("#duracion").val();
+            var monto= parseInt($("#monto").val());
+            var interes= parseFloat($("#interes").val());
+            var duracion= parseInt($("#duracion").val());
             var find = ["$","%","."];
             var replace = ['','',''];
             noUiSlider.create(capital, {
