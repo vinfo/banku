@@ -108,7 +108,11 @@
                                             <div class="input-field col s12 m6 l3">
                                                 <input placeholder="Confirma tu contraseña" id="password_u2" name="password_u2" type="password" class="validate" required>
                                                 <label for="password_u2">Confirmar contraseña</label>
-                                            </div>  
+                                            </div> 
+                                            <div class="input-field col s12 m6 l3">
+                                                <input placeholder="Contraseña actual" id="password_u3" name="password_u3" type="password" class="validate">
+                                                <label for="password_u3">Contraseña actual</label>
+                                            </div>                                              
                                             <div class="input-field col s12">                                
                                                 <input type="text" class="datepicker" placeholder="Ingresa tu fecha de cumpleaños" id="date_u" name="date_u" required>
                                                 <label for="date_u">Fecha de nacimiento</label>
@@ -210,11 +214,12 @@
                                                     <option value="">Seleccionar</option>
                                                     <option value="Autopista">Autopista</option>
                                                     <option value="Avenida">Avenida</option>
-                                                    <option value="Bulevar">Bulevar</option>
-                                                    <option value="Diagonal">Diagonal</option>
+                                                    <option value="Bulevar">Bulevar</option>           
                                                     <option value="Calle">Calle</option>
                                                     <option value="Carrera">Carrera</option>
                                                     <option value="Circular">Circular</option>
+                                                    <option value="Diagonal">Diagonal</option>
+                                                    <option value="Manzana">Manzana</option>
                                                     <option value="Transversal">Transversal</option>
                                                 </select>
                                                 <label>Ej: Calle, Carrera...</label>
@@ -312,15 +317,15 @@
                                                     <h5>Datos financieros</h5>
                                                 </div>
                                                 <div class="input-field col s6 m3 l3">
-                                                    <input placeholder="Otros ingresos" id="otros_ingresos_u" name="otros_ingresos_u" type="number" class="validate" required>
+                                                    <input placeholder="Otros ingresos" id="otros_ingresos_u" name="otros_ingresos_u" type="text" class="validate money" required>
                                                     <label for="otros_ingresos_u">Otros ingresos</label>
                                                 </div>
                                                 <div class="input-field col s6 m3 l3">
-                                                    <input placeholder="Gastos mensuales" id="gastos_u" name="gastos_u" type="number" class="validate">
+                                                    <input placeholder="Gastos mensuales" id="gastos_u" name="gastos_u" type="text" class="validate  money">
                                                     <label for="gastos_u">Gastos mensuales</label>
                                                 </div> 
                                                 <div class="input-field col s6 m3 l3">
-                                                    <input placeholder="Deudas a la fecha" id="deudas_u" name="deudas_u" type="number" class="validate">
+                                                    <input placeholder="Deudas a la fecha" id="deudas_u" name="deudas_u" type="text" class="validate money">
                                                     <label for="deudas_u">Deudas a la fecha</label>
                                                 </div> 
                                                 <div class="input-field col s6 m3 l3">
@@ -591,6 +596,16 @@
 
         <!--Nav footer Responsive-->
         <div class="footer-nav menu_footer"></div>
+        <!-- Modal Structure -->
+        <div id="info1" class="modal">
+            <div class="modal-content">
+                <h4 class="title">Datos no validos</h4>
+                <p class="texto">Las contraseñas ingresadas no corresponden.</p>
+            </div>
+            <div class="modal-footer">
+                <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Aceptar</a>
+            </div>
+        </div>         
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="index.js"></script>  
         <!--Import jQuery before materialize.js-->
@@ -598,11 +613,18 @@
         <script type="text/javascript" src="assets/js/materialize.min.js"></script>
         <script type="text/javascript" src="assets/js/jquery.validate.min.js"></script>
         <script type="text/javascript" src="assets/js/numeral.min.js"></script>
+        <script type="text/javascript" src="assets/js/jquery.mask.min.js"></script>
         <script type="text/javascript" src="assets/js/tools.js?v=1.0.0"></script>         
         <script type="text/javascript" src="assets/js/includes.js?v=1.0.0"></script>           
         <script type="text/javascript">
          $( document ).ready(function(){
             $('.tooltipped').tooltip({delay: 50});
+            $('input').bind({'focusin': function(Event){
+                $(".footer-nav").fadeOut('fast');
+            }, 'focusout': function(Event){
+                $(".footer-nav").fadeIn('fast');
+            }});
+            $('.money').mask('000.000.000.000.000', {reverse: true});      
 
           $('.datepicker').pickadate({
               monthsFull: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
@@ -625,24 +647,57 @@
               takePicture();                
           });
           $( ".btn-save" ).click(function() {                            
-            var validator = $("#frm_register").validate({errorPlacement: function(error,element) {return true;}});
+            var validator = $("#frm_register").validate({  rules: {
+                password_u: "required",
+                password_u2: {
+                  equalTo: "#password_u"
+                }
+              },
+              errorPlacement: function(error,element) {return true;}
+            });
             validator.form();
             if(validator.valid()){
-                $('#modal2').modal('open');                               
-                $.ajax({
-                    type: "POST",
-                    url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
-                    data: $("#frm_register").serialize()+"&action=updateUserFull&id_u="+localStorage.id_u+"&type_user="+localStorage.type_user,
-                    dataType:'JSON',
-                    success: function(msg){
-                    },
-                    error: function(XMLHttpRequest, textStatus, errorThrown) { 
-                        alert("Problemas procesando datos: " + textStatus +" - "+errorThrown);
-                    }
-                });                 
+                var pass1= $("#password_u").val();
+                var pass2= $("#Hpassword_u").val();
+                var pass3= $("#password_u3").val();
+                var flag=true;
+                if(pass1!=""&&pass2!=""&&pass3!=""&&pass2!=pass3){
+                    $.ajax({
+                        type: "POST",
+                        url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
+                        data: "action=checkPass&pass="+pass3,
+                        success: function(msg){
+                            if(msg!=pass2){
+                                $('#info1').modal('open');
+                            }else{
+                                updateProfile();
+                                $("#password_u3").val('');
+                            }
+                        },
+                        error: function(XMLHttpRequest, textStatus, errorThrown) { 
+                            alert("Problemas procesando datos: " + textStatus +" - "+errorThrown);
+                        }
+                    }); 
+                }else{
+                    updateProfile();
+                }
             }
         });                      
       })
+        function updateProfile(){
+            $.ajax({
+                type: "POST",
+                url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
+                data: $("#frm_register").serialize()+"&action=updateUserFull&id_u="+localStorage.id_u+"&type_user="+localStorage.type_user,
+                dataType:'JSON',
+                success: function(msg){
+                    $('#modal2').modal('open');
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown) { 
+                    alert("Problemas procesando datos: " + textStatus +" - "+errorThrown);
+                }
+            });            
+        }         
          function takePicture(){
           console.log("Capturar foto");
           var options =   {

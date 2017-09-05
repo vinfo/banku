@@ -203,7 +203,17 @@
                     © 2017 BankU                    
                 </div>
             </div>
-        </footer>            
+        </footer>  
+        <!-- Modal Structure -->        
+        <div id="info2" class="modal">
+            <div class="modal-content">
+                <h4>Perfil en estudio</h4>
+                <p>Su perfil esta en estudio, pronto podrá disfrutar de todos los servicios.</p>
+            </div>
+            <div class="modal-footer">
+                <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Aceptar</a>
+            </div>
+        </div>                   
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="index.js"></script>                     
         <!--Import jQuery before materialize.js-->
@@ -215,6 +225,7 @@
         <script type="text/javascript" src="assets/js/includes.js?v=1.0.0"></script>        
         <script type="text/javascript">
          $( document ).ready(function(){
+            if(localStorage.status_u=="0")$('#info2').modal('open');
          });
         </script>
     </body>

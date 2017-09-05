@@ -130,6 +130,7 @@
                             success: function(msg){
                                 if(msg.status==200){
                                     localStorage.setItem("id_u",msg.data.id_u);
+									localStorage.setItem("login","true");
                                     window.location = "04_AccessStep1.html";
                                 }
                             },

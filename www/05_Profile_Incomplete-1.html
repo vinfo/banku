@@ -47,8 +47,7 @@
                 <div class="col s12 center">                
                     <h5 class="red-text text-darken-2 status">&nbsp;</h5>
                     <div style="width: 80%; margin: 0 auto" class="divider"></div>
-                    <p class="grey-text msg1">¡En 12 horas podrás comenzar a <span class="msg-action">&nbsp;</span>!</p>
-
+                    <p class="grey-text msg1 msg_perfil">¡En 12 horas podrás comenzar a <span class="msg-action">&nbsp;</span>!</p>
                     <div id="progress">
                         <span id="percent">Tu perfil esta en un <strong class="percent">&nbsp;</strong></span>
                         <div id="bar"></div>
@@ -88,15 +87,6 @@
         <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Aceptar</a>
     </div>
 </div> 
-<div id="info2" class="modal">
-    <div class="modal-content">
-        <h4>Perfil en estudio</h4>
-        <p>Su perfil esta en estudio, pronto podrá disfrutar de todos los servicios.</p>
-    </div>
-    <div class="modal-footer">
-        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Aceptar</a>
-    </div>
-</div>
 <script type="text/javascript" src="cordova.js"></script>
 <script type="text/javascript" src="index.js"></script>             
 <!--Import jQuery before materialize.js-->
@@ -107,11 +97,11 @@
 <script type="text/javascript" src="assets/js/tools.js?v=1.0.0"></script>         
 <script type="text/javascript" src="assets/js/includes.js?v=1.0.0"></script>      
 <script type="text/javascript">
-   $( document ).ready(function(){
+   $( document ).ready(function(){                       
     if(localStorage.login){
         $('#info1').modal('open');
         localStorage.removeItem("login");
-    }	   
+    }    
    });
    history.pushState(null, null, location.href);
    window.onpopstate = function(event) {

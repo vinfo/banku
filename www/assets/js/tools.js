@@ -130,7 +130,7 @@ var getUserData= function getUserData(){
                 $(".wrapper").hide();
             },            
             success: function(msg){
-                //alert(JSON.stringify(msg));
+                //console.log(JSON.stringify(msg));
                 if(msg.status==200&&msg.data){                    
                     var photo="assets/images/avatarUser.jpg";
                     if(msg.data.photo_u!="")photo="data:image/jpeg;base64," + msg.data.photo_u;
@@ -151,6 +151,7 @@ var getUserData= function getUserData(){
                     localStorage.setItem("interes2", msg.data.interes2);
                     localStorage.setItem("duration1", msg.data.duration1);
                     localStorage.setItem("duration2", msg.data.duration2);                                        
+                    localStorage.setItem("status_u", msg.data.status_u); 
                     var bank="";
                     if(msg.data.banktype_u!=""&&msg.data.banktype_u!=null)bank+= msg.data.banktype_u;
                     if(msg.data.bank_u!=""&&msg.data.bank_u!=null)bank+= ", "+msg.data.bank_u;
@@ -163,7 +164,10 @@ var getUserData= function getUserData(){
                     $(".status").html(msg.data.status);
                     if(msg.data.status_u!="0")$(".msg1").hide();
                     $("#bar").css("width",msg.data.percent+"%");
-                    $(".percent").html(msg.data.percent+"%");                                     
+                    $(".percent").html(msg.data.percent+"%");
+                    if(msg.data.percent<100){
+                        $(".msg_perfil").addClass("red-text").html("Tú perfil esta incompleto. Completa tú perfil para poder acceder a todos los servicios.");                                   
+                    }
                     var starts='';
                     for(var i=0;i<5;i++){
                         if(i < msg.data.calification2_u){
@@ -209,8 +213,12 @@ var getFullUserData= function getFullUserData(){
                           var checkbox= $("#"+index).is('input:checkbox');
 						  var hidden= $("#H"+index).is('input:hidden');                        
                           
-                          if(text||tel||number){
-                            $("#"+index).val(value);
+                          if(text||tel||number){                            
+                            if($("#"+index).hasClass('money')){
+                                $("#"+index).val(numeral(value).format('0,0'));
+                            }else{
+                                $("#"+index).val(value);
+                            }
                           }
                           if(hidden){			  
                             $("#H"+index).val(value);
