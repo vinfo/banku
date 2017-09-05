@@ -58,6 +58,47 @@ function spanishDate(d){
     var monthname=["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
     return weekday[d.getDay()]+" "+d.getDate()+" de "+monthname[d.getMonth()]+" de "+d.getFullYear();
 }
+function getStates(){
+	var sel="";
+	$('#state_u').children('option:not(:first)').remove();
+	$.ajax({
+		type: "POST",
+		url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
+		data: "action=getStates",
+		dataType:'JSON',
+		success: function(msg){			
+			if(msg.status&&msg.data){
+                var options='';				
+				$.each(msg.data, function( index, value ) {
+					options+='<option value="'+value.id_state+'">'+value.name_state+'</option>';
+				});
+                $('#state_u').html(options);
+                $('#state_u').material_select();
+			}
+		}
+	}); 	
+}
+function getCities(){
+    var sel="";
+    $('#city_u').children('option:not(:first)').remove();
+    $.ajax({
+        type: "POST",
+        url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
+        data: "action=getCities",
+        dataType:'JSON',
+        success: function(msg){         
+            if(msg.status&&msg.data){
+                var options='';             
+                $.each(msg.data, function( index, value ) {
+                    options+='<option value="'+value.id_city+'">'+value.name_city+'</option>';
+                });
+                $('#city_u').html(options);
+                $('#city_u').material_select();
+            }
+        }
+    });     
+}
+
 var getUserData= function getUserData(){
     numeral.register('locale', 'es', {
         delimiters: {
@@ -136,7 +177,8 @@ var getUserData= function getUserData(){
                     $(".amount").html(numeral(msg.data.amount).format('0,0'));
                     $(".days_study").html(msg.data.days_study);
                     $(".wrapper").show();
-                    $(".progress").hide();                                        
+                    $(".progress").hide();
+					if(msg.data.status_u=="0")$('#info2').modal('open');                                      
                     //console.log("Datos usuario");
                 }
             }
@@ -164,15 +206,18 @@ var getFullUserData= function getFullUserData(){
                           var number= $("#"+index).is('[type=number]');
                           var password= $("#"+index).is('input:password');
                           var select= $("#"+index).is('select');
-                          var checkbox= $("#"+index).is('input:checkbox');                         
+                          var checkbox= $("#"+index).is('input:checkbox');
+						  var hidden= $("#H"+index).is('input:hidden');                        
                           
                           if(text||tel||number){
                             $("#"+index).val(value);
                           }
+                          if(hidden){			  
+                            $("#H"+index).val(value);
+                          }							  
                           if(password){
                             if(index=="password_u"){
                                 $("#"+index).val(value);
-                                $("#H"+index).val(value);
                                 $("#"+index+"2").val(value);
                             }
                           }                          

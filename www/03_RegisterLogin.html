@@ -106,6 +106,7 @@
                                     var type_user='prestatario';
                                     if(msg.data.rol_u==3)type_user='inversionista';
                                     localStorage.setItem("type_user",type_user);
+									localStorage.setItem("login","true");
                                     window.location = "05_Profile_Incomplete-1.html?section=mi_perfil";
                                 }else{
                                     Materialize.toast('Email/Contraseña no validos', 1000, 'rounded');
