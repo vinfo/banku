@@ -281,7 +281,6 @@
                                             <div class="input-field col s12">
                                                 <select id="eps_u" name="eps_u">
                                                     <option value="" disabled selected>Selecciona una</option>
-                                                    <option value="">EPS</option>
                                                     <option value="1">Cafesalud</option>
                                                     <option value="2">Calisalud</option>
                                                     <option value="3">Caprecom</option>
@@ -363,7 +362,7 @@
                                           <option value="5">Oficina</option>
                                           <option value="6">No poseo</option>
                                       </select>
-                                      <label for="tipo_propiedad_u">Tipo de Propiedad</label>
+                                      <label for="tipo_propiedad_u">Tipo Propiedad</label>
                                   </div>                                                                                                                                                                                                               
                                   <div class="col s12">
                                     <input type="checkbox" class="filled-in" id="filled-in-box" checked="checked" />
@@ -599,8 +598,8 @@
         <!-- Modal Structure -->
         <div id="info1" class="modal">
             <div class="modal-content">
-                <h4 class="title">Datos no validos</h4>
-                <p class="texto">Las contraseñas ingresadas no corresponden.</p>
+                <h4 class="title"></h4>
+                <p class="texto"></p>
             </div>
             <div class="modal-footer">
                 <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Aceptar</a>
@@ -668,6 +667,8 @@
                         data: "action=checkPass&pass="+pass3,
                         success: function(msg){
                             if(msg!=pass2){
+                                $(".title").html('Datos no validos');
+                                $(".texto").html('Las contraseñas ingresadas no corresponden.');
                                 $('#info1').modal('open');
                             }else{
                                 updateProfile();
@@ -681,6 +682,11 @@
                 }else{
                     updateProfile();
                 }
+            }else{
+                $(".title").html('Datos requeridos');
+                $(".texto").html('Existen campos requeridos que aun no han sido diligenciados.');
+                $('#info1').modal('open');
+                $("input.error:first").focus();               
             }
         });                      
       })

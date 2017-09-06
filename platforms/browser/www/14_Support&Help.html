@@ -67,20 +67,13 @@
                     <div class="col s12">
                         <form action="#">
                             <div class="input-field col s12">
-                                <input placeholder="Ingresa tu primer nombre" id="first_name" type="text" class="validate">
-                                <label for="first_name">Nombre completo</label>
-                            </div>
-                            <div class="input-field col s12">
-                                <input placeholder="tucorreo@miemail.com" id="disabled" type="text" class="validate">
-                                <label for="disabled">Email</label>
-                            </div> 
-                            <div class="input-field col s12 m6">
-                                <input placeholder="xxxxxxx" id="last_name" type="tel" class="validate">
-                                <label for="tel">Teléfono</label>
+                                <h4><span class="names_u"></span> <span class="lastnames_u"></span></h4>
+                                <h6>E-mail: <span class="email_u"></span></h6>
+                                <h6>Teléfono: <span class="cellphone_u"></span></h6><br/>
                             </div>
                             <div class="input-field col s12">
                                 <select>
-                                    <option value="" disabled selected>Selecciona una opción</option>                                                        
+                                    <option value="" disabled selected>Selecciona una opción</option>
                                     <option value="0">Opción 1</option>
                                     <option value="1">Opción 2</option>
                                     <option value="2">Opción 3</option>
@@ -119,6 +112,7 @@
         <script type="text/javascript" src="assets/js/includes.js?v=1.0.0"></script>        
         <script type="text/javascript">
          $( document ).ready(function(){
+            getFullUserData();
          });
         </script>
     </body>

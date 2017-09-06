@@ -204,14 +204,18 @@ var getFullUserData= function getFullUserData(){
                 if(msg.status==200&&msg.data){
                     $.each(msg.data, function( index, value ) {                      
                       if(index=="photo_u"&&value!="")$(".photo").attr("src","data:image/jpeg;base64," + decodeURIComponent(value));
-                      if($("#"+index).length>0){                          
+                      if($("#"+index).length>0||$("."+index).length>0){                          
                           var text= $("#"+index).is('input:text');
                           var tel= $("#"+index).is('[type=tel]');
                           var number= $("#"+index).is('[type=number]');
                           var password= $("#"+index).is('input:password');
                           var select= $("#"+index).is('select');
                           var checkbox= $("#"+index).is('input:checkbox');
-						  var hidden= $("#H"+index).is('input:hidden');                        
+						  var hidden= $("#H"+index).is('input:hidden');
+
+                          if($("."+index).length>0){
+                            $("."+index).html(value);
+                          }                           
                           
                           if(text||tel||number){                            
                             if($("#"+index).hasClass('money')){
