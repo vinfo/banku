@@ -43,6 +43,9 @@ strong {
 .margin-top-40{
 	margin-top: 40px!important
 }
+.margin-top-20{
+	margin-top: 20px!important
+}
 .margin-top-0{
 	margin-top: 0!important;
 }
@@ -502,6 +505,7 @@ input:not([type]):focus:not([readonly]), input[type=text]:not(.browser-default):
 	border-radius: 5px;
 	display: table;
     margin-bottom: 20px;
+    position: relative;
 }
 .box-proyect.op2{
 	background-color: #ffda50;	
@@ -725,13 +729,41 @@ padding-top: 10px;
     background-position: right -2px bottom 21px;
     color: #fed22c;
 }
-
+.btn-favorito-big{
+	background-image: url(../images/icon-favorite-big.png);
+    background-repeat: no-repeat;
+    background-size: 100%;
+    color: #bdc3c7;
+    border: none;
+    font-weight: 400;
+    padding-top: 120px;
+    width: 200px;
+    height: 200px;
+    display: inline-block;
+    margin: 0 10px 10px;
+}
+.btn-favorito-box{
+    border: none;
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    margin: 5px 2px 0 0;
+    right: 0;
+}
+.btn-favorito-box img{
+	width: 30px;
+    height: 30px;
+}
+.shareFriends{
+	margin: 10px 0;
+	display: block;
+}
 
 /*Login*/
 .login{
-	background-image: url('../../assets/images/bgLogin.jpg');	
-/*    background-size: auto 100%;
-    background-repeat: no-repeat;*/
+	background-image: url(../images/bgLogin.png);	
+    background-size: auto 100%;
+    background-repeat: no-repeat;
     background-position: center top;
     background-attachment: fixed;
 }
@@ -901,6 +933,9 @@ padding-top: 10px;
     .btn-find-proyects .btn-large.go-to-back{
     	bottom: 85px;
     }
+    .btn-favorito-big{
+	    margin: 20px auto 20px
+	}
 }
 
 @media screen and (max-width: 550px) {
@@ -923,3 +958,4 @@ padding-top: 10px;
 .noUi-handle{
 	background-color: #26A69A!important;
 }
+

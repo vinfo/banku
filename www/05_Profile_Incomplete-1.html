@@ -63,7 +63,7 @@
                     <li><a href="#!">Invitar a amigos <i class="material-icons right">card_giftcard</i></a></li>                                    
                     <li><a href="07_Profile_Setting.html">Configuración <i class="material-icons right">settings</i></a></li>                                    
                     <li><a href="14_Support&Help.html">Soporte y ayuda <i class="material-icons right">help_outline</i></a></li>                                   
-                    <li><a href="#!">Favoritos <i class="material-icons right">favorite_border</i></a></li>            
+                    <li><a href="15_1_WishListEmpty.html?section=mi_perfil">Favoritos <i class="material-icons right">favorite_border</i></a></li>            
                     <!-- <li><a href="#!">Historial <i class="material-icons right">description</i></a></li> -->                                   
                 </ul>
             </div>
@@ -97,7 +97,8 @@
 <script type="text/javascript" src="assets/js/tools.js?v=1.0.0"></script>         
 <script type="text/javascript" src="assets/js/includes.js?v=1.0.0"></script>      
 <script type="text/javascript">
-   $( document ).ready(function(){                       
+   $( document ).ready(function(){
+    sessionRedirect();                      
     if(localStorage.login){
         $('#info1').modal('open');
         localStorage.removeItem("login");

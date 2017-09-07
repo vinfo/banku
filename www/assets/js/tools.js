@@ -98,6 +98,20 @@ function getCities(){
         }
     });     
 }
+function editValue(campo,valor){
+    $.ajax({
+        type: "POST",
+        url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
+        data: "action=editValue&id_u="+localStorage.id_u+"&campo="+campo+"&valor="+valor,
+        dataType:'JSON',
+        success: function(msg){            
+        }
+    });     
+}
+function sessionRedirect(){
+    if(!localStorage.id_u)window.location.href = "02_Login.html";    
+}
+
 
 var getUserData= function getUserData(){
     numeral.register('locale', 'es', {
@@ -182,7 +196,7 @@ var getUserData= function getUserData(){
                     $(".days_study").html(msg.data.days_study);
                     $(".wrapper").show();
                     $(".progress").hide();
-					if(msg.data.status_u=="0")$('#info2').modal('open');                                      
+					if(msg.data.approved_u=="0")$('#info2').modal('open');                                      
                     //console.log("Datos usuario");
                 }
             }
