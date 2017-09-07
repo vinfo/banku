@@ -100,7 +100,7 @@
    $( document ).ready(function(){
     sessionRedirect();                      
     if(localStorage.login){
-        $('#info1').modal('open');
+        if(localStorage.percent<100)$('#info1').modal('open');
         localStorage.removeItem("login");
     }    
    });

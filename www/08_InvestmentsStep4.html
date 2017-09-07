@@ -20,7 +20,7 @@
         <!--Nav Responsive-->
         <nav class="nav-app">
             <div class="nav-wrapper">
-                <a href="#!" class="brand-logo center">En negociación con Julio</a>
+                <a href="#!" class="brand-logo center">En negociación con <span class="user-prestatario"></span></a>
                 <ul class="left ">
                     <li><a href="#!" class="back"><i class="material-icons">keyboard_arrow_left</i></a></li>
                 </ul>
@@ -40,41 +40,18 @@
                         </span>
                     </div>
                     <div class="col s12">    
-                        <h3 class="center hide-on-med-and-down">En negociación con Julio</h3>
+                        <h3 class="center hide-on-med-and-down names">En negociación con <span class="user-prestatario"></span></h3>
                         <br>
                     </div>  
 
                     <div class="col s12">
                         <div class="box-proyect-nego">                    
-                            <div class="row">  
-                                <div class="col s7"> 
-                                    <a href="#!user" class="avatar-nego"><img class="circle" src="assets/images/avatarUser.jpg"></a>
-                                    <div class="info-nego">
-                                        <h5>JUan2001</h5>  
-                                        <p>Electrodomésticos<br>
-                                        % 0.8  |  12 Meses</p> 
-                                        <div class="star-user">                                         
-                                            <i class="material-icons yellow-text text-accent-4">star_border</i>
-                                            <i class="material-icons yellow-text text-accent-4">star_border</i>
-                                            <i class="material-icons yellow-text text-accent-4">star_border</i>
-                                            <i class="material-icons">star_border</i>
-                                            <i class="material-icons">star_border</i>
-                                        </div>
-                                    </div>                                                           
-                                </div> 
-                                <div class="col s5 right-align">                                 
-                                    <h3>$2.000.000</h3>
-                                    <p><small>Pago Mensual: $150.000</small></p>                            
-                                    <a href="#!" class="red-text text-darken-2 tooltipped" data-position="top" data-delay="50" data-tooltip="Eliminar proyecto"><i class="material-icons">remove_circle_outline</i></a>  
-                                </div>  
-                                <div class="col s12"> 
-                                    <hr style="width: 90%">
-                                </div>
+                            <div class="row initial"> 
                             </div>                     
                         </div>
                     </div>                     
                 </div>
-
+                <div class="chat"></div>
                 <div class="bubble-left right">
                     <a href="#!user" class="avatar-nego"><img class="circle" src="assets/images/avatar.jpg"></a>
                     <div class="info-nego">
@@ -84,6 +61,7 @@
                     </div> 
                     <div class="date-buble">08 | 06 | 17</div>
                 </div>
+
                 <div class="bubble-rigth left">
                     <a href="#!user" class="avatar-nego"><img class="circle" src="assets/images/avatarUser.jpg"></a>
                     <div class="info-nego">
@@ -194,6 +172,30 @@
         <script type="text/javascript">
         	$( document ).ready(function(){                
                 $('.tooltipped').tooltip({delay: 50});
+                var id_ofert= getUrlParameter("id_ofert");
+                var prest= getUrlParameter("prest");
+                if(prest){
+                    var setoffer=setOfferTemp(id_ofert,localStorage.id_u,prest,localStorage.interes2,localStorage.duration2);
+                    if(setoffer){
+                        $.ajax({
+                          type: "POST",
+                          url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
+                          data: "action=getConfigOffers&id_u="+prest+"&type_user="+localStorage.type_user,
+                          dataType:'JSON',
+                          success: function(msg){        
+                            if(msg.status&&msg.data){
+                              $.each(msg.data, function( index, value ) {
+                                var cuota= calcCuota(value.amount,value.interest,value.duration);
+                                var starts= getStarts(value.calification2_u);
+                                $(".user-prestatario").html(value.user_u);
+                                $(".initial").append('<div class="col s7"><div class="info-nego">   <h5><a href="#!user">'+value.user_u+'</a></h5><p>'+value.ldestination+'<br>   % '+value.interest+'  |  '+value.duration+' Meses</p>'+starts+'</div>  </div><div class="col s5 right-align"> <h3>$'+numeral(value.amount).format('0,0')+'</h3><p><small>Pago Mensual: $'+numeral(cuota).format('0,0')+'</small></p><a href="#!" class="red-text text-darken-2 tooltipped" data-position="top" data-delay="50" data-tooltip="Eliminar proyecto"><i class="material-icons">remove_circle_outline</i></a>  </div>  <div class="col s12"> <hr style="width: 90%"></div>');
+                              });
+                              getOffersTemp(id_ofert,localStorage.id_u,prest);
+                            }
+                          }
+                        });                        
+                    }
+                }                 
         	})
         </script>
     </body>

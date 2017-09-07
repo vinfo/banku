@@ -82,26 +82,10 @@
         <!--Import jQuery before materialize.js-->
         <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
         <script type="text/javascript" src="assets/js/materialize.min.js"></script>
-        <script type="text/javascript" src="assets/js/jquery.validate.min.js"></script>
-        <script src="assets/js/socket.io.js"></script>
+        <script type="text/javascript" src="assets/js/jquery.validate.min.js"></script>        
         <script type="text/javascript" src="assets/js/tools.js"></script>        
         <script type="text/javascript">
-          //https://github.com/socketio/socket.io-client/blob/master/docs/API.md#socketid
-        	$( document ).ready(function(){
-/*          var socket = io('https://chat-vinfo.herokuapp.com/');
-          socket.on('connect', function(){
-              socket.on('chat message', function(msg){
-                io.emit('chat message', msg);
-              });           
-          });
-          socket.on('chat message', function(msg){
-            alert(msg);
-          });         
-          $( "#email" ).change(function() {
-            socket.emit('chat message', $(this).val());
-          });*/
-
-
+            $( document ).ready(function(){        
         		$('select').material_select();
                 $('.modal').modal();
                 $( ".back" ).click(function() {
@@ -119,6 +103,7 @@
                             success: function(msg){
                                 if(msg.data){
                                     localStorage.setItem("id_u",msg.data.id_u);
+                                    localStorage.setItem("percent",msg.percent);
                                     var type_user='prestatario';
                                     if(msg.data.rol_u==3)type_user='inversionista';
                                     localStorage.setItem("type_user",type_user);

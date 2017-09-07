@@ -89,11 +89,11 @@
                         <div class="input-field col s12">
                             <select id="motivo" name="motivo" class="form-control">
                                 <option value="" disabled selected>Selecciona uno</option>
-                                <option value="0">Educación</option>
-                                <option value="1">Libre Inversión</option>
-                                <option value="2">Vivienda</option>
-                                <option value="3">Vehículo</option>
-                                <option value="4">Viajes/Recreación</option>
+                                <option value="791">Educación</option>
+                                <option value="792">Libre Inversión</option>
+                                <option value="793">Vivienda</option>
+                                <option value="794">Vehículo</option>
+                                <option value="795">Viajes/Recreación</option>
                               </select>
                             <label>Tipo de préstamo</label>
                         </div>
@@ -173,14 +173,6 @@
             });            
          });
 
-        function calcCuota(){            
-            var monto = $("#monto").val();
-            var interes = $("#interes").val()/100;
-            var duracion = $("#duracion").val();
-            var cuota= (interes * Math.pow(interes+1,duracion))*monto;
-            var cuota2= Math.pow(interes+1,duracion)-1;
-            $(".cuota").html(numeral(Math.round(cuota/cuota2)).format('0,0'));
-        }
         function getConfig(){
             $.ajax({
                 type: "POST",
@@ -197,8 +189,8 @@
                             $('#motivo').material_select();   
                         }
                     }
-                    setSliders();
-                    calcCuota();
+                    setSliders();                
+                    calcCuota($("#monto").val(),$("#interes").val(),$("#duracion").val());
                 },
                 error: function(XMLHttpRequest, textStatus, errorThrown) { 
                     alert("Problemas procesando datos: " + textStatus +" - "+errorThrown);
@@ -237,7 +229,7 @@
             });
             capital.noUiSlider.on('change', function(data){
                 $("#monto").val(rplMoney(data.toString()));
-                calcCuota();
+                calcCuota($("#monto").val(),$("#interes").val(),$("#duracion").val());
             });        
             noUiSlider.create(interest, {
                 start: [ interes ],
@@ -255,7 +247,7 @@
             });
             interest.noUiSlider.on('change', function(data){
                 $("#interes").val(rplPerc(data.toString()));
-                calcCuota();
+                calcCuota($("#monto").val(),$("#interes").val(),$("#duracion").val());
             });        
             noUiSlider.create(duration, {
                 start: [ duracion ],
@@ -271,7 +263,7 @@
             });
             duration.noUiSlider.on('change', function(data){
                 $("#duracion").val(data.toString());
-                calcCuota();
+                calcCuota($("#monto").val(),$("#interes").val(),$("#duracion").val());
             });            
         }                            
         </script>

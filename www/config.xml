@@ -5,7 +5,7 @@
     versionCode = "1"
     version     = "1.0.1"
     versionName = "1.0.1" >
-    <name>BANKUCOLOMBIA</name>
+    <name>BankU</name>
     <description>
         Sistema que une a personas de todo el país (prestatarios e inversionistas), mediante una comunidad segura y confiable de inversión.
     </description>

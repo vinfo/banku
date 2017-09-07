@@ -53,6 +53,11 @@ function rplMoney(str) {
 function rplPerc(str) {    
     return str.replace(/[^0-9-.]/g, "");
 }
+function parImpar(valor){
+    var valor=parseInt(valor);
+    var tipo=(valor%2)?"Impar":"Par";
+    return tipo;
+}
 function spanishDate(d){
     var weekday=["Domingo","Lunes","Martes","Miercoles","Jueves","Viernes","Sabado"];
     var monthname=["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
@@ -108,10 +113,60 @@ function editValue(campo,valor){
         }
     });     
 }
+function setOfferTemp(id_ofert,inv,prest,interest,duration){
+    $.ajax({
+        type: "POST",
+        url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
+        data: "action=setOfferTemp&id_ofert="+id_ofert+"&inv="+inv+"&prest="+prest+"&interest="+interest+"&duration="+duration,
+        dataType:'JSON',
+        success: function(msg){
+        }
+    });
+    return true;    
+}
+function getOffersTemp(id_ofert,inv,prest){
+    $.ajax({
+        type: "POST",
+        url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
+        data: "action=getOffersTemp&id_ofert="+id_ofert+"&inv="+inv+"&prest="+prest,
+        dataType:'JSON',
+        success: function(msg){
+            var chat='';
+            var cont= 0;
+            $.each(msg.data, function( index, value ) {
+                var cls='bubble-left right';
+                if(parImpar(cont)=="Par")cls='bubble-rigth left';
+                chat += '<div class="'+cls+'"><a href="#!user" class="avatar-nego"><img class="circle" src="assets/images/avatar.jpg"></a><div class="info-nego"><h5>Julio Ortiz</h5><p>Interés (%) E.M.: <strong>1.5</strong><br>Pago Mensual: <strong>$180.000</strong></p> </div> <div class="date-buble">08 | 06 | 17</div></div>';
+                cont++;
+            });
+            $(".chat").append(chat);
+        }
+    });
+    return true;    
+}
 function sessionRedirect(){
     if(!localStorage.id_u)window.location.href = "02_Login.html";    
 }
-
+function calcCuota(monto,interes,duracion){ 
+    var interes = interes/100;
+    var cuota= (interes * Math.pow(interes+1,duracion))*monto;
+    var cuota2= Math.pow(interes+1,duracion)-1;
+    var total= Math.round(cuota/cuota2);
+    $(".cuota").html(numeral(total).format('0,0'));
+    return total;
+}
+function getStarts(value){ 
+    var starts='';
+    for(var i=0;i<value;i++){
+        starts+='<i class="material-icons yellow-text text-accent-4">star_border</i>';
+    }
+    if(value<5){
+        for(var j=0;j<(5 - value);j++){
+            starts+='<i class="material-icons">star_border</i>';
+        }
+    }
+    return starts;
+}
 
 var getUserData= function getUserData(){
     numeral.register('locale', 'es', {
@@ -182,6 +237,7 @@ var getUserData= function getUserData(){
                     if(msg.data.percent<100){
                         $(".msg_perfil").addClass("red-text").html("Tú perfil esta incompleto. Completa tú perfil para poder acceder a todos los servicios.");                                   
                     }
+                    localStorage.setItem("percent",msg.data.percent);
                     var starts='';
                     for(var i=0;i<5;i++){
                         if(i < msg.data.calification2_u){
