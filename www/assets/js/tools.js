@@ -134,9 +134,10 @@ function getOffersTemp(id_ofert,inv,prest){
             var chat='';
             var cont= 0;
             $.each(msg.data, function( index, value ) {
-                var cls='bubble-left right';
-                if(parImpar(cont)=="Par")cls='bubble-rigth left';
+                var cls='bubble-rigth left';
+                if(inv==localStorage.id_u)cls='bubble-left right';
                 chat += '<div class="'+cls+'"><a href="#!user" class="avatar-nego"><img class="circle" src="assets/images/avatar.jpg"></a><div class="info-nego"><h5>Julio Ortiz</h5><p>Interés (%) E.M.: <strong>1.5</strong><br>Pago Mensual: <strong>$180.000</strong></p> </div> <div class="date-buble">08 | 06 | 17</div></div>';
+                if(value.status=="1")chat +='<div class="bubble-rigth left"><a href="#!user" class="avatar-nego"><img class="circle" src="assets/images/avatarUser.jpg"></a><div class="info-nego"><h5 class="user-prestatario"></h5>  <h3>Acepto tu oferta!!!</h3></div> <div class="date-buble">4m</div></div>';
                 cont++;
             });
             $(".chat").append(chat);
