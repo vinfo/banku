@@ -14,6 +14,11 @@ $( document ).ready(function(){
     $( ".back" ).click(function() {
       window.history.back();
     });
+    $( "body" ).on( "click", ".close-session", function() {
+      localStorage.clear();
+      window.location.href = "02_Login.html";
+      //navigator.app.exitApp();
+    });   
     var section= getUrlParameter("section");
     setTimeout(function(){ $("."+section).addClass('active'); }, 200);
 })
@@ -83,19 +88,22 @@ function getStates(){
 		}
 	}); 	
 }
-function getCities(){
-    var sel="";
+function getCities(sel=''){    
     $('#city_u').children('option:not(:first)').remove();
+    var state_u="";
+    if($('#state_u').val()!="")state_u=$('#state_u').val();
     $.ajax({
         type: "POST",
         url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
-        data: "action=getCities",
+        data: "action=getCities&state_u="+state_u,
         dataType:'JSON',
         success: function(msg){         
             if(msg.status&&msg.data){
                 var options='';             
                 $.each(msg.data, function( index, value ) {
-                    options+='<option value="'+value.id_city+'">'+value.name_city+'</option>';
+                    var selected="";
+                    if(sel==value.id_city)selected="selected";
+                    options+='<option value="'+value.id_city+'" '+selected+'>'+value.name_city+'</option>';
                 });
                 $('#city_u').html(options);
                 $('#city_u').material_select();
@@ -137,7 +145,10 @@ function getOffersTemp(id_ofert,inv,prest){
                 var cls='bubble-rigth left';
                 if(inv==localStorage.id_u)cls='bubble-left right';
                 chat += '<div class="'+cls+'"><a href="#!user" class="avatar-nego"><img class="circle" src="assets/images/avatar.jpg"></a><div class="info-nego"><h5>Julio Ortiz</h5><p>Interés (%) E.M.: <strong>1.5</strong><br>Pago Mensual: <strong>$180.000</strong></p> </div> <div class="date-buble">08 | 06 | 17</div></div>';
-                if(value.status=="1")chat +='<div class="bubble-rigth left"><a href="#!user" class="avatar-nego"><img class="circle" src="assets/images/avatarUser.jpg"></a><div class="info-nego"><h5 class="user-prestatario"></h5>  <h3>Acepto tu oferta!!!</h3></div> <div class="date-buble">4m</div></div>';
+                if(value.status=="1"){
+                    chat +='<div class="bubble-rigth left"><a href="#!user" class="avatar-nego"><img class="circle" src="assets/images/avatarUser.jpg"></a><div class="info-nego"><h5 class="user-prestatario"></h5>  <h3>Acepto tu oferta!!!</h3></div> <div class="date-buble">4m</div></div>';
+                    $(".btn-nego,.btn-aceptar").hide();
+                }
                 cont++;
             });
             $(".chat").append(chat);
@@ -305,6 +316,7 @@ var getFullUserData= function getFullUserData(){
                             }
                           }                          
                           if(select){
+                            if(index=="city_u")getCities(value);
                             $('#'+index+' option[value='+value+']').attr('selected','selected');
                             $('#'+index).material_select();                            
                           }

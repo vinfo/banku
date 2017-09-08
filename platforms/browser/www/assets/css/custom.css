@@ -958,4 +958,7 @@ padding-top: 10px;
 .noUi-handle{
 	background-color: #26A69A!important;
 }
+.wrapper{
+	display: none;
+}
 

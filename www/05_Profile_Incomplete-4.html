@@ -275,8 +275,8 @@
                                                 <label for="tel_empresa_u">Teléfono</label>
                                             </div>
                                             <div class="input-field col s12 m6">
-                                            <input placeholder="Tu ingreso mensual" id="salario_u" name="salario_u" type="number" class="validate">
-                                                <label for="salario_u">Salario</label>
+                                            <input placeholder="Tu ingreso mensual" id="salario_u" name="salario_u" type="text" class="validate money">
+                                                <label for="salario_u">Salario ($)</label>
                                             </div> 
                                             <div class="input-field col s12">
                                                 <select id="eps_u" name="eps_u">
@@ -317,15 +317,15 @@
                                                 </div>
                                                 <div class="input-field col s6 m3 l3">
                                                     <input placeholder="Otros ingresos" id="otros_ingresos_u" name="otros_ingresos_u" type="text" class="validate money" required>
-                                                    <label for="otros_ingresos_u">Otros ingresos</label>
+                                                    <label for="otros_ingresos_u">Otros ingresos ($)</label>
                                                 </div>
                                                 <div class="input-field col s6 m3 l3">
                                                     <input placeholder="Gastos mensuales" id="gastos_u" name="gastos_u" type="text" class="validate  money">
-                                                    <label for="gastos_u">Gastos mensuales</label>
+                                                    <label for="gastos_u">Gastos mensuales ($)</label>
                                                 </div> 
                                                 <div class="input-field col s6 m3 l3">
                                                     <input placeholder="Deudas a la fecha" id="deudas_u" name="deudas_u" type="text" class="validate money">
-                                                    <label for="deudas_u">Deudas a la fecha</label>
+                                                    <label for="deudas_u">Deudas a la fecha ($)</label>
                                                 </div> 
                                                 <div class="input-field col s6 m3 l3">
                                                     <select  id="renta_u" name="renta_u">
@@ -597,7 +597,7 @@
             }, 'focusout': function(Event){
                 $(".footer-nav").fadeIn('fast');
             }});
-            $('.money').mask('000.000.000.000.000', {reverse: true});      
+            $('.money').mask('#.##0', {reverse: true});
 
           $('.datepicker').pickadate({
               monthsFull: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
@@ -613,9 +613,13 @@
               format: 'yyyy-mm-dd',
                           closeOnSelect: false // Close upon selecting a date,
                       });
-          getFullUserData();
-          getStates();
-          getCities();
+          getStates();          
+          getFullUserData();     
+          
+          
+          $( "#state_u" ).change(function() {
+              getCities();                
+          });          
           $( ".take_photo" ).click(function() {
               takePicture();                
           });

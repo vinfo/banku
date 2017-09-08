@@ -120,11 +120,6 @@
     sessionRedirect();
     getFullUserData();
     $( ".terminos" ).load( "includes/terminos.html");
-    $( ".close-session" ).click(function() {
-      localStorage.clear();
-      window.location.href = "02_Login.html";
-                  //navigator.app.exitApp();
-    });
     $( ".delete-account" ).click(function() {
       var conf=confirm("Realmente desea borrar la cuenta?");
       if(conf){
@@ -132,8 +127,7 @@
         localStorage.clear();
         window.location.href = "02_Login.html";
       }
-    });                
-
+    });
     $( "input:checkbox" ).change(function() {
       var valor=0;
       if($(this).is(':checked'))valor=1;
