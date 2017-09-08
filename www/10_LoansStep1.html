@@ -74,7 +74,8 @@
         <script type="text/javascript" src="assets/js/includes.js?v=1.0.0"></script>        
         <script type="text/javascript">
          $( document ).ready(function(){
-            if(localStorage.approved_u=="No")$('#info2').modal('open');
+            $(".wrapper").show();
+            if(localStorage.approved_u=="No"||localStorage.approved_u=="0")$('#info2').modal('open');
          });
         </script>
     </body>

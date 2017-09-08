@@ -202,6 +202,7 @@ var getUserData= function getUserData(){
     numeral.locale('es');    
     if(localStorage.id_u!=""&&localStorage.type_user!=""){
         if(localStorage.type_user=="prestatario")$(".prestatario").show();
+        if(localStorage.type_user=="inversionista")$(".inversionista").show();
         $.ajax({
             type: "POST",
             url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
@@ -214,7 +215,7 @@ var getUserData= function getUserData(){
                 //console.log(JSON.stringify(msg));
                 if(msg.status==200&&msg.data){                    
                     var photo="assets/images/avatarUser.jpg";
-                    if(msg.data.photo_u!="")photo="data:image/jpeg;base64," + msg.data.photo_u;
+                    if(msg.data.photo_u!=null&&msg.data.photo_u!="")photo="data:image/jpeg;base64," + msg.data.photo_u;
                     $(".photo").attr("src",photo);
                     $(".user").html(msg.data.user_u);
                     $(".names").html(msg.data.names_u+" "+msg.data.lastnames_u);
@@ -247,7 +248,7 @@ var getUserData= function getUserData(){
                     $("#bar").css("width",msg.data.percent+"%");
                     $(".percent").html(msg.data.percent+"%");
                     if(msg.data.percent<100){
-                        $(".msg_perfil").addClass("red-text").html("Tú perfil esta incompleto. Completa tú perfil para poder acceder a todos los servicios.");                                   
+                        $(".msg_perfil").removeClass('grey-text').addClass("red-text").html("Tú perfil esta incompleto. Completa tú perfil para poder acceder a todos los servicios.");                                   
                     }
                     localStorage.setItem("percent",msg.data.percent);
                     var starts='';

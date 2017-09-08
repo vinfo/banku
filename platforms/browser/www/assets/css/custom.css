@@ -957,8 +957,35 @@ padding-top: 10px;
 }
 .noUi-handle{
 	background-color: #26A69A!important;
+
 }
 .wrapper{
 	display: none;
 }
-
+.proximo-pago{
+	display: none!important;
+}
+.noUi-handle{
+	border-radius: 9px!important;
+	box-shadow: none!important;
+}
+.noUi-connect{
+	background:#CCC!important;
+}
+.noUi-horizontal{
+	height: 4px!important;
+}
+.noUi-horizontal .noUi-handle{
+	width: 18px!important;
+	height: 18px!important;
+	top:-8px!important;
+}
+.noUi-tooltip{
+	font-size: 12px!important;
+}
+.noUi-handle:after, .noUi-handle:before{
+	content: none!important;
+}
+.noUi-horizontal .noUi-tooltip{
+	bottom:-34px!important;
+}

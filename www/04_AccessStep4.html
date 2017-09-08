@@ -98,6 +98,7 @@
         <script type="text/javascript">
         	$( document ).ready(function(){
         		registerLog("Página de selfie");
+                $(".wrapper").show();
                 $(".button-collapse").sideNav();
                 $( ".back" ).click(function() {
                   window.history.back();
@@ -110,7 +111,7 @@
                     if(localStorage.foto){
                         window.location = "05_Profile_Incomplete-1.html?section=mi_perfil";
                     }else{
-                        Materialize.toast('Captura de selfie es obligatoria', 1500, 'rounded');
+                        Materialize.toast('Entendido. luego podras actualizar tu foto.', 1800, 'rounded',function(){window.location = "05_Profile_Incomplete-1.html?section=mi_perfil";});
                     }                    
                 });                             
         	})

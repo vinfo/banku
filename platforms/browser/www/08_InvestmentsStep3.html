@@ -97,7 +97,7 @@
        $( document ).ready(function(){
         sessionRedirect();
         setTimeout(function(){ $(".brand-logo").text("Negociar"); }, 300);
-        if(localStorage.approved_u=="No")$('#info2').modal('open');
+        if(localStorage.approved_u=="No"||localStorage.approved_u=="0")$('#info2').modal('open');
         var socket = io('https://banku-services.herokuapp.com/');
         socket.on('connect', function(){
           socket.on('setOffert', function(msg){
