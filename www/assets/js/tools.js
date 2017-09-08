@@ -143,8 +143,14 @@ function getOffersTemp(id_ofert,inv,prest){
             var cont= 0;
             $.each(msg.data, function( index, value ) {
                 var cls='bubble-rigth left';
-                if(inv==localStorage.id_u)cls='bubble-left right';
-                chat += '<div class="'+cls+'"><a href="#!user" class="avatar-nego"><img class="circle" src="assets/images/avatar.jpg"></a><div class="info-nego"><h5>Julio Ortiz</h5><p>Interés (%) E.M.: <strong>1.5</strong><br>Pago Mensual: <strong>$180.000</strong></p> </div> <div class="date-buble">08 | 06 | 17</div></div>';
+                var photo='';
+                if(inv==localStorage.id_u){
+                  cls='bubble-left right';
+                  if(localStorage.photo&&localStorage.photo!="")photo='<a href="#!user" class="avatar-nego"><img class="circle photo" src="data:image/jpeg;base64,' + decodeURIComponent(localStorage.photo)+'"></a>';                  
+                  chat += '<div class="'+cls+'">'+photo+'<div class="info-nego"><h5>'+value.inversionista+'</h5><p>Interés (%) E.M.: <strong>'+value.interest+'</strong><br>Plazo: <strong>'+value.duration+'</strong></p> </div> <div class="date-buble">'+value.date.substr(0,16)+'</div></div>';
+                }else{
+                  chat += '<div class="'+cls+'"><div class="info-nego"><h5>'+value.prest+'</h5><p>Interés (%) E.M.: <strong>'+value.interest+'</strong><br>Plazo: <strong>'+value.duration+'</strong></p> </div> <div class="date-buble">'+value.date.substr(0,16)+'</div></div>';
+                }
                 if(value.status=="1"){
                     chat +='<div class="bubble-rigth left"><a href="#!user" class="avatar-nego"><img class="circle" src="assets/images/avatarUser.jpg"></a><div class="info-nego"><h5 class="user-prestatario"></h5>  <h3>Acepto tu oferta!!!</h3></div> <div class="date-buble">4m</div></div>';
                     $(".btn-nego,.btn-aceptar").hide();
@@ -215,7 +221,10 @@ var getUserData= function getUserData(){
                 //console.log(JSON.stringify(msg));
                 if(msg.status==200&&msg.data){                    
                     var photo="assets/images/avatarUser.jpg";
-                    if(msg.data.photo_u!=null&&msg.data.photo_u!="")photo="data:image/jpeg;base64," + msg.data.photo_u;
+                    if(msg.data.photo_u!=null&&msg.data.photo_u!=""){
+                        photo="data:image/jpeg;base64," + msg.data.photo_u;
+                        localStorage.setItem("photo", msg.data.photo_u);
+                    }
                     $(".photo").attr("src",photo);
                     $(".user").html(msg.data.user_u);
                     $(".names").html(msg.data.names_u+" "+msg.data.lastnames_u);
@@ -262,6 +271,7 @@ var getUserData= function getUserData(){
                     $(".star-user").html(starts);
                     $(".monto").html(numeral(msg.data.amount_u).format('0,0'));
                     $(".amount").html(numeral(msg.data.amount).format('0,0'));
+                    $(".saldo-inversionista").html(numeral(msg.data.saldo).format('0,0'));                    
                     $(".days_study").html(msg.data.days_study);
                     $(".wrapper").show();
                     $(".progress").hide();
@@ -286,7 +296,10 @@ var getFullUserData= function getFullUserData(){
             success: function(msg){
                 if(msg.status==200&&msg.data){
                     $.each(msg.data, function( index, value ) {                      
-                      if(index=="photo_u"&&value!="")$(".photo").attr("src","data:image/jpeg;base64," + decodeURIComponent(value));
+                      if(index=="photo_u"&&value!=""){
+                        $(".photo").attr("src","data:image/jpeg;base64," + decodeURIComponent(value));
+                        localStorage.setItem("photo",value);
+                      }
                       if($("#"+index).length>0||$("."+index).length>0){                          
                           var text= $("#"+index).is('input:text');
                           var tel= $("#"+index).is('[type=tel]');
@@ -294,7 +307,7 @@ var getFullUserData= function getFullUserData(){
                           var password= $("#"+index).is('input:password');
                           var select= $("#"+index).is('select');
                           var checkbox= $("#"+index).is('input:checkbox');
-						  var hidden= $("#H"+index).is('input:hidden');
+						              var hidden= $("#H"+index).is('input:hidden');
 
                           if($("."+index).length>0){
                             $("."+index).html(value);
