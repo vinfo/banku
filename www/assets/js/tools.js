@@ -20,7 +20,7 @@ $( document ).ready(function(){
       //navigator.app.exitApp();
     });   
     var section= getUrlParameter("section");
-    setTimeout(function(){ $("."+section).addClass('active'); }, 200);
+    setTimeout(function(){ $("."+section).addClass('active'); },1000);
 })
 
 var getUrlParameter = function getUrlParameter(sParam) {
@@ -62,6 +62,17 @@ function parImpar(valor){
     var valor=parseInt(valor);
     var tipo=(valor%2)?"Impar":"Par";
     return tipo;
+}
+function getScroll(){
+    var $win = $(window);
+    $win.scroll(function () {
+    if ($win.scrollTop() == 0){
+        $(".menu_footer").show();
+    }else if($win.scrollTop() >10){
+       $(".menu_footer").hide(); 
+    }  
+    /* ($win.height() + $win.scrollTop() == $(document).height())//Bottom */
+});    
 }
 function spanishDate(d){
     var weekday=["Domingo","Lunes","Martes","Miercoles","Jueves","Viernes","Sabado"];
@@ -122,8 +133,9 @@ function editValue(campo,valor){
     });     
 }
 function setOfferTemp(id_ofert,inv,prest,interest,duration){
-    $.ajax({
+    var setOffer= $.ajax({
         type: "POST",
+        async:true,
         url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
         data: "action=setOfferTemp&id_ofert="+id_ofert+"&inv="+inv+"&prest="+prest+"&interest="+interest+"&duration="+duration,
         dataType:'JSON',
@@ -144,10 +156,11 @@ function getOffersTemp(id_ofert,inv,prest){
             $.each(msg.data, function( index, value ) {
                 var cls='bubble-rigth left';
                 var photo='';
+                $(".user-prestatario").html(value.user_prest);
                 if(inv==localStorage.id_u){
                   cls='bubble-left right';
                   if(localStorage.photo&&localStorage.photo!="")photo='<a href="#!user" class="avatar-nego"><img class="circle photo" src="data:image/jpeg;base64,' + decodeURIComponent(localStorage.photo)+'"></a>';                  
-                  chat += '<div class="'+cls+'">'+photo+'<div class="info-nego"><h5>'+value.inversionista+'</h5><p>Interés (%) E.M.: <strong>'+value.interest+'</strong><br>Plazo: <strong>'+value.duration+'</strong></p> </div> <div class="date-buble">'+value.date.substr(0,16)+'</div></div>';
+                  chat += '<div class="'+cls+'">'+photo+'<div class="info-nego"><h5>'+value.inversionista+'</h5><p>Interés (%) E.M.: <strong>'+value.interest_inv+'</strong><br>Plazo: <strong>'+value.duration_inv+'</strong></p> </div> <div class="date-buble">'+value.date.substr(0,16)+'</div></div>';
                 }else{
                   chat += '<div class="'+cls+'"><div class="info-nego"><h5>'+value.prest+'</h5><p>Interés (%) E.M.: <strong>'+value.interest+'</strong><br>Plazo: <strong>'+value.duration+'</strong></p> </div> <div class="date-buble">'+value.date.substr(0,16)+'</div></div>';
                 }
@@ -158,6 +171,30 @@ function getOffersTemp(id_ofert,inv,prest){
                 cont++;
             });
             $(".chat").append(chat);
+        }
+    });
+    return true;    
+}
+function getFavorite(id_ofert='',id_user,type_user){
+    $.ajax({
+        type: "POST",
+        async:true,
+        url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
+        data: "action=getFavorite&id_ofert="+id_ofert+"&id_user="+id_user+"&type_user="+type_user,
+        dataType:'JSON',
+        success: function(msg){
+            if(msg.data.length!=0){
+                $(".mensaje").hide();
+                $(".btn-favorito").css("background-position","right -2px bottom 21px").css("color","#fed22c");
+                $.each(msg.data, function( index, value ) {
+                    var starts= getStarts(value.calification2_u);
+                    var cuota= calcCuota(value.amount,value.interest,value.duration);                                   
+                    $(".listado").append('<div class="col s12 m6"><div class="box-proyect"><a href="#!" class="btn-favorito-box"><img class="circle" src="assets/images/icon-favorite-box.png"></a><div class="info-proyect"><div class="row"><div class="col s7"> <h5>'+value.user_u+'</h5></div> <div class="col s12"> <hr><p>'+value.ldestination+'<br>% '+value.interest+'|'+value.duration+' Meses</p> <div class="star-user">'+starts+'</div> </div> </div> </div><div class="desc-proyect"><h3>$'+numeral(value.amount).format('0,0')+'</h3><p><small>Pago Mensual: $'+numeral(cuota).format('0,0')+'</small></p><a href="08_InvestmentsStep4.html?id_ofert='+value. id_o+'&prest='+value.id_u+'" class="btn-negociar">Negociar</a></div></div></div>')            
+                });                
+            }else{
+                $(".mensaje").show();
+            }
+
         }
     });
     return true;    
@@ -173,7 +210,7 @@ function calcCuota(monto,interes,duracion){
     $(".cuota").html(numeral(total).format('0,0'));
     return total;
 }
-function getStarts(value){ 
+function getStarts(value){      
     var starts='';
     for(var i=0;i<value;i++){
         starts+='<i class="material-icons yellow-text text-accent-4">star_border</i>';
@@ -185,7 +222,15 @@ function getStarts(value){
     }
     return starts;
 }
-
+function getCalification(value){      
+    if(value==1){
+        return 'A';
+    }else if(value==2){
+        return 'AA';
+    }else{
+        return 'AAA';
+    }    
+}
 var getUserData= function getUserData(){
     numeral.register('locale', 'es', {
         delimiters: {
@@ -235,14 +280,28 @@ var getUserData= function getUserData(){
                     $(".address").html(msg.data.address_u);
                     $(".costs").html(msg.data.costs);
 
-                    localStorage.setItem("costs", msg.data.costs);
-                    localStorage.setItem("mount1", msg.data.mount1);
-                    localStorage.setItem("mount2", msg.data.mount2);
+                    localStorage.setItem("costo", msg.data.costo);
+                    localStorage.setItem("monto1", msg.data.monto1);
+                    localStorage.setItem("monto2", msg.data.monto2);
                     localStorage.setItem("interes1", msg.data.interes1);
                     localStorage.setItem("interes2", msg.data.interes2);
-                    localStorage.setItem("duration1", msg.data.duration1);
-                    localStorage.setItem("duration2", msg.data.duration2);                                        
-                    localStorage.setItem("status_u", msg.data.status_u); 
+                    localStorage.setItem("duracion1", msg.data.duracion1);
+                    localStorage.setItem("duracion2", msg.data.duracion2);
+                    localStorage.setItem("fecha", msg.data.fecha);
+                    //Mis variables
+                    localStorage.setItem("amount", msg.data.amount);//Saldo establecido inversionista
+                    localStorage.setItem("amount2", msg.data.amount2);
+                    localStorage.setItem("interest", msg.data.interest);
+                    localStorage.setItem("interest2", msg.data.interest2);
+                    localStorage.setItem("duration", msg.data.duration);
+                    localStorage.setItem("duration2", msg.data.duration2);                     
+
+                    localStorage.setItem("status_u", msg.data.status_u);
+
+                    localStorage.setItem("approved_u","0");
+                    if(msg.data.amount_u)localStorage.setItem("inversion",msg.data.amount_u);
+                    if(msg.data.approved_u=="Si")localStorage.setItem("approved_u","1");
+
                     var bank="";
                     if(msg.data.banktype_u!=""&&msg.data.banktype_u!=null)bank+= msg.data.banktype_u;
                     if(msg.data.bank_u!=""&&msg.data.bank_u!=null)bank+= ", "+msg.data.bank_u;
@@ -270,8 +329,11 @@ var getUserData= function getUserData(){
                     }
                     $(".star-user").html(starts);
                     $(".monto").html(numeral(msg.data.amount_u).format('0,0'));
-                    $(".amount").html(numeral(msg.data.amount).format('0,0'));
-                    $(".saldo-inversionista").html(numeral(msg.data.saldo).format('0,0'));                    
+                    $(".investments").html(numeral(msg.data.investments).format('0,0'));
+
+                    var saldo=0;
+                    if(msg.data.amount_u>0)saldo= msg.data.amount_u - msg.data.investments;
+                    $(".saldo-inversionista").html(numeral(saldo).format('0,0'));                    
                     $(".days_study").html(msg.data.days_study);
                     $(".wrapper").show();
                     $(".progress").hide();

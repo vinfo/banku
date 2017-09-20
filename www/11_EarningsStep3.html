@@ -22,11 +22,10 @@
             <div class="nav-wrapper">
                 <a href="#!" class="brand-logo center">Histórico de mi inversión</a>
                 <ul class="left ">
-                    <li><a href="#!" class="back"><i class="material-icons">keyboard_arrow_left</i></a></li>
+                    <li><a href="11_EarningsStep2.html"><i class="material-icons">keyboard_arrow_left</i></a></li>
                 </ul>
             </div>
         </nav>
-
         
 
         <div class="wrapper">
@@ -34,64 +33,59 @@
                 <div class="row">
                     <div class="col s12 pag-nav">
                         <span class="btn-nav-pag">
-                            <a href="#!" class="btn grey lighten-1"><i class="material-icons left">keyboard_arrow_left</i>Volver</a>                            
+                            <a href="11_EarningsStep2.html" class="btn grey lighten-1"><i class="material-icons left">keyboard_arrow_left</i>Volver</a>                            
                         </span>
                     </div>
                     <div class="col s12">    
                         <h3 class="center hide-on-med-and-down">Histórico de mi inversión</h3>
                          <br>                                         
-                    </div> 
-
-                    <div class="col s9 m8 l10">                        
-                        <h4 class="margin-bottom-0">Electrodoméstico</h4>
-                        <h6>Inversión (AAA)</h6>                        
                     </div>
-                    <div class="col s3 m4 l2">
-                        <a href="#!" class="right"><img src="assets/images/avatarUser.jpg" alt="" class="circle responsive-img"></a> <!-- notice the "circle" class -->
-                    </div>                     
+                   <div class="col s5 m4 l2">
+                        <h4 class="margin-bottom-0"><span class="user_u"></span></h4>
+                        <h6>Nombre de usuario</h6>   
+                    </div>
+                    <div class="col s6 m8 l10">                        
+                        <h4 class="margin-bottom-0"><span class="ldestination"></span></h4>
+                        <h6>Inversión (<span class="calification_u"></span>)</h6>                        
+                    </div>
+                     
                     <div class="col s12">
                         <ul class="item-profile">
-                            <li>
-                                <h5>
-                                    <small>Nombre de usuario</small><br>
-                                    JUAN2001
-                                </h5>
-                            </li> 
                             <li class="middle-li-historic">
                                 <h5>
                                     <small>Monto prestado</small><br>
-                                    $2.000.000
+                                    $<span class="total_b"></span>
                                 </h5>
                             </li>  
                             <li class="middle-li-historic">
                                 <h5>
                                     <small>Valor cuota</small><br>
-                                    $150.000
+                                    $<span class="quota_b"></span>
                                 </h5>
                             </li>  
                             <li class="middle-li-historic">
                                 <h5>
                                     <small>Interéses</small><br>
-                                    %0.8
+                                    %<span class="interes_b"></span>
                                 </h5>
                             </li>  
                             <li class="middle-li-historic">
                                 <h5>
                                     <small>Cuota</small><br>
-                                    <strong>2</strong> de <strong>12</strong>
+                                    <strong class="cuota"></strong> de <strong><span class="cuotas"></span></strong>
                                 </h5>
                             </li>  
                             <div class="clear"></div>
                             <li>
                                 <h5>
                                     <small>Última fecha de pago</small><br>
-                                   Diciembre 20, 2016
+                                   <span class="fecha_pago"></span>
                                 </h5>
                             </li>     
                             <li>
                                 <h5>
                                     <small>Estado del pago</small><br>
-                                    <strong class="green-text text-lighten-1">Pagado</strong>
+                                    <strong class="green-text text-lighten-1 estado_pago">Pagado</strong>
                                 </h5>
                             </li>                                                                      
                         </ul>
@@ -135,14 +129,14 @@
                     <form class="col s12">
                         <div class="row">
                             <div class="input-field col s12">
-                                <textarea id="textarea1" class="materialize-textarea"></textarea>
+                                <textarea id="comentarios" name="comentarios" class="materialize-textarea"></textarea>
                                 <label for="textarea1">Comentar</label>
                             </div>
                         </div>
                     </form>
 
                     <div class="col s12 center margin-top-40 btn-register">
-                        <a class="waves-effect waves-light green accent-4 btn-large">Comentar</a>
+                        <a class="waves-effect waves-light green accent-4 btn-large comentar">Comentar</a>
                     </div>                    
                 </div>
             </div>  
@@ -158,6 +152,18 @@
         
         <!--Nav footer Responsive-->
         <div class="footer-nav"></div>
+        <!-- Modal Structure -->        
+        <div id="info2" class="modal">
+          <div class="modal-content">
+            <h4>Datos enviados exitosamente</h4>
+            <p>La calificación fue enviada exitosamente.</p>
+            <p>Gracias.</p>
+          </div>
+          <div class="modal-footer">
+            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Aceptar</a>
+          </div>
+        </div>
+
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="index.js"></script>             
         <!--Import jQuery before materialize.js-->
@@ -170,6 +176,70 @@
         <script type="text/javascript">
         	$( document ).ready(function(){              
                 $('#textarea1').trigger('autoresize');
+                var id_b=getUrlParameter("id_b");
+                $( ".comentar" ).click(function() {
+                  var comentarios=$("#comentarios").val();
+                  if(comentarios!=""){
+                    $("#comentarios").removeClass("error");
+                    $("#comentarios").val('');
+                    $('#info2').modal('open');
+                  }else{
+                    $("#comentarios").addClass("error");
+                  }
+                });                
+
+                
+                //Obtener datos generales
+                $.ajax({
+                    type: "POST",
+                    url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
+                    data: "action=getBusiness&id_b="+id_b+"&id_user="+localStorage.id_u+"&type_user="+localStorage.type_user,
+                    dataType:'JSON',
+                    success: function(msg){
+                        $.each(msg.data, function( index, value ) {
+                            var starts= getStarts(value.calification2_u);
+                            $(".user_u").html(value.user_u);
+                            $(".ldestination").html(value.ldestination);
+                            $(".interes_b").html(value.interes_b);
+                            $(".plazo_b").html(value.plazo_b);
+                            $(".total_b").html(numeral(value.total_b).format('0,0'));
+                            $(".quota_b").html(numeral(value.quota_b).format('0,0'));
+                            $(".calification_u").html(getCalification(value.calification_u));
+                        });
+                    },
+                    error: function(XMLHttpRequest, textStatus, errorThrown) { 
+                        alert("Problemas procesando datos: " + textStatus +" - "+errorThrown);
+                    }
+                });
+                //Obtener detalle de pagos
+                $.ajax({
+                    type: "POST",
+                    url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
+                    data: "action=getPaysxBusiness&id_b="+id_b,
+                    dataType:'JSON',
+                    success: function(msg){
+                        var cont=0;
+                        var pagadas=0;
+                        var fecha='N/D';                   
+                        var estado='Pendiente';
+                        $.each(msg.data, function( index, value ) {
+                          if(value.status_p==1){
+                            pagadas++;
+                            fecha=value.datepay_p;
+                            estado='Pagado';
+                          }
+                          cont++;
+                        });
+                        $(".cuotas").html(cont);
+                        $(".cuota").html(pagadas + 1);
+                        $(".fecha_pago").html(fecha);
+                        $(".estado_pago").html(estado);
+                    },
+                    error: function(XMLHttpRequest, textStatus, errorThrown) { 
+                        alert("Problemas procesando datos: " + textStatus +" - "+errorThrown);
+                    }
+                });                
+
         	})
         </script>
     </body>

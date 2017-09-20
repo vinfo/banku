@@ -36,10 +36,16 @@
         },
         "satpal-phonegap-smsplugin": {
             "PACKAGE_NAME": "com.vinfo.banku"
+        },
+        "cordova-plugin-x-socialsharing": {
+            "PACKAGE_NAME": "com.vinfo.banku"
         }
     },
     "dependent_plugins": {
         "cordova-plugin-compat": {
+            "PACKAGE_NAME": "com.vinfo.banku"
+        },
+        "es6-promise-plugin": {
             "PACKAGE_NAME": "com.vinfo.banku"
         }
     }

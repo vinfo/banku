@@ -35,96 +35,122 @@
           <br>
           <p>En los siguientes proyectos puedes colaborar, obtener inspiración, discutir ideas, encontrar oportunidades, y más. Aquí hay algunos proyectos que tienen cosas en común contigo, negocia con alguno de ellos para empezar...</p>  
           <br>                                         
-        </div>  
+        </div>         
         <div class="offerts"></div>
+      </div>
+    </div>              
 
-          </div>
-        </div>              
 
+    <div class="container margin-top-40">  
+      <div class="row"> 
+        <div class="col s12 center btn-register btn-find-proyects">
+          <a href="#" class="waves-effect waves-light green accent-4 btn-large negociar-todos">Negociar con todos</a>
+        </div> 
+      </div>                                                                                
+    </div>
+  </div>  
 
-        <div class="container margin-top-40">  
-          <div class="row"> 
-            <div class="col s12 center btn-register btn-find-proyects">
-              <a href="#modal3" class="waves-effect waves-light green accent-4 btn-large">Negociar con todos</a>
-            </div> 
-          </div>                                                                                
-        </div>
-      </div>  
-
-      <!-- Modal Structure Load -->
-      <div id="modal3" class="modal">
-        <div class="modal-content content-done valign-wrapper">
-          <!--<a href="#!" class="modal-action modal-close"><i class="material-icons close">close</i></a>-->
-          <div class="row">            
-            <div class="col s12">
-              <div class="icon-donde"><img src="assets/images/logoLoad.png"></div>
-              <div class="progress">
-                <div class="indeterminate green accent-4"></div>
-              </div>
-            </div>
+  <!-- Modal Structure Load -->
+  <div id="modal3" class="modal">
+    <div class="modal-content content-done valign-wrapper">
+      <!--<a href="#!" class="modal-action modal-close"><i class="material-icons close">close</i></a>-->
+      <div class="row">            
+        <div class="col s12">
+          <div class="icon-donde"><img src="assets/images/logoLoad.png"></div>
+          <div class="progress">
+            <div class="indeterminate green accent-4"></div>
           </div>
         </div>
       </div>
+    </div>
+  </div>
 
-      <footer class="page-footer">
-        <div class="footer-copyright">
-          <div class="container">
-            © 2017 BankU                    
-          </div>
-        </div>
-      </footer>
-      <!-- Modal Structure -->        
-      <div id="info2" class="modal">
-        <div class="modal-content">
-          <h4>Perfil en estudio</h4>
-          <p>Su perfil esta en estudio, pronto podrá disfrutar de todos los servicios.</p>
-        </div>
-        <div class="modal-footer">
-          <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Aceptar</a>
-        </div>
-      </div>                     
-      <script type="text/javascript" src="cordova.js"></script>
-      <script type="text/javascript" src="index.js"></script>                     
-      <!--Import jQuery before materialize.js-->
-      <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-      <script type="text/javascript" src="assets/js/materialize.min.js"></script>
-      <script type="text/javascript" src="assets/js/jquery.validate.min.js"></script>
-      <script type="text/javascript" src="assets/js/numeral.min.js"></script>
-      <script src="assets/js/socket.io.js"></script>
-      <script type="text/javascript" src="assets/js/tools.js?v=1.0.0"></script>         
-      <script type="text/javascript" src="assets/js/includes.js?v=1.0.0"></script>        
-      <script type="text/javascript">                   
-       $( document ).ready(function(){
-        sessionRedirect();
-        setTimeout(function(){ $(".brand-logo").text("Negociar"); }, 300);
-        if(localStorage.approved_u=="No"||localStorage.approved_u=="0")$('#info2').modal('open');
-        var socket = io('https://banku-services.herokuapp.com/');
-        socket.on('connect', function(){
-          socket.on('setOffert', function(msg){
-            io.emit('setOffert', msg);
-          });           
-        });
-        socket.on('setOffert', function(msg){
-          alert(msg);
-        });         
-        $( "#email" ).change(function() {
-          socket.emit('setOffert', $(this).val());
-        });
+  <!--Nav footer Responsive-->
+  <div class="footer-nav menu_footer"></div>        
+
+  <footer class="page-footer">
+    <div class="footer-copyright">
+      <div class="container">
+        © 2017 BankU                    
+      </div>
+    </div>
+  </footer>
+  <!-- Modal Structure -->        
+  <div id="info2" class="modal">
+    <div class="modal-content">
+      <h4>Perfil en estudio</h4>
+      <p>Su perfil esta en estudio, pronto podrá disfrutar de todos los servicios.</p>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Aceptar</a>
+    </div>
+  </div>                     
+  <script type="text/javascript" src="cordova.js"></script>
+  <script type="text/javascript" src="index.js"></script>                     
+  <!--Import jQuery before materialize.js-->
+  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script type="text/javascript" src="assets/js/materialize.min.js"></script>
+  <script type="text/javascript" src="assets/js/jquery.validate.min.js"></script>
+  <script type="text/javascript" src="assets/js/numeral.min.js"></script>
+  <script src="assets/js/socket.io.js"></script>
+  <script type="text/javascript" src="assets/js/tools.js?v=1.0.0"></script>         
+  <script type="text/javascript" src="assets/js/includes.js?v=1.0.0"></script>        
+  <script type="text/javascript">                   
+   $( document ).ready(function(){
+    sessionRedirect();
+    getScroll();
+    setTimeout(function(){ $(".brand-logo").text("Negociar"); }, 300);
+    if(localStorage.approved_u=="No"||localStorage.approved_u=="0")$('#info2').modal('open');
+    $( ".negociar-todos" ).click(function() {
         $.ajax({
-          type: "POST",
-          url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
-          data: "action=getConfigOffers&type_user="+localStorage.type_user,
-          dataType:'JSON',
-          success: function(msg){        
-            if(msg.status&&msg.data){
-              $.each(msg.data, function( index, value ) {
-                var cuota= calcCuota(value.amount,value.interest,value.duration);
-                $(".offerts").append('<div class="col s12 m6">  <div class="box-proyect"><div class="info-proyect"><div class="row"><div class="col s7"> <h5>'+value.user_u+'</h5></div>   <div class="col s12"> <hr><p>'+value.ldestination+'<br>% '+value.interest+'  |  '+value.duration+' Meses</p> <div class="star-user"> <i class="material-icons yellow-text text-accent-4">star_border</i>  <i class="material-icons yellow-text text-accent-4">star_border</i>  <i class="material-icons yellow-text text-accent-4">star_border</i>  <i class="material-icons">star_border</i>  <i class="material-icons">star_border</i></div> </div>   </div> </div><div class="desc-proyect">  <h3>$'+numeral(value.amount).format('0,0')+'</h3>  <p><small>Pago Mensual: $'+numeral(cuota).format('0,0')+'</small></p>  <a href="08_InvestmentsStep4.html?id_ofert='+value.id+'&prest='+value.id_u+'" class="btn-negociar">Negociar</a></div></div>  </div>');
-              });
+            type: "POST",
+            url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
+            data: "action=negociar_todos&type_user=id_user="+localStorage.id_u,
+            dataType:'JSON',
+            success: function(msg){
+                $(".progress").show();
+                $('#modal3').modal('open');
+                setTimeout(function(){ $('#modal3').modal('close');location.reload(); }, 2000);
+                Materialize.toast('Datos guardados exitosamente', 3000, 'rounded');
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) { 
+                alert("Problemas procesando datos: " + textStatus +" - "+errorThrown);
             }
-          }
-        });                          
-      });
-    </script>
-  </body>
-  </html>
+        });              
+    });    
+/*    var socket = io('https://banku-services.herokuapp.com/');
+    socket.on('connect', function(){
+      socket.on('setOffert', function(msg){
+        io.emit('setOffert', msg);
+      });           
+    });
+    socket.on('setOffert', function(msg){
+      alert(msg);
+    });         
+    $( "#email" ).change(function() {
+      socket.emit('setOffert', $(this).val());
+    });*/
+     getOfferts();                     
+  });
+function getOfferts(){
+   var amount=localStorage.amount;
+   var amount2=localStorage.amount2;
+   $.ajax({
+      type: "POST",
+      url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
+      data: "action=getConfigOffers&status=0&search=true&amount="+amount+"&amount2="+amount2+"&type_user="+localStorage.type_user,
+      dataType:'JSON',
+      success: function(msg){        
+        if(msg.status&&msg.data){
+          $.each(msg.data, function( index, value ) {
+            var starts= getStarts(value.calification2_u);
+            var cuota= calcCuota(value.amount,value.interest,value.duration);
+            $(".offerts").append('<div class="col s12 m6">  <div class="box-proyect"><div class="info-proyect"><div class="row"><div class="col s7"> <h5>'+value.user_u+'</h5></div>   <div class="col s12"> <hr><p>'+value.ldestination+'<br>% '+value.interest+'  |  '+value.duration+' Meses</p> <div class="star-user">'+starts+'</div></div></div> </div><div class="desc-proyect">  <h3>$'+numeral(value.amount).format('0,0')+'</h3>  <p><small>Pago Mensual: $'+numeral(cuota).format('0,0')+'</small></p>  <a href="08_InvestmentsStep4.html?id_ofert='+value.id+'&prest='+value.id_u+'" class="btn-negociar">Negociar</a></div></div>  </div>');
+          });
+        }
+      }
+    });   
+}   
+</script>
+</body>
+</html>

@@ -102,7 +102,7 @@
         sessionRedirect();
         setTimeout(function(){ $(".brand-logo").text("Negociar"); }, 300);
         if(localStorage.approved_u=="No"||localStorage.approved_u=="0")$('#info2').modal('open');
-        var socket = io('https://banku-services.herokuapp.com/');
+/*        var socket = io('https://banku-services.herokuapp.com/');
         socket.on('connect', function(){
           socket.on('setOffert', function(msg){
             io.emit('setOffert', msg);
@@ -113,7 +113,7 @@
         });         
         $( "#email" ).change(function() {
           socket.emit('setOffert', $(this).val());
-        });
+        });*/        
         $.ajax({
           type: "POST",
           url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
@@ -122,8 +122,8 @@
           success: function(msg){        
             if(msg.status&&msg.data){
               $.each(msg.data, function( index, value ) {
-                var cuota= calcCuota(value.amount,value.interest,value.duration);
-                $(".offerts").append('<div class="col s12 m6">  <div class="box-proyect"><div class="info-proyect"><div class="row"><div class="col s7"> <h5>'+value.user_u+'</h5></div>   <div class="col s12"> <hr><p><br>% '+value.interest2+'  |  '+value.duration2+' Meses</p> <div class="star-user"> <i class="material-icons yellow-text text-accent-4">star_border</i>  <i class="material-icons yellow-text text-accent-4">star_border</i>  <i class="material-icons yellow-text text-accent-4">star_border</i>  <i class="material-icons">star_border</i>  <i class="material-icons">star_border</i></div> </div>   </div> </div><div class="desc-proyect">  <h3>$'+numeral(value.amount).format('0,0')+'</h3>  <p><small>Pago Mensual: $'+numeral(cuota).format('0,0')+'</small></p>  <a href="08_InvestmentsStep4.html?id_ofert='+value.id+'&prest='+value.id_u+'" class="btn-negociar">Negociar</a></div></div>  </div>');
+                var cuota= calcCuota(value.amount2,value.interest2,value.duration2);
+                $(".offerts").append('<div class="col s12 m6">  <div class="box-proyect"><div class="info-proyect"><div class="row"><div class="col s7"> <h5>'+value.user_u+'</h5></div>   <div class="col s12"> <hr><p><br>% '+value.interest2+'  |  '+value.duration2+' Meses</p> <div class="star-user"> <i class="material-icons yellow-text text-accent-4">star_border</i>  <i class="material-icons yellow-text text-accent-4">star_border</i>  <i class="material-icons yellow-text text-accent-4">star_border</i>  <i class="material-icons">star_border</i>  <i class="material-icons">star_border</i></div> </div>   </div> </div><div class="desc-proyect">  <h3>$'+numeral(value.amount2).format('0,0')+'</h3>  <p><small>Pago Mensual: $'+numeral(cuota).format('0,0')+'</small></p>  <a href="08_InvestmentsStep4.html?id_ofert='+value.id+'&prest='+value.id_u+'" class="btn-negociar">Negociar</a></div></div>  </div>');
               });
             }
           }

@@ -16,13 +16,9 @@
 <body class="profile">
     <!--Nav Main-->
     <div class="navbar-fixed nav-descktop"></div>
-
-    <!--Nav Responsive-->
-    <nav class="nav-app">
-        <div class="nav-wrapper">
-            <a href="#!" class="brand-logo center">Mi Perfil</a>
-        </div>
-    </nav>       
+        <!--Nav Responsive-->
+        <nav class="nav-app menu_left"></nav>
+       
     <div class="progress">
       <div class="indeterminate"></div>
   </div>
@@ -59,7 +55,7 @@
         <div class="row">
             <div class="col s12">
                 <ul class="item-profile">
-                    <li><a href="#!">Invitar a amigos <i class="material-icons right">card_giftcard</i></a></li>                                    
+                    <li><a href="#!" class="friends">Invitar a amigos <i class="material-icons right">card_giftcard</i></a></li>                                    
                     <li><a href="07_Profile_Setting.html">Configuración <i class="material-icons right">settings</i></a></li>                                    
                     <li><a href="14_Support&Help.html">Soporte y ayuda <i class="material-icons right">help_outline</i></a></li>                                   
                     <li><a href="15_1_WishListEmpty.html?section=mi_perfil">Favoritos <i class="material-icons right">favorite_border</i></a></li>            
@@ -97,11 +93,19 @@
 <script type="text/javascript" src="assets/js/includes.js?v=1.0.0"></script>      
 <script type="text/javascript">
    $( document ).ready(function(){
-    sessionRedirect();                      
+    sessionRedirect();
+    setTimeout(function(){ $(".brand-logo").text("Mi Perfil"); }, 300);                    
     if(localStorage.login){
         if(localStorage.percent<100)$('#info1').modal('open');
         localStorage.removeItem("login");
-    }    
+    }
+    $( ".friends" ).click(function() {
+      if(sessionStorage.OS!="browser"){
+        window.plugins.socialsharing.share('Te recomiendo BankU, una nueva propuesta de negocio.', 'App recomendada', null, 'http://bankucolombia.com');
+      }else{
+          window.location.replace("16_Share.html?section=mi_perfil");
+      }
+    });        
    });
    history.pushState(null, null, location.href);
    window.onpopstate = function(event) {

@@ -26,6 +26,7 @@
     <plugin name="cordova-plugin-network-information" version="1.3.3" />
     <plugin name="cordova-plugin-vibration" version="2.1.5" />  
     <plugin name="cordova-plugin-camera" version="2.4.1" />
+    <plugin name="cordova-plugin-x-socialsharing" version="5.2.0" />
 
     <!-- Define app icon for each platform. -->
     <icon src="icon.png" />
