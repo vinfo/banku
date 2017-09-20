@@ -18,11 +18,7 @@
     <div class="navbar-fixed nav-descktop"></div>
 
         <!--Nav Responsive-->
-        <nav class="nav-app">
-            <div class="nav-wrapper">
-                <a href="#!" class="brand-logo center">Mis Pagos</a>
-            </div>
-        </nav>
+        <nav class="nav-app menu_left"></nav>
 
         <div class="wrapper edit-profile">
             <div class="container">
@@ -93,6 +89,7 @@
         <script type="text/javascript" src="assets/js/includes.js?v=1.0.0"></script>        
         <script type="text/javascript">
          $( document ).ready(function(){
+            setTimeout(function(){ $(".brand-logo").text("Mis Pagos"); }, 300);
             if(localStorage.approved_u=="No")$('#info2').modal('open');
          });
         </script>

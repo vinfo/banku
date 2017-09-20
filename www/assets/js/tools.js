@@ -160,7 +160,7 @@ function getOffersTemp(id_ofert,inv,prest){
                 if(inv==localStorage.id_u){
                   cls='bubble-left right';
                   if(localStorage.photo&&localStorage.photo!="")photo='<a href="#!user" class="avatar-nego"><img class="circle photo" src="data:image/jpeg;base64,' + decodeURIComponent(localStorage.photo)+'"></a>';                  
-                  chat += '<div class="'+cls+'">'+photo+'<div class="info-nego"><h5>'+value.inversionista+'</h5><p>Interés (%) E.M.: <strong>'+value.interest_inv+'</strong><br>Plazo: <strong>'+value.duration_inv+'</strong></p> </div> <div class="date-buble">'+value.date.substr(0,16)+'</div></div>';
+                  chat += '<div class="'+cls+'">'+photo+'<div class="info-nego"><h5>'+value.user_inv+'</h5><p>Interés (%) E.M.: <strong>'+value.interest_inv+'</strong><br>Plazo: <strong>'+value.duration_inv+'</strong></p> </div> <div class="date-buble">'+value.date.substr(0,16)+'</div></div>';
                 }else{
                   chat += '<div class="'+cls+'"><div class="info-nego"><h5>'+value.prest+'</h5><p>Interés (%) E.M.: <strong>'+value.interest+'</strong><br>Plazo: <strong>'+value.duration+'</strong></p> </div> <div class="date-buble">'+value.date.substr(0,16)+'</div></div>';
                 }

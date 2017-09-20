@@ -49,9 +49,9 @@
                 <div class="card-panel white">
                     <div class="container">
                         <div class="row">
-                            <div class="col s10 offset-s1">
-                                <h5><small>Capital:</small> <span class="monto1">&nbsp;</span> - <span class="monto2">&nbsp;</span> Mill.</h5>
+                            <div class="col s10 offset-s1">                                
                                 <div id="capital"></div>
+                                <h5><small>Capital:</small> <span class="monto1">&nbsp;</span> - <span class="monto2">&nbsp;</span> Mill.</h5>
                                 <input type="hidden" id="monto" name="monto" value="2000000">
                                 <input type="hidden" id="monto2" name="monto2" value="6000000">
                             </div>
@@ -61,10 +61,9 @@
                 <div class="card-panel white">
                     <div class="container">
                         <div class="row">
-                            <div class="col s10 offset-s1">
-
-                                <h5><small>Interes:</small> <span class="interes1">&nbsp;</span> - <span class="interes2">&nbsp;</span> % E.M.</h5>
+                            <div class="col s10 offset-s1">                                
                                 <div id="interest"></div>
+                                <h5><small>Interes:</small> <span class="interes1">&nbsp;</span> - <span class="interes2">&nbsp;</span> % E.M.</h5>
                                 <input type="hidden" id="interes" name="interes" value="0.8">
                                 <input type="hidden" id="interes2" name="interes2" value="2.3">
                             </div>
@@ -74,9 +73,9 @@
                 <div class="card-panel white">
                     <div class="container">
                         <div class="row">
-                            <div class="col s10 offset-s1"> 
-                                <h5><small>Duración:</small> <span class="duracion">&nbsp;</span> - <span class="duracion2">&nbsp;</span> Meses</h5>
+                            <div class="col s10 offset-s1">                                
                                 <div id="duration"></div>
+                                <h5><small>Duración:</small> <span class="duracion">&nbsp;</span> - <span class="duracion2">&nbsp;</span> Meses</h5>
                                 <input type="hidden" id="duracion" name="duracion" value="6">
                                 <input type="hidden" id="duracion2" name="duracion2" value="12">
                                 <input type="hidden" id="action" name="action" value="setDataBusinnes">
@@ -163,6 +162,7 @@
 <script type="text/javascript" src="assets/js/wNumb.js"></script>
 <script type="text/javascript">
    $( document ).ready(function(){
+    var socket = io('https://banku-services.herokuapp.com/');
     getScroll();
     $("#id_u").val(localStorage.id_u);
     var type=3;
@@ -171,7 +171,7 @@
     getConfig();
     $( ".accent-4" ).click(function() {
         var inversion= localStorage.inversion;
-        var monto2= $("#monto2").val();
+        var monto2= $("#monto2").val();        
         if(parseInt(inversion) < parseInt(monto2)){
             $(".saldo").html("$"+numeral(inversion).format('0,0'));
             $('#info2').modal('open');
@@ -183,6 +183,7 @@
                 dataType:'JSON',
                 success: function(msg){
                     $(".progress").show();
+                    socket.emit('setOffert', "new_offer");
                     $('#modal3').modal('open');
                     setTimeout(function(){ $('#modal3').modal('close');window.location = "08_InvestmentsStep3.html?section=negociar"; }, 2000);
                     Materialize.toast('Datos guardados exitosamente', 3000, 'rounded');
@@ -192,6 +193,7 @@
                 }
             });
         }
+
     });    
 });
 

@@ -185,6 +185,10 @@
     <script type="text/javascript" src="assets/js/wNumb.js"></script>     
     <script type="text/javascript">
      $( document ).ready(function(){                
+      var socket = io('https://banku-services.herokuapp.com/');
+      socket.on('setOffert', function(msg){
+        location.reload();
+      });      
       $('.tooltipped').tooltip({delay: 50});
       $(".wrapper").show();
       var id_ofert= getUrlParameter("id_ofert");
@@ -246,8 +250,10 @@
         var interes= $("#interes").val();
         var duracion= $("#duracion").val();         
         if(monto!=""&&interes!=""&&duracion!=""){
-          var setoffer= setOfferTemp(id_ofert,localStorage.id_u,prest,interes,duracion);
-          if(setoffer)location.reload();
+          var setoffer= setOfferTemp(id_ofert,localStorage.id_u,prest,interes,duracion);          
+          if(setoffer){
+            socket.emit('setOffert', "new_chat");
+          }
         }
       });      
 
@@ -264,9 +270,9 @@
                 $.each(msg.data, function( index, value ) {
                   var cuota= calcCuota(value.amount,value.interest,value.duration);
                   var starts= getStarts(value.calification2_u);
-                  $(".star-user").html(starts);
-                  $(".user-prestatario").html(value.user_u);
-                  $(".destination").html(value.ldestination+'<br>');
+                  $(".star-user").html(starts);                  
+                  $(".user-prestatario").html(value.user_u);                  
+                  if(localStorage.type_user!="prestatario")$(".destination").html(value.ldestination+'<br>');
                   $(".interest").html(value.interest+'% | ');
                   $(".duration").html(value.duration+' Meses');
                   $(".amount").html(numeral(value.amount).format('0,0'));

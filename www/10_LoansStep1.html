@@ -30,13 +30,13 @@
                         <h5>Bienvenido Prestatario</h5>
                         <p>Acércate a la media de interés y tiempo en la cuál presta la comunidad para que puedas encontrar fácilmente quién financie tus proyectos.</p>
                         <hr>
-                        <p class="center"><small>Aún no tienes proyectos</small></p>                                            
+                        <!-- <p class="center"><small>Aún no tienes proyectos</small></p> -->                                            
                     </div>
                     <div class="col s12 center iconAccess">
                         <img class="responsive-img" src="assets/images/iconInvestment.png" alt="BankU">                        
                     </div>
                     <div class="col s12 center margin-top-40 margin-bottom-40 btn-register">
-                        <a href="10_LoansStep2.html" class="waves-effect waves-light btn grey lighten-1 btn-large">Comenzar</a>
+                        <a href="#!" class="waves-effect waves-light btn green lighten-1 btn-large">Comenzar</a>
                     </div>                   
                 </div>                                                                                
             </div>
@@ -76,6 +76,13 @@
          $( document ).ready(function(){
             $(".wrapper").show();
             if(localStorage.approved_u=="No"||localStorage.approved_u=="0")$('#info2').modal('open');
+            $( ".btn-large" ).click(function() {
+              if(localStorage.approved_u=="No"||localStorage.approved_u=="0"){
+                $('#info2').modal('open');
+              }else{
+                window.location.href = "10_LoansStep2.html?section=mis_proyectos";
+              }
+            });            
          });
         </script>
     </body>
