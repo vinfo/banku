@@ -4,6 +4,9 @@ function onDeviceReady() {
     checkConnection();    
 	  getDeviceProperty();
     cordova.plugins.notification.badge;
+    cordova.plugins.notification.local.on('click', function (notification) {
+        alert(notification.id+JSON.stringify(notification.data));
+    }, this);    
 }
 function getDeviceProperty() {
     console.log("getDeviceProperty");    
@@ -53,7 +56,7 @@ function send_notification() {
   cordova.plugins.notification.local.schedule({
     id: 1,
     text: 'Nuevo mensaje de negociación',
-    icon: 'assets/images/logoRegister.png',
+    icon: 'http://bankucolombia.com/images/logoMobil.png',
     smallIcon: 'res://cordova',
     sound: null,
     badge: 1,
