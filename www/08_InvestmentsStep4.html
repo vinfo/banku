@@ -190,7 +190,10 @@
      $( document ).ready(function(){                
       var socket = io('https://banku-services.herokuapp.com/');
       socket.on('setOffert', function(msg){
-        location.reload();
+        var uuid_prest= $("#uuid_prest").val();
+        alert("Sender:"+ uuid_prest);        
+        send_notification('08_InvestmentsStep4.html?id_ofert='+id_ofert+'&inv='+localStorage.id_u+'&prest='+prest,uuid_prest);          
+        //location.reload();
       });      
       $('.tooltipped').tooltip({delay: 50});
       $(".wrapper").show();
@@ -255,9 +258,6 @@
         if(monto!=""&&interes!=""&&duracion!=""){
           var setoffer= setOfferTemp(id_ofert,localStorage.id_u,prest,interes,duracion);          
           if(setoffer){
-            alert("Sender llll");
-            var uuid_prest= $("#uuid_prest").val();
-            send_notification('08_InvestmentsStep4.html?id_ofert='+id_ofert+'&inv='+localStorage.id_u+'&prest='+prest,uuid_prest);
             socket.emit('setOffert', "new_chat");
           }
         }
