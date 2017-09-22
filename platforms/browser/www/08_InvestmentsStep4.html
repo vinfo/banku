@@ -89,7 +89,7 @@
         <a href="#!" class="btn-favorito">Favorito</a>
       </div>
       <div class="info-money">
-        <strong>2 proyectos en negociación</strong>
+        Tu saldo es: <strong>$<span class="saldo-inversionista"></span></strong>
       </div> 
     </div>                                                                                
 
@@ -192,7 +192,7 @@
       socket.on('setOffert', function(msg){
         var uuid_prest= $("#uuid_prest").val();
         alert("Sender:"+ uuid_prest);        
-        send_notification('10_LoansStep4.html?id_ofert='+id_ofert+'&inv='+localStorage.id_u+'&prest='+prest,uuid_prest);          
+        send_notification('08_InvestmentsStep4.html?id_ofert='+id_ofert+'&inv='+localStorage.id_u+'&prest='+prest,uuid_prest);          
         //location.reload();
       });      
       $('.tooltipped').tooltip({delay: 50});
