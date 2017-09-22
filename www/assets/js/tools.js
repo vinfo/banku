@@ -245,21 +245,6 @@ function getCalification(value){
         return 'AAA';
     }    
 }
-function send_notification(page,uuid){
-  alert("Notification");
-  //if(uuid==sessionStorage.UUID){
-    if(sessionStorage.UUID&&1==1){    
-      navigator.vibrate([0, 100, 100, 200, 50, 500]);
-      cordova.plugins.notification.local.schedule({
-        id: 1,
-        text: 'Nuevo mensaje negociación',
-        icon: 'http://bankucolombia.com/images/logoMobil.png',
-        sound: isAndroid ? 'file://beep.mp3' : 'file://beep.caf',
-        badge: 1,
-        data: { page: page }
-      });
-  }
-}
 var getUserData= function getUserData(){
     numeral.register('locale', 'es', {
         delimiters: {
