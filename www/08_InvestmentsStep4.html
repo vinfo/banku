@@ -63,6 +63,7 @@
                 </div>  
                 <div class="col s12">
                   <input id="prest_b" name="prest_b" type="hidden" value="">
+                  <input id="uuid_prest" name="uuid_prest" type="hidden" value="">
                   <input id="total_b" name="total_b" type="hidden" value="">
                   <input id="quota_b" name="quota_b" type="hidden" value="">
                   <input id="interes_b" name="interes_b" type="hidden" value="">
@@ -255,7 +256,8 @@
           var setoffer= setOfferTemp(id_ofert,localStorage.id_u,prest,interes,duracion);          
           if(setoffer){
             alert("Sender llll");
-            send_notification('08_InvestmentsStep4.html?id_ofert='+id_ofert+'&inv='+localStorage.id_u+'&prest='+prest,sessionStorage.UUID);
+            var uuid_prest= $("#uuid_prest").val();
+            send_notification('08_InvestmentsStep4.html?id_ofert='+id_ofert+'&inv='+localStorage.id_u+'&prest='+prest,uuid_prest);
             socket.emit('setOffert', "new_chat");
           }
         }
@@ -291,6 +293,7 @@
                   $("#plazo_b").val(value.duration);
                   $("#destination_b").val(value.destination);
                   $("#offer_b").val(id_ofert);
+                  $("#uuid_prest").val(value.uuid);                  
                 });
                 getOffersTemp(id_ofert,localStorage.id_u,prest);
                 setSliders();
