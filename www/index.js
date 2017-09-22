@@ -63,4 +63,4 @@ function send_notification(page,uuid){
         data: { page: page }
       });
   }
-};
+}
