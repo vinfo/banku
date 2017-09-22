@@ -1,12 +1,14 @@
 document.addEventListener("deviceready", onDeviceReady, false);
 function onDeviceReady() {
     //var ref = cordova.InAppBrowser.open('01_Splash.html', '_self', 'location=no,zoom=no,enableviewportscale=yes');
-    checkConnection();
-    cordova.plugins.notification.badge;
-	getDeviceProperty();
+    checkConnection();    
+	  getDeviceProperty();
+    setBadge(value);
+    schedule;
 }
 function getDeviceProperty() {
     console.log("getDeviceProperty");
+    cordova.plugins.notification.badge;
     var deviceOS = device.platform;  //fetch the device operating system
     var deviceOSVersion = device.version;  //fetch the device OS version
     var uuid = device.uuid;
@@ -14,7 +16,7 @@ function getDeviceProperty() {
     sessionStorage.setItem("UUID", uuid);
     console.log("Plataforma registrada " + device.platform);
     console.log("UUID " + uuid);
-    cordova.plugins.notification.badge.configure({ autoClear: true });     
+    //cordova.plugins.notification.badge.configure({ autoClear: true });     
 }
 function checkConnection() {
     console.log("checkConnection");
@@ -45,3 +47,14 @@ function setBadge(value){
 function registerLog(log){
     console.log(log);
 }
+schedule = function () {
+  cordova.plugins.notification.local.schedule({
+    id: 1,
+    text: 'Test Message 1',
+    icon: 'http://3.bp.blogspot.com/-Qdsy-GpempY/UU_BN9LTqSI/AAAAAAAAAMA/LkwLW2yNBJ4/s1600/supersu.png',
+    smallIcon: 'res://cordova',
+    sound: null,
+    badge: 1,
+    data: { test: id }
+  });
+};

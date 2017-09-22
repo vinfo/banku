@@ -1,11 +1,13 @@
 document.addEventListener("deviceready", onDeviceReady, false);
 function onDeviceReady() {
     //var ref = cordova.InAppBrowser.open('01_Splash.html', '_self', 'location=no,zoom=no,enableviewportscale=yes');
-    checkConnection();
+    checkConnection();    
 	getDeviceProperty();
+    setBadge(value);
 }
 function getDeviceProperty() {
     console.log("getDeviceProperty");
+    cordova.plugins.notification.badge;
     var deviceOS = device.platform;  //fetch the device operating system
     var deviceOSVersion = device.version;  //fetch the device OS version
     var uuid = device.uuid;
@@ -13,6 +15,7 @@ function getDeviceProperty() {
     sessionStorage.setItem("UUID", uuid);
     console.log("Plataforma registrada " + device.platform);
     console.log("UUID " + uuid);
+    //cordova.plugins.notification.badge.configure({ autoClear: true });     
 }
 function checkConnection() {
     console.log("checkConnection");
@@ -35,6 +38,10 @@ function checkConnection() {
         }
     }
     return state;
+}
+function setBadge(value){
+    alert("Badge");
+    cordova.plugins.notification.badge.set(value);      
 }
 function registerLog(log){
     console.log(log);

@@ -42,6 +42,9 @@
         },
         "cordova-plugin-badge": {
             "PACKAGE_NAME": "com.vinfo.banku"
+        },
+        "de.appplant.cordova.plugin.local-notification": {
+            "PACKAGE_NAME": "com.vinfo.banku"
         }
     },
     "dependent_plugins": {
