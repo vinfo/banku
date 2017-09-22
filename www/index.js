@@ -3,7 +3,7 @@ function onDeviceReady() {
     //var ref = cordova.InAppBrowser.open('01_Splash.html', '_self', 'location=no,zoom=no,enableviewportscale=yes');
     checkConnection();    
 	  getDeviceProperty();
-    setBadge(10);
+    cordova.plugins.notification.badge;
     schedule;
 }
 function getDeviceProperty() {
@@ -15,6 +15,7 @@ function getDeviceProperty() {
     sessionStorage.setItem("UUID", uuid);
     console.log("Plataforma registrada " + device.platform);
     console.log("UUID " + uuid);
+    setBadge(10);
     //cordova.plugins.notification.badge.configure({ autoClear: true });     
 }
 function checkConnection() {
@@ -42,12 +43,14 @@ function checkConnection() {
 function setBadge(value){
     alert("Badge");
     cordova.plugins.notification.badge;
-    cordova.plugins.notification.badge.set(value);      
+    cordova.plugins.notification.badge.set(value);
+    send_notification();   
 }
 function registerLog(log){
     console.log(log);
 }
-schedule = function () {
+function send_notification() {
+  alert("Notification");
   cordova.plugins.notification.local.schedule({
     id: 1,
     text: 'Test Message 1',
@@ -55,6 +58,6 @@ schedule = function () {
     smallIcon: 'res://cordova',
     sound: null,
     badge: 1,
-    data: { test: id }
+    data: { test: 123 }
   });
 };
