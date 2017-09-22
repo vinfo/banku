@@ -4,7 +4,6 @@ function onDeviceReady() {
     checkConnection();    
 	  getDeviceProperty();
     cordova.plugins.notification.badge;
-    schedule;
 }
 function getDeviceProperty() {
     console.log("getDeviceProperty");    
