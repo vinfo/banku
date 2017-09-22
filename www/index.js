@@ -12,6 +12,7 @@ function getDeviceProperty() {
     sessionStorage.setItem("OS", deviceOS);
     sessionStorage.setItem("UUID", uuid);
     console.log("Plataforma registrada " + device.platform);
+    console.log("UUID " + uuid);
 }
 function checkConnection() {
     console.log("checkConnection");

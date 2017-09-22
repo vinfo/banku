@@ -1,6 +1,20 @@
 $( document ).ready(function(){    
+    var socket = io('https://banku-services.herokuapp.com/');
     localStorage.setItem("site_url","http://localhost:6002");
     var type_user= localStorage.type_user;
+    if(localStorage.id_u){
+        socket.on('connect', function(){
+            $.ajax({
+                type: "POST",
+                url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
+                data: "action=setSocketID&socket_id="+socket.io.engine.id+"&id_u="+localStorage.id_u,
+                dataType:'JSON',
+                success: function(msg){
+                }
+            });          
+        });
+    }
+
     if(type_user=="prestatario"){
         $(".inversionista").remove();
         $(".msg-action").html("prestar");
@@ -89,7 +103,7 @@ function getStates(){
 		dataType:'JSON',
 		success: function(msg){			
 			if(msg.status&&msg.data){
-                var options='';				
+                var options='<option value="" disabled selected>Seleccionar departamento</option>';
 				$.each(msg.data, function( index, value ) {
 					options+='<option value="'+value.id_state+'">'+value.name_state+'</option>';
 				});
@@ -99,7 +113,7 @@ function getStates(){
 		}
 	}); 	
 }
-function getCities(sel=''){    
+function getCities(sel=''){ 
     $('#city_u').children('option:not(:first)').remove();
     var state_u="";
     if($('#state_u').val()!="")state_u=$('#state_u').val();
@@ -114,7 +128,7 @@ function getCities(sel=''){
                 $.each(msg.data, function( index, value ) {
                     var selected="";
                     if(sel==value.id_city)selected="selected";
-                    options+='<option value="'+value.id_city+'" '+selected+'>'+value.name_city+'</option>';
+                    if(value.name_city!="")options+='<option value="'+value.id_city+'" '+selected+'>'+value.name_city+'</option>';
                 });
                 $('#city_u').html(options);
                 $('#city_u').material_select();
@@ -277,7 +291,7 @@ var getUserData= function getUserData(){
                     $(".occupation").html(msg.data.occupation_u);
                     $(".phone").html(msg.data.phone_u);
                     $(".cellphone").html(msg.data.cellphone_u);
-                    $(".address").html(msg.data.address_u);
+                    $(".address").html(msg.data.city_u+"<br/>"+msg.data.address_u);
                     $(".costs").html(msg.data.costs);
 
                     localStorage.setItem("costo", msg.data.costo);

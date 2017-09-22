@@ -37,7 +37,7 @@
                 </a>
             </div>
             <div class="col s3 m4 l2">
-                <a href="#!" class="right"><img src="assets/images/avatarUser.jpg" alt="" class="circle responsive-img photo"></a> <!-- notice the "circle" class -->
+                <a href="05_Profile_Incomplete-2.html?section=mi_perfil" class="right"><img src="assets/images/avatarUser.jpg" alt="" class="circle responsive-img photo"></a> <!-- notice the "circle" class -->
             </div> 
         </div>                                                                                
     </div>
@@ -102,12 +102,21 @@
         <script type="text/javascript" src="assets/js/materialize.min.js"></script>
         <script type="text/javascript" src="assets/js/jquery.validate.min.js"></script>
         <script type="text/javascript" src="assets/js/numeral.min.js"></script>
+        <script src="assets/js/socket.io.js"></script>
         <script type="text/javascript" src="assets/js/tools.js?v=1.0.0"></script>         
         <script type="text/javascript" src="assets/js/includes.js?v=1.0.0"></script>       
         <script type="text/javascript">
          $( document ).ready(function(){
+            var socket = io('https://banku-services.herokuapp.com/');
             sessionRedirect();
             setTimeout(function(){ $(".brand-logo").text("Mi Perfil"); }, 300);
+            socket.on('setOffert', function(msg){
+              if(localStorage.type_user=="prestatario"){
+                window.location.replace("10_LoansStep3.html?section=solicitar_dinero");
+              }else{
+                window.location.replace("08_InvestmentsStep3.html?section=negociar");
+              }              
+            });            
             $( ".friends" ).click(function() {
               if(sessionStorage.OS!="browser"){
                 window.plugins.socialsharing.share('Te recomiendo BankU, una nueva propuesta de negocio.', 'App recomendada', null, 'http://bankucolombia.com');

@@ -120,6 +120,7 @@
       success: function(msg){
         if(msg.data.length==0)$(".btn-register").html('<p class="center"><small>No existen negociaciones disponibles</small></p>');     
         if(msg.status&&msg.data){
+          $(".offerts").html('');
           $.each(msg.data, function( index, value ) {
             var cuota= calcCuota(value.amount2,value.interest2,value.duration2);
             $(".offerts").append('<div class="col s12 m6">  <div class="box-proyect"><div class="info-proyect"><div class="row"><div class="col s7"> <h5>'+value.user_u+'</h5></div>   <div class="col s12"> <hr><p><br>% '+value.interest2+'  |  '+value.duration2+' Meses</p> <div class="star-user"> <i class="material-icons yellow-text text-accent-4">star_border</i>  <i class="material-icons yellow-text text-accent-4">star_border</i>  <i class="material-icons yellow-text text-accent-4">star_border</i>  <i class="material-icons">star_border</i>  <i class="material-icons">star_border</i></div> </div>   </div> </div><div class="desc-proyect">  <h3>$'+numeral(value.amount2).format('0,0')+'</h3>  <p><small>Pago Mensual: $'+numeral(cuota).format('0,0')+'</small></p>  <a href="08_InvestmentsStep4.html?id_ofert='+value.id+'&prest='+value.id_u+'" class="btn-negociar">Negociar</a></div></div>  </div>');

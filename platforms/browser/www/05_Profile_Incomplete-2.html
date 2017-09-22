@@ -22,10 +22,10 @@
             <div class="nav-wrapper">
                 <a href="#!" class="brand-logo center">Mi Perfil</a>
                 <ul class="left ">
-                    <li><a href="#!" class="back"><i class="material-icons">keyboard_arrow_left</i></a></li>
+                    <li><a href="05_Profile_Incomplete-1.html?section=mi_perfil" class="back2"><i class="material-icons">keyboard_arrow_left</i></a></li>
                 </ul>
                 <ul class="right ">
-                    <li><a href="05_Profile_Incomplete-4.html?section=mi_perfil"><small>Editar</small></a></li>
+                    <li><a href="05_Profile_Incomplete-4.html?section=mi_perfil"><small><b>Editar</b></small></a></li>
                 </ul>
             </div>
         </nav>       
@@ -37,7 +37,7 @@
                 <div class="row">
                     <div class="col s12 pag-nav">
                         <span class="btn-nav-pag">
-                            <a href="#!" class="btn grey lighten-1 back"><i class="material-icons left">keyboard_arrow_left</i>Volver</a>
+                            <a href="05_Profile_Incomplete-1.html?section=mi_perfil" class="btn grey lighten-1 back2"><i class="material-icons left">keyboard_arrow_left</i>Volver</a>
                             <a href="05_Profile_Incomplete-4.html?section=mi_perfil" class="btn grey lighten-1">Editar</a>
                         </span>
                     </div>
@@ -46,7 +46,7 @@
                         <h6 class="city">&nbsp;</h6>                        
                     </div>
                     <div class="col s3 m4 l2">
-                        <a href="#!" class="right"><img src="assets/images/avatarUser.jpg" alt="" class="circle responsive-img photo"></a> <!-- notice the "circle" class -->
+                        <a href="05_Profile_Incomplete-4.html?section=mi_perfil" class="right"><img src="assets/images/avatarUser.jpg" alt="" class="circle responsive-img photo"></a> <!-- notice the "circle" class -->
                     </div> 
                     <div class="col s12">
                         <ul class="item-profile">
@@ -127,10 +127,12 @@
         <script type="text/javascript" src="assets/js/materialize.min.js"></script>
         <script type="text/javascript" src="assets/js/jquery.validate.min.js"></script>
         <script type="text/javascript" src="assets/js/numeral.min.js"></script>
+        <script src="assets/js/socket.io.js"></script>
         <script type="text/javascript" src="assets/js/tools.js?v=1.0.0"></script>         
         <script type="text/javascript" src="assets/js/includes.js?v=1.0.0"></script>        
         <script type="text/javascript">
          $( document ).ready(function(){
+            getScroll();
          });
         </script>
     </body>

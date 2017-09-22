@@ -25,7 +25,7 @@
                 <li><a href="05_Profile_Incomplete-2.html?section=mi_perfil"><i class="material-icons">clear</i></a></li>
             </ul>
             <ul class="right ">
-                <li><a href="#!" class="btn-save"><small>Guardar</small></a></li>
+                <li><a href="#!" class="btn-save"><small><b>Guardar</b></small></a></li>
             </ul>
         </div>
     </nav>
@@ -591,12 +591,14 @@
         <script type="text/javascript" src="assets/js/jquery.validate.min.js"></script>
         <script type="text/javascript" src="assets/js/numeral.min.js"></script>
         <script type="text/javascript" src="assets/js/jquery.mask.min.js"></script>
+        <script src="assets/js/socket.io.js"></script>
         <script type="text/javascript" src="assets/js/tools.js?v=1.0.0"></script>         
         <script type="text/javascript" src="assets/js/includes.js?v=1.0.0"></script>           
         <script type="text/javascript">
          $( document ).ready(function(){
             $('.tooltipped').tooltip({delay: 50});
             $( ".terminos" ).load( "includes/terminos.html");
+            getScroll();
             $('input').bind({'focusin': function(Event){
                 $(".footer-nav").fadeOut('fast');
             }, 'focusout': function(Event){

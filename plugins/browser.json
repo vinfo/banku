@@ -39,6 +39,9 @@
         },
         "cordova-plugin-x-socialsharing": {
             "PACKAGE_NAME": "com.vinfo.banku"
+        },
+        "cordova-plugin-badge": {
+            "PACKAGE_NAME": "com.vinfo.banku"
         }
     },
     "dependent_plugins": {

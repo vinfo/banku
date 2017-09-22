@@ -135,6 +135,7 @@ function getOfferts(){
       success: function(msg){
         if(msg.data.length==0)$(".offerts").html('<p class="center"><small>No existen negociaciones disponibles</small></p>');
         if(msg.status&&msg.data){
+          $(".offerts").html('');
           $.each(msg.data, function( index, value ) {
             var starts= getStarts(value.calification2_u);
             var cuota= calcCuota(value.amount,value.interest,value.duration);

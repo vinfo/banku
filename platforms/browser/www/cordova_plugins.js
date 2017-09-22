@@ -175,6 +175,28 @@ module.exports = [
         "clobbers": [
             "window.plugins.socialsharing"
         ]
+    },
+    {
+        "file": "plugins/cordova-plugin-badge/www/badge.js",
+        "id": "cordova-plugin-badge.Badge",
+        "pluginId": "cordova-plugin-badge",
+        "clobbers": [
+            "cordova.plugins.notification.badge"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-badge/src/browser/favico.min.js",
+        "id": "cordova-plugin-badge.Badge.Favico",
+        "pluginId": "cordova-plugin-badge",
+        "clobbers": [
+            "cordova.plugins.notification.badge.Favico"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-badge/src/browser/BadgeProxy.js",
+        "id": "cordova-plugin-badge.Badge.Proxy",
+        "pluginId": "cordova-plugin-badge",
+        "runs": true
     }
 ];
 module.exports.metadata = 
@@ -192,7 +214,8 @@ module.exports.metadata =
     "cordova-plugin-camera": "2.4.1",
     "satpal-phonegap-smsplugin": "0.0.1",
     "es6-promise-plugin": "4.1.0",
-    "cordova-plugin-x-socialsharing": "5.1.8"
+    "cordova-plugin-x-socialsharing": "5.1.8",
+    "cordova-plugin-badge": "0.8.2"
 }
 // BOTTOM OF METADATA
 });
