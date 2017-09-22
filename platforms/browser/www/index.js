@@ -2,19 +2,21 @@ document.addEventListener("deviceready", onDeviceReady, false);
 function onDeviceReady() {
     //var ref = cordova.InAppBrowser.open('01_Splash.html', '_self', 'location=no,zoom=no,enableviewportscale=yes');
     checkConnection();    
-	getDeviceProperty();
-    setBadge(value);
+	  getDeviceProperty();
+    cordova.plugins.notification.badge;
+    cordova.plugins.notification.local.on('click', function (notification) {
+        window.location.replace(notification.data.page);
+    }, this);    
 }
 function getDeviceProperty() {
-    console.log("getDeviceProperty");
-    cordova.plugins.notification.badge;
+    console.log("getDeviceProperty");    
     var deviceOS = device.platform;  //fetch the device operating system
     var deviceOSVersion = device.version;  //fetch the device OS version
     var uuid = device.uuid;
     sessionStorage.setItem("OS", deviceOS);
     sessionStorage.setItem("UUID", uuid);
     console.log("Plataforma registrada " + device.platform);
-    console.log("UUID " + uuid);
+    console.log("UUID " + uuid);    
     //cordova.plugins.notification.badge.configure({ autoClear: true });     
 }
 function checkConnection() {
@@ -41,8 +43,24 @@ function checkConnection() {
 }
 function setBadge(value){
     alert("Badge");
+    cordova.plugins.notification.badge;
     cordova.plugins.notification.badge.set(value);      
 }
 function registerLog(log){
     console.log(log);
 }
+function send_notification(page,uuid){
+  alert("Notification");
+  //if(uuid==sessionStorage.UUID){
+    if(1==1){    
+      navigator.notification.vibrateWithPattern([0, 100, 100, 200, 50, 500]);
+      cordova.plugins.notification.local.schedule({
+        id: 1,
+        text: 'Nuevo mensaje negociación',
+        icon: 'http://bankucolombia.com/images/logoMobil.png',
+        sound: isAndroid ? 'file://beep.mp3' : 'file://beep.caf',
+        badge: 1,
+        data: { page: page }
+      });
+  }
+};
