@@ -14,8 +14,7 @@ function getDeviceProperty() {
     sessionStorage.setItem("UUID", uuid);
     console.log("Plataforma registrada " + device.platform);
     console.log("UUID " + uuid);
-    cordova.plugins.notification.badge.configure({ autoClear: true });
-    cordova.plugins.notification.badge.set(10); 
+    cordova.plugins.notification.badge.configure({ autoClear: true });     
 }
 function checkConnection() {
     console.log("checkConnection");
