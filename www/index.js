@@ -48,6 +48,10 @@ function setBadge(value){
 }
 function send_notification(page,uuid){
   alert("Notification");
+  var beep='.mp3';
+  if(sessionStorage.OS!="Android"){
+    beep='.caf';
+  }
   //if(uuid==sessionStorage.UUID){
     if(sessionStorage.UUID&&1==1){    
       navigator.vibrate([0, 100, 100, 200, 50, 500]);
@@ -55,7 +59,7 @@ function send_notification(page,uuid){
         id: 1,
         text: 'Nuevo mensaje negociación',
         icon: 'http://bankucolombia.com/images/logoMobil.png',
-        sound: isAndroid ? 'file://beep.mp3' : 'file://beep.caf',
+        sound: 'file://beep'+beep,
         badge: 1,
         data: { page: page }
       });
