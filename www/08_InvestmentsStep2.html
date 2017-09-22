@@ -163,12 +163,7 @@
 <script type="text/javascript" src="assets/js/wNumb.js"></script>
 <script type="text/javascript">
    $( document ).ready(function(){
-    var socket = io('https://banku-services.herokuapp.com/');
-    alert(sessionStorage.UUID);
-    if(sessionStorage.UUID){
-      alert("Badge");
-      cordova.plugins.notification.badge.set(10); 
-    }   
+    var socket = io('https://banku-services.herokuapp.com/');   
     getScroll();
     $("#id_u").val(localStorage.id_u);
     var type=3;
