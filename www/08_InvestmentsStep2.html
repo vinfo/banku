@@ -164,8 +164,7 @@
 <script type="text/javascript">
    $( document ).ready(function(){
     var socket = io('https://banku-services.herokuapp.com/');
-    alert("Badge");
-    cordova.plugins.notification.badge.set(10);  
+    setBadge(value);
     getScroll();
     $("#id_u").val(localStorage.id_u);
     var type=3;
