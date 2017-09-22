@@ -254,7 +254,7 @@
           var setoffer= setOfferTemp(id_ofert,localStorage.id_u,prest,interes,duracion);          
           if(setoffer){
             alert("Sender llll");
-            send_notification('08_InvestmentsStep4.html?id_ofert='+id_ofert+'&inv='+localStorage.id_u+'&prest='+prest,uuid);
+            send_notification('08_InvestmentsStep4.html?id_ofert='+id_ofert+'&inv='+localStorage.id_u+'&prest='+prest,sessionStorage.UUID);
             socket.emit('setOffert', "new_chat");
           }
         }
