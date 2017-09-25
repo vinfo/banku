@@ -962,7 +962,7 @@ padding-top: 10px;
 	background-color: #26A69A!important;
 
 }
-.wrapper{
+.wrapper,.no-lists,.avatar-nego{
 	display: none;
 }
 .proximo-pago{

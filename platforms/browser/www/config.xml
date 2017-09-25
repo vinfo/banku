@@ -18,6 +18,7 @@
     </author>
     <content src="index.html" />
     <access origin="*" />
+    <access origin="*.pushwoosh.com" />
     <icon src="icon.png" />
     <icon gap:platform="android" gap:qualifier="ldpi" src="res/icon/android/icon-36-ldpi.png" />
     <icon gap:platform="android" gap:qualifier="mdpi" src="res/icon/android/icon-48-mdpi.png" />

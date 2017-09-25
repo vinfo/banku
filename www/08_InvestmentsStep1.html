@@ -28,12 +28,13 @@
                     <h5>Bienvenido Inversionista</h5>
                     <p>Acércate a la media de interés y tiempo en la cuál presta la comunidad para que puedas encontrar fácilmente proyectos a financiar.</p>
                     <hr>
-                    <!-- <p class="center"><small>Aún no tienes proyectos a finaciar</small></p> -->                                            
+                    <p class="center no-lists"><small>Aún no tienes proyectos a finaciar</small></p>                                            
                 </div>
-                <div class="col s12 center iconAccess">
+                <div class="lista"></div>
+                <div class="col s12 center iconAccess no-lists">
                     <img class="responsive-img" src="assets/images/iconInvestment.png" alt="BankU">                        
                 </div>
-                <div class="col s12 center margin-top-40 margin-bottom-40 btn-register">
+                <div class="col s12 center margin-top-40 margin-bottom-40 btn-register no-lists">
                     <a href="#!" class="waves-effect waves-light btn green lighten-1 btn-large">Comenzar</a>
                 </div>                   
             </div>                                                                                
@@ -83,8 +84,33 @@
           }else{
             window.location.href = "08_InvestmentsStep2.html?section=mis_inversiones";
           }
-        });        
+        });
+        getOffertTemp();       
     });
+    function getOffertTemp(){
+
+      $.ajax({
+        type: "POST",
+        url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
+        data: "action=getOfferTemp&id_u="+localStorage.id_u+"&type_user="+localStorage.type_user,
+        dataType:'JSON',
+        success: function(msg){
+          if(msg.data.length>0){
+            $(".iconAccess,.btn-register").hide();
+            $.each(msg.data, function( index, value ) {
+              var starts= getStarts(value.calification2_u_inv);
+              var cuota= calcCuota(value.amount_prest,value.interest_prest,value.duration_prest);
+              $(".lista").html('<div class="col s12 m6"><div class="box-proyect"><div class="info-proyect"><div class="row"><div class="col s7"> <h5>'+value.user_prest+'</h5></div> <div class="col s12"> <hr><p>'+value.ldestination+'<br>% '+value.interest_prest+'|'+value.duration_prest+' Meses</p> <div class="star-user">'+starts+'</div></div></div> </div><div class="desc-proyect"><h3>$'+numeral(value.amount_prest).format('0,0')+'</h3><p><small>Pago Mensual: $'+numeral(cuota).format('0,0')+'</small></p><a href="08_InvestmentsStep4.html?section=negociar&id_ofert='+value.id_ofert+'&negociando=true" class="btn-negociar">Negociar</a></div></div></div>');
+            });
+          }else{
+            $(".no-lists").show();
+          }
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) { 
+          alert("Problemas procesando datos: " + textStatus +" - "+errorThrown);
+        }
+      });          
+    }    
 </script>
 </body>
 </html>

@@ -26,13 +26,15 @@
       </ul>
     </div>
   </nav>
-
+  <div class="progress">
+    <div class="indeterminate"></div>
+  </div>
   <div class="wrapper">
     <div class="container">
       <div class="row">
         <div class="col s12 pag-nav">
           <span class="btn-nav-pag">
-            <a href="#!" class="btn grey lighten-1"><i class="material-icons left">keyboard_arrow_left</i>Volver</a>                            
+            <a href="#!" class="btn grey lighten-1"><i class="material-icons left">&nbsp;</i>Volver</a>                            
           </span>
         </div>
         <div class="col s12">    
@@ -107,25 +109,40 @@
     setTimeout(function(){ $(".brand-logo").text("Negociar"); }, 300);
     if(localStorage.approved_u=="No"||localStorage.approved_u=="0")$('#info2').modal('open');
     socket.on('setOffert', function(msg){
-      getOffers();
+      alert(msg.page);
+      if(msg.page&&msg.page!=""&&localStorage.id_u==msg.id_u){
+        window.location.replace(msg.page);
+      }
+      if(!msg.page)getOffers();
     });
-    getOffers();                          
+    getOffers();                         
   });
    function getOffers(){
     $.ajax({
       type: "POST",
       url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
-      data: "action=getConfigOffers&type_user="+localStorage.type_user,
+      data: "action=getConfigOffers&prest="+localStorage.id_u+"&type_user="+localStorage.type_user,
       dataType:'JSON',
       success: function(msg){
-        if(msg.data.length==0)$(".btn-register").html('<p class="center"><small>No existen negociaciones disponibles</small></p>');     
-        if(msg.status&&msg.data){
+        if(msg.status&&msg.data&&msg.data.length>0&&msg.hasOffers){          
           $(".offerts").html('');
           $.each(msg.data, function( index, value ) {
             var starts= getStarts(value.calification2_u);
-            var cuota= calcCuota(value.amount2,value.interest2,value.duration2);
-            $(".offerts").append('<div class="col s12 m6"><div class="box-proyect"><div class="info-proyect"><div class="row"><div class="col s7"> <h5>'+value.user_u+'</h5></div><div class="col s12"> <hr><p><br>% '+value.interest2+'  |  '+value.duration2+' Meses</p> <div class="star-user">'+starts+'</div> </div></div></div><div class="desc-proyect"><h3>$'+numeral(value.amount2).format('0,0')+'</h3><p><small>Pago Mensual: $'+numeral(cuota).format('0,0')+'</small></p>  <a href="10_LoansStep4.html?section=solicitar_dinero&id_ofert='+value.id+'&prest='+value.id_u+'" class="btn-negociar">Negociar</a></div></div></div>');
+            var monto= parseInt(localStorage.amount);
+            if(parseInt(localStorage.amount) > parseInt(value.amount2))monto= parseInt(value.amount2);
+            var interes= parseFloat(value.interest2);
+            var duracion= parseInt(localStorage.duration);
+            if(parseInt(localStorage.duration)<parseInt(value.duration) || parseInt(localStorage.duration)>parseInt(value.duration2))duracion= parseInt(value.duration2);
+
+            var cuota= calcCuota(monto,interes,duracion);
+            var calification= value.calification;
+
+            if(calification.search(localStorage.calification_u)>0){
+              $(".offerts").append('<div class="col s12 m6"><div class="box-proyect"><div class="info-proyect"><div class="row"><div class="col s7"> <h5>'+value.user_u+'</h5></div><div class="col s12"> <hr><p><br>% '+interes+'  |  '+duracion+' Meses</p> <div class="star-user">'+starts+'</div> </div></div></div><div class="desc-proyect"><h3>$'+numeral(monto).format('0,0')+'</h3><p><small>Pago Mensual: $'+numeral(cuota).format('0,0')+'</small></p>  <a href="10_LoansStep4.html?section=solicitar_dinero&id_ofert='+value.id+'" class="btn-negociar">Negociar</a></div></div></div>');
+            }
           });
+        }else{
+          $(".btn-register").html('<p class="center"><small>No existen negociaciones disponibles</small></p>');
         }
       }
     });  

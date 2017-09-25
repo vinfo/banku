@@ -61,12 +61,13 @@
                 <div class="row">
                     <div class="col s12 pag-nav">
                         <span class="btn-nav-pag">
-                            <a href="#!" class="btn grey lighten-1 back"><i class="material-icons left">keyboard_arrow_left</i>Volver</a>                            
+                            <a href="#!" class="btn grey lighten-1 back"><i class="material-icons left">&nbsp;</i>Volver</a>                            
                         </span>
                     </div>
                     <div class="col s12 center">          
                         <h4 class="hide-on-med-and-down">Confirmación de autenticidad <br><br></h4>              
-                        <h5>Pon tu código</h5>                        
+                        <h5>Pon tu código</h5>
+                        <p class="small">Se te ha enviado un SMS con el código</p>                       
                         <hr>                     
                     </div>
                     <div class="col s12">
@@ -121,6 +122,10 @@
         <script type="text/javascript">
             $( document ).ready(function(){
                 registerLog("Página de confirmación SMS: "+localStorage.code);
+                setTimeout(function(){
+                 if($("#number1").val()=="")window.location = "04_AccessStep4.html";
+                },60000);
+
                 $(".wrapper").show();
                 $(".button-collapse").sideNav();
                 $( ".back" ).click(function() {

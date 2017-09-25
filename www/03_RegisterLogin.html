@@ -116,6 +116,8 @@
                                     var type_user='prestatario';
                                     if(msg.data.rol_u==3)type_user='inversionista';
                                     localStorage.setItem("type_user",type_user);
+                                    localStorage.setItem("calification_u",msg.data.calification_u);
+                                    localStorage.setItem("calification2_u",msg.data.calification2_u);
 									localStorage.setItem("login","true");
                                     localStorage.setItem("approved_u",msg.data.approved_u);
                                     window.location = "05_Profile_Incomplete-1.html?section=mi_perfil";

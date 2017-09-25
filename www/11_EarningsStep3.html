@@ -33,7 +33,7 @@
                 <div class="row">
                     <div class="col s12 pag-nav">
                         <span class="btn-nav-pag">
-                            <a href="11_EarningsStep2.html" class="btn grey lighten-1"><i class="material-icons left">keyboard_arrow_left</i>Volver</a>                            
+                            <a href="11_EarningsStep2.html" class="btn grey lighten-1"><i class="material-icons left">&nbsp;</i>Volver</a>                            
                         </span>
                     </div>
                     <div class="col s12">    
@@ -178,6 +178,10 @@
         	$( document ).ready(function(){              
                 $('#textarea1').trigger('autoresize');
                 var id_b=getUrlParameter("id_b");
+                $( ".qualify-star li a i" ).click(function() {
+                  $( ".qualify-star li a i" ).css("color","#dedede");
+                  $(this).css("color","#ffd600");
+                });                
                 $( ".comentar" ).click(function() {
                   var comentarios=$("#comentarios").val();
                   if(comentarios!=""){
@@ -187,7 +191,7 @@
                   }else{
                     $("#comentarios").addClass("error");
                   }
-                });                
+                });                             
 
                 
                 //Obtener datos generales

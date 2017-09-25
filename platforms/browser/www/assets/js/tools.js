@@ -1,5 +1,5 @@
+var socket = io('https://banku-services.herokuapp.com/');
 $( document ).ready(function(){    
-    var socket = io('https://banku-services.herokuapp.com/');
     localStorage.setItem("site_url","http://localhost:6002");
     var type_user= localStorage.type_user;
     if(localStorage.id_u){
@@ -12,7 +12,7 @@ $( document ).ready(function(){
                 success: function(msg){
                 }
             });          
-        });
+        });         
     }
 
     if(type_user=="prestatario"){
@@ -52,6 +52,11 @@ var getUrlParameter = function getUrlParameter(sParam) {
     }
 };
 
+//Cambiar formato fecha mysql a normal
+function dateFormat(field){
+   var str = field.split('-');
+   return str[2]+"/"+str[1]+"/"+str[0];
+}
 //Solo numeros y puntos
 function fMatch(field){
     field.value = field.value.replace(/[^0-9-.]/g, "");
@@ -147,39 +152,53 @@ function editValue(campo,valor){
     });     
 }
 function setOfferTemp(id_ofert,inv,prest,interest,duration){
-    var setOffer= $.ajax({
-        type: "POST",
-        async:true,
-        url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
-        data: "action=setOfferTemp&id_ofert="+id_ofert+"&inv="+inv+"&prest="+prest+"&interest="+interest+"&duration="+duration,
-        dataType:'JSON',
-        success: function(msg){
-        }
-    });
-    return true;    
+    var result="";
+    $.ajax({
+      type: "POST",
+      url:"http://bankucolombia.com/lib/ajax_service_mobil.php",
+      data: "action=setOfferTemp&id_ofert="+id_ofert+"&inv="+inv+"&prest="+prest+"&interest="+interest+"&duration="+duration+"&admin="+localStorage.id_u,
+      async: false, 
+      success:function(data) {
+         result = true; 
+      },
+      error: function (xhr, ajaxOptions, thrownError) {
+        result = false; 
+      }       
+   });
+   return result;    
 }
-function getOffersTemp(id_ofert,inv,prest){
+function getOffersTemp(id_ofert){
+    $(".chat").html('');
     $.ajax({
         type: "POST",
         url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
-        data: "action=getOffersTemp&id_ofert="+id_ofert+"&inv="+inv+"&prest="+prest,
+        data: "action=getOffersTemp&id_ofert="+id_ofert,
         dataType:'JSON',
         success: function(msg){
             var chat='';
             var cont= 0;
             $.each(msg.data, function( index, value ) {
                 var cls='bubble-rigth left';
-                var photo='';
-                $(".user-prestatario").html(value.user_prest);
-                if(inv==localStorage.id_u){
+                var photo='';                
+                if(localStorage.type_user=="inversionista"){
+                    $(".negociando-con").html(value.user_prest);
+                    $("#inv_b").val(localStorage.id_u);
+                }else{
+                    $(".negociando-con").html(value.user_inv);
+                    $("#inv_b").val(value.id_u_inv);
+                }
+                $("#destination_b").val(value.destination_prest);
+                if(localStorage.type_user=="inversionista")$("#prest_b").val(value.id_u_prest);
+                             
+                if(value.admin==localStorage.id_u){
                   cls='bubble-left right';
                   if(localStorage.photo&&localStorage.photo!="")photo='<a href="#!user" class="avatar-nego"><img class="circle photo" src="data:image/jpeg;base64,' + decodeURIComponent(localStorage.photo)+'"></a>';                  
-                  chat += '<div class="'+cls+'">'+photo+'<div class="info-nego"><h5>'+value.user_inv+'</h5><p>Interés (%) E.M.: <strong>'+value.interest_inv+'</strong><br>Plazo: <strong>'+value.duration_inv+'</strong></p> </div> <div class="date-buble">'+value.date.substr(0,16)+'</div></div>';
+                  chat += '<div class="'+cls+'">'+photo+'<div class="info-nego"><h5>'+value.user_admin+'</h5><p>Interés (%) E.M.: <strong class="l_interes">'+value.interest_inv+'</strong><br>Plazo: <strong class="l_plazo">'+value.duration_inv+'</strong></p> </div> <div class="date-buble">'+value.date.substr(0,16)+'</div></div>';
                 }else{
-                  chat += '<div class="'+cls+'"><div class="info-nego"><h5>'+value.prest+'</h5><p>Interés (%) E.M.: <strong>'+value.interest+'</strong><br>Plazo: <strong>'+value.duration+'</strong></p> </div> <div class="date-buble">'+value.date.substr(0,16)+'</div></div>';
+                  chat += '<div class="'+cls+'"><div class="info-nego"><h5>'+value.user_admin+'</h5><p>Interés (%) E.M.: <strong class="l_interes">'+value.interest_prest+'</strong><br>Plazo: <strong class="l_plazo">'+value.duration_prest+'</strong></p> </div> <div class="date-buble">'+value.date.substr(0,16)+'</div></div>';
                 }
                 if(value.status=="1"){
-                    chat +='<div class="bubble-rigth left"><a href="#!user" class="avatar-nego"><img class="circle" src="assets/images/avatarUser.jpg"></a><div class="info-nego"><h5 class="user-prestatario"></h5>  <h3>Acepto tu oferta!!!</h3></div> <div class="date-buble">4m</div></div>';
+                    chat +='<div class="bubble-rigth left"><a href="#!user" class="avatar-nego"><img class="circle" src="assets/images/avatarUser.jpg"></a><div class="info-nego"><h5 class="negociando-con"></h5><h3>Acepto tu oferta!!!</h3></div> <div class="date-buble">4m</div></div>';
                     $(".btn-nego,.btn-aceptar").hide();
                 }
                 cont++;
@@ -245,7 +264,7 @@ function getCalification(value){
         return 'AAA';
     }    
 }
-var getUserData= function getUserData(){
+function getUserData(){
     numeral.register('locale', 'es', {
         delimiters: {
             thousands: '.',
@@ -293,6 +312,11 @@ var getUserData= function getUserData(){
                     $(".cellphone").html(msg.data.cellphone_u);
                     $(".address").html(msg.data.city_u+"<br/>"+msg.data.address_u);
                     $(".costs").html(msg.data.costs);
+                    var msg_neg= 'proyecto en negociación';
+                    if(msg.data.negociaciones==0||msg.data.negociaciones>1){
+                        msg_neg= 'proyectos en negociación';
+                    }
+                    if(msg.data.negociaciones)$(".negociaciones").html(msg.data.negociaciones+" "+msg_neg);
 
                     localStorage.setItem("costo", msg.data.costo);
                     localStorage.setItem("monto1", msg.data.monto1);
@@ -341,9 +365,12 @@ var getUserData= function getUserData(){
                             starts+='<i class="material-icons">star_border</i>';
                         }                        
                     }
-                    $(".star-user").html(starts);
+                    $(".star-user-perfil").html(starts);
                     $(".monto").html(numeral(msg.data.amount_u).format('0,0'));
                     $(".investments").html(numeral(msg.data.investments).format('0,0'));
+                    $(".num_investments").html(msg.data.num_investments);
+                    $(".fecha_registro").html(dateFormat(msg.data.date_1_u));
+                    
 
                     var saldo=0;
                     if(msg.data.amount_u>0)saldo= msg.data.amount_u - msg.data.investments;

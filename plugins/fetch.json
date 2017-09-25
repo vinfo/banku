@@ -118,5 +118,13 @@
         },
         "is_top_level": true,
         "variables": {}
+    },
+    "pushwoosh-cordova-plugin": {
+        "source": {
+            "type": "registry",
+            "id": "pushwoosh-cordova-plugin@7.0.7"
+        },
+        "is_top_level": true,
+        "variables": {}
     }
 }

@@ -4,9 +4,6 @@ function onDeviceReady() {
     checkConnection();    
 	  getDeviceProperty();
     cordova.plugins.notification.badge;
-    cordova.plugins.notification.local.on('click', function (notification) {
-        window.location.replace(notification.data.page);
-    }, this);    
 }
 function getDeviceProperty() {
     console.log("getDeviceProperty");    
@@ -65,6 +62,7 @@ function send_notification(page,uuid){
       });
   }
 }
+
 function registerLog(log){
     console.log(log);
 }
