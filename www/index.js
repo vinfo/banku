@@ -69,8 +69,18 @@ function onDeviceReady() {
 
   // Should be called before pushwoosh.onDeviceReady
   document.addEventListener('push-notification', function(event) {
+    var title = event.notification.title;
+    var userData = event.notification.userdata;
+
     var notification = event.notification;
-    // handle push open here
+
+    //clear the app badge
+    pushNotification.setApplicationIconBadgeNumber(0);            
+
+    //dump custom data to the console if it exists
+    if(typeof(userData) != "undefined") {
+        //alert('user data: ' + JSON.stringify(userData));
+    }
   });
   
   // Initialize Pushwoosh. This will trigger all pending push notifications on start.
@@ -82,7 +92,7 @@ function onDeviceReady() {
   pushwoosh.registerDevice(
     function(status) {
       var pushToken = status.pushToken;
-      alert("Registro Pushwoosh: "+pushToken);
+      localStorage.setItem("pushtoken",pushToken);
           // handle successful registration here
         },
         function(status) {
