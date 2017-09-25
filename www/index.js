@@ -76,13 +76,13 @@ function onDeviceReady() {
   // Initialize Pushwoosh. This will trigger all pending push notifications on start.
   pushwoosh.onDeviceReady({
     appid: "8DFC0-DCE41",
-    projectid: "AIzaSyDpVXBhG9Lm3bTBLx60twKk9sXeSRQrmZ4",
-    serviceName: ""
+    projectid: "928675299174"
   });
 
   pushwoosh.registerDevice(
     function(status) {
       var pushToken = status.pushToken;
+      alert("Registro Pushwoosh: "+pushToken);
           // handle successful registration here
         },
         function(status) {

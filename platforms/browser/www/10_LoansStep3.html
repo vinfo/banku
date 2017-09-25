@@ -109,7 +109,6 @@
     setTimeout(function(){ $(".brand-logo").text("Negociar"); }, 300);
     if(localStorage.approved_u=="No"||localStorage.approved_u=="0")$('#info2').modal('open');
     socket.on('setOffert', function(msg){
-      alert(msg.page);
       if(msg.page&&msg.page!=""&&localStorage.id_u==msg.id_u){
         window.location.replace(msg.page);
       }

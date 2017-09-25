@@ -39,7 +39,6 @@ function checkConnection() {
     return state;
 }
 function setBadge(value){
-    alert("Badge");
     cordova.plugins.notification.badge;
     cordova.plugins.notification.badge.set(value);      
 }
