@@ -20,7 +20,7 @@
   <!--Nav Responsive-->
   <nav class="nav-app">
     <div class="nav-wrapper">
-      <a href="#!" class="brand-logo center">Inversiones para tus proyecto</a>
+      <a href="#!" class="brand-logo center">&nbsp;</a>
       <ul class="left ">
         <li><a href="#!" class="back"><i class="material-icons">keyboard_arrow_left</i></a></li>
       </ul>
@@ -106,7 +106,7 @@
    $( document ).ready(function(){
     sessionRedirect();
     var socket = io('https://banku-services.herokuapp.com/');
-    setTimeout(function(){ $(".brand-logo").text("Negociar"); }, 300);
+    setTimeout(function(){ $(".brand-logo").text("Solicitar Dinero"); }, 300);
     if(localStorage.approved_u=="No"||localStorage.approved_u=="0")$('#info2').modal('open');
     getOffers();                         
   });

@@ -75,6 +75,7 @@
         <script type="text/javascript">
          $( document ).ready(function(){
             $(".wrapper").show();
+            setTimeout(function(){ $(".brand-logo").text("Mis Proyectos"); }, 300); 
             if(localStorage.approved_u=="No"||localStorage.approved_u=="0")$('#info2').modal('open');
             $( ".btn-large" ).click(function() {
               if(localStorage.approved_u=="No"||localStorage.approved_u=="0"){
