@@ -85,7 +85,7 @@ function onDeviceReady() {
   
   // Initialize Pushwoosh. This will trigger all pending push notifications on start.
   pushwoosh.onDeviceReady({
-    appid: "8DFC0-DCE41",
+    appid: "4B708-1B8C1",
     projectid: "928675299174"
   });
 
