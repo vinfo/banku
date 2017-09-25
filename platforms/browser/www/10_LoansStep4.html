@@ -187,10 +187,7 @@
     <script type="text/javascript" src="assets/js/nouislider.min.js"></script> 
     <script type="text/javascript" src="assets/js/wNumb.js"></script>     
     <script type="text/javascript">
-     $( document ).ready(function(){
-      socket.on('setOffert', function(msg){
-        if(msg.id_u==localStorage.id_u)location.reload();
-      });      
+     $( document ).ready(function(){      
       $('.tooltipped').tooltip({delay: 50});
       $(".wrapper").show();
       var id_ofert= getUrlParameter("id_ofert");
@@ -246,7 +243,7 @@
         $.ajax({
           type: "POST",
           url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
-          data: "action=setFavorite&inv="+localStorage.id_u+"&prest="+prest+"&id="+id_ofert,
+          data: "action=setFavorite&admin="+localStorage.id_u+"&inv="+localStorage.id_u+"&prest="+$("#prest_b").val()+"&id="+id_ofert,
           dataType:'JSON',
           success: function(msg){  
             if(msg.status){

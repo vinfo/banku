@@ -22,6 +22,5 @@ $( document ).ready(function(){
   $('.modal').modal();
   $( ".back" ).click(function() {
     window.history.back();
-  });
-  getUserData();    
+  });     
 })

@@ -184,7 +184,8 @@
                         dataType:'JSON',
                         success: function(msg){
                             $(".progress").show();
-                            socket.emit('setOffert', "new_offer");
+                            var data = {page:"08_InvestmentsStep3.html?section=negociar",action:"new_offer_prest",monto:$("#monto").val(),interes:$("#interes").val(),duracion:$("#duracion").val()};                    
+                            socket.emit('setOffert', data);
                             $('#modal3').modal('open');
                             setTimeout(function(){ $('#modal3').modal('close');window.location = "10_LoansStep3.html?section=solicitar_dinero"; }, 2000);
                             Materialize.toast('Datos guardados exitosamente', 3000, 'rounded');

@@ -121,13 +121,7 @@
                 alert("Problemas procesando datos: " + textStatus +" - "+errorThrown);
             }
         });              
-    });
-    socket.on('setOffert', function(msg){
-      if(msg.page&&msg.page!=""&&localStorage.id_u==msg.id_u){
-        window.location.href = msg.page;
-      }
-      if(!msg.page)getOfferts();      
-    });     
+    });    
     getOfferts();                     
   });
 function getOfferts(){

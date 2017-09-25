@@ -56,11 +56,12 @@
   <script type="text/javascript" src="assets/js/includes.js?v=1.0.0"></script> 
   <script type="text/javascript">
    $( document ).ready(function(){
+    setTimeout(function(){ $(".brand-logo").text("Mi Lista de Favoritos"); }, 300); 
         		// Initialize collapse button
             $(".button-collapse").sideNav();
             $(".wrapper").show();
             getFavorite('',localStorage.id_u,localStorage.type_user);
-          })
-        </script>
-      </body>
-      </html>
+   })
+</script>
+</body>
+</html>

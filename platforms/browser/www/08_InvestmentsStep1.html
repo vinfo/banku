@@ -74,7 +74,7 @@
     <script type="text/javascript" src="assets/js/includes.js?v=1.0.0"></script>
     <script type="text/javascript">
     $( document ).ready(function(){
-        setTimeout(function(){ $(".brand-logo").text("Mis Inversiones"); }, 300);
+        setTimeout(function(){ $(".brand-logo").text("Mis Inversiones"); }, 300);        
         if(localStorage.approved_u=="No"||localStorage.approved_u=="0"){
             $('#info2').modal('open');
         }
@@ -88,7 +88,6 @@
         getOffertTemp();       
     });
     function getOffertTemp(){
-
       $.ajax({
         type: "POST",
         url: "http://bankucolombia.com/lib/ajax_service_mobil.php",

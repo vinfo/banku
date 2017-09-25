@@ -2,7 +2,15 @@ var socket = io('https://banku-services.herokuapp.com/');
 $( document ).ready(function(){    
     localStorage.setItem("site_url","http://localhost:6002");
     var type_user= localStorage.type_user;
+    var duration= parseInt(localStorage.duration);
+    var duration2= parseInt(localStorage.duration2);
+    var interest= parseFloat(localStorage.interest);
+    var interest2= parseFloat(localStorage.interest2);
+    var amount= parseInt(localStorage.amount);
+    var amount2= parseInt(localStorage.amount2);
+
     if(localStorage.id_u){
+        getUserData(); 
         socket.on('connect', function(){
             $.ajax({
                 type: "POST",
@@ -11,8 +19,30 @@ $( document ).ready(function(){
                 dataType:'JSON',
                 success: function(msg){
                 }
-            });          
-        });         
+            });     
+        });
+      socket.on('setOffert', function(msg){
+        if(type_user=="prestatario"){
+            if(msg.page&&msg.page!=""&&msg.action&&msg.action=="new_offer_inv"){                
+                if(amount>0&&amount>=msg.monto&&amount<=msg.monto2&&duration>=msg.duracion&&duration<=msg.duracion2&&interest>=msg.interes&&interest<=msg.interes2){
+                    window.location.href = msg.page;
+                }                
+            }
+            if(msg.page&&msg.page!=""&&msg.action&&msg.action=="chat"){
+                alert(msg.id_u+" "+localStorage.id_u);                             
+                if(msg.id_u==localStorage.id_u){
+                    window.location.href = msg.page;
+                }                
+            }            
+        }else{
+            if(msg.page&&msg.page!=""&&msg.action&&msg.action=="new_offer_prest"){                              
+                if(amount>0&&msg.monto>=amount&&msg.monto<=amount2&&msg.duracion>=duration&&msg.duracion<=duration2&&msg.interes>=interest&&msg.interes<=interest2){
+                    window.location.href = msg.page;
+                }                
+            }           
+        }
+        //if(msg.id_u==localStorage.id_u)location.reload();
+      });
     }
 
     if(type_user=="prestatario"){
@@ -213,7 +243,7 @@ function getFavorite(id_ofert='',id_user,type_user){
         type: "POST",
         async:true,
         url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
-        data: "action=getFavorite&id_ofert="+id_ofert+"&id_user="+id_user+"&type_user="+type_user,
+        data: "action=getFavorite&admin="+localStorage.id_u+"&id_ofert="+id_ofert+"&id_user="+id_user+"&type_user="+type_user,
         dataType:'JSON',
         success: function(msg){
             if(msg.data.length!=0){
@@ -263,6 +293,16 @@ function getCalification(value){
     }else{
         return 'AAA';
     }    
+}
+function sendPushMessage(pushtoken,msg){      
+    $.ajax({
+        type: "GET",
+        url: "http://bankucolombia.com/lib/push_services.php",
+        data: "msg="+msg+"&pushtoken="+pushtoken,
+        dataType:'JSON',
+        success: function(msg){
+        }
+    });   
 }
 function getUserData(){
     numeral.register('locale', 'es', {

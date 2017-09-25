@@ -108,7 +108,7 @@
           <div class="card-panel white">
             <p class="range-field"><div id="interest"></div></p> 
             <input type="hidden" id="monto" name="monto" value="">
-            <input type="hidden" id="interes" name="interes" value="">             
+            <input type="hidden" id="interes" name="interes" value="">
             <div class="clear"></div>  
           </div>
           <div class="card-panel white"> 
@@ -189,15 +189,11 @@
     <script type="text/javascript">
      $( document ).ready(function(){     
       $('.tooltipped').tooltip({delay: 50});
-      $(".wrapper").show();
-      socket.on('setOffert', function(msg){
-        alert(JSON.stringify(msg));
-        alert();
-        if(msg.id_u==localStorage.id_u)location.reload();
-      });      
-      var id_ofert= getUrlParameter("id_ofert"); 
+      $(".wrapper").show();      
+      var id_ofert= getUrlParameter("id_ofert");
 
-      getFavorite(id_ofert,localStorage.id_u,localStorage.type_user);       
+      getFavorite(id_ofert,localStorage.id_u,localStorage.type_user);
+      $("#prest_b").val(localStorage.id_u)      
       $( ".btn-aceptar" ).click(function() {
         var monto= $("#total_b").val();
         var interes= $("#interes_b").val();
@@ -247,7 +243,7 @@
         $.ajax({
           type: "POST",
           url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
-          data: "action=setFavorite&inv="+localStorage.id_u+"&prest="+prest+"&id="+id_ofert,
+          data: "action=setFavorite&admin="+localStorage.id_u+"&inv="+localStorage.id_u+"&prest="+$("#prest_b").val()+"&id="+id_ofert,
           dataType:'JSON',
           success: function(msg){  
             if(msg.status){
@@ -262,10 +258,11 @@
         var interes= $("#interes").val();
         var duracion= $("#duracion").val();         
         if(monto!=""&&interes!=""&&duracion!=""){
-          var setoffer= setOfferTemp(id_ofert,localStorage.id_u,$("#prest_b").val(),interes,duracion);
+          var setoffer= setOfferTemp(id_ofert,localStorage.id_u,$("#prest_b").val(),interes,duracion);          
           if(setoffer){
-            var data = {page:"10_LoansStep4.html?section=solicitar_dinero&id_ofert="+id_ofert+"&negociando=true",id_u:$("#prest_b").val()};
+            var data = {page:"10_LoansStep4.html?section=solicitar_dinero&id_ofert="+id_ofert+"&negociando=true",action:"chat",id_u:$("#prest_b").val()};
             socket.emit('setOffert',data);
+            //sendPushMessage(pushtoken,"Nueva negociación");
             location.reload();
           }
         }
