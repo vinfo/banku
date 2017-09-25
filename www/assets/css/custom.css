@@ -979,8 +979,8 @@ padding-top: 10px;
 	height: 4px!important;
 }
 .noUi-horizontal .noUi-handle{
-	width:20px!important;
-	height:20px!important;
+	width:22px!important;
+	height:22px!important;
 	top:-9px!important;
 }
 .noUi-tooltip{
@@ -990,5 +990,5 @@ padding-top: 10px;
 	content: none!important;
 }
 .noUi-horizontal .noUi-tooltip{
-	bottom:25px!important;
+	bottom:35px!important;
 }

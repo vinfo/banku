@@ -95,7 +95,8 @@
   <script type="text/javascript">
    $( document ).ready(function(){
     sessionRedirect();
-    setTimeout(function(){ $(".brand-logo").text("Mi Perfil"); }, 300);                    
+    setTimeout(function(){ $(".brand-logo").text("Mi Perfil"); }, 300);    
+
     if(localStorage.login){
       if(localStorage.percent<100)$('#info1').modal('open');
       localStorage.removeItem("login");

@@ -1,4 +1,5 @@
 var socket = io('https://banku-services.herokuapp.com/');
+var clients = ""; 
 $( document ).ready(function(){    
     localStorage.setItem("site_url","http://localhost:6002");
     var type_user= localStorage.type_user;
@@ -10,17 +11,29 @@ $( document ).ready(function(){
     var amount2= parseInt(localStorage.amount2);
 
     if(localStorage.id_u){
-        getUserData(); 
-        socket.on('connect', function(){
-            $.ajax({
-                type: "POST",
-                url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
-                data: "action=setSocketID&socket_id="+socket.io.engine.id+"&id_u="+localStorage.id_u,
-                dataType:'JSON',
-                success: function(msg){
-                }
-            });     
+      getUserData();
+      var rand=  Math.random();     
+      socket.on('connect', function(){
+        socket.io.engine.id = localStorage.id_u;
+        $.ajax({
+          type: "POST",
+          url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
+          data: "action=setOnline&online=1&id_u="+localStorage.id_u,
+          dataType:'JSON',
+          success: function(msg){
+          }
+        });                                               
+      });
+      socket.on('disconnect', function(){
+        $.ajax({
+          type: "POST",
+          url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
+          data: "action=setOnline&online=0&id_u="+localStorage.id_u,
+          dataType:'JSON',
+          success: function(msg){
+          }
         });
+      });
       socket.on('setOffert', function(msg){
         if(type_user=="prestatario"){
             if(msg.page&&msg.page!=""&&msg.action&&msg.action=="new_offer_inv"){                

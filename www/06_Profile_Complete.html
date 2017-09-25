@@ -107,9 +107,9 @@
         <script type="text/javascript" src="assets/js/includes.js?v=1.0.0"></script>       
         <script type="text/javascript">
          $( document ).ready(function(){
-            var socket = io('https://banku-services.herokuapp.com/');
             sessionRedirect();
-            setTimeout(function(){ $(".brand-logo").text("Mi Perfil"); }, 300);            
+            setTimeout(function(){ $(".brand-logo").text("Mi Perfil"); }, 300);
+                      
             $( ".friends" ).click(function() {
               if(sessionStorage.OS!="browser"){
                 window.plugins.socialsharing.share('Te recomiendo BankU, una nueva propuesta de negocio.', 'App recomendada', null, 'http://bankucolombia.com');

@@ -15,6 +15,7 @@
     <content src="index.html" />
     <access origin="*" />
     <access origin="*.pushwoosh.com" />
+    <access origin="*.herokuapp.com" />
 
     <preference name="EnableViewportScale" value="true"/>
     <preference name="orientation" value="portrait" />
