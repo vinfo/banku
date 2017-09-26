@@ -37,23 +37,24 @@ $( document ).ready(function(){
       socket.on('setOffert', function(msg){
         if(type_user=="prestatario"){
             if(msg.page&&msg.page!=""&&msg.action&&msg.action=="new_offer_inv"){                
-                if(amount>0&&amount>=msg.monto&&amount<=msg.monto2&&duration>=msg.duracion&&duration<=msg.duracion2&&interest>=msg.interes&&interest<=msg.interes2){
-                    window.location.href = msg.page;
-                }                
-            }
-            if(msg.page&&msg.page!=""&&msg.action&&msg.action=="chat"){
-                alert(msg.id_u+" "+localStorage.id_u);                             
-                if(msg.id_u==localStorage.id_u){
-                    window.location.href = msg.page;
-                }                
-            }            
-        }else{
-            if(msg.page&&msg.page!=""&&msg.action&&msg.action=="new_offer_prest"){                              
-                if(amount>0&&msg.monto>=amount&&msg.monto<=amount2&&msg.duracion>=duration&&msg.duracion<=duration2&&msg.interes>=interest&&msg.interes<=interest2){
+                if(amount>0&&amount>=parseInt(msg.monto)&&amount<=parseInt(msg.monto2)&&duration>=parseInt(msg.duracion)&&duration<=parseInt(msg.duracion2)&&interest>=parseFloat(msg.interes)&&interest<=parseFloat(msg.interes2)){
                     window.location.href = msg.page;
                 }                
             }           
+        }else{
+            if(msg.page&&msg.page!=""&&msg.action&&msg.action=="new_offer_prest"){                              
+                alert(msg.duracion+">="+duration+"|"+msg.duracion+"<="+duration2);
+                if(amount>0&&parseInt(msg.monto)>=amount&&parseInt(msg.monto)<=amount2&&parseInt(msg.duracion)>=duration&&parseInt(msg.duracion)<=duration2&&parseFloat(msg.interes)>=interest&&parseFloat(msg.interes)<=interest2){
+                    window.location.href = msg.page;
+                }                
+            }                      
         }
+        //Generico nueva respuesta Chat
+        if(msg.page&&msg.page!=""&&msg.action&&(msg.action=="chat"||msg.action=="new_business")){          
+            if(msg.id_u==localStorage.id_u){
+                window.location.href = msg.page;
+            }                
+        }         
         //if(msg.id_u==localStorage.id_u)location.reload();
       });
     }

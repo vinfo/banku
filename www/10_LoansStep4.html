@@ -219,7 +219,12 @@
                   success: function(msg){
                     if(msg.status){
                       var obj = jQuery.parseJSON ( getOnline($("#prest_b").val()) );
-                      if(obj.online=="0")sendPushMessage(obj.pushtoken,"Aceptación de negociación en el sistema BankU.");                                 
+                      if(obj.online=="0"){
+                        sendPushMessage(obj.pushtoken,"Aceptación de negociación en el sistema BankU.");
+                        }else{
+                        var data = {page:"11_EarningsStep2.html?section=mis_ganancias&msg=aceptada",action:"new_business",id_u:$("#inv_b").val()};                    
+                        socket.emit('setOffert', data);                          
+                        }                                 
                       setTimeout(function(){ $('#modal4').modal('close');window.location.href = "12_PaymentsStep1.html?section=mis_pagos"; }, 1500);              
                     }
                   }
@@ -264,7 +269,7 @@
           var setoffer= setOfferTemp(id_ofert,inv_b,localStorage.id_u,interes,duracion);
           if(setoffer){
             $('#modal3').modal('close');
-            var data = {page:"08_InvestmentsStep4.html?id_ofert="+id_ofert+"&negociando=true",id_u:inv_b};
+            var data = {page:"08_InvestmentsStep4.html?id_ofert="+id_ofert+"&negociando=true",action:"chat",id_u:inv_b};
             socket.emit('setOffert',data);
             var obj = jQuery.parseJSON ( getOnline(inv_b) );
             if(obj.online=="0")sendPushMessage(obj.pushtoken,"Nueva negociación en el sistema.");

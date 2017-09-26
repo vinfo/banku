@@ -101,6 +101,7 @@
             <script type="text/javascript">
             $( document ).ready(function(){
                 setTimeout(function(){ $(".brand-logo").text("Mis Ganancias"); }, 300);
+                getScroll();
                 if(localStorage.approved_u=="No"||localStorage.approved_u=="0"){
                     $('#info2').modal('open');
                 }

@@ -219,7 +219,12 @@
                   success: function(msg){
                     if(msg.status){
                       var obj = jQuery.parseJSON ( getOnline($("#prest_b").val()) );
-                      if(obj.online=="0")sendPushMessage(obj.pushtoken,"Aceptación de negociación en el sistema BankU.");                                 
+                      if(obj.online=="0"){
+                        sendPushMessage(obj.pushtoken,"Aceptación de negociación en el sistema BankU.");
+                        }else{
+                        var data = {page:"12_PaymentsStep2.html?section=mis_pagos&msg=aceptada",action:"new_business",id_u:$("#prest_b").val()};                    
+                        socket.emit('setOffert', data);                          
+                        }                                
                       setTimeout(function(){ $('#modal4').modal('close');window.location.href = "11_EarningsStep1.html?section=mis_ganancias"; }, 1500);              
                     }
                   }
