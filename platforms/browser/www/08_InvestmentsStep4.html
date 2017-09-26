@@ -217,7 +217,9 @@
                   data: "action=setPaysxBusiness&fecha="+localStorage.fecha+"&prest="+$("#prest_b").val()+"&monto="+$("#total_b").val()+"&quota_b="+$("#quota_b").val()+"&tasa1="+$("#interes_b").val()+"&meses="+$("#plazo_b").val()+"&id_b="+msg.id_b,
                   dataType:'JSON',
                   success: function(msg){
-                    if(msg.status){              
+                    if(msg.status){
+                      var obj = jQuery.parseJSON ( getOnline($("#prest_b").val()) );
+                      if(obj.online=="0")sendPushMessage(obj.pushtoken,"Aceptación de negociación en el sistema BankU.");                                 
                       setTimeout(function(){ $('#modal4').modal('close');window.location.href = "11_EarningsStep1.html?section=mis_ganancias"; }, 1500);              
                     }
                   }
@@ -262,7 +264,8 @@
           if(setoffer){
             var data = {page:"10_LoansStep4.html?section=solicitar_dinero&id_ofert="+id_ofert+"&negociando=true",action:"chat",id_u:$("#prest_b").val()};
             socket.emit('setOffert',data);
-            //sendPushMessage(pushtoken,"Nueva negociación");
+            var obj = jQuery.parseJSON ( getOnline($("#prest_b").val()) );
+            if(obj.online=="0")sendPushMessage(obj.pushtoken,"Nueva negociación en el sistema.");
             location.reload();
           }
         }

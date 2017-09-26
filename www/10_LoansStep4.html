@@ -217,7 +217,9 @@
                   data: "action=setPaysxBusiness&fecha="+localStorage.fecha+"&prest="+$("#prest_b").val()+"&monto="+$("#total_b").val()+"&quota_b="+$("#quota_b").val()+"&tasa1="+$("#interes_b").val()+"&meses="+$("#plazo_b").val()+"&id_b="+msg.id_b,
                   dataType:'JSON',
                   success: function(msg){
-                    if(msg.status){              
+                    if(msg.status){
+                      var obj = jQuery.parseJSON ( getOnline($("#prest_b").val()) );
+                      if(obj.online=="0")sendPushMessage(obj.pushtoken,"Aceptación de negociación en el sistema BankU.");                                 
                       setTimeout(function(){ $('#modal4').modal('close');window.location.href = "12_PaymentsStep1.html?section=mis_pagos"; }, 1500);              
                     }
                   }
@@ -264,6 +266,8 @@
             $('#modal3').modal('close');
             var data = {page:"08_InvestmentsStep4.html?id_ofert="+id_ofert+"&negociando=true",id_u:inv_b};
             socket.emit('setOffert',data);
+            var obj = jQuery.parseJSON ( getOnline(inv_b) );
+            if(obj.online=="0")sendPushMessage(obj.pushtoken,"Nueva negociación en el sistema.");
             getOffersTemp(id_ofert);
           }
         }

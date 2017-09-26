@@ -307,6 +307,15 @@ function getCalification(value){
         return 'AAA';
     }    
 }
+function getOnline(id_u){
+    var online = $.ajax({
+        type: "POST",
+        url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
+        data: "action=getOnline&id_u="+id_u,
+        async: false
+    }).responseText;
+    return online;
+}
 function sendPushMessage(pushtoken,msg){      
     $.ajax({
         type: "GET",
