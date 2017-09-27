@@ -14,6 +14,7 @@ $( document ).ready(function(){
       var rand=  Math.random();
       const socket = io('https://banku-services.herokuapp.com/');    
       socket.on('connect', function(){
+        console.log("Socket: "+socket.io.engine.id);
         socket.io.engine.id = localStorage.id_u;
         $.ajax({
           type: "POST",
