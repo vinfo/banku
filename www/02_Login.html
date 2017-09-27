@@ -17,9 +17,9 @@
     <div class="top-login"><img class="responsive-img" src="assets/images/topLogin.png" alt="BankU"> </div>
     <div class="wrapper">
         <div class="container valign-wrapper">
-            <div class="row">                
+            <div class="row">
                 <div class="col s12 center">
-                    <img class="responsive-img" src="assets/images/logoHeader.png" alt="BankU">                        
+                    <img class="responsive-img" src="assets/images/logoHeader.png" alt="BankU">
                 </div>
                 <div class="col s12 center margin-top-40 btn-register">
                     <p><a href="03_RegisterRegister.html?type_user=inversionista" class="waves-effect waves-light light-blue darken-3 btn-large">Quiero Invertir</a></p>
@@ -27,30 +27,31 @@
                     <p><a href="03_RegisterLogin.html" class="waves-effect waves-light grey lighten-3 grey-text text-darken-2 btn-large">Iniciar sesión</a></p>
                     <p class="terms"><small>Al continuar aceptas nuestros<br>
                         <a href="#modal1">Términos de Servicio</a> y  <a href="#modal1">Política de Privacidad</a></small></p>
-                    </div>                  
-                </div>                                                                                
+                    </div>
+                </div>
             </div>
         </div>
-        
-        <div id="modal1" class="modal terminos"></div>   
-              
+
+        <div id="modal1" class="modal terminos"></div>
+
             <script type="text/javascript" src="cordova.js"></script>
-            <script type="text/javascript" src="index.js"></script> 
+            <script type="text/javascript" src="index.js"></script>
             <!--Import jQuery before materialize.js-->
             <script type="text/javascript" src="assets/js/jquery-2.1.1.min.js"></script>
             <script type="text/javascript" src="assets/js/materialize.min.js"></script>
+            <script type="text/javascript" src="assets/js/numeral.min.js"></script>
             <script src="assets/js/socket.io.js"></script>
-            <script type="text/javascript" src="assets/js/tools.js"></script> 
+            <script type="text/javascript" src="assets/js/tools.js"></script>
             <script>
                  $( document ).ready(function(){
                     $(".wrapper").show();
                     $( ".terminos" ).load( "includes/terminos.html");
-                 });            
+                 });
                 localStorage.clear();
                 history.pushState(null, null, location.href);
                 window.onpopstate = function(event) {
                     navigator.app.exitApp();
-                };             
+                };
             </script>
         </body>
         </html>

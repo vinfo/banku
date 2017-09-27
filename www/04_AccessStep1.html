@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <!--Import Google Icon Font-->
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        
+
         <!--Import materialize.css-->
         <link type="text/css" rel="stylesheet" href="assets/css/materialize.min.css"  media="screen,projection"/>
         <!--Import my style-->
@@ -17,26 +17,26 @@
         <!--Nav Main-->
         <div class="navbar-fixed nav-descktop">
             <ul id="dropdown2" class="nav-dropdown dropdown-content">
-                <li><a href="#!">Ver mis inversiones</a></li>            
-                <li class="divider"></li> 
-                <li><a href="#!">Historial</a></li>            
-                <li class="divider"></li>  
-                <li><a href="#!">Facturación</a></li>            
-                <li class="divider"></li>  
-                <li><a href="#!">Comentarios</a></li>            
-                <li class="divider"></li>                  
+                <li><a href="#!">Ver mis inversiones</a></li>
+                <li class="divider"></li>
+                <li><a href="#!">Historial</a></li>
+                <li class="divider"></li>
+                <li><a href="#!">Facturación</a></li>
+                <li class="divider"></li>
+                <li><a href="#!">Comentarios</a></li>
+                <li class="divider"></li>
             </ul>
             <ul id="dropdown1" class="nav-dropdown dropdown-content">
-<!--                <li><a href="#!">Invitar a amigos <i class="material-icons right">card_giftcard</i></a></li>            
+<!--                <li><a href="#!">Invitar a amigos <i class="material-icons right">card_giftcard</i></a></li>
                 <li class="divider"></li> -->
-                <li><a href="#!">Configuración <i class="material-icons right">settings</i></a></li>            
-                <li class="divider"></li>  
-                <li><a href="#!">Soporte y ayuda <i class="material-icons right">help_outline</i></a></li>            
-                <li class="divider"></li>  
-                <li><a href="#!">Favoritos <i class="material-icons right">favorite_border</i></a></li>            
-                <li class="divider"></li>  
-                <li><a href="#!">Historial <i class="material-icons right">description</i></a></li>                                   
-            </ul>            
+                <li><a href="#!">Configuración <i class="material-icons right">settings</i></a></li>
+                <li class="divider"></li>
+                <li><a href="#!">Soporte y ayuda <i class="material-icons right">help_outline</i></a></li>
+                <li class="divider"></li>
+                <li><a href="#!">Favoritos <i class="material-icons right">favorite_border</i></a></li>
+                <li class="divider"></li>
+                <li><a href="#!">Historial <i class="material-icons right">description</i></a></li>
+            </ul>
             <nav>
                 <div class="nav-wrapper container">
                     <a href="#" class="brand-logo"><img class="responsive-img" src="assets/images/logoHeaderComplete.png" alt="BankU"></a>
@@ -54,21 +54,21 @@
             </div>
         </nav>
 
-        
+
 
         <div class="wrapper">
             <div class="container">
                 <div class="row">
                     <div class="col s12 pag-nav">
                         <span class="btn-nav-pag">
-                            <a href="#!" class="btn grey lighten-1 back"><i class="material-icons left">&nbsp;</i>Volver</a>                            
+                            <a href="#!" class="btn grey lighten-1 back"><i class="material-icons left">&nbsp;</i>Volver</a>
                         </span>
                     </div>
-                    <div class="col s12 center">          
-                        <h4 class="hide-on-med-and-down">Confirmación de autenticidad <br><br></h4>              
+                    <div class="col s12 center">
+                        <h4 class="hide-on-med-and-down">Confirmación de autenticidad <br><br></h4>
                         <h5>¿Cuál es el número de tu celular?</h5>
-                        <p>Para que continúes y seas parte del mundo BankU, primero te enviaremos un código.</p> 
-                        <hr>                     
+                        <p>Para que continúes y seas parte del mundo BankU, primero te enviaremos un código.</p>
+                        <hr>
                     </div>
                     <div class="col s12">
                         <form id="frm_register" name="frm_register" method="POST" action="http://localhost:6002/user/register" enctype="multipart/form-data" class="col s12 form-general-data">
@@ -83,7 +83,7 @@
                                     <label for="cellphone_u">Número</label>
                                 </div>
                             </div>
-                        </form> 
+                        </form>
                     </div>
                     <div class="col s12 center iconAccess">
                         <img class="responsive-img" src="assets/images/iconAccessStep1.png" alt="BankU">
@@ -91,24 +91,25 @@
                     </div>
                     <div class="col s12 center margin-top-40 btn-register">
                         <a href="#" class="waves-effect waves-light yellow accent-4 btn-large">He leído y acepto</a>
-                    </div> 
-                </div>                                                                                
+                    </div>
+                </div>
             </div>
-        </div>  
+        </div>
 
         <footer class="page-footer">
             <div class="footer-copyright">
                 <div class="container">
-                    © 2017 BankU                    
+                    © 2017 BankU
                 </div>
             </div>
-        </footer>           
+        </footer>
         <script type="text/javascript" src="cordova.js"></script>
-        <script type="text/javascript" src="index.js"></script>                    
+        <script type="text/javascript" src="index.js"></script>
         <!--Import jQuery before materialize.js-->
         <script type="text/javascript" src="assets/js/jquery-2.1.1.min.js"></script>
         <script type="text/javascript" src="assets/js/materialize.min.js"></script>
         <script type="text/javascript" src="assets/js/jquery.validate.min.js"></script>
+        <script type="text/javascript" src="assets/js/numeral.min.js"></script>
         <script src="assets/js/socket.io.js"></script>
         <script type="text/javascript" src="assets/js/tools.js"></script>
         <script type="text/javascript">
@@ -121,14 +122,14 @@
                 });
                 $( ".number" ).change(function() {
                   this.value= fMatch2(field);
-                });                                
+                });
                 var type_user = localStorage.type_user;
                 $( ".accent-4" ).click(function() {
                     var validator = $("#frm_register").validate({errorPlacement: function(error,element) {return true;}});
                     validator.form();
                     if(validator.valid()){
                         var cellphone_u= $("#cellphone_u").val();
-                        $.ajax({                            
+                        $.ajax({
                             type:"POST",
                             url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
                             data: $("#frm_register").serialize(),
@@ -142,10 +143,10 @@
 									alert("No se pudo enviar el mensaje, vuelve a intentarlo.");
 								}
                             },
-							error: function(XMLHttpRequest, textStatus, errorThrown) { 
+							error: function(XMLHttpRequest, textStatus, errorThrown) {
 								alert("Problemas procesando datos: " + textStatus +" - "+errorThrown);
 							}
-                        });                
+                        });
                     }
                 });
             })
