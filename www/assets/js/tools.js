@@ -1,7 +1,6 @@
-var clients = ""; 
-$( document ).ready(function(){    
+$( document ).ready(function(){
+    var clients = "";
     var socket = io('https://banku-services.herokuapp.com/');
-    localStorage.setItem("site_url","http://localhost:6002");
     var type_user= localStorage.type_user;
     var duration= parseInt(localStorage.duration);
     var duration2= parseInt(localStorage.duration2);
@@ -447,7 +446,8 @@ function getUserData(){
                     $(".wrapper").show();
                     $(".progress").hide();
 					if(msg.data.approved_u=="0")$('#info2').modal('open');
-                    $(".progress").hide();                                   
+                    $(".progress").hide();
+                    $(".wrapper").show();                                  
                     //console.log("Datos usuario");
                 }
             }
