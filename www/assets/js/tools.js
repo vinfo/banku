@@ -1,6 +1,5 @@
 $( document ).ready(function(){
-    var clients = "";
-    var socket = io('https://banku-services.herokuapp.com/');
+    var clients = "";    
     var type_user= localStorage.type_user;
     var duration= parseInt(localStorage.duration);
     var duration2= parseInt(localStorage.duration2);
@@ -12,7 +11,8 @@ $( document ).ready(function(){
     if(localStorage.id_u){
       getUserData();
       $(".wrapper").show();
-      var rand=  Math.random();     
+      var rand=  Math.random();
+      const socket = io('https://banku-services.herokuapp.com/');    
       socket.on('connect', function(){
         socket.io.engine.id = localStorage.id_u;
         $.ajax({
