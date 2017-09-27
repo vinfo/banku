@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="assets/css/materialize.min.css"  media="screen,projection"/>
+    <!--Import my style-->
+    <link type="text/css" href="assets/css/custom.css" rel="stylesheet"/>
+    <link type="text/css" href="assets/css/nouislider.min.css" rel="stylesheet"/>
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
+
+<body class="profile settings-investment">
+    <!--Nav Main-->
+    <div class="navbar-fixed nav-descktop"></div>
+
+    <!--Nav Responsive-->
+    <nav class="nav-app">
+        <div class="nav-wrapper">
+            <a href="#!" class="brand-logo center">Configuración de mi inversión</a>
+            <ul class="left ">
+                <li><a href="#!" class="back"><i class="material-icons">keyboard_arrow_left</i></a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="wrapper">
+        <form id="frm_register" action="#">
+            <div class="container">
+                <div class="row">
+                    <div class="col s12 pag-nav">
+                        <span class="btn-nav-pag">
+                            <a href="#!" class="btn grey lighten-1"><i class="material-icons left">&nbsp;</i>Volver</a>                            
+                        </span>
+                    </div>
+                    <div class="col s12">          
+                        <h3 class="center hide-on-med-and-down">Configuración de mi inversión</h3>
+                        <br>                        
+                        <p>• Configura las características de tus inversiones.<br>
+                        • Cuando hagas este paso podrás crear tu portafolio y empezar a invertir en distintos proyectos de otros miembros de BankU.</p>                                           
+                    </div>  
+                </div>
+            </div>                  
+            <div class="col s12 m5">
+                <div class="card-panel white">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col s10 offset-s1">                                
+                                <div id="capital"></div>
+                                <h5><small>Capital:</small> <span class="monto1">&nbsp;</span> - <span class="monto2">&nbsp;</span> Mill.</h5>
+                                <input type="hidden" id="monto" name="monto" value="2000000">
+                                <input type="hidden" id="monto2" name="monto2" value="6000000">
+                            </div>
+                        </div>                                            
+                    </div>
+                </div>
+                <div class="card-panel white">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col s10 offset-s1">                                
+                                <div id="interest"></div>
+                                <h5><small>Interes:</small> <span class="interes1">&nbsp;</span> - <span class="interes2">&nbsp;</span> % E.M.</h5>
+                                <input type="hidden" id="interes" name="interes" value="0.8">
+                                <input type="hidden" id="interes2" name="interes2" value="2.3">
+                            </div>
+                        </div>                                            
+                    </div>
+                </div>
+                <div class="card-panel white">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col s10 offset-s1">                                
+                                <div id="duration"></div>
+                                <h5><small>Duración:</small> <span class="duracion">&nbsp;</span> - <span class="duracion2">&nbsp;</span> Meses</h5>
+                                <input type="hidden" id="duracion" name="duracion" value="6">
+                                <input type="hidden" id="duracion2" name="duracion2" value="12">
+                                <input type="hidden" id="action" name="action" value="setDataBusinnes">
+                                <input type="hidden" id="type" name="type" value="">
+                                <input type="hidden" id="id_u" name="id_u" value="">
+                            </div>
+                        </div>                                            
+                    </div>
+                </div>
+            </div>
+
+            <div class="grey lighten-1 padding-5">
+                <h5 class="center"><small>Tipo de prestatario</small></h5>
+            </div>
+            <div class="container margin-top-40">  
+                <div class="row"> 
+                    <form action="#">
+                        <div class="col s3 m2 center offset-s1 offset-m3">
+                            <input name="calificacion[]" value="1" type="checkbox" class="filled-in" id="S" /> 
+                            <label for="S">S</label>                         
+                        </div>
+                        <div class="col s3 m2 center">
+                            <input name="calificacion[]" value="2" type="checkbox" class="filled-in" id="A+" /> 
+                            <label for="A+">A+</label>                         
+                        </div>
+                        <div class="col s3 m2 center">
+                            <input name="calificacion[]" value="3" type="checkbox" class="filled-in" id="AAA" checked="checked" />  
+                            <label for="AAA">AAA</label>                     
+                        </div>
+                    </form>
+                </div>
+                <div class="col s12 center margin-top-40 btn-register btn-find-proyects">
+                    <a href="#!" class="waves-effect waves-light green accent-4 btn-large">Buscar proyecto para invertir</a>
+                </div> 
+            </div> 
+        </form>
+    </div>
+</div>
+
+<!--Nav footer Responsive-->
+<div class="footer-nav menu_footer"></div>        
+
+<footer class="page-footer">
+    <div class="footer-copyright">
+        <div class="container">
+            © 2017 BankU                    
+        </div>
+    </div>
+</footer> 
+
+<!-- Modal Structure Load -->
+<div id="modal3" class="modal">
+    <div class="modal-content content-done valign-wrapper">
+        <!--<a href="#!" class="modal-action modal-close"><i class="material-icons close">close</i></a>-->
+        <div class="row">            
+            <div class="col s12">
+                <div class="icon-donde"><img src="assets/images/logoLoad.png"></div>
+                <div class="progress">
+                    <div class="indeterminate green accent-4"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="info2" class="modal">
+    <div class="modal-content">
+        <h4>Saldo insuficiente</h4>
+        <p>Su saldo (<span class="saldo"></span>) no es suficiente para poder invertir el monto especificado.</p>
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Aceptar</a>
+    </div>
+</div>
+<script type="text/javascript" src="cordova.js"></script>
+<script type="text/javascript" src="index.js"></script>                     
+<!--Import jQuery before materialize.js-->
+<script type="text/javascript" src="assets/js/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="assets/js/materialize.min.js"></script>
+<script type="text/javascript" src="assets/js/jquery.validate.min.js"></script>
+<script type="text/javascript" src="assets/js/numeral.min.js"></script>
+<script src="assets/js/socket.io.js"></script>
+<script type="text/javascript" src="assets/js/tools.js?v=1.0.0"></script>         
+<script type="text/javascript" src="assets/js/includes.js?v=1.0.0"></script>         
+<script type="text/javascript" src="assets/js/nouislider.min.js"></script> 
+<script type="text/javascript" src="assets/js/wNumb.js"></script>
+<script type="text/javascript">
+   $( document ).ready(function(){    
+    getScroll();
+    $("#id_u").val(localStorage.id_u);
+    var type=3;
+    if(localStorage.type_user=="prestatario")type=4;
+    $("#type").val(type);
+    getConfig();
+    $( ".accent-4" ).click(function() {
+        var inversion= localStorage.inversion;
+        var monto2= $("#monto2").val();        
+        if(parseInt(inversion) < parseInt(monto2)){
+            $(".saldo").html("$"+numeral(inversion).format('0,0'));
+            $('#info2').modal('open');
+        }else{
+            $.ajax({
+                type: "POST",
+                url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
+                data: $("#frm_register").serialize(),
+                dataType:'JSON',
+                success: function(msg){
+                    $(".progress").show();
+                    var data = {page:"10_LoansStep3.html?section=solicitar_dinero",action:"new_offer_inv",monto:$("#monto").val(),monto2:$("#monto2").val(),interes:$("#interes").val(),interes2:$("#interes2").val(),duracion:$("#duracion").val(),duracion2:$("#duracion2").val()};                    
+                    socket.emit('setOffert', data);
+                    $('#modal3').modal('open');
+                    setTimeout(function(){ $('#modal3').modal('close');window.location = "08_InvestmentsStep3.html?section=negociar"; }, 2000);
+                    Materialize.toast('Datos guardados exitosamente', 3000, 'rounded');
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown) { 
+                    alert("Problemas procesando datos: " + textStatus +" - "+errorThrown);
+                }
+            });
+        }
+
+    });    
+});
+
+   function getConfig(){
+            //Establecer constantes
+            $(".monto1").html(numeral(localStorage.monto1));
+            $(".monto2").html(numeral(localStorage.monto2));
+            $(".interes1").html(localStorage.interes1);
+            $(".interes2").html(localStorage.interes2);
+            $(".duracion").html(localStorage.duracion1);
+            $(".duracion2").html(localStorage.duracion2);                        
+            $.ajax({
+                type: "POST",
+                url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
+                data: "action=getConfig&id_u="+localStorage.id_u,
+                dataType:'JSON',
+                success: function(msg){                  
+                    if(msg.data!==null){
+                        //Variables oferta usuario
+                        if(msg.data.amount)$("#monto").val(msg.data.amount);
+                        if(msg.data.amount2)$("#monto2").val(msg.data.amount2);
+                        if(msg.data.interest)$("#interes").val(msg.data.interest);
+                        if(msg.data.interest2)$("#interes2").val(msg.data.interest2);
+                        if(msg.data.duration)$("#duracion").val(msg.data.duration);
+                        if(msg.data.duration2)$("#duracion2").val(msg.data.duration2);
+                        if(msg.data.calification){
+                            var cal= msg.data.calification.split(',');
+                            for (var i = 0; i < cal.length; i++) {
+                              $("[value='"+cal[i]+"']").prop('checked', true);
+                          }                            
+                      }
+                  }
+                  setSliders();
+              },
+              error: function(XMLHttpRequest, textStatus, errorThrown) { 
+                alert("Problemas procesando datos: " + textStatus +" - "+errorThrown);
+            }
+        });             
+        }
+        function setSliders(){
+            var capital = document.getElementById('capital');//div slider capital
+            var interest = document.getElementById('interest');//div slider interest
+            var duration = document.getElementById('duration');//div slider duration
+            //Variables cliente
+            var monto= parseInt($("#monto").val());
+            var monto2= parseInt($("#monto2").val());
+            var interes= parseFloat($("#interes").val());
+            var interes2= parseFloat($("#interes2").val());
+            var duracion= parseInt($("#duracion").val());
+            var duracion2= parseInt($("#duracion2").val());
+
+            var find = ["$","%","."];
+            var replace = ['','',''];
+            noUiSlider.create(capital, {
+                start: [monto,monto2],
+                connect: true,
+                tooltips: [ true, true ],
+                step: 100000,
+                range: {
+                    'min': parseInt(localStorage.monto1),
+                    'max': parseInt(localStorage.monto2)
+                },
+                format: wNumb({
+                    decimals: 0,
+                    thousand: '.',
+                    prefix: '$'
+                })                         
+            });
+            capital.noUiSlider.on('change', function(data){
+                $("#monto").val(rplMoney(data[0].toString()));
+                $("#monto2").val(rplMoney(data[1].toString()));
+            });        
+            noUiSlider.create(interest, {
+                start: [interes,interes2],
+                connect: true,
+                tooltips: [ true, true ],
+                range: {
+                    'min': parseFloat(localStorage.interes1),
+                    'max': parseFloat(localStorage.interes2)
+                },
+                format: wNumb({
+                    decimals: 2,
+                    mark: '.',
+                    suffix: '%'
+                }) 
+            });
+            interest.noUiSlider.on('change', function(data){
+                $("#interes").val(rplPerc(data[0].toString()));
+                $("#interes2").val(rplPerc(data[1].toString()));
+            });        
+            noUiSlider.create(duration, {
+                start: [duracion,duracion2],
+                connect: true,
+                tooltips: [ true, true ],
+                range: {
+                    'min': parseInt(localStorage.duracion1),
+                    'max': parseInt(localStorage.duracion2)
+                },
+                format: wNumb({
+                    decimals: 0
+                })             
+            });
+            duration.noUiSlider.on('change', function(data){
+                $("#duracion").val(data[0].toString());
+                $("#duracion2").val(data[1].toString());
+            });            
+        }                            
+    </script>
+</body>
+</html>
