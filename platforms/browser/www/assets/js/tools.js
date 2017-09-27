@@ -1,6 +1,6 @@
-var socket = io('https://banku-services.herokuapp.com/');
 var clients = ""; 
 $( document ).ready(function(){    
+    var socket = io('https://banku-services.herokuapp.com/');
     localStorage.setItem("site_url","http://localhost:6002");
     var type_user= localStorage.type_user;
     var duration= parseInt(localStorage.duration);
@@ -12,6 +12,7 @@ $( document ).ready(function(){
 
     if(localStorage.id_u){
       getUserData();
+      $(".wrapper").show();
       var rand=  Math.random();     
       socket.on('connect', function(){
         socket.io.engine.id = localStorage.id_u;
@@ -98,8 +99,12 @@ var getUrlParameter = function getUrlParameter(sParam) {
 
 //Cambiar formato fecha mysql a normal
 function dateFormat(field){
-   var str = field.split('-');
-   return str[2]+"/"+str[1]+"/"+str[0];
+   var fdate='';
+   if(field!=null&&field!=""){
+    str = field.split('-');
+    fdate=str[2]+"/"+str[1]+"/"+str[0];
+   }
+   return fdate;
 }
 //Solo numeros y puntos
 function fMatch(field){
@@ -441,7 +446,8 @@ function getUserData(){
                     $(".days_study").html(msg.data.days_study);
                     $(".wrapper").show();
                     $(".progress").hide();
-					if(msg.data.approved_u=="0")$('#info2').modal('open');                                      
+					if(msg.data.approved_u=="0")$('#info2').modal('open');
+                    $(".progress").hide();                                   
                     //console.log("Datos usuario");
                 }
             }

@@ -90,7 +90,8 @@
         <script type="text/javascript" src="assets/js/jquery-2.1.1.min.js"></script>
         <script type="text/javascript" src="assets/js/materialize.min.js"></script>
         <script type="text/javascript" src="assets/js/jquery.validate.min.js"></script>
-        <script src="assets/js/socket.io.js"></script>      
+        <script type="text/javascript" src="assets/js/numeral.min.js"></script
+        <script src="assets/js/socket.io.js"></script>   
         <script type="text/javascript" src="assets/js/tools.js"></script>        
         <script type="text/javascript">
             $( document ).ready(function(){        
@@ -103,10 +104,12 @@
                 if(sessionStorage.UUID)$("#uuid").val(sessionStorage.UUID);
                 if(localStorage.pushtoken)$("#pushtoken").val(localStorage.pushtoken);
                 
-                $( ".accent-4" ).click(function() {
+                $( ".accent-4" ).click(function(e) {
+                    e.preventDefault();
                     var validator = $("#frm_register").validate({errorPlacement: function(error,element) {return true;}});
                     validator.form();
                     if(validator.valid()){
+                        $(".btn-register").html('<img class="responsive-img" src="assets/images/ajax-loader.gif" alt="Procesando...">');
                         $.ajax({
                             type: "POST",
                             url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
@@ -121,11 +124,12 @@
                                     localStorage.setItem("type_user",type_user);
                                     localStorage.setItem("calification_u",msg.data.calification_u);
                                     localStorage.setItem("calification2_u",msg.data.calification2_u);
-									localStorage.setItem("login","true");
+									                  localStorage.setItem("login","true");
                                     localStorage.setItem("approved_u",msg.data.approved_u);
                                     window.location = "05_Profile_Incomplete-1.html?section=mi_perfil";
                                 }else{
                                     Materialize.toast('Email/Contraseña no validos', 1000, 'rounded');
+                                    $(".btn-register").html('<a href="#" class="waves-effect waves-light yellow accent-4 btn-large">Iniciar sesión</a><br><br><h5 class="grey-text text-grey"><small>O bien, <a href="03_RegisterRegister.html">crea una cuenta</a></small></h5>');
                                 }
                             },
                             error: function(XMLHttpRequest, textStatus, errorThrown) { 
