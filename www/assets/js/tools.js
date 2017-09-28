@@ -378,7 +378,9 @@ function getUserData(){
                     $(".occupation").html(msg.data.occupation_u);
                     $(".phone").html(msg.data.phone_u);
                     $(".cellphone").html(msg.data.cellphone_u);
-                    $(".address").html(msg.data.city_u+"<br/>"+msg.data.address_u);
+                    if(msg.data.city_u&&msg.data.address_u){
+                        $(".address").html(msg.data.city_u+"<br/>"+msg.data.address_u);
+                    }                    
                     $(".costs").html(msg.data.costs);
                     var msg_neg= 'proyecto en negociación';
                     if(msg.data.negociaciones==0||msg.data.negociaciones>1){
@@ -416,13 +418,14 @@ function getUserData(){
                     var f= msg.data.date_2_u.split("-");
                     var lastLogin= new Date(f[0],f[1]-1,f[2]);
                     $(".lastLogin").html(spanishDate(lastLogin));                  
+                    $(".costs").html(numeral(localStorage.costo).format('0,0')); 
                                        
                     $(".status").html(msg.data.status);
                     if(msg.data.status_u!="0")$(".msg1").hide();
                     $("#bar").css("width",msg.data.percent+"%");
                     $(".percent").html(msg.data.percent+"%");
                     if(msg.data.percent<100){
-                        $(".msg_perfil").removeClass('grey-text').addClass("red-text").html("Tú perfil esta incompleto. Completa tú perfil para poder acceder a todos los servicios.");                                   
+                        $(".msg_perfil").removeClass('grey-text').addClass("red-text").html('<a href="05_Profile_Incomplete-4.html?section=mi_perfil" class="red-text">Tú perfil esta incompleto. Completa tú perfil para poder acceder a todos los servicios.</a>');                                   
                     }
                     localStorage.setItem("percent",msg.data.percent);
                     var starts='';

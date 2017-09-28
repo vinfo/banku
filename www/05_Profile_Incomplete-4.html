@@ -143,13 +143,13 @@
                                                 <input id="company_u" name="company_u" value="" placeholder="Donde trabajas" type="text" class="validate">
                                                 <label for="company_u">Empresa</label>
                                             </div>
-                                            <div class="input-field col s12 m6 prestatario">
+                                            <div class="input-field col s12 m6">
                                                 <input placeholder="A que te dedicas" id="occupation_u" name="occupation_u" type="text" class="validate">
                                                 <label for="occupation_u">Profesión</label>
                                             </div>
                                             <div class="input-field col s12 m6">
                                                 <input placeholder="xxxxxxx" id="phone_u" name="phone_u" type="tel" class="validate">
-                                                <label for="phone_u">Teléfono</label>
+                                                <label for="phone_u">Teléfono fijo</label>
                                             </div>
                                             <div class="input-field col s12 m6">
                                                 <input placeholder="xxxxxxxxxx" id="cellphone_u" name="cellphone_u" type="tel" class="validate">
@@ -208,7 +208,7 @@
                                                 <label>Ciudad</label>
                                             </div>
 
-                                            <div class="input-field col s6 m5 l5">
+                                            <div class="input-field col s6 m4">
                                                 <select id="dir1_u" name="dir1_u">
                                                     <option value="" disabled selected>Selecciona una</option>
                                                     <option value="">Seleccionar</option>
@@ -222,19 +222,19 @@
                                                     <option value="Manzana">Manzana</option>
                                                     <option value="Transversal">Transversal</option>
                                                 </select>
-                                                <label>Ej: Calle, Carrera...</label>
+                                                <label>Dir. Ej: Calle, Carrera...</label>
                                             </div>
-                                            <div class="input-field col s2 m1 l1">
+                                            <div class="input-field col s6 m4">
                                                 <input placeholder="00" id="dir2_u" name="dir2_u" type="text" class="validate">
                                                 <label for="dir2_u"></label>
                                             </div>
-                                            <div class="input-field col s2 m1 l1">
+                                            <div class="input-field col s6 m4">
                                                 <input placeholder="00" id="dir3_u" name="dir3_u" type="text" class="validate">
-                                                <label for="dir3_u">Número</label>
+                                                <label for="dir3_u">Número A</label>
                                             </div>
-                                            <div class="input-field col s2 m1 l1">
+                                            <div class="input-field col s6 m4">
                                                 <input placeholder="00" id="dir4_u" name="dir4_u" type="text" class="validate">
-                                                <label for="dir4_u"></label>
+                                                <label for="dir4_u">Número B</label>
                                             </div>
                                             <div class="clear"></div>
                                             <div class="input-field col s12 m4 inversionista">
@@ -683,7 +683,12 @@
                 data: $("#frm_register").serialize()+"&action=updateUserFull&id_u="+localStorage.id_u+"&type_user="+localStorage.type_user,
                 dataType:'JSON',
                 success: function(msg){
-                    $('#modal2').modal('open');
+                    $('#modal2').modal('open',{
+                        dismissible: true,
+                        complete: function() { window.location.href = "08_InvestmentsStep1.html?section=mis_inversiones"; }
+                      }
+                    );                                        
+                    //$('#modal2').modal('open');
                 },
                 error: function(XMLHttpRequest, textStatus, errorThrown) {
                     alert("Problemas procesando datos: " + textStatus +" - "+errorThrown);

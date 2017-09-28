@@ -992,3 +992,8 @@ padding-top: 10px;
 .noUi-horizontal .noUi-tooltip{
 	bottom:35px!important;
 }
+textarea.materialize-textarea{
+	background-color: #F0F0F0!important;
+	padding: 0 6px;
+	min-height: 110px;
+}

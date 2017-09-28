@@ -78,7 +78,14 @@
         <script type="text/javascript" src="assets/js/includes.js?v=1.0.0"></script>        
         <script type="text/javascript">
          $( document ).ready(function(){
+            setTimeout(function(){ $(".brand-logo").text("Ayuda y soporte"); }, 300);
             getFullUserData();
+            $( "#comentarios" ).focus(function() {
+              var $win = $(window);
+              var pos = $(".accent-4").position().top;
+              $win.scrollTop(pos + 10);
+            });
+            var $win = $(window);
             $( ".accent-4" ).click(function() {
               if($("#comentarios").val()!=""){
                 $('#info2').modal('open');
