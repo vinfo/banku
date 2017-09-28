@@ -188,6 +188,7 @@
     <script type="text/javascript" src="assets/js/wNumb.js"></script>     
     <script type="text/javascript">
      $( document ).ready(function(){      
+      const socket = io('https://banku-services.herokuapp.com/');
       $('.tooltipped').tooltip({delay: 50});
       $(".wrapper").show();
       var id_ofert= getUrlParameter("id_ofert");
@@ -221,7 +222,7 @@
                       var obj = jQuery.parseJSON ( getOnline($("#prest_b").val()) );
                       if(obj.online=="0"){
                         sendPushMessage(obj.pushtoken,"Aceptación de negociación en el sistema BankU.");
-                        }else{
+                        }else{                        
                         var data = {page:"11_EarningsStep2.html?section=mis_ganancias&msg=aceptada",action:"new_business",id_u:$("#inv_b").val()};                    
                         socket.emit('setOffert', data);                          
                         }                                 

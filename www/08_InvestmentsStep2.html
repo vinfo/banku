@@ -163,6 +163,7 @@
 <script type="text/javascript" src="assets/js/wNumb.js"></script>
 <script type="text/javascript">
    $( document ).ready(function(){    
+    const socket = io('https://banku-services.herokuapp.com/');
     getScroll();
     $("#id_u").val(localStorage.id_u);
     var type=3;
@@ -184,6 +185,7 @@
                 success: function(msg){
                     $(".progress").show();
                     var data = {page:"10_LoansStep3.html?section=solicitar_dinero",action:"new_offer_inv",monto:$("#monto").val(),monto2:$("#monto2").val(),interes:$("#interes").val(),interes2:$("#interes2").val(),duracion:$("#duracion").val(),duracion2:$("#duracion2").val()};                    
+                    const socket = io('https://banku-services.herokuapp.com/'); 
                     socket.emit('setOffert', data);
                     $('#modal3').modal('open');
                     setTimeout(function(){ $('#modal3').modal('close');window.location = "08_InvestmentsStep3.html?section=negociar"; }, 2000);

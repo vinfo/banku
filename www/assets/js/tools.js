@@ -44,7 +44,7 @@ $( document ).ready(function(){
             }           
         }else{
             if(msg.page&&msg.page!=""&&msg.action&&msg.action=="new_offer_prest"){                              
-                alert(msg.duracion+">="+duration+"|"+msg.duracion+"<="+duration2);
+                //alert(msg.duracion+">="+duration+"|"+msg.duracion+"<="+duration2);
                 if(amount>0&&parseInt(msg.monto)>=amount&&parseInt(msg.monto)<=amount2&&parseInt(msg.duracion)>=duration&&parseInt(msg.duracion)<=duration2&&parseFloat(msg.interes)>=interest&&parseFloat(msg.interes)<=interest2){
                     window.location.href = msg.page;
                 }                
