@@ -131,7 +131,7 @@ function getOfferts(){
      $.ajax({
         type: "POST",
         url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
-        data: "action=getConfigOffersInv&status=0&search=true&amount="+amount+"&amount2="+amount2+"&type_user="+localStorage.type_user,
+        data: "action=getConfigOffersInv&status=0&search=true&amount="+amount+"&amount2="+amount2+"&id_u="+localStorage.id_u+"&type_user="+localStorage.type_user,
         dataType:'JSON',
         success: function(msg){
            $(".offerts").html('');

@@ -238,7 +238,7 @@
         $.ajax({
           type: "POST",
           url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
-          data: "action=delOfferMatch&id="+id_ofert,
+          data: "action=delOfferMatch&prest="+localStorage.id_u+"&id="+id_ofert,
           dataType:'JSON',
           success: function(msg){  
             if(msg.status){
