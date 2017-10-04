@@ -48,6 +48,7 @@
       <div class="row">
         <div class="col s12">
           <ul class="item-profile">
+            <li><a href="05_Profile_Incomplete-4.html?section=mi_perfil">Ver y editar perfil <i class="material-icons right">keyboard_arrow_right</i></a></li>
             <li>
               <strong>¿Quiero negociar?</strong>
               <!-- Switch -->
@@ -104,7 +105,7 @@
     </div>
   </footer>            
   <!--Nav footer Responsive-->
-  <div class="footer-nav"></div>
+  <div class="footer-nav menu_footer"></div>
   <div id="modal1" class="modal terminos"></div> 
   <script type="text/javascript" src="cordova.js"></script>
   <script type="text/javascript" src="index.js"></script>             
@@ -120,6 +121,7 @@
    $( document ).ready(function(){
     sessionRedirect();
     getFullUserData();
+    getScroll();
     $( ".terminos" ).load( "includes/terminos.html");
     $( ".delete-account" ).click(function() {
       var conf=confirm("Realmente desea borrar la cuenta?");

@@ -1,12 +1,6 @@
 $( document ).ready(function(){
     var clients = "";    
     var type_user= localStorage.type_user;
-    var duration= parseInt(localStorage.duration);
-    var duration2= parseInt(localStorage.duration2);
-    var interest= parseFloat(localStorage.interest);
-    var interest2= parseFloat(localStorage.interest2);
-    var amount= parseInt(localStorage.amount);
-    var amount2= parseInt(localStorage.amount2);
 
     if(localStorage.id_u){
       getUserData();
@@ -36,16 +30,31 @@ $( document ).ready(function(){
         });
       });
       socket.on('setOffert', function(msg){
+        var amount= parseInt(localStorage.amount);
+        var amount2= parseInt(localStorage.amount2); 
+        var interest= parseFloat(localStorage.interest);
+        var interest2= parseFloat(localStorage.interest2);       
+        var duration= parseInt(localStorage.duration);
+        var duration2= parseInt(localStorage.duration2);        
         if(type_user=="prestatario"){
-            if(msg.page&&msg.page!=""&&msg.action&&msg.action=="new_offer_inv"){                
+            console.log(msg.page); 
+            if(msg.page&&msg.page!=""&&msg.action&&msg.action=="new_offer_inv"){
+                console.log(msg.action);                             
                 if(amount>0&&amount>=parseInt(msg.monto)&&amount<=parseInt(msg.monto2)&&duration>=parseInt(msg.duracion)&&duration<=parseInt(msg.duracion2)&&interest>=parseFloat(msg.interes)&&interest<=parseFloat(msg.interes2)){
+                    console.log(amount);
                     window.location.href = msg.page;
                 }                
-            }           
+            }
+            if(msg.page&&msg.page!=""&&msg.action&&msg.action=="del_offert"){
+                console.log(msg.action);                             
+                window.location.href = msg.page;
+            } 
         }else{
-            if(msg.page&&msg.page!=""&&msg.action&&msg.action=="new_offer_prest"){                              
-                //alert(msg.duracion+">="+duration+"|"+msg.duracion+"<="+duration2);
-                if(amount>0&&parseInt(msg.monto)>=amount&&parseInt(msg.monto)<=amount2&&parseInt(msg.duracion)>=duration&&parseInt(msg.duracion)<=duration2&&parseFloat(msg.interes)>=interest&&parseFloat(msg.interes)<=interest2){
+            console.log(msg.page);          
+            if(msg.page&&msg.page!=""&&msg.action&&msg.action=="new_offer_prest"){
+                console.log(msg.action);                             
+                if(amount>0&&amount2>0&&interest>0&&interest2>0&&duration>0&&duration2>0&&(amount>=parseInt(msg.monto)&&parseInt(msg.monto)<=amount2)&&(interest>=parseFloat(msg.interes)&&parseFloat(msg.interes)<=interest2)&&(duration>=parseInt(msg.duracion)&&parseInt(msg.duracion)<=duration2)){                    
+                    console.log(amount);
                     window.location.href = msg.page;
                 }                
             }                      

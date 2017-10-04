@@ -559,7 +559,7 @@ input:not([type]):focus:not([readonly]), input[type=text]:not(.browser-default):
 }
 .btn-negociar {
     border: solid 1px #fff;
-    padding: 10px 30px;
+    padding: 10px 20px;
     font-size: 14px;
     font-weight: 600;
     color: #fff;
@@ -703,7 +703,7 @@ padding-top: 10px;
     background-image: url(../images/icon-box-bussines.png);
     background-repeat: no-repeat;
     background-size: 300px;
-    color: #bdc3c7;
+    color: #26a69a;
     border: none;
     font-weight: 400;
     padding-top: 90px;
@@ -993,7 +993,31 @@ padding-top: 10px;
 	bottom:35px!important;
 }
 textarea.materialize-textarea{
-	background-color: #F0F0F0!important;
+	border-left: 1px solid #666;
+	border-bottom: 1px solid #666;
 	padding: 0 6px;
 	min-height: 110px;
+}
+.editar{
+	color:#0066B2;
+}
+.width-40{
+	max-width:40%!important;
+}
+::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color:    #999;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+   color:    #999;
+   opacity:  1;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+   color:    #999;
+   opacity:  1;
+}
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+   color:    #999;
+}
+::-ms-input-placeholder { /* Microsoft Edge */
+   color:    #999;
 }

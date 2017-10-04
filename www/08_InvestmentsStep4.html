@@ -208,9 +208,10 @@
         $.ajax({
           type: "POST",
           url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
-          data: "action=setOfferFinal&inv_b="+localStorage.id_u+"&prest_b="+$("#prest_b").val()+"&total_b="+monto+"&quota_b="+cuota+"&interes_b="+$("#interes_b").val()+"&plazo_b="+duracion+"&destination_b="+$("#destination_b").val()+"&offer_b="+id_ofert,
+          data: "action=setOfferFinal&inv_b="+localStorage.id_u+"&prest_b="+$("#prest_b").val()+"&total_b="+monto+"&quota_b="+cuota+"&interes_b="+$("#interes_b").val()+"&plazo_b="+duracion+"&destination_b="+$("#destination_b").val()+"&offer_b="+id_ofert+"&admin="+localStorage.id_u,
           dataType:'JSON',
-          success: function(msg){  
+          success: function(msg){
+            alert(JSON.stringify(msg));
             if(msg.status){
                 $.ajax({
                   type: "POST",
@@ -238,10 +239,12 @@
         $.ajax({
           type: "POST",
           url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
-          data: "action=delOfferMatch&id="+id_ofert,
+          data: "action=delOfferMatch&inv="+localStorage.id_u+"&id="+id_ofert,
           dataType:'JSON',
           success: function(msg){  
             if(msg.status){
+              var data = {page:"10_LoansStep1.html?section=mis_proyectos",action:"del_offert",id_ofert:id_ofert};                    
+              socket.emit('setOffert', data);             
               window.location.href = "08_InvestmentsStep3.html?section=negociar";
             }
           }
@@ -371,6 +374,7 @@ function getHeaderOffert(id_ofert){
                   $("#total_b").val(monto);
                   $("#quota_b").val(cuota);
                   $("#interes_b").val(interes);
+                  $("#destination_b").val(value.destination);                  
                   $("#plazo_b").val(duracion);
                   $("#offer_b").val(id_ofert);
                   $("#inv_b").val(localStorage.id_u);                              
