@@ -148,6 +148,7 @@
                           <option value="" disabled selected>Selecciona una</option>
                           <option value="">Seleccionar</option>
                         </select>
+                        <input id="occupation2_u" name="occupation2_u" value="" placeholder="Otra profesión" type="text" style="display: none;">
                         <label for="occupation_u">Profesión</label>
                       </div>
                       <div class="input-field col s12 m6">
@@ -628,7 +629,13 @@
                         });
     getStates();
     getFullUserData();
-
+    $( "#occupation_u" ).change(function() {
+      if($(this).val()=="otro ¿cuál?"){
+        $("#occupation2_u").show();
+      }else{
+        $("#occupation2_u").val('').hide();
+      }
+    });
 
     $( "#state_u" ).change(function() {
       getCities();
@@ -736,7 +743,7 @@
                       success: function (data) {      
                         $.each(data, function( index, value ) {
                               $('#occupation_u').append($('<option>', { 
-                                  value: value.value,
+                                  value: value.label,
                                   text : value.label
                               }));
                         });

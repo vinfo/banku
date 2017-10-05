@@ -516,7 +516,12 @@ var getFullUserData= function getFullUserData(){
                           }                          
                           if(select){
                             if(index=="city_u")getCities(value);
-                            $('#'+index+' option[value='+value+']').attr('selected','selected');
+                            if(index=="occupation_u"){
+                                if(value=="otro ¿cuál?"){
+                                    $("#occupation2_u").show();
+                                }
+                            }
+                            $('#'+index+' option[value="'+value+'"]').attr('selected','selected');
                             $('#'+index).material_select();                            
                           }
                          if(checkbox){
