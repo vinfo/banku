@@ -235,17 +235,22 @@
         });
       });      
       $( ".eliminar" ).click(function() {
-        $.ajax({
-          type: "POST",
-          url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
-          data: "action=delOfferMatch&prest="+localStorage.id_u+"&id="+id_ofert,
-          dataType:'JSON',
-          success: function(msg){  
-            if(msg.status){
-              window.location.href = "08_InvestmentsStep3.html?section=negociar";
+        var conf=confirm("Desea dejar de negociar esta oferta?");
+        if(conf){
+          $.ajax({
+            type: "POST",
+            url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
+            data: "action=delOfferMatch&prest="+localStorage.id_u+"&id="+id_ofert+"&owner_offer="+$("#inv_b").val(),
+            dataType:'JSON',
+            success: function(msg){  
+              if(msg.status){
+                var data = {page:"08_InvestmentsStep3.html?section=negociar",action:"del_offert",id_ofert:id_ofert,id_u:$("#inv_b").val()};                    
+                socket.emit('setOffert', data);
+                window.location.href = "08_InvestmentsStep3.html?section=negociar";
+              }
             }
-          }
-        });
+          });          
+        }
       });
       $( ".btn-favorito" ).click(function() {
         $.ajax({

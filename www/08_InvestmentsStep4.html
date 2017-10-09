@@ -59,7 +59,7 @@
                 </div> 
                 <div class="col s5 right-align">                                 
                   <h3 class="amount"></h3>
-                  <p><small>Pago Mensual: <span class="cuota"></span></small></p>
+                  <p><small>Pago Mensual: <span class="cuota"></span><br/><b>Pago Total: <span class="pago_total"></span></b></small></p>
                   <a href="#!" class="red-text text-darken-2 tooltipped eliminar" data-position="top" data-delay="50" data-tooltip="Eliminar proyecto"><i class="material-icons">remove_circle_outline</i></a>  
                 </div>  
                 <div class="col s12">
@@ -236,19 +236,22 @@
         });
       });      
       $( ".eliminar" ).click(function() {
-        $.ajax({
-          type: "POST",
-          url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
-          data: "action=delOfferMatch&inv="+localStorage.id_u+"&id="+id_ofert,
-          dataType:'JSON',
-          success: function(msg){  
-            if(msg.status){
-              var data = {page:"10_LoansStep1.html?section=mis_proyectos",action:"del_offert",id_ofert:id_ofert};                    
-              socket.emit('setOffert', data);             
-              window.location.href = "08_InvestmentsStep3.html?section=negociar";
+        var conf=confirm("Desea dejar de negociar esta oferta?");
+        if(conf){
+          $.ajax({
+            type: "POST",
+            url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
+            data: "action=delOfferMatch&inv="+localStorage.id_u+"&id="+id_ofert+"&owner_offer="+$("#prest_b").val(),
+            dataType:'JSON',
+            success: function(msg){  
+              if(msg.status){
+                var data = {page:"10_LoansStep1.html?section=mis_proyectos",action:"del_offert",id_ofert:id_ofert,id_u:$("#prest_b").val()};                    
+                socket.emit('setOffert', data);             
+                window.location.href = "08_InvestmentsStep3.html?section=negociar";
+              }
             }
-          }
-        });
+          });          
+        }
       });
       $( ".btn-favorito" ).click(function() {
         $.ajax({
@@ -362,12 +365,14 @@ function getHeaderOffert(id_ofert){
                   var cuota= calcCuota(monto,interes,duracion);
                   var calification= value.calification;
 
+
                                    
                   if(localStorage.type_user!="prestatario"&&value.ldestination)$(".destination").html(value.ldestination+'<br>');
                   $(".interest").html(interes+'% | ');
                   $(".duration").html(duracion+' Meses');
                   $(".amount").html(numeral(monto).format('0,0'));
                   $(".cuota").html(numeral(cuota).format('0,0'));
+                  $(".pago_total").html(numeral((cuota * duracion)).format('0,0'));
                   $("#monto").val(monto);
                   $("#interes").val(interes);
                   $("#duracion").val(duracion);

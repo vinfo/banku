@@ -35,29 +35,27 @@ $( document ).ready(function(){
         var interest= parseFloat(localStorage.interest);
         var interest2= parseFloat(localStorage.interest2);       
         var duration= parseInt(localStorage.duration);
-        var duration2= parseInt(localStorage.duration2);        
+        var duration2= parseInt(localStorage.duration2);
+        //alert(type_user+"= "+msg.page+" | "+msg.action); 
         if(type_user=="prestatario"){
-            console.log(msg.page); 
-            if(msg.page&&msg.page!=""&&msg.action&&msg.action=="new_offer_inv"){
-                console.log(msg.action);                             
-                if(amount>0&&amount>=parseInt(msg.monto)&&amount<=parseInt(msg.monto2)&&duration>=parseInt(msg.duracion)&&duration<=parseInt(msg.duracion2)&&interest>=parseFloat(msg.interes)&&interest<=parseFloat(msg.interes2)){
+            if(msg.page&&msg.page!=""&&msg.action){
+                if(msg.action=="new_offer_inv"&&amount>0&&amount>=parseInt(msg.monto)&&amount<=parseInt(msg.monto2)&&duration>=parseInt(msg.duracion)&&duration<=parseInt(msg.duracion2)&&interest>=parseFloat(msg.interes)&&interest<=parseFloat(msg.interes2)){
                     console.log(amount);
                     window.location.href = msg.page;
                 }                
             }
-            if(msg.page&&msg.page!=""&&msg.action&&msg.action=="del_offert"){
-                console.log(msg.action);                             
-                window.location.href = msg.page;
-            } 
-        }else{
-            console.log(msg.page);          
-            if(msg.page&&msg.page!=""&&msg.action&&msg.action=="new_offer_prest"){
-                console.log(msg.action);                             
-                if(amount>0&&amount2>0&&interest>0&&interest2>0&&duration>0&&duration2>0&&(amount>=parseInt(msg.monto)&&parseInt(msg.monto)<=amount2)&&(interest>=parseFloat(msg.interes)&&parseFloat(msg.interes)<=interest2)&&(duration>=parseInt(msg.duracion)&&parseInt(msg.duracion)<=duration2)){                    
-                    console.log(amount);
+            if(msg.action=="del_offert"&&localStorage.id_u==msg.id_u){                    
+              window.location.href = msg.page;
+            }
+        }else{        
+            if(msg.page&&msg.page!=""&&msg.action){
+                if(msg.action=="new_offer_prest"&&amount>0&&amount2>0&&interest>0&&interest2>0&&duration>0&&duration2>0&&(amount>=parseInt(msg.monto)&&parseInt(msg.monto)<=amount2)&&(interest>=parseFloat(msg.interes)&&parseFloat(msg.interes)<=interest2)&&(duration>=parseInt(msg.duracion)&&parseInt(msg.duracion)<=duration2)){                    
                     window.location.href = msg.page;
-                }                
-            }                      
+                }
+                if(msg.action=="del_offert"&&localStorage.id_u==msg.id_u){                    
+                    window.location.href = msg.page;
+                }
+            }                                
         }
         //Generico nueva respuesta Chat
         if(msg.page&&msg.page!=""&&msg.action&&(msg.action=="chat"||msg.action=="new_business")){          
