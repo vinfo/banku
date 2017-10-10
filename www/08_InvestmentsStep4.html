@@ -25,9 +25,9 @@
       <ul class="left ">
         <li><a href="#!" class="back"><i class="material-icons">keyboard_arrow_left</i></a></li>
       </ul>
-      <ul class="right ">
+<!--       <ul class="right ">
         <li><a href="#!"><i class="material-icons">add</i></a></li>
-      </ul>
+      </ul> -->
     </div>
   </nav>
 
@@ -59,8 +59,8 @@
                 </div> 
                 <div class="col s5 right-align">                                 
                   <h3 class="amount"></h3>
-                  <p><small>Pago Mensual: <span class="cuota"></span><br/><b>Pago Total: <span class="pago_total"></span></b></small></p>
-                  <a href="#!" class="red-text text-darken-2 tooltipped eliminar" data-position="top" data-delay="50" data-tooltip="Eliminar proyecto"><i class="material-icons">remove_circle_outline</i></a>  
+                  <p><small>Recibo Mensual: <span class="cuota"></span><br/><b>Recibo Total: <span class="pago_total"></span></b></small></p>
+                  <a href="#!" class="red-text text-darken-2 tooltipped eliminar" data-position="top" data-delay="50" data-tooltip="Eliminar proyecto"><i class="material-icons">delete_forever</i></a>  
                 </div>  
                 <div class="col s12">
                   <input id="prest_b" name="prest_b" type="hidden" value="">
@@ -84,9 +84,9 @@
 
     <div class="box-businnes"> 
       <div class="btn-action-bussines">
-        <a href="#modal3" class="btn-nego">Negociar</a>
-        <a href="#!" class="btn-aceptar">Aceptar</a>
+        <a href="#modal3" class="btn-nego">Negociar</a>        
         <a href="#!" class="btn-favorito">Favorito</a>
+        <a href="#!" class="btn-aceptar">Aceptar</a>
       </div>
       <div class="info-money">
         Tu saldo es: <strong>$<span class="saldo-inversionista"></span></strong>
@@ -371,8 +371,8 @@ function getHeaderOffert(id_ofert){
                   $(".interest").html(interes+'% | ');
                   $(".duration").html(duracion+' Meses');
                   $(".amount").html(numeral(monto).format('0,0'));
-                  $(".cuota").html(numeral(cuota).format('0,0'));
-                  $(".pago_total").html(numeral((cuota * duracion)).format('0,0'));
+                  $(".cuota").html("$"+numeral(cuota).format('0,0'));
+                  $(".pago_total").html("$"+numeral((cuota * duracion)).format('0,0'));
                   $("#monto").val(monto);
                   $("#interes").val(interes);
                   $("#duracion").val(duracion);
