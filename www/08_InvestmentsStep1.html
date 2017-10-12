@@ -97,7 +97,8 @@
             $.each(msg.data, function( index, value ) {
               var starts= getStarts(value.calification2_u_inv);
               var cuota= calcCuota(value.amount_prest,value.interest_prest,value.duration_prest);
-              $(".lista").html('<div class="col s12 m6"><div class="box-proyect" style="background-color:#FFCB05;"><div class="info-proyect"><div class="row"><div class="col s7"> <h5>'+value.user_prest+'</h5></div> <div class="col s12"> <hr><p>'+value.ldestination+'<br>% '+value.interest_prest+'|'+value.duration_prest+' Meses</p> <div class="star-user">'+starts+'</div></div></div> </div><div class="desc-proyect"><h3>$'+numeral(value.amount_prest).format('0,0')+'</h3><p><small>Pago Mensual: $'+numeral(cuota).format('0,0')+'</small></p><a href="08_InvestmentsStep4.html?section=negociar&id_ofert='+value.id_ofert+'&negociando=true" class="btn-negociar">En Negociación</a></div></div></div>');
+              var pago_total= "$"+numeral((cuota * value.duration_prest)).format('0,0');
+              $(".lista").html('<div class="col s12 m6"><div class="box-proyect" style="background-color:#FFCB05;"><div class="info-proyect"><div class="row"><div class="col s7"> <h5>'+value.user_prest+'</h5></div> <div class="col s12"> <hr><p>'+value.ldestination+'<br>% '+value.interest_prest+'|'+value.duration_prest+' Meses</p> <div class="star-user">'+starts+'</div></div></div> </div><div class="desc-proyect"><h3>$'+numeral(value.amount_prest).format('0,0')+'</h3><p><small>Recibo Mensual: $'+numeral(cuota).format('0,0')+'<br/><b>Recibo Total: <span>'+pago_total+'</span></b></small></p><a href="08_InvestmentsStep4.html?section=negociar&id_ofert='+value.id_ofert+'&negociando=true" class="btn-negociar">En Negociación</a></div></div></div>');
             });
           }else{
             $(".no-lists").show();

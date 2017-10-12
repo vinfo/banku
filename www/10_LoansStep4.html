@@ -26,7 +26,7 @@
         <li><a href="#!" class="back"><i class="material-icons">keyboard_arrow_left</i></a></li>
       </ul>
       <ul class="right ">
-        <li><a href="#!"><i class="material-icons">add</i></a></li>
+        <li><a href="#!" class="red-text tooltipped eliminar" data-position="top" data-delay="50" data-tooltip="Eliminar proyecto"><i class="material-icons small">cancel</i></a></li>
       </ul>
     </div>
   </nav>
@@ -58,8 +58,7 @@
                 </div> 
                 <div class="col s5 right-align">                                 
                   <h3 class="amount"></h3>
-                  <p><small>Pago Mensual: <span class="cuota"></span></small></p>
-                  <a href="#!" class="red-text text-darken-2 tooltipped eliminar" data-position="top" data-delay="50" data-tooltip="Eliminar proyecto"><i class="material-icons">delete_forever</i></a>  
+                  <p><small>Pago Mensual: <span class="cuota"></span></small></p>                    
                 </div>  
                 <div class="col s12">
                   <input id="inv_b" name="inv_b" type="hidden" value="">
@@ -109,6 +108,7 @@
             <p class="range-field"><div id="interest"></div></p> 
             <input type="hidden" id="monto" name="monto" value="">
             <input type="hidden" id="interes" name="interes" value="">             
+            <input type="hidden" id="interesF" name="interesF" value="">
             <div class="clear"></div>  
           </div>
           <div class="card-panel white"> 
@@ -117,6 +117,7 @@
           <div class="card-panel white">
             <p class="range-field"><div id="duration"></div></p>
             <input type="hidden" id="duracion" name="duracion" value=""> 
+            <input type="hidden" id="duracionF" name="duracionF" value="">
             <div class="clear"></div>    
           </div>
 
@@ -124,7 +125,7 @@
 
         <div class="col s12 center payment-month">
           <p>Pago (mes)</p>
-          <h2>$<span class="cuota"></span></h2>
+          <h2>$<span class="cuotaSlider"></span></h2>
         </div>
 
         <div class="col s12 center margin-top-40 btn-register">
@@ -235,7 +236,7 @@
         });
       });      
       $( ".eliminar" ).click(function() {
-        var conf=confirm("Desea dejar de negociar esta oferta?");
+        var conf=confirm("¿Está seguro de que desea eliminar esta negociación?");
         if(conf){
           $.ajax({
             type: "POST",
@@ -274,6 +275,7 @@
         if(monto!=""&&interes!=""&&duracion!=""){
           var setoffer= setOfferTemp(id_ofert,inv_b,localStorage.id_u,interes,duracion);
           if(setoffer){
+            $(".btn-nego").hide();
             $('#modal3').modal('close');
             var data = {page:"08_InvestmentsStep4.html?id_ofert="+id_ofert+"&negociando=true",action:"chat",id_u:inv_b};
             socket.emit('setOffert',data);
@@ -287,12 +289,23 @@
       if(id_ofert){
         getHeaderOffert(id_ofert);
         getOffersTemp(id_ofert);
+        setTimeout(function(){
+          if($(".l_interes").html())$("#interesF").val($(".l_interes").html());
+          if($(".l_plazo").html())$("#duracionF").val($(".l_plazo").html());
+          if($(".user_id").attr("data-id")&&$(".user_id").attr("data-id")==localStorage.id_u)$(".btn-nego").hide();
+          setSliders();
+        },1000);        
       }              
     })
      function setSliders(){
       var monto= $("#monto").val();
       var interes= $("#interes").val();
-      var duracion= $("#duracion").val();      
+      if($("#interesF").val()!="")interes= $("#interesF").val();
+      var duracion= $("#duracion").val();
+      if($("#duracionF").val()!="")duracion= $("#duracionF").val();
+      var cuota= calcCuota(monto,interes,duracion);
+      $(".cuotaSlider").html(numeral(cuota).format('0,0')); 
+        
       var find = ["$","%","."];
       var replace = ['','',''];
       noUiSlider.create(interest, {
@@ -316,7 +329,7 @@
           var interes= rplPerc(data.toString());
           $("#interes").val(interes);
           var cuota= calcCuota(monto,interes,duracion);
-          $(".cuota").html(numeral(cuota).format('0,0'));
+          $(".cuotaSlider").html(numeral(cuota).format('0,0'));
         }
       });        
       noUiSlider.create(duration, {
@@ -338,7 +351,7 @@
           $("#duracion").val(duracion);
           var interes= rplPerc(interest.noUiSlider.get());
           var cuota= calcCuota(monto,interes,duracion);
-          $(".cuota").html(numeral(cuota).format('0,0'));
+          $(".cuotaSlider").html(numeral(cuota).format('0,0'));
         }
       });            
     } 
@@ -390,7 +403,6 @@ function getHeaderOffert(id_ofert){
                   $("#plazo_b").val(duracion);
                   $("#offer_b").val(id_ofert);                                     
                 });
-                setSliders();
               }
             }
           });  

@@ -139,7 +139,8 @@ function getOfferts(){
             $.each(msg.data, function( index, value ) {
               var starts= getStarts(value.calification2_u);
               var cuota= calcCuota(value.amount,value.interest,value.duration);
-              $(".offerts").append('<div class="col s12 m6">  <div class="box-proyect"><div class="info-proyect"><div class="row"><div class="col s7"> <h5>'+value.user_u+'</h5></div>   <div class="col s12"> <hr><p>'+value.ldestination+'<br>% '+value.interest+'  |  '+value.duration+' Meses</p> <div class="star-user">'+starts+'</div></div></div> </div><div class="desc-proyect">  <h3>$'+numeral(value.amount).format('0,0')+'</h3>  <p><small>Pago Mensual: $'+numeral(cuota).format('0,0')+'</small></p>  <a href="08_InvestmentsStep4.html?id_ofert='+value.id+'&prest='+value.id_u+'" class="btn-negociar" id="'+value.id+'">Negociar</a></div></div>  </div>');
+              var pago_total= "$"+numeral((cuota * value.duration)).format('0,0');
+              $(".offerts").append('<div class="col s12 m6">  <div class="box-proyect"><div class="info-proyect"><div class="row"><div class="col s7"> <h5>'+value.user_u+'</h5></div>   <div class="col s12"> <hr><p>'+value.ldestination+'<br>% '+value.interest+'  |  '+value.duration+' Meses</p> <div class="star-user">'+starts+'</div></div></div> </div><div class="desc-proyect">  <h3>$'+numeral(value.amount).format('0,0')+'</h3>  <p><small>Recibo Mensual: $'+numeral(cuota).format('0,0')+'<br/><b>Recibo Total: <span>'+pago_total+'</span></b></small></p>  <a href="08_InvestmentsStep4.html?id_ofert='+value.id+'&prest='+value.id_u+'" class="btn-negociar" id="'+value.id+'">Negociar</a></div></div>  </div>');
             });
           }else{
             $(".offerts").html('<p class="center"><small>No existen negociaciones disponibles</small></p>');

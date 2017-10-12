@@ -81,7 +81,16 @@
     <div class="modal-footer">
       <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Aceptar</a>
     </div>
-  </div> 
+  </div>
+  <div id="info2" class="modal">
+    <div class="modal-content">
+      <h4 class="modal_title">Actualizar información del perfil</h4>
+      <p class="modal_text">Recuerda que debes actualizar tú perfil para mejorar tu calificación.</p>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Aceptar</a>
+    </div>
+  </div>   
   <script type="text/javascript" src="cordova.js"></script>
   <script type="text/javascript" src="index.js"></script>             
   <!--Import jQuery before materialize.js-->
@@ -95,16 +104,13 @@
   <script type="text/javascript">
    $( document ).ready(function(){
     sessionRedirect();
-    setTimeout(function(){ $(".brand-logo").text("Mi Perfil"); }, 300);
-
-    if(localStorage.login){
+    setTimeout(function(){ $(".brand-logo").text("Mi Perfil"); }, 300);    
+    if(localStorage.login){        
         $('#info1').modal('open',{
           dismissible: true,
           complete: function() {
             if(localStorage.percent<100){
-              $(".modal_title").html('Actualizar información del perfil');
-              $(".modal_text").html('Recuerda que debes actualizar tú perfil para mejorar tu calificación.');
-              $('#info1').modal('open');
+              $('#info2').modal('open');
             }
           }
         }

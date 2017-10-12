@@ -1,153 +1,158 @@
 <!DOCTYPE html>
- <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <!--Import Google Icon Font-->
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <!--Import Google Icon Font-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  
+  <!--Import materialize.css-->
+  <link type="text/css" rel="stylesheet" href="assets/css/materialize.min.css"  media="screen,projection"/>
+  <!--Import my style-->
+  <link type="text/css" href="assets/css/custom.css" rel="stylesheet"/>
+  <!--Let browser know website is optimized for mobile-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
+
+<body class="profile">
+  <!--Nav Responsive-->
+  <nav class="nav-app">
+    <div class="nav-wrapper">
+      <a href="#!" class="brand-logo center">Inicia sesión</a>
+      <ul class="left ">
+        <li><a href="#!" class="back"><i class="material-icons">keyboard_arrow_left</i></a></li>
+      </ul>
+    </div>
+  </nav>
+
+
+  <!-- Modal Structure OK -->
+  <div id="modal2" class="modal">
+    <div class="modal-content content-done">
+      <a href="#!" class="modal-action modal-close"><i class="material-icons close">close</i></a>
+      <div class="icon-donde"><i class="material-icons done">done</i></div>
+      <h4>¡Tus cambios están<br>
+      siendo analizados!</h4>
+      <hr>
+      <p>Pronto te estaremos confirmando de su actualización! Recuerda que estos cambios tiene un costo de $<span class="costs"></span>, según términos y condición del contrato.</p>
+      <p>Gracias!</p>
+    </div>
+  </div>       
+
+  <div class="wrapper edit-profile">
+    <div class="container">
+      <div class="row">                
+        <div class="col s12 center brand-register">
+          <img class="responsive-img" src="assets/images/logoRegister.png" alt="BankU">
+          <h5 class="hide-on-med-and-down">Inicia sesión</h5>
+        </div>
+        <form id="frm_register" name="frm_register" class="col s12 form-general-data">
+          <div class="row">
+            <div class="input-field col s12">
+              <input value="" placeholder="correo@correo.com" id="email" name="email" type="email" class="validate" required>
+              <label for="email">Email</label>
+            </div>
+            <div class="input-field col s12">
+              <input placeholder="Ingresa tu contraseña" id="password" name="password" type="password" class="validate" required>
+              <input type="hidden" id="action" name="action" value="loginUser">
+              <input type="hidden" id="uuid" name="uuid" value="">
+              <input type="hidden" id="pushtoken" name="pushtoken" value="">
+              <label for="password">Contraseña <i class="material-icons tiny eyes">remove_red_eye</i></label>
+            </div>
+            <div class="input-field col s12">                                
+              <select id="type_user" name="type_user"class="validate" required>
+                <option value="4">Prestatario</option>
+                <option value="3">Inversionista</option>
+              </select>
+              <label for="type_user">Tipo de Usuario</label>
+            </div>                            
+          </div>
+        </form>  
+        <div class="col s12 center margin-top-10 btn-register">
+          <a href="#" class="waves-effect waves-light yellow accent-4 btn-large">Iniciar sesión</a>
+          <br><br>
+          <h5 class="grey-text text-grey"><small>O bien, <a href="03_RegisterRegister.html">crea una cuenta</a></small></h5>
+        </div>                  
+      </div>                                                                                
+    </div>
+  </div>  
+
+  <footer class="page-footer">
+    <div class="footer-copyright">
+      <div class="container">
+        © 2017 BankU                    
+      </div>
+    </div>
+  </footer>
+  <script type="text/javascript" src="cordova.js"></script>
+  <script type="text/javascript" src="index.js"></script>            
+
+  <!--Import jQuery before materialize.js-->
+  <script type="text/javascript" src="assets/js/jquery-2.1.1.min.js"></script>
+  <script type="text/javascript" src="assets/js/materialize.min.js"></script>
+  <script type="text/javascript" src="assets/js/jquery.validate.min.js"></script>
+  <script type="text/javascript" src="assets/js/numeral.min.js"></script
+    <script src="assets/js/socket.io.js"></script>  
+    <script type="text/javascript" src="assets/js/tools.js"></script>        
+    <script type="text/javascript">
+      $( document ).ready(function(){        
+        $(".wrapper").show();
+        $('select').material_select();
+        $('.modal').modal();
+        $( ".back" ).click(function() {
+          window.history.back();
+        });
+        $( ".eyes" ).click(function() {
+          var type= $("#password").attr('type');
+          if(type=="password"){
+            $("#password").attr("type","text");
+          }else{
+            $("#password").attr("type","password");
+          }                  
+        });                
         
-        <!--Import materialize.css-->
-        <link type="text/css" rel="stylesheet" href="assets/css/materialize.min.css"  media="screen,projection"/>
-        <!--Import my style-->
-        <link type="text/css" href="assets/css/custom.css" rel="stylesheet"/>
-        <!--Let browser know website is optimized for mobile-->
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    </head>
-
-    <body class="profile">
-        <!--Nav Responsive-->
-        <nav class="nav-app">
-            <div class="nav-wrapper">
-                <a href="#!" class="brand-logo center">Inicia sesión</a>
-                <ul class="left ">
-                    <li><a href="#!" class="back"><i class="material-icons">keyboard_arrow_left</i></a></li>
-                </ul>
-            </div>
-        </nav>
-
-
-        <!-- Modal Structure OK -->
-        <div id="modal2" class="modal">
-            <div class="modal-content content-done">
-            <a href="#!" class="modal-action modal-close"><i class="material-icons close">close</i></a>
-            <div class="icon-donde"><i class="material-icons done">done</i></div>
-                <h4>¡Tus cambios están<br>
-                siendo analizados!</h4>
-                <hr>
-                <p>Pronto te estaremos confirmando de su actualización! Recuerda que estos cambios tiene un costo de $<span class="costs"></span>, según términos y condición del contrato.</p>
-                <p>Gracias!</p>
-            </div>
-        </div>       
-
-        <div class="wrapper edit-profile">
-            <div class="container">
-                <div class="row">                
-                    <div class="col s12 center brand-register">
-                        <img class="responsive-img" src="assets/images/logoRegister.png" alt="BankU">
-                        <h5 class="hide-on-med-and-down">Inicia sesión</h5>
-                    </div>
-                    <form id="frm_register" name="frm_register" class="col s12 form-general-data">
-                        <div class="row">
-                            <div class="input-field col s12">
-                                <input value="" placeholder="correo@correo.com" id="email" name="email" type="email" class="validate" required>
-                                <label for="email">Email</label>
-                            </div>
-                            <div class="input-field col s12">
-                                <input placeholder="Ingresa tu contraseña" id="password" name="password" type="password" class="validate" required>
-                                <input type="hidden" id="action" name="action" value="loginUser">
-                                <input type="hidden" id="uuid" name="uuid" value="">
-                                <input type="hidden" id="pushtoken" name="pushtoken" value="">
-                                <label for="password">Contraseña <i class="material-icons tiny eyes">remove_red_eye</i></label>
-                            </div>
-                            <div class="input-field col s12">                                
-                                <select id="type_user" name="type_user"class="validate" required>
-                                <option value="4">Prestatario</option>
-                                <option value="3">Inversionista</option>
-                                </select>
-                                <label for="type_user">Tipo de Usuario</label>
-                            </div>                            
-                        </div>
-                    </form>  
-                    <div class="col s12 center margin-top-10 btn-register">
-                        <a href="#" class="waves-effect waves-light yellow accent-4 btn-large">Iniciar sesión</a>
-                        <br><br>
-                        <h5 class="grey-text text-grey"><small>O bien, <a href="03_RegisterRegister.html">crea una cuenta</a></small></h5>
-                    </div>                  
-                </div>                                                                                
-            </div>
-        </div>  
-
-        <footer class="page-footer">
-            <div class="footer-copyright">
-                <div class="container">
-                    © 2017 BankU                    
-                </div>
-            </div>
-        </footer>
-        <script type="text/javascript" src="cordova.js"></script>
-        <script type="text/javascript" src="index.js"></script>            
-
-        <!--Import jQuery before materialize.js-->
-        <script type="text/javascript" src="assets/js/jquery-2.1.1.min.js"></script>
-        <script type="text/javascript" src="assets/js/materialize.min.js"></script>
-        <script type="text/javascript" src="assets/js/jquery.validate.min.js"></script>
-        <script type="text/javascript" src="assets/js/numeral.min.js"></script
-        <script src="assets/js/socket.io.js"></script>  
-        <script type="text/javascript" src="assets/js/tools.js"></script>        
-        <script type="text/javascript">
-            $( document ).ready(function(){        
-        		$(".wrapper").show();
-                $('select').material_select();
-                $('.modal').modal();
-                $( ".back" ).click(function() {
-                  window.history.back();
-                });
-                $( ".eyes" ).click(function() {
-                  var type= $("#password").attr('type');
-                  if(type=="password"){
-                    $("#password").attr("type","text");
+        if(sessionStorage.UUID)$("#uuid").val(sessionStorage.UUID);
+        if(localStorage.pushtoken)$("#pushtoken").val(localStorage.pushtoken);
+        
+        $( ".accent-4" ).click(function(e) {
+          e.preventDefault();
+          var validator = $("#frm_register").validate({errorPlacement: function(error,element) {return true;}});
+          validator.form();
+          if(validator.valid()){
+            var con= checkConnection();
+            if(con){
+              $(".btn-register").html('<img class="responsive-img" src="assets/images/ajax-loader.gif" alt="Procesando...">');
+              $.ajax({
+                type: "POST",
+                url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
+                data: $("#frm_register").serialize(),
+                dataType:'JSON',
+                success: function(msg){
+                  if(msg.data){
+                    localStorage.setItem("id_u",msg.data.id_u);
+                    localStorage.setItem("user_u",msg.data.user_u);
+                    localStorage.setItem("percent",msg.percent);
+                    var type_user='prestatario';
+                    if(msg.data.rol_u==3)type_user='inversionista';
+                    localStorage.setItem("type_user",type_user);
+                    localStorage.setItem("calification_u",msg.data.calification_u);
+                    localStorage.setItem("calification2_u",msg.data.calification2_u);
+                    localStorage.setItem("login","true");
+                    localStorage.setItem("approved_u",msg.data.approved_u);
+                    window.location = "05_Profile_Incomplete-1.html?section=mi_perfil";
                   }else{
-                    $("#password").attr("type","password");
-                  }                  
-                });                
-                
-                if(sessionStorage.UUID)$("#uuid").val(sessionStorage.UUID);
-                if(localStorage.pushtoken)$("#pushtoken").val(localStorage.pushtoken);
-                
-                $( ".accent-4" ).click(function(e) {
-                    e.preventDefault();
-                    var validator = $("#frm_register").validate({errorPlacement: function(error,element) {return true;}});
-                    validator.form();
-                    if(validator.valid()){
-                        $(".btn-register").html('<img class="responsive-img" src="assets/images/ajax-loader.gif" alt="Procesando...">');
-                        $.ajax({
-                            type: "POST",
-                            url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
-                            data: $("#frm_register").serialize(),
-                            dataType:'JSON',
-                            success: function(msg){
-                                if(msg.data){
-                                    localStorage.setItem("id_u",msg.data.id_u);
-                                    localStorage.setItem("percent",msg.percent);
-                                    var type_user='prestatario';
-                                    if(msg.data.rol_u==3)type_user='inversionista';
-                                    localStorage.setItem("type_user",type_user);
-                                    localStorage.setItem("calification_u",msg.data.calification_u);
-                                    localStorage.setItem("calification2_u",msg.data.calification2_u);
-									                  localStorage.setItem("login","true");
-                                    localStorage.setItem("approved_u",msg.data.approved_u);
-                                    window.location = "05_Profile_Incomplete-1.html?section=mi_perfil";
-                                }else{
-                                    Materialize.toast('Email/Contraseña no validos', 1000, 'rounded');
-                                    $(".btn-register").html('<a href="#" class="waves-effect waves-light yellow accent-4 btn-large">Iniciar sesión</a><br><br><h5 class="grey-text text-grey"><small>O bien, <a href="03_RegisterRegister.html">crea una cuenta</a></small></h5>');
-                                }
-                            },
-                            error: function(XMLHttpRequest, textStatus, errorThrown) { 
-                                alert("Problemas procesando datos: " + textStatus +" - "+errorThrown);
-                            }
-                        });                 
-                    }
-                });                                
-        	})
-        </script>
-    </body>
-</html>
+                    Materialize.toast('Email/Contraseña no validos', 1000, 'rounded');
+                    $(".btn-register").html('<a href="#" class="waves-effect waves-light yellow accent-4 btn-large">Iniciar sesión</a><br><br><h5 class="grey-text text-grey"><small>O bien, <a href="03_RegisterRegister.html">crea una cuenta</a></small></h5>');
+                  }
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown) { 
+                  alert("Problemas procesando datos: " + textStatus +" - "+errorThrown);
+                }
+              });  
+            }
+            
+          }
+        });                                
+      })
+    </script>
+  </body>
+  </html>

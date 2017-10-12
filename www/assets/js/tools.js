@@ -36,8 +36,9 @@ $( document ).ready(function(){
         var interest2= parseFloat(localStorage.interest2);       
         var duration= parseInt(localStorage.duration);
         var duration2= parseInt(localStorage.duration2);
+        var usuario='';
         //alert(type_user+"= "+msg.page+" | "+msg.action); 
-        if(type_user=="prestatario"){
+        if(type_user=="prestatario"){            
             if(msg.page&&msg.page!=""&&msg.action){
                 if(msg.action=="new_offer_inv"&&amount>0&&amount>=parseInt(msg.monto)&&amount<=parseInt(msg.monto2)&&duration>=parseInt(msg.duracion)&&duration<=parseInt(msg.duracion2)&&interest>=parseFloat(msg.interes)&&interest<=parseFloat(msg.interes2)){
                     console.log(amount);
@@ -48,8 +49,11 @@ $( document ).ready(function(){
               window.location.href = msg.page;
             }
         }else{        
+            usuario= $(".nombre-user").html();
+            console.log(msg.action+" - "+msg.page);
             if(msg.page&&msg.page!=""&&msg.action){
-                if(msg.action=="new_offer_prest"&&amount>0&&amount2>0&&interest>0&&interest2>0&&duration>0&&duration2>0&&(amount>=parseInt(msg.monto)&&parseInt(msg.monto)<=amount2)&&(interest>=parseFloat(msg.interes)&&parseFloat(msg.interes)<=interest2)&&(duration>=parseInt(msg.duracion)&&parseInt(msg.duracion)<=duration2)){                    
+                if(msg.action=="new_offer_prest"&&(amount>0&&amount2>0&&interest>0&&interest2>0&&duration>0&&duration2>0&&(amount>=parseInt(msg.monto)&&parseInt(msg.monto)<=amount2)&&(interest>=parseFloat(msg.interes)&&parseFloat(msg.interes)<=interest2&&(duration>=parseInt(msg.duracion)&&parseInt(msg.duracion)<=duration2)))){
+                    console.log("Redirigir"+msg.page);
                     window.location.href = msg.page;
                 }
                 if(msg.action=="del_offert"&&localStorage.id_u==msg.id_u){                    
@@ -61,6 +65,7 @@ $( document ).ready(function(){
         if(msg.page&&msg.page!=""&&msg.action&&(msg.action=="chat"||msg.action=="new_business")){          
             if(msg.id_u==localStorage.id_u){
                 window.location.href = msg.page;
+                send_notification('Nuevo solicitud del usuario '+usuario+'.',msg.page,msg.id_u);
             }                
         }         
         //if(msg.id_u==localStorage.id_u)location.reload();
@@ -238,27 +243,30 @@ function getOffersTemp(id_ofert){
                 var photo='';                
                 if(localStorage.type_user=="inversionista"){
                     $(".negociando-con").html(value.user_prest);
+                    $("#negociando-con").val(value.id_u_prest);
                     $("#inv_b").val(localStorage.id_u);
                 }else{
                     $(".negociando-con").html(value.user_inv);
+                    $("#negociando-con").val(value.id_u_inv);
                     $("#inv_b").val(value.id_u_inv);
                 }
                 $("#destination_b").val(value.destination_prest);
+               
                 if(localStorage.type_user=="inversionista")$("#prest_b").val(value.id_u_prest);
                              
                 if(value.admin==localStorage.id_u){
                   cls='bubble-left right';
                   if(localStorage.photo&&localStorage.photo!="")photo='<a href="#!user" class="avatar-nego"><img class="circle photo" src="data:image/jpeg;base64,' + decodeURIComponent(localStorage.photo)+'"></a>';                  
-                  chat += '<div class="'+cls+'">'+photo+'<div class="info-nego"><h5>'+value.user_admin+'</h5><p>Interés (%) E.M.: <strong class="l_interes">'+value.interest_inv+'</strong><br>Plazo: <strong class="l_plazo">'+value.duration_inv+'</strong></p> </div> <div class="date-buble">'+value.date.substr(0,16)+'</div></div>';
+                  chat += '<div class="'+cls+'">'+photo+'<div class="info-nego"><h5 data-id="'+value.id_admin+'" class="user_id">'+value.user_admin+'</h5><p>Interés (%) E.M.: <strong class="l_interes">'+value.interest_inv+'</strong><br>Plazo: <strong class="l_plazo">'+value.duration_inv+'</strong></p> </div> <div class="date-buble">'+value.date.substr(0,16)+'</div></div>';
                 }else{
-                  chat += '<div class="'+cls+'"><div class="info-nego"><h5>'+value.user_admin+'</h5><p>Interés (%) E.M.: <strong class="l_interes">'+value.interest_prest+'</strong><br>Plazo: <strong class="l_plazo">'+value.duration_prest+'</strong></p> </div> <div class="date-buble">'+value.date.substr(0,16)+'</div></div>';
+                  chat += '<div class="'+cls+'"><div class="info-nego"><h5 data-id="'+value.id_admin+'" class="user_id">'+value.user_admin+'</h5><p>Interés (%) E.M.: <strong class="l_interes">'+value.interest_prest+'</strong><br>Plazo: <strong class="l_plazo">'+value.duration_prest+'</strong></p> </div> <div class="date-buble">'+value.date.substr(0,16)+'</div></div>';
                 }
                 if(value.status=="1"){
                     chat +='<div class="bubble-rigth left"><a href="#!user" class="avatar-nego"><img class="circle" src="assets/images/avatarUser.jpg"></a><div class="info-nego"><h5 class="negociando-con"></h5><h3>Acepto tu oferta!!!</h3></div> <div class="date-buble">4m</div></div>';
                     $(".btn-nego,.btn-aceptar").hide();
                 }
                 cont++;
-            });
+            });            
             $(".chat").append(chat);
         }
     });
@@ -338,6 +346,14 @@ function sendPushMessage(pushtoken,msg){
         success: function(msg){
         }
     });   
+}
+function setDigits(value,digits){
+    var str='';
+    var tam= value.length;
+    for(var i=1;i<digits;i++){
+        str+='0';
+    }
+    return str+value;
 }
 function getUserData(){
     numeral.register('locale', 'es', {

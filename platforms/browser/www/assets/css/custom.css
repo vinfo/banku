@@ -551,7 +551,7 @@ input:not([type]):focus:not([readonly]), input[type=text]:not(.browser-default):
 .desc-proyect h3{
 	font-size: 1.6em;
 	font-weight: 600;
-	margin: 30px 0 0;
+	margin:10px 0 0;
 	line-height: 0.9em;
 }
 .desc-proyect p{
@@ -667,7 +667,7 @@ input:not([type]):focus:not([readonly]), input[type=text]:not(.browser-default):
 	width: 35px
 }
 .date-buble {
-	color: #bdc3c7;
+	color: #666;
     position: absolute;
     top: 20px;
     right: 0;
@@ -1000,6 +1000,10 @@ textarea.materialize-textarea{
 }
 .editar{
 	color:#0066B2;
+}
+.msg-pasos > p{
+	font-size: 14px;
+	text-align: justify;
 }
 .width-40{
 	max-width:40%!important;
