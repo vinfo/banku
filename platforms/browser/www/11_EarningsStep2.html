@@ -93,7 +93,9 @@
         $.each(msg.data, function( index, value ) {
           var starts= getStarts(value.calification2_u);
           var pago_total= "$"+numeral((value.quota_b * value.plazo_b)).format('0,0');
-          $(".lista").append('<div class="col s12 m6"><div class="box-proyect"><div class="info-proyect"><div class="row"><div class="col s7"><span>ID. # '+value.id_b+'</span><h5>'+value.user_prest+'</h5></div> <div class="col s12"> <hr><p>'+value.ldestination+'<br>% '+value.interes_b+'  |  '+value.plazo_b+' Meses</p> <div class="star-user">'+starts+'</div> </div> </div> </div><div class="desc-proyect"><h3>$'+numeral(value.total_b).format('0,0')+'</h3><p><small>Recibo Mensual: $'+numeral(value.quota_b).format('0,0')+'<br/><b>Recibo Total: <span>'+pago_total+'</span></b></small></p><a href="11_EarningsStep3.html?section=mis_ganancias&id_b='+value.id_b+'" class="btn-negociar">Histórico</a></div></div></div>');
+          var estado='Prestamo en proceso';
+          var color='style="background-color:#FFCB05"';
+          $(".lista").append('<div class="col s12 m6"><div class="box-proyect" '+color+'><div class="info-proyect"><div class="row"><div class="col s7"><span>ID. # '+setDigits(value.id_b,7)+'</span><h5>'+value.user_prest+'</h5></div> <div class="col s12"> <hr><p>'+value.ldestination+'<br>% '+value.interes_b+'  |  '+value.plazo_b+' Meses</p> <div class="star-user">'+starts+'</div> </div> </div> </div><div class="desc-proyect"><h3>$'+numeral(value.total_b).format('0,0')+'</h3><p><small>Recibo Mensual: $'+numeral(value.quota_b).format('0,0')+'<br/><b>Recibo Total: <span>'+pago_total+'<br/>Próximo pago: ## el ##/##/####</span></b></small></p><a href="11_EarningsStep3.html?section=mis_ganancias&id_b='+value.id_b+'" class="btn-negociar">'+estado+'</a></div></div></div>');
         });
       },
       error: function(XMLHttpRequest, textStatus, errorThrown) { 

@@ -306,7 +306,12 @@
       if($("#duracionF").val()!="")duracion= $("#duracionF").val();      
 
       var cuota= calcCuota(monto,interes,duracion);
-      $(".cuotaSlider").html(numeral(cuota).format('0,0'));      
+      $(".cuotaSlider").html(numeral(cuota).format('0,0'));
+
+      $(".interest").html(interes+"%|");
+      $(".duration").html(duracion+" Meses");
+      $(".cuota").html("$"+numeral(cuota).format('0,0'));
+      $(".pago_total").html("$"+numeral(cuota*duracion).format('0,0'));      
 
       var find = ["$","%","."];
       var replace = ['','',''];
