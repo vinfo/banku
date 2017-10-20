@@ -275,7 +275,7 @@
         if(monto!=""&&interes!=""&&duracion!=""){
           var setoffer= setOfferTemp(id_ofert,localStorage.id_u,$("#prest_b").val(),interes,duracion);          
           if(setoffer){
-            $(".btn-nego").hide();
+            $(".btn-nego,.btn-aceptar").hide();
             var redir= "10_LoansStep4.html?section=solicitar_dinero&id_ofert="+id_ofert+"&negociando=true";
             var data = {page: redir,action:"chat",id_u:$("#prest_b").val()};
             socket.emit('setOffert',data);
@@ -292,8 +292,14 @@
         getOffersTemp(id_ofert);
         setTimeout(function(){
           if($(".l_interes").html())$("#interesF").val($(".l_interes").html());
-          if($(".l_plazo").html())$("#duracionF").val($(".l_plazo").html());
-          if($(".user_id").attr("data-id")&&$(".user_id").attr("data-id")==localStorage.id_u)$(".btn-nego").hide();
+          if($(".l_plazo").html())$("#duracionF").val($(".l_plazo").html());          
+          if($(".user_id").attr("data-id")){
+            if($(".user_id").attr("data-id") != localStorage.id_u){
+              $(".btn-nego,.btn-aceptar").css('display','inline-block');
+            }            
+          }else{
+            $(".btn-nego,.btn-aceptar").css('display','inline-block');
+          }
           setSliders();                  
         },1500);    
       }              
@@ -301,16 +307,19 @@
      function setSliders(){
       var monto= $("#monto").val();
       var interes= $("#interes").val();
-      if($("#interesF").val()!="")interes= $("#interesF").val();
+      if($("#interesF").val()!=""){
+        interes= $("#interesF").val();
+        $(".interest").html(interes+"% | ");
+      }
       var duracion= $("#duracion").val();
-      if($("#duracionF").val()!="")duracion= $("#duracionF").val();      
+      if($("#duracionF").val()!=""){
+        duracion= $("#duracionF").val();
+        $(".duration").html(duracion+" Meses");  
+      }   
 
       var cuota= calcCuota(monto,interes,duracion);
       $(".cuotaSlider").html(numeral(cuota).format('0,0'));
-
-      $(".interest").html(interes+"%|");
-      $(".duration").html(duracion+" Meses");
-      $(".cuota").html("$"+numeral(cuota).format('0,0'));
+      $(".cuota").html("$"+numeral(cuota).format('0,0'));      
       $(".pago_total").html("$"+numeral(cuota*duracion).format('0,0'));      
 
       var find = ["$","%","."];

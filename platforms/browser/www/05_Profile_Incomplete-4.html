@@ -101,15 +101,15 @@
                         <label for="email_u">Email</label>
                       </div>
                       <div class="input-field col s12 m6 l3">
-                        <input placeholder="Ingresa tu contraseña" id="password_u" name="password_u" type="password" class="validate" required>
+                        <input placeholder="Ingresa tu contraseña" id="password_u" name="password_u" type="password" class="validate pass" required>
                         <input id="Hpassword_u" name="Hpassword_u" type="hidden" value="">
                         <label for="password_u">Contraseña</label>
                       </div>
                       <div class="input-field col s12 m6 l3">
-                        <input placeholder="Confirma tu contraseña" id="password_u2" name="password_u2" type="password" class="validate" required>
+                        <input placeholder="Confirma tu contraseña" id="password_u2" name="password_u2" type="password" class="validate pass" required>
                         <label for="password_u2">Confirmar contraseña</label>
                       </div>
-                      <div class="input-field col s12 m6 l3">
+                      <div class="input-field col s12 m6 l3 contrasena-actual">
                         <input placeholder="Contraseña actual" id="password_u3" name="password_u3" type="password" class="validate">
                         <label for="password_u3">Contraseña actual</label>
                       </div>
@@ -267,23 +267,23 @@
                         </select>
                         <label>Estado laboral</label>
                       </div>
-                      <div class="input-field col s12 m6">
+                      <div class="input-field col s12 m6 empresa">
                         <input placeholder="Nombre de la empresa" id="company_u" name="company_u" type="text" class="validate">
                         <label for="company_u">Empresa</label>
                       </div>
-                      <div class="input-field col s12 m6">
+                      <div class="input-field col s12 m6 empresa">
                         <input placeholder="Nombre del cargo" id="cargo_u" name="cargo_u" type="text" class="validate">
                         <label for="cargo_u">Cargo</label>
                       </div>
-                      <div class="input-field col s12 m6">
+                      <div class="input-field col s12 m6 empresa">
                         <input placeholder="Tiempo trabajado" id="antiguedad_u" name="antiguedad_u" type="text" class="validate">
                         <label for="antiguedad_u">Antigüedad</label>
                       </div>
-                      <div class="input-field col s12 m6">
+                      <div class="input-field col s12 m6 empresa">
                         <input placeholder="xxxxxxx" id="tel_empresa_u" name="tel_empresa_u" type="tel" class="validate">
                         <label for="tel_empresa_u">Teléfono</label>
                       </div>
-                      <div class="input-field col s12 m6">
+                      <div class="input-field col s12 m6 empresa">
                         <input placeholder="Tu ingreso mensual" id="salario_u" name="salario_u" type="text" class="validate money">
                         <label for="salario_u">Salario ($)</label>
                       </div>
@@ -629,6 +629,14 @@
                         });
     getStates();
     getFullUserData();
+    
+    $( "#situacion_laboral_u" ).change(function() {
+      if($(this).val()=="0"||$(this).val()=="2"){
+        $(".empresa").hide();
+      }else{
+        $(".empresa").show();
+      }
+    });    
     $( "#occupation_u" ).change(function() {
       if($(this).val()=="otro ¿cuál?"){
         $("#occupation2_u").show();
@@ -637,9 +645,20 @@
       }
     });
 
+    $( ".pass" ).change(function() {
+      var password_u = $("#password_u").val();
+      var Hpassword_u= $("#Hpassword_u").val();
+      if(Hpassword_u!=""&&password_u!=Hpassword_u){
+        $("#password_u3").attr("required","required");
+        $(".contrasena-actual").show();
+      }else{
+        $("#password_u3").removeAttr("required");
+        $(".contrasena-actual").hide();
+      }
+    });
     $( "#state_u" ).change(function() {
       getCities();
-    });
+    });    
     $( ".take_photo" ).click(function() {
       takePicture();
     });

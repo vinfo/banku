@@ -962,7 +962,7 @@ padding-top: 10px;
 	background-color: #26A69A!important;
 
 }
-.wrapper,.no-lists,.avatar-nego{
+.wrapper,.no-lists,.avatar-nego,.contrasena-actual{
 	display: none;
 }
 .proximo-pago{
@@ -1007,6 +1007,9 @@ textarea.materialize-textarea{
 }
 .width-40{
 	max-width:40%!important;
+}
+.btn-nego,.btn-aceptar{
+	display: none;
 }
 ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
     color:    #999;

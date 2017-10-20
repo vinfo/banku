@@ -535,6 +535,11 @@ var getFullUserData= function getFullUserData(){
                                     $("#occupation2_u").show();
                                 }
                             }
+                            if(index=="situacion_laboral_u"){
+                                if(value=="0"||value=="2"){
+                                    $(".empresa").hide();
+                                }
+                            }                            
                             $('#'+index+' option[value="'+value+'"]').attr('selected','selected');
                             $('#'+index).material_select();                            
                           }
