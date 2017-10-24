@@ -105,10 +105,11 @@
    $( document ).ready(function(){
     sessionRedirect();
     setTimeout(function(){ $(".brand-logo").text("Mi Perfil"); }, 300);    
-    if(localStorage.login){        
+    if(localStorage.login&&!localStorage.bienvenida){        
         $('#info1').modal('open',{
           dismissible: true,
           complete: function() {
+            localStorage.setItem("bienvenida","true");
             if(localStorage.percent<100){
               $('#info2').modal('open');
             }

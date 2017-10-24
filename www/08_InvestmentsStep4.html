@@ -83,8 +83,7 @@
 
     <div class="box-businnes"> 
       <div class="btn-action-bussines">
-        <a href="#modal3" class="btn-nego">Negociar</a>        
-        <a href="#!" class="btn-favorito">Favorito</a>
+        <a href="#modal3" class="btn-nego">Negociar</a>
         <a href="#!" class="btn-aceptar">Aceptar</a>
       </div>
       <div class="info-money">
@@ -341,9 +340,10 @@
       interest.noUiSlider.on('change', function(data){
         $(".cuota").html("0");
         if(monto!=""&&interes!=""&&duracion!=""&&monto!="0"&&interes!="0"&&duracion!="0"){
-          var duracion= duration.noUiSlider.get();
           var interes= rplPerc(data.toString());
+          var duracion= duration.noUiSlider.get();          
           $("#interes").val(interes);
+          $("#duracion").val(duracion);
           var cuota= calcCuota(monto,interes,duracion);
           $(".cuotaSlider").html(numeral(cuota).format('0,0'));
         }
@@ -363,9 +363,10 @@
       duration.noUiSlider.on('change', function(data){
         $(".cuota").html("0");
         if(monto!=""&&interes!=""&&duracion!=""&&monto!="0"&&interes!="0"&&duracion!="0"){          
-          var duracion= data.toString();
-          $("#duracion").val(duracion);
           var interes= rplPerc(interest.noUiSlider.get());
+          var duracion= data.toString();
+          $("#interes").val(interes);
+          $("#duracion").val(duracion);          
           var cuota= calcCuota(monto,interes,duracion);
           $(".cuotaSlider").html(numeral(cuota).format('0,0'));
         }
@@ -395,7 +396,7 @@ function getHeaderOffert(id_ofert){
                   var starts= getStarts(value.calification2_u);
                   $(".star-user").html(starts);
                   var cuota= calcCuota(monto,interes,duracion);
-                  var calification= value.calification;
+                  var calification= value.calification;                  
                                    
                   if(localStorage.type_user!="prestatario"&&value.ldestination)$(".destination").html(value.ldestination+'<br>');
                   $(".interest").html(interes+'% | ');

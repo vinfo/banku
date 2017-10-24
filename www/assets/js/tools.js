@@ -65,7 +65,7 @@ $( document ).ready(function(){
         if(msg.page&&msg.page!=""&&msg.action&&(msg.action=="chat"||msg.action=="new_business")){          
             if(msg.id_u==localStorage.id_u){
                 window.location.href = msg.page;
-                send_notification('Nuevo solicitud del usuario '+usuario+'.',msg.page,msg.id_u);
+                send_notification(usuario+' te hace nueva propuesta de negociación.',msg.page,msg.id_u);
             }                
         }         
         //if(msg.id_u==localStorage.id_u)location.reload();
@@ -230,10 +230,11 @@ function setOfferTemp(id_ofert,inv,prest,interest,duration){
 }
 function getOffersTemp(id_ofert){
     $(".chat").html('');
+    var prest= getUrlParameter("prest");
     $.ajax({
         type: "POST",
         url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
-        data: "action=getOffersTemp&id_ofert="+id_ofert,
+        data: "action=getOffersTemp&id_ofert="+id_ofert+"&type_user="+localStorage.type_user+"&id_u="+localStorage.id_u+"&prest="+prest,
         dataType:'JSON',
         success: function(msg){
             var chat='';
@@ -468,7 +469,8 @@ function getUserData(){
 
                     var saldo=0;
                     if(msg.data.amount_u>0)saldo= msg.data.amount_u - msg.data.investments;
-                    $(".saldo-inversionista").html(numeral(saldo).format('0,0'));                    
+                    $(".saldo-inversionista").html(numeral(saldo).format('0,0'));
+                    $("#saldo-inversionista").val(saldo);
                     $(".days_study").html(msg.data.days_study);
                     $(".wrapper").show();
                     $(".progress").hide();

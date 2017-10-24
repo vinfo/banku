@@ -9,6 +9,7 @@
   <link type="text/css" rel="stylesheet" href="assets/css/materialize.min.css"  media="screen,projection"/>
   <!--Import my style-->
   <link type="text/css" rel="stylesheet" href="assets/css/custom.css" rel="stylesheet"/>
+  <link type="text/css" rel="stylesheet" href="assets/css/select2.min.css?v=1" rel="stylesheet"/>
   <!--Let browser know website is optimized for mobile-->
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
@@ -136,7 +137,7 @@
                         <label for="date_id_u">Fecha de expedición</label>
                       </div>
                       <div class="input-field col s12 m6 l3">
-                        <input placeholder="Ingresa el lugar de expedición" id="city_id_u" name="city_id_u" type="text" class="validate">
+                        <input placeholder="Ingresa el lugar de expedición" id="city_id_u" name="city_id_u" type="text" class="validate autocomplete">
                         <label for="city_id_u">Lugar de expedición</label>
                       </div>
                       <div class="input-field col s12 m6 inversionista">
@@ -182,7 +183,7 @@
                           <option value="17">HSBC COLOMBIA</option>
                           <option value="18">ROYAL BANK OF SCOTLAND</option>
                         </select>
-                        <label>Banco</label>
+                        <label class="transform">Banco</label>
                       </div>
                       <div class="input-field col s12 m6">
                         <select id="banktype_u" name="banktype_u">
@@ -209,7 +210,7 @@
                         <select id="city_u" name="city_u">
                           <option value="" disabled selected>Selecciona una ciudad</option>
                         </select>
-                        <label>Ciudad</label>
+                        <label class="lbl-city_u">Ciudad</label>
                       </div>
 
                       <div class="input-field col s6 m4">
@@ -600,12 +601,23 @@
   <script src="assets/js/socket.io.js"></script>
   <script type="text/javascript" src="assets/js/tools.js?v=1.0.0"></script>
   <script type="text/javascript" src="assets/js/includes.js?v=1.0.0"></script>
-  <script type="text/javascript">
+  <script type="text/javascript" src="assets/js/json-data.js?v=1.0.0"></script>  
+  <script type="text/javascript" src="assets/js/select2.full.min.js"></script>
+  <script type="text/javascript">   
    $( document ).ready(function(){
     getProfesions();
     $('.tooltipped').tooltip({delay: 50});
     $( ".terminos" ).load( "includes/terminos.html");
-    getScroll();
+    getScroll();    
+    $('#city_id_u').autocomplete({
+        data: cities,
+        limit: 5,
+        onAutocomplete: function(val) {
+          // Callback function when value is autcompleted.
+        },
+        minLength: 1,
+      });
+    $('#bank_u,#occupation_u').select2();         
     $('input').bind({'focusin': function(Event){
       $(".footer-nav").fadeOut('fast');
     }, 'focusout': function(Event){
@@ -658,6 +670,8 @@
     });
     $( "#state_u" ).change(function() {
       getCities();
+      $('#city_u').select2();
+      $(".lbl-city_u").css("transform","translateY(-140%)");
     });    
     $( ".take_photo" ).click(function() {
       takePicture();
