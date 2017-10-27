@@ -212,22 +212,21 @@
           data: "action=setOfferFinal&inv_b="+localStorage.id_u+"&prest_b="+$("#prest_b").val()+"&total_b="+monto+"&quota_b="+cuota+"&interes_b="+$("#interes_b").val()+"&plazo_b="+duracion+"&destination_b="+$("#destination_b").val()+"&offer_b="+id_ofert+"&admin="+localStorage.id_u,
           dataType:'JSON',
           success: function(msg){
-            if(msg.status){                
-                var id_b= msg.id_b;
-                getInfoUser(id_b);
+            if(msg.status){
                 $.ajax({
                   type: "POST",
                   url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
-                  data: "action=setPaysxBusiness&fecha="+localStorage.fecha+"&prest="+$("#prest_b").val()+"&monto="+$("#total_b").val()+"&quota_b="+$("#quota_b").val()+"&tasa1="+$("#interes_b").val()+"&meses="+$("#plazo_b").val()+"&id_b="+id_b,
+                  data: "action=setPaysxBusiness&fecha="+localStorage.fecha+"&prest="+$("#prest_b").val()+"&monto="+$("#total_b").val()+"&quota_b="+$("#quota_b").val()+"&tasa1="+$("#interes_b").val()+"&meses="+$("#plazo_b").val()+"&id_b="+msg.id_b,
                   dataType:'JSON',
                   success: function(msg){
-                    if(msg.status){                      
+                    if(msg.status){
+                      getInfoUser(msg.id_b);
                       var obj = jQuery.parseJSON ( getOnline($("#prest_b").val()) );
                       if(obj.online=="0"){
                         sendPushMessage(obj.pushtoken,"Aceptación de negociación en el sistema BankU.");
                         }else{
-                        var data = {page:"12_PaymentsStep2.html?section=mis_pagos&msg=aceptada",action:"new_business",id_u:$("#negociando-con").val()};
-                          socket.emit('setOffert', data);                          
+                        var data = {page:"12_PaymentsStep2.html?section=mis_pagos&msg=aceptada",action:"new_business",id_u:$("#negociando-con").val()};                    
+                        socket.emit('setOffert', data);                          
                         }             
                     }
                   }
@@ -292,14 +291,11 @@
         getOffersTemp(id_ofert);
         setTimeout(function(){
           if($(".l_interes").html())$("#interesF").val($(".l_interes").html());
-          if($(".l_plazo").html())$("#duracionF").val($(".l_plazo").html());
-          
+          if($(".l_plazo").html())$("#duracionF").val($(".l_plazo").html());          
           if($(".user_id").attr("data-id")){
             if($(".user_id").attr("data-id") != localStorage.id_u){
               $(".btn-nego,.btn-aceptar").css('display','inline-block');
-            }else{
-              $(".btn-nego,.btn-aceptar").css('display','none');
-            }           
+            }            
           }else{
             $(".btn-nego,.btn-aceptar").css('display','inline-block');
           }
@@ -392,8 +388,6 @@ function getHeaderOffert(id_ofert){
                   if(localStorage.id_u!=value.id_u){
                     $(".avatar-nego").hide();
                     $(".nombre-user").html(value.user_u);
-                    $("#negociando-con").val(value.id_u);
-                    $(".negociando-con").html(value.user_u);
                     $("#prest_b").val(value.id_u)
                     monto= parseInt(value.amount);
                     interes= parseFloat(value.interest);
@@ -443,7 +437,7 @@ function getInfoUser(id_b){
           var pago_total= cuota * duracion;
           if(msg.data.account_u!="")cuenta='#'+msg.data.account_u;
           if(msg.data.bank_u!="")banco=msg.data.bank_u;
-          var pasos='<p>Hola '+localStorage.user_u+' para completar tu inversión debes seguir estos pasos en las próximas 24 horas:</p><p>1) Consignar en la cuenta '+cuenta+' el valor de <span class="amount"></span><br/>2) En la consignación debes adicionar el siguiente código NEG'+setDigits(id_b,4)+'<br/>3) La consignación la debes hacer en el banco '+banco+'<br/>4) A partir del siguiente mes recibirás la suma de <span class="cuota"></span> durante '+duracion+' meses, al final de los meses negociados recibirás <span class="pago_total"></span>.<br/>5) Recuerda que si no consignas el valor de dinero en el tiempo estipulado el negocio no será válido. Esto claramente perjudica tu puntuación dentro de la comunidad BankU.</p><p>Te invitamos a seguir invirtiendo y agrandando tu portafolio de inversión, si tienes alguna duda puedes escribirnos en la sesión de quejas y reclamos con el número de tu transacción</p>';
+          var pasos='<p>Hola '+localStorage.user_u+' para completar tu inversión debes seguir estos pasos en las próximas 24 horas:</p><p>1) Consignar en la cuenta '+cuenta+' el valor de '+numeral(monto).format('0,0')+'<br/>2) En la consignación debes adicionar el siguiente código N'+id_b+'<br/>3) La consignación la debes hacer en el banco '+banco+'<br/>4) A partir del siguiente mes recibirás la suma de $'+numeral(cuota).format('0,0')+' durante '+duracion+' meses, al final de los meses negociados recibirás $'+numeral(pago_total).format('0,0')+'.<br/>5) Recuerda que si no consignas el valor de dinero en el tiempo estipulado el negocio no será válido. Esto claramente perjudica tu puntuación dentro de la comunidad BankU.</p><p>Te invitamos a seguir invirtiendo y agrandando tu portafolio de inversión, si tienes alguna duda puedes escribirnos en la sesión de quejas y reclamos con el número de tu transacción</p>';
           $(".msg-pasos").html(pasos);
           $('#modal4').modal('open',{
             dismissible: true,

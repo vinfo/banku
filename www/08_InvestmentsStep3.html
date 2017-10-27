@@ -125,19 +125,13 @@
     getOfferts();                     
   });
 function getOfferts(){
-  //Vars personales
-  var amount= parseInt(localStorage.amount);
-  var amount2= parseInt(localStorage.amount2); 
-  var interest= parseFloat(localStorage.interest);
-  var interest2= parseFloat(localStorage.interest2);       
-  var duration= parseInt(localStorage.duration);
-  var duration2= parseInt(localStorage.duration2)
-   
+   var amount=localStorage.amount;
+   var amount2=localStorage.amount2;
    if(amount!="0"&&amount2!="0"){
      $.ajax({
         type: "POST",
         url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
-        data: "action=getConfigOffersInv&status=0&search=true&amount="+amount+"&amount2="+amount2+"&interest="+interest+"&interest2="+interest2+"&duration="+duration+"&duration2="+duration2+"&id_u="+localStorage.id_u+"&type_user="+localStorage.type_user,
+        data: "action=getConfigOffersInv&status=0&search=true&amount="+amount+"&amount2="+amount2+"&id_u="+localStorage.id_u+"&type_user="+localStorage.type_user,
         dataType:'JSON',
         success: function(msg){
            $(".offerts").html('');
@@ -148,9 +142,8 @@ function getOfferts(){
               var pago_total= "$"+numeral((cuota * value.duration)).format('0,0');
               $(".offerts").append('<div class="col s12 m6">  <div class="box-proyect"><div class="info-proyect"><div class="row"><div class="col s7"> <h5>'+value.user_u+'</h5></div>   <div class="col s12"> <hr><p>'+value.ldestination+'<br>% '+value.interest+'  |  '+value.duration+' Meses</p> <div class="star-user">'+starts+'</div></div></div> </div><div class="desc-proyect">  <h3>$'+numeral(value.amount).format('0,0')+'</h3>  <p><small>Recibo Mensual: $'+numeral(cuota).format('0,0')+'<br/><b>Recibo Total: <span>'+pago_total+'</span></b></small></p>  <a href="08_InvestmentsStep4.html?id_ofert='+value.id+'&prest='+value.id_u+'" class="btn-negociar" id="'+value.id+'">Negociar</a></div></div>  </div>');
             });
-            $(".negociar-todos").css("display","block");
           }else{
-            $(".offerts").html('<p class="center"><small>No existen negociaciones disponibles</small></p>');            
+            $(".offerts").html('<p class="center"><small>No existen negociaciones disponibles</small></p>');
           }
         }
       }); 

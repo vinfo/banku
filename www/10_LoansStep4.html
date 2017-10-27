@@ -292,7 +292,7 @@
       if(id_ofert){        
         getOffersTemp(id_ofert);
         getHeaderOffert(id_ofert);
-        setTimeout(function(){          
+        setTimeout(function(){
           if($(".l_interes").html())$("#interesF").val($(".l_interes").html());
           if($(".l_plazo").html())$("#duracionF").val($(".l_plazo").html());
           if($(".user_id").attr("data-id")){
@@ -302,9 +302,8 @@
           }else{
             $(".btn-nego,.btn-aceptar").css('display','inline-block');
           }
-          console.log($(".l_interes").html());
           setSliders();
-        },1500);        
+        },1000);        
       }              
     })
      function setSliders(){

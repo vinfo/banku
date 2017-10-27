@@ -51,7 +51,7 @@
                         <div class="row">
                             <div class="col s10 offset-s1">                                
                                 <div id="capital"></div>
-                                <h6><small>Rango de inversión:</small> <span class="monto1">&nbsp;</span> - <span class="monto2">&nbsp;</span> Mill.</h6>
+                                <h5><small>Rango de inversión:</small> <span class="monto1">&nbsp;</span> - <span class="monto2">&nbsp;</span> Mill.</h5>
                                 <input type="hidden" id="monto" name="monto" value="2000000">
                                 <input type="hidden" id="monto2" name="monto2" value="6000000">
                             </div>
@@ -63,7 +63,7 @@
                         <div class="row">
                             <div class="col s10 offset-s1">                                
                                 <div id="interest"></div>
-                                <h6><small>Rango de interés:</small> <span class="interes1">&nbsp;</span> - <span class="interes2">&nbsp;</span> % E.M.</h6>
+                                <h5><small>Rango de interés:</small> <span class="interes1">&nbsp;</span> - <span class="interes2">&nbsp;</span> % E.M.</h5>
                                 <input type="hidden" id="interes" name="interes" value="0.8">
                                 <input type="hidden" id="interes2" name="interes2" value="2.3">
                             </div>
@@ -75,7 +75,7 @@
                         <div class="row">
                             <div class="col s10 offset-s1">                                
                                 <div id="duration"></div>
-                                <h6><small>Rango de duración:</small> <span class="duracion">&nbsp;</span> - <span class="duracion2">&nbsp;</span> Meses</h6>
+                                <h5><small>Rango de duración:</small> <span class="duracion">&nbsp;</span> - <span class="duracion2">&nbsp;</span> Meses</h5>
                                 <input type="hidden" id="duracion" name="duracion" value="6">
                                 <input type="hidden" id="duracion2" name="duracion2" value="12">
                                 <input type="hidden" id="action" name="action" value="setDataBusinnes">
@@ -86,12 +86,9 @@
                     </div>
                 </div>
             </div>
-                <div class="col s12 center margin-top-40 btn-register btn-find-proyects">
-                    <a href="#!" class="waves-effect waves-light green accent-4 btn-large">Buscar proyecto para invertir</a>
-                </div>            
-            <div class="container margin-top-40">
-
-<!--                 <div class="row">
+            <div class="container margin-top-40">  
+                <div class="row"> 
+                    <form action="#">
                         <div class="col s3 m2 center offset-s1 offset-m3">
                             <input name="calificacion[]" value="1" type="checkbox" class="filled-in" id="A" /> 
                             <label for="A">A</label>                         
@@ -104,8 +101,11 @@
                             <input name="calificacion[]" value="3" type="checkbox" class="filled-in" id="AAA" checked="checked" />  
                             <label for="AAA">AAA</label>                     
                         </div>
-                </div> -->
-
+                    </form>
+                </div>
+                <div class="col s12 center margin-top-40 btn-register btn-find-proyects">
+                    <a href="#!" class="waves-effect waves-light green accent-4 btn-large">Buscar proyecto para invertir</a>
+                </div> 
             </div> 
         </form>
     </div>
@@ -165,11 +165,11 @@
     var type=3;
     if(localStorage.type_user=="prestatario")type=4;
     $("#type").val(type);
-    getConfig();      
+    getConfig();
     $( ".accent-4" ).click(function() {
-        var inversion= parseInt(localStorage.inversion);
-        var monto2= $("#monto2").val(); 
-        if(inversion < parseInt(monto2) && parseInt(localStorage.saldo) < inversion){
+        var inversion= localStorage.inversion;
+        var monto2= $("#monto2").val();        
+        if(parseInt(inversion) < parseInt(monto2)){
             $(".saldo").html("$"+numeral(inversion).format('0,0'));
             $('#info2').modal('open');
         }else{
@@ -180,7 +180,6 @@
                 dataType:'JSON',
                 success: function(msg){
                     $(".progress").show();
-                    localStorage.setItem("set_offer","true");
                     var data = {page:"10_LoansStep3.html?section=solicitar_dinero",action:"new_offer_inv",monto:$("#monto").val(),monto2:$("#monto2").val(),interes:$("#interes").val(),interes2:$("#interes2").val(),duracion:$("#duracion").val(),duracion2:$("#duracion2").val()};                    
                     const socket = io('https://banku-services.herokuapp.com/'); 
                     socket.emit('setOffert', data);
@@ -214,12 +213,7 @@
                     if(msg.data!==null){
                         //Variables oferta usuario
                         if(msg.data.amount)$("#monto").val(msg.data.amount);
-                        var monto2= parseInt(msg.data.amount2);
-                        if(parseInt(localStorage.saldo) < monto2){
-                            monto2=localStorage.saldo;
-                            localStorage.setItem("amount2",monto2);
-                        }                        
-                        if(monto2!="0")$("#monto2").val(monto2);
+                        if(msg.data.amount2)$("#monto2").val(msg.data.amount2);
                         if(msg.data.interest)$("#interes").val(msg.data.interest);
                         if(msg.data.interest2)$("#interes2").val(msg.data.interest2);
                         if(msg.data.duration)$("#duracion").val(msg.data.duration);
@@ -238,16 +232,7 @@
             }
         });             
         }
-        function setLocalStorage(){
-            localStorage.setItem("amount",$("#monto").val());
-            localStorage.setItem("amount2",$("#monto2").val());
-            localStorage.setItem("interest",$("#interes").val());
-            localStorage.setItem("interest2",$("#interes2").val());
-            localStorage.setItem("duration",$("#duracion").val());
-            localStorage.setItem("duration2",$("#duracion2").val());
-        }
         function setSliders(){
-            var saldo= parseInt(localStorage.saldo);            
             var capital = document.getElementById('capital');//div slider capital
             var interest = document.getElementById('interest');//div slider interest
             var duration = document.getElementById('duration');//div slider duration
@@ -261,10 +246,6 @@
 
             var find = ["$","%","."];
             var replace = ['','',''];
-            var max_monto= parseInt(localStorage.monto2);
-            if(saldo < localStorage.monto2){
-                max_monto= saldo;
-            }
             noUiSlider.create(capital, {
                 start: [monto,monto2],
                 connect: true,
@@ -272,7 +253,7 @@
                 step: 100000,
                 range: {
                     'min': parseInt(localStorage.monto1),
-                    'max': parseInt(max_monto)
+                    'max': parseInt(localStorage.monto2)
                 },
                 format: wNumb({
                     decimals: 0,
@@ -283,7 +264,6 @@
             capital.noUiSlider.on('change', function(data){
                 $("#monto").val(rplMoney(data[0].toString()));
                 $("#monto2").val(rplMoney(data[1].toString()));
-                setLocalStorage();
             });        
             noUiSlider.create(interest, {
                 start: [interes,interes2],
@@ -302,7 +282,6 @@
             interest.noUiSlider.on('change', function(data){
                 $("#interes").val(rplPerc(data[0].toString()));
                 $("#interes2").val(rplPerc(data[1].toString()));
-                setLocalStorage();
             });        
             noUiSlider.create(duration, {
                 start: [duracion,duracion2],
@@ -319,7 +298,6 @@
             duration.noUiSlider.on('change', function(data){
                 $("#duracion").val(data[0].toString());
                 $("#duracion2").val(data[1].toString());
-                setLocalStorage();
             });            
         }                            
     </script>

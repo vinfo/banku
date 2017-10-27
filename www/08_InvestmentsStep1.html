@@ -25,7 +25,7 @@
             <div class="row">
                 <div class="col s12">          
                     <h3 class="hide-on-med-and-down center">Mis Inversiones<br><br></h3>
-                    <p><span class="first-name"></span>, en BankU podrás convertirte en un gran inversionista y crear tu propio portafolio, realiza tus inversiones de manera fácil y segura</p>
+                    <p>Bienvenido, en BankU podrás convertirte en un gran inversionista y crear tu propio portafolio, realiza tus inversiones de manera fácil y segura</p>
                     <hr>
                 </div>
                 <div class="lista"></div>
@@ -99,7 +99,7 @@
               var starts= getStarts(value.calification2_u_inv);
               var cuota= calcCuota(value.amount_prest,value.interest_prest,value.duration_prest);
               var pago_total= "$"+numeral((cuota * value.duration_prest)).format('0,0');
-              list+='<div class="col s12 m6"><div class="box-proyect" style="background-color:#FFCB05;"><div class="info-proyect"><div class="row"><div class="col s7"> <h5>'+value.user_prest+'</h5></div> <div class="col s12"> <hr><p>'+value.ldestination+'<br>% '+value.interest_prest+'|'+value.duration_prest+' Meses</p> <div class="star-user">'+starts+'</div></div></div> </div><div class="desc-proyect"><h3>$'+numeral(value.amount_prest).format('0,0')+'</h3><p><small>Recibo Mensual: $'+numeral(cuota).format('0,0')+'<br/><b>Recibo Total: <span>'+pago_total+'</span></b></small></p><a href="08_InvestmentsStep4.html?section=negociar&id_ofert='+value.id_ofert+'&prest='+value.id_u_prest+'&negociando=true" class="btn-negociar small">En Negociación</a></div></div></div>';
+              list+='<div class="col s12 m6"><div class="box-proyect" style="background-color:#FFCB05;"><div class="info-proyect"><div class="row"><div class="col s7"> <h5>'+value.user_prest+'</h5></div> <div class="col s12"> <hr><p>'+value.ldestination+'<br>% '+value.interest_prest+'|'+value.duration_prest+' Meses</p> <div class="star-user">'+starts+'</div></div></div> </div><div class="desc-proyect"><h3>$'+numeral(value.amount_prest).format('0,0')+'</h3><p><small>Recibo Mensual: $'+numeral(cuota).format('0,0')+'<br/><b>Recibo Total: <span>'+pago_total+'</span></b></small></p><a href="08_InvestmentsStep4.html?section=negociar&id_ofert='+value.id_ofert+'&prest='+value.id_u_prest+'&negociando=true" class="btn-negociar">En Negociación</a></div></div></div>';
             });
             $(".lista").html(list);
           }else{

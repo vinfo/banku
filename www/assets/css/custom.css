@@ -315,8 +315,8 @@ input:not([type]):focus:not([readonly]), input[type=text]:not(.browser-default):
 	margin: 0 0 20px;
 }
 .btn-find-proyects .btn-large{
-/*	position: fixed;
-	bottom: 0;*/
+	position: fixed;
+	bottom: 0;
 	left: 50%;
 	transform: translateX(-50%);
 	border-radius: 0;
@@ -521,7 +521,6 @@ input:not([type]):focus:not([readonly]), input[type=text]:not(.browser-default):
 	width: 50%;
 	float: left;
 	padding: 10px;
-	min-height:190px;
 }
 .box-proyect.op2 .info-proyect{
 	background-image: url("../images/border-box-proyect2.png");
@@ -546,7 +545,7 @@ input:not([type]):focus:not([readonly]), input[type=text]:not(.browser-default):
 	color: #fff;
 	width: 50%;
 	float: right;
-	padding:5px;
+	padding: 10px;
 	text-align: center;
 }
 .desc-proyect h3{
@@ -631,7 +630,7 @@ input:not([type]):focus:not([readonly]), input[type=text]:not(.browser-default):
 .bubble-rigth{
 	background-color: #00C853;	
     padding: 10px;
-    width: 85%;    
+    width: 80%;    
     border-radius: 0px 5px 5px 0px;
     -moz-border-radius: 0px 5px 5px 0px;
     -webkit-border-radius: 0px 5px 5px 0px;
@@ -674,9 +673,8 @@ input:not([type]):focus:not([readonly]), input[type=text]:not(.browser-default):
     right: 0;
     font-size: 10px;
 }
-.bubble-left .date-buble,.bubble-rigth .date-buble{
+.bubble-rigth .date-buble{
     right: 20px;
-    top:5px;
 }
 
 .box-businnes {
@@ -1003,12 +1001,6 @@ textarea.materialize-textarea{
 .editar{
 	color:#0066B2;
 }
-.grey-text{
-	font-size: 14px;
-}
-a.small{
-	font-size:13px; 
-}
 .msg-pasos > p{
 	font-size: 14px;
 	text-align: justify;
@@ -1016,7 +1008,7 @@ a.small{
 .width-40{
 	max-width:40%!important;
 }
-.btn-nego,.btn-aceptar,.negociar-todos{
+.btn-nego,.btn-aceptar{
 	display: none;
 }
 ::-webkit-input-placeholder { /* WebKit, Blink, Edge */

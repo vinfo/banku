@@ -1,12 +1,11 @@
 $( document ).ready(function(){
     var clients = "";    
-    var type_user= localStorage.type_user;    
+    var type_user= localStorage.type_user;
+
     if(localStorage.id_u){
       getUserData();
-      getNumsOffersUser();
       $(".wrapper").show();
       var rand=  Math.random();
-
       const socket = io('https://banku-services.herokuapp.com/');    
       socket.on('connect', function(){
         console.log("Socket: "+socket.io.engine.id);
@@ -31,59 +30,44 @@ $( document ).ready(function(){
         });
       });
       socket.on('setOffert', function(msg){
-        //Vars personales
         var amount= parseInt(localStorage.amount);
         var amount2= parseInt(localStorage.amount2); 
         var interest= parseFloat(localStorage.interest);
         var interest2= parseFloat(localStorage.interest2);       
         var duration= parseInt(localStorage.duration);
         var duration2= parseInt(localStorage.duration2);
-              
-        //vars ofertante
-        var monto= parseInt(msg.monto);
-        var monto2= parseInt(msg.monto2);
-        var interes= parseFloat(msg.interes);
-        var interes2= parseFloat(msg.interes2);        
-        var duracion= parseInt(msg.duracion);
-        var duracion2= parseInt(msg.duracion2);
-
-
         var usuario='';
-        //alert(type_user+"= "+msg.page+" | "+msg.action);
-        if(localStorage.set_offer){        
-          if(type_user=="prestatario"){            
+        //alert(type_user+"= "+msg.page+" | "+msg.action); 
+        if(type_user=="prestatario"){            
             if(msg.page&&msg.page!=""&&msg.action){
-              if(msg.action=="new_offer_inv"&&amount>0&&amount>=monto&&amount<=monto2&&duration>=duracion&&duration<=duracion2&&Math.round(interest * 100)>=Math.round(interes * 100)&&Math.round(interest * 100)<=Math.round(interes2 * 100)){
-                window.location.href = msg.page+"&rand="+rand;
-              }                
+                if(msg.action=="new_offer_inv"&&amount>0&&amount>=parseInt(msg.monto)&&amount<=parseInt(msg.monto2)&&duration>=parseInt(msg.duracion)&&duration<=parseInt(msg.duracion2)&&interest>=parseFloat(msg.interes)&&interest<=parseFloat(msg.interes2)){
+                    console.log(amount);
+                    window.location.href = msg.page;
+                }                
             }
             if(msg.action=="del_offert"&&localStorage.id_u==msg.id_u){                    
-              window.location.href = msg.page+"&rand="+rand;
+              window.location.href = msg.page;
             }
-          }else{        
+        }else{        
             usuario= $(".nombre-user").html();
             console.log(msg.action+" - "+msg.page);
             if(msg.page&&msg.page!=""&&msg.action){
-              console.log("Monto: "+monto +">="+ amount +"&&"+ monto +"<="+ amount2);
-              console.log("Duración: "+duracion +">="+ duration +"&&"+ duracion +"<="+ duration2);
-              console.log("Interes: "+interes +">="+ interest +"&&"+ interes +"<="+ interest2);
-              if(msg.action=="new_offer_prest" && (monto >= amount && monto <= amount2) && (duracion >= duration && duracion <= duration2) && (Math.round(interes * 100) >= Math.round(interest * 100) && Math.round(interes * 100) <= Math.round(interest2 * 100))){
-                      //alert("Redirigir"+msg.page);
-                      window.location.href = msg.page+"&rand="+rand;
-                    }
-                    if(msg.action=="del_offert"&&localStorage.id_u==msg.id_u){                    
-                      window.location.href = msg.page+"&rand="+rand;
-                    }
-                  }                                
+                if(msg.action=="new_offer_prest"&&(amount>0&&amount2>0&&interest>0&&interest2>0&&duration>0&&duration2>0&&(amount>=parseInt(msg.monto)&&parseInt(msg.monto)<=amount2)&&(interest>=parseFloat(msg.interes)&&parseFloat(msg.interes)<=interest2&&(duration>=parseInt(msg.duracion)&&parseInt(msg.duracion)<=duration2)))){
+                    console.log("Redirigir"+msg.page);
+                    window.location.href = msg.page;
                 }
-          //Generico nueva respuesta Chat
-          if(msg.page&&msg.page!=""&&msg.action&&(msg.action=="chat"||msg.action=="new_business")){          
-            if(msg.id_u==localStorage.id_u){
-              window.location.href = msg.page+"&rand="+rand;
-              send_notification(usuario+' te hace nueva propuesta de negociación.',msg.page,msg.id_u);
-            }                
-          }
+                if(msg.action=="del_offert"&&localStorage.id_u==msg.id_u){                    
+                    window.location.href = msg.page;
+                }
+            }                                
         }
+        //Generico nueva respuesta Chat
+        if(msg.page&&msg.page!=""&&msg.action&&(msg.action=="chat"||msg.action=="new_business")){          
+            if(msg.id_u==localStorage.id_u){
+                window.location.href = msg.page;
+                send_notification(usuario+' te hace nueva propuesta de negociación.',msg.page,msg.id_u);
+            }                
+        }         
         //if(msg.id_u==localStorage.id_u)location.reload();
       });
     }
@@ -109,11 +93,6 @@ $( document ).ready(function(){
     var section= getUrlParameter("section");
     setTimeout(function(){ $("."+section).addClass('active'); },1000);
 })
-
-var getNamePage = function getNamePage() {
-    var pagePathName= window.location.pathname;
-    return pagePathName.substring(pagePathName.lastIndexOf("/") + 1);
-};
 
 var getUrlParameter = function getUrlParameter(sParam) {
     var sPageURL = decodeURIComponent(window.location.search.substring(1)),
@@ -163,9 +142,6 @@ function parImpar(valor){
     var valor=parseInt(valor);
     var tipo=(valor%2)?"Impar":"Par";
     return tipo;
-}
-function ucFirst(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
 }
 function getScroll(){
     var $win = $(window);
@@ -380,21 +356,6 @@ function setDigits(value,digits){
     }
     return str+value;
 }
-function getNumsOffersUser(){
-  $.ajax({
-    type: "POST",
-    url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
-    data: "action=getNumsOffersUser&id_u="+localStorage.id_u,
-    dataType:'JSON',
-    success: function(msg){
-      if(msg.status&&msg.total>0){
-        localStorage.setItem("set_offer","true");
-      }else{
-        localStorage.removeItem("set_offer");
-      }
-    }
-  });    
-}
 function getUserData(){
     numeral.register('locale', 'es', {
         delimiters: {
@@ -436,8 +397,7 @@ function getUserData(){
                     }
                     $(".photo").attr("src",photo);
                     $(".user").html(msg.data.user_u);
-                    $(".first-name").html(ucFirst(msg.data.names_u));
-                    $(".names").html(ucFirst(msg.data.names_u)+" "+ucFirst(msg.data.lastnames_u));
+                    $(".names").html(msg.data.names_u+" "+msg.data.lastnames_u);
                     $(".city").html(msg.data.city_u);
                     $(".occupation").html(msg.data.occupation_u);
                     $(".phone").html(msg.data.phone_u);
@@ -461,18 +421,12 @@ function getUserData(){
                     localStorage.setItem("duracion2", msg.data.duracion2);
                     localStorage.setItem("fecha", msg.data.fecha);
                     //Mis variables
-                    if(msg.data.amount!="0")localStorage.setItem("amount", msg.data.amount);//Saldo establecido inversionista
-                    
-                    var monto2= parseInt(msg.data.amount2);
-                    if(parseInt(localStorage.saldo) < monto2){
-                      monto2= localStorage.saldo;
-                    }                     
-                    if(monto2!="0")localStorage.setItem("amount2",monto2);
-
-                    if(msg.data.interest!="0")localStorage.setItem("interest", msg.data.interest);
-                    if(msg.data.interest2!="0")localStorage.setItem("interest2", msg.data.interest2);
-                    if(msg.data.duration!="0")localStorage.setItem("duration", msg.data.duration);
-                    if(msg.data.duration2!="0")localStorage.setItem("duration2", msg.data.duration2);                     
+                    localStorage.setItem("amount", msg.data.amount);//Saldo establecido inversionista
+                    localStorage.setItem("amount2", msg.data.amount2);
+                    localStorage.setItem("interest", msg.data.interest);
+                    localStorage.setItem("interest2", msg.data.interest2);
+                    localStorage.setItem("duration", msg.data.duration);
+                    localStorage.setItem("duration2", msg.data.duration2);                     
 
                     localStorage.setItem("status_u", msg.data.status_u);
 
@@ -490,9 +444,7 @@ function getUserData(){
                     $(".lastLogin").html(spanishDate(lastLogin));                  
                     $(".costs").html(numeral(localStorage.costo).format('0,0')); 
                                        
-                    var msg_status=msg.data.status;
-                    if(msg.data.status=="Perfil en estudio")msg_status="Su perfil está en estudio, en menos de 24 horas tendrá respuesta";                    
-                    $(".status").html(msg_status);
+                    $(".status").html(msg.data.status);
                     if(msg.data.status_u!="0")$(".msg1").hide();
                     $("#bar").css("width",msg.data.percent+"%");
                     $(".percent").html(msg.data.percent+"%");
@@ -518,8 +470,7 @@ function getUserData(){
                     var saldo=0;
                     if(msg.data.amount_u>0)saldo= msg.data.amount_u - msg.data.investments;
                     $(".saldo-inversionista").html(numeral(saldo).format('0,0'));
-                    $(".saldo-negociacion").html(numeral(msg.data.offers_temp).format('0,0'));
-                    localStorage.setItem("saldo",saldo);
+                    $("#saldo-inversionista").val(saldo);
                     $(".days_study").html(msg.data.days_study);
                     $(".wrapper").show();
                     $(".progress").hide();
@@ -534,9 +485,7 @@ function getUserData(){
 }
 var getFullUserData= function getFullUserData(){
     if(localStorage.id_u!=""&&localStorage.type_user!=""){
-        if(localStorage.type_user=="prestatario"){
-            $(".prestatario").show();            
-        }
+        if(localStorage.type_user=="prestatario")$(".prestatario").show();
         $.ajax({
             type: "POST",
             url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
@@ -552,10 +501,6 @@ var getFullUserData= function getFullUserData(){
                         $(".photo").attr("src","data:image/jpeg;base64," + decodeURIComponent(value));
                         localStorage.setItem("photo",value);
                       }
-                      if(index=="amount_u"){
-                        $(".lbl-amount").html("$"+numeral(value).format('0,0'));
-                        localStorage.setItem("amount_u",value);
-                      }                      
                       if($("#"+index).length>0||$("."+index).length>0){                          
                           var text= $("#"+index).is('input:text');
                           var tel= $("#"+index).is('[type=tel]');
@@ -566,7 +511,7 @@ var getFullUserData= function getFullUserData(){
 						              var hidden= $("#H"+index).is('input:hidden');
 
                           if($("."+index).length>0){
-                            $("."+index).html(value);                            
+                            $("."+index).html(value);
                           }                           
                           
                           if(text||tel||number){                            

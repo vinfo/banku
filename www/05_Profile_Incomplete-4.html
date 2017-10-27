@@ -129,7 +129,7 @@
                         <label>Tipo de documento</label>
                       </div>
                       <div class="input-field col s12 m6 l3">
-                        <input placeholder="Ingresa tu número de documento" id="identification_u" name="identification_u" type="text" class="validate number" required>
+                        <input placeholder="Ingresa tu número de documento" id="identification_u" name="identification_u" type="text" class="validate" required>
                         <label for="identification_u">Número de identificación</label>
                       </div>
                       <div class="input-field col s12 m6 l3">
@@ -194,7 +194,7 @@
                         <label>Tipo de cuenta</label>
                       </div>
                       <div class="input-field col s12">
-                        <input placeholder="00000000000" id="account_u" name="account_u" type="text" class="validate bank-number">
+                        <input placeholder="00000000000" id="account_u" name="account_u" type="text" class="validate">
                         <label for="account_u">Número de cuenta</label>
                       </div>
                       <div class="input-field col s12">
@@ -227,7 +227,7 @@
                           <option value="Manzana">Manzana</option>
                           <option value="Transversal">Transversal</option>
                         </select>
-                        <label>Dirección</label>
+                        <label>Dir. Ej: Calle, Carrera...</label>
                       </div>
                       <div class="input-field col s6 m4">
                         <input placeholder="00" id="dir2_u" name="dir2_u" type="text" class="validate">
@@ -242,11 +242,6 @@
                         <label for="dir4_u">Número B</label>
                       </div>
                       <div class="clear"></div>
-                      <div class="input-field col s12 prestatario">
-                        <h5>Monto max. préstamo</h5>
-                        <p class="lbl-amount"></p>
-                      </div>                      
-                      <div class="clear prestatario"></div>                     
                       <div class="input-field col s12 m4 inversionista">
                         <input placeholder="Monto disponible" id="amount_u" name="amount_u" type="text" class="validate money">
                         <label>Monto disponible para invertir ($)</label>
@@ -629,8 +624,6 @@
       $(".footer-nav").fadeIn('fast');
     }});
     $('.money').mask('#.##0', {reverse: true});
-    $('.number').mask('00000000000', {reverse: true});
-    $('.bank-number').mask('000000000000000', {reverse: true});
 
     $('.datepicker').pickadate({
       monthsFull: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
