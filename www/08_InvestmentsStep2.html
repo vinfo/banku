@@ -40,8 +40,8 @@
                     <div class="col s12">          
                         <h3 class="center hide-on-med-and-down">Configuración de mi inversión</h3>
                         <br>                        
-                        <p>• Configura las características de tus inversiones.<br></p>
-                        <br> 
+                        <p>• Configura las características de tus inversiones.<br>
+                        • Cuando hagas este paso podrás crear tu portafolio y empezar a invertir en distintos proyectos de otros miembros de BankU.</p>                                           
                     </div>  
                 </div>
             </div>                  
@@ -51,7 +51,7 @@
                         <div class="row">
                             <div class="col s10 offset-s1">                                
                                 <div id="capital"></div>
-                                <h5><small>Rango de inversión:</small> <span class="monto1">&nbsp;</span> - <span class="monto2">&nbsp;</span> Mill.</h5>
+                                <h5><small>Capital:</small> <span class="monto1">&nbsp;</span> - <span class="monto2">&nbsp;</span> Mill.</h5>
                                 <input type="hidden" id="monto" name="monto" value="2000000">
                                 <input type="hidden" id="monto2" name="monto2" value="6000000">
                             </div>
@@ -63,7 +63,7 @@
                         <div class="row">
                             <div class="col s10 offset-s1">                                
                                 <div id="interest"></div>
-                                <h5><small>Rango de interés:</small> <span class="interes1">&nbsp;</span> - <span class="interes2">&nbsp;</span> % E.M.</h5>
+                                <h5><small>Interes:</small> <span class="interes1">&nbsp;</span> - <span class="interes2">&nbsp;</span> % E.M.</h5>
                                 <input type="hidden" id="interes" name="interes" value="0.8">
                                 <input type="hidden" id="interes2" name="interes2" value="2.3">
                             </div>
@@ -75,7 +75,7 @@
                         <div class="row">
                             <div class="col s10 offset-s1">                                
                                 <div id="duration"></div>
-                                <h5><small>Rango de duración:</small> <span class="duracion">&nbsp;</span> - <span class="duracion2">&nbsp;</span> Meses</h5>
+                                <h5><small>Duración:</small> <span class="duracion">&nbsp;</span> - <span class="duracion2">&nbsp;</span> Meses</h5>
                                 <input type="hidden" id="duracion" name="duracion" value="6">
                                 <input type="hidden" id="duracion2" name="duracion2" value="12">
                                 <input type="hidden" id="action" name="action" value="setDataBusinnes">
@@ -86,16 +86,20 @@
                     </div>
                 </div>
             </div>
+
+            <div class="grey lighten-1 padding-5">
+                <h5 class="center"><small>Tipo de prestatario</small></h5>
+            </div>
             <div class="container margin-top-40">  
                 <div class="row"> 
                     <form action="#">
                         <div class="col s3 m2 center offset-s1 offset-m3">
-                            <input name="calificacion[]" value="1" type="checkbox" class="filled-in" id="A" /> 
-                            <label for="A">A</label>                         
+                            <input name="calificacion[]" value="1" type="checkbox" class="filled-in" id="S" /> 
+                            <label for="S">S</label>                         
                         </div>
                         <div class="col s3 m2 center">
-                            <input name="calificacion[]" value="2" type="checkbox" class="filled-in" id="AA" /> 
-                            <label for="AA">AA</label>                         
+                            <input name="calificacion[]" value="2" type="checkbox" class="filled-in" id="A+" /> 
+                            <label for="A+">A+</label>                         
                         </div>
                         <div class="col s3 m2 center">
                             <input name="calificacion[]" value="3" type="checkbox" class="filled-in" id="AAA" checked="checked" />  

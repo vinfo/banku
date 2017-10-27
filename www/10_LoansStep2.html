@@ -40,7 +40,8 @@
                     <div class="col s12">          
                         <h3 class="center hide-on-med-and-down">Configuración de mi proyecto</h3>
                         <br>
-                        <p>• Configura las características de tu proyecto.<br></p>
+                        <p>• Configura las características de tu proyecto.<br>
+                        • Cuando hagas este paso podrás crear tu portafolio y empezar a recibir financiamiento para tus proyectos.</p>
                         <p>&nbsp;</p>                                           
                     </div>  
                 </div>
@@ -51,7 +52,7 @@
                         <div class="row">
                             <div class="col s10 offset-s1">                                    
                                     <div id="capital"></div>
-                                    <h5><small>Monto a prestar:</small> 2 - 6 Mill.</h5>
+                                    <h5><small>Capital:</small> 2 - 6 Mill.</h5>
                                     <input type="hidden" id="monto" name="monto" value="2000000">
                             </div>
                         </div>                                            
@@ -62,7 +63,7 @@
                         <div class="row">
                             <div class="col s10 offset-s1">                                    
                                     <div id="interest"></div>
-                                    <h5><small>Interés a pagar:</small> 0,8 - 2,3 % E.M.</h5>
+                                    <h5><small>Interes:</small> 0,8 - 2,3 % E.M.</h5>
                                     <input type="hidden" id="interes" name="interes" value="0.8">
                             </div>
                         </div>                                            
@@ -73,7 +74,7 @@
                         <div class="row">
                             <div class="col s10 offset-s1">                                    
                                     <div id="duration"></div>
-                                    <h5><small>Duración del préstamo:</small> 0 - 12 Meses</h5>
+                                    <h5><small>Duración:</small> 0 - 12 Meses</h5>
                                     <input type="hidden" id="duracion" name="duracion" value="6">
                                     <input type="hidden" id="action" name="action" value="setDataBusinnes">
                                     <input type="hidden" id="type" name="type" value="">
@@ -88,7 +89,7 @@
                     <div class="col s10 offset-s1 margin-top-40">
                         <div class="input-field col s12">
                             <select id="motivo" name="motivo" class="form-control">
-                                <option value="" selected>Selecciona uno</option>
+                                <option value="" disabled selected>Selecciona uno</option>
                                 <option value="791">Educación</option>
                                 <option value="792">Libre Inversión</option>
                                 <option value="793">Vivienda</option>
@@ -194,9 +195,6 @@
                         }
                     });
                 }else{
-                    var top = $('.cuota').position().top;
-                    $(window).scrollTop( top );
-                    $("#motivo").addClass("error");
                     $('#info2').modal('open');
                 }             
             });            

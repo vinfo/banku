@@ -1,6 +1,12 @@
 $( document ).ready(function(){
     var clients = "";    
     var type_user= localStorage.type_user;
+    var duration= parseInt(localStorage.duration);
+    var duration2= parseInt(localStorage.duration2);
+    var interest= parseFloat(localStorage.interest);
+    var interest2= parseFloat(localStorage.interest2);
+    var amount= parseInt(localStorage.amount);
+    var amount2= parseInt(localStorage.amount2);
 
     if(localStorage.id_u){
       getUserData();
@@ -30,42 +36,24 @@ $( document ).ready(function(){
         });
       });
       socket.on('setOffert', function(msg){
-        var amount= parseInt(localStorage.amount);
-        var amount2= parseInt(localStorage.amount2); 
-        var interest= parseFloat(localStorage.interest);
-        var interest2= parseFloat(localStorage.interest2);       
-        var duration= parseInt(localStorage.duration);
-        var duration2= parseInt(localStorage.duration2);
-        var usuario='';
-        //alert(type_user+"= "+msg.page+" | "+msg.action); 
-        if(type_user=="prestatario"){            
-            if(msg.page&&msg.page!=""&&msg.action){
-                if(msg.action=="new_offer_inv"&&amount>0&&amount>=parseInt(msg.monto)&&amount<=parseInt(msg.monto2)&&duration>=parseInt(msg.duracion)&&duration<=parseInt(msg.duracion2)&&interest>=parseFloat(msg.interes)&&interest<=parseFloat(msg.interes2)){
-                    console.log(amount);
+        if(type_user=="prestatario"){
+            if(msg.page&&msg.page!=""&&msg.action&&msg.action=="new_offer_inv"){                
+                if(amount>0&&amount>=parseInt(msg.monto)&&amount<=parseInt(msg.monto2)&&duration>=parseInt(msg.duracion)&&duration<=parseInt(msg.duracion2)&&interest>=parseFloat(msg.interes)&&interest<=parseFloat(msg.interes2)){
                     window.location.href = msg.page;
                 }                
-            }
-            if(msg.action=="del_offert"&&localStorage.id_u==msg.id_u){                    
-              window.location.href = msg.page;
-            }
-        }else{        
-            usuario= $(".nombre-user").html();
-            console.log(msg.action+" - "+msg.page);
-            if(msg.page&&msg.page!=""&&msg.action){
-                if(msg.action=="new_offer_prest"&&(amount>0&&amount2>0&&interest>0&&interest2>0&&duration>0&&duration2>0&&(amount>=parseInt(msg.monto)&&parseInt(msg.monto)<=amount2)&&(interest>=parseFloat(msg.interes)&&parseFloat(msg.interes)<=interest2&&(duration>=parseInt(msg.duracion)&&parseInt(msg.duracion)<=duration2)))){
-                    console.log("Redirigir"+msg.page);
+            }           
+        }else{
+            if(msg.page&&msg.page!=""&&msg.action&&msg.action=="new_offer_prest"){                              
+                //alert(msg.duracion+">="+duration+"|"+msg.duracion+"<="+duration2);
+                if(amount>0&&parseInt(msg.monto)>=amount&&parseInt(msg.monto)<=amount2&&parseInt(msg.duracion)>=duration&&parseInt(msg.duracion)<=duration2&&parseFloat(msg.interes)>=interest&&parseFloat(msg.interes)<=interest2){
                     window.location.href = msg.page;
-                }
-                if(msg.action=="del_offert"&&localStorage.id_u==msg.id_u){                    
-                    window.location.href = msg.page;
-                }
-            }                                
+                }                
+            }                      
         }
         //Generico nueva respuesta Chat
         if(msg.page&&msg.page!=""&&msg.action&&(msg.action=="chat"||msg.action=="new_business")){          
             if(msg.id_u==localStorage.id_u){
                 window.location.href = msg.page;
-                send_notification(usuario+' te hace nueva propuesta de negociación.',msg.page,msg.id_u);
             }                
         }         
         //if(msg.id_u==localStorage.id_u)location.reload();
@@ -230,11 +218,10 @@ function setOfferTemp(id_ofert,inv,prest,interest,duration){
 }
 function getOffersTemp(id_ofert){
     $(".chat").html('');
-    var prest= getUrlParameter("prest");
     $.ajax({
         type: "POST",
         url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
-        data: "action=getOffersTemp&id_ofert="+id_ofert+"&type_user="+localStorage.type_user+"&id_u="+localStorage.id_u+"&prest="+prest,
+        data: "action=getOffersTemp&id_ofert="+id_ofert,
         dataType:'JSON',
         success: function(msg){
             var chat='';
@@ -244,30 +231,27 @@ function getOffersTemp(id_ofert){
                 var photo='';                
                 if(localStorage.type_user=="inversionista"){
                     $(".negociando-con").html(value.user_prest);
-                    $("#negociando-con").val(value.id_u_prest);
                     $("#inv_b").val(localStorage.id_u);
                 }else{
                     $(".negociando-con").html(value.user_inv);
-                    $("#negociando-con").val(value.id_u_inv);
                     $("#inv_b").val(value.id_u_inv);
                 }
                 $("#destination_b").val(value.destination_prest);
-               
                 if(localStorage.type_user=="inversionista")$("#prest_b").val(value.id_u_prest);
                              
                 if(value.admin==localStorage.id_u){
                   cls='bubble-left right';
                   if(localStorage.photo&&localStorage.photo!="")photo='<a href="#!user" class="avatar-nego"><img class="circle photo" src="data:image/jpeg;base64,' + decodeURIComponent(localStorage.photo)+'"></a>';                  
-                  chat += '<div class="'+cls+'">'+photo+'<div class="info-nego"><h5 data-id="'+value.id_admin+'" class="user_id">'+value.user_admin+'</h5><p>Interés (%) E.M.: <strong class="l_interes">'+value.interest_inv+'</strong><br>Plazo: <strong class="l_plazo">'+value.duration_inv+'</strong></p> </div> <div class="date-buble">'+value.date.substr(0,16)+'</div></div>';
+                  chat += '<div class="'+cls+'">'+photo+'<div class="info-nego"><h5>'+value.user_admin+'</h5><p>Interés (%) E.M.: <strong class="l_interes">'+value.interest_inv+'</strong><br>Plazo: <strong class="l_plazo">'+value.duration_inv+'</strong></p> </div> <div class="date-buble">'+value.date.substr(0,16)+'</div></div>';
                 }else{
-                  chat += '<div class="'+cls+'"><div class="info-nego"><h5 data-id="'+value.id_admin+'" class="user_id">'+value.user_admin+' Propone</h5><p>Interés (%) E.M.: <strong class="l_interes">'+value.interest_prest+'</strong><br>Plazo: <strong class="l_plazo">'+value.duration_prest+'</strong></p> </div> <div class="date-buble">'+value.date.substr(0,16)+'</div></div>';
+                  chat += '<div class="'+cls+'"><div class="info-nego"><h5>'+value.user_admin+'</h5><p>Interés (%) E.M.: <strong class="l_interes">'+value.interest_prest+'</strong><br>Plazo: <strong class="l_plazo">'+value.duration_prest+'</strong></p> </div> <div class="date-buble">'+value.date.substr(0,16)+'</div></div>';
                 }
                 if(value.status=="1"){
                     chat +='<div class="bubble-rigth left"><a href="#!user" class="avatar-nego"><img class="circle" src="assets/images/avatarUser.jpg"></a><div class="info-nego"><h5 class="negociando-con"></h5><h3>Acepto tu oferta!!!</h3></div> <div class="date-buble">4m</div></div>';
                     $(".btn-nego,.btn-aceptar").hide();
                 }
                 cont++;
-            });            
+            });
             $(".chat").append(chat);
         }
     });
@@ -348,14 +332,6 @@ function sendPushMessage(pushtoken,msg){
         }
     });   
 }
-function setDigits(value,digits){
-    var str='';
-    var tam= value.length;
-    for(var i=1;i<digits;i++){
-        str+='0';
-    }
-    return str+value;
-}
 function getUserData(){
     numeral.register('locale', 'es', {
         delimiters: {
@@ -402,9 +378,7 @@ function getUserData(){
                     $(".occupation").html(msg.data.occupation_u);
                     $(".phone").html(msg.data.phone_u);
                     $(".cellphone").html(msg.data.cellphone_u);
-                    if(msg.data.city_u&&msg.data.address_u){
-                        $(".address").html(msg.data.city_u+"<br/>"+msg.data.address_u);
-                    }                    
+                    $(".address").html(msg.data.city_u+"<br/>"+msg.data.address_u);
                     $(".costs").html(msg.data.costs);
                     var msg_neg= 'proyecto en negociación';
                     if(msg.data.negociaciones==0||msg.data.negociaciones>1){
@@ -442,14 +416,13 @@ function getUserData(){
                     var f= msg.data.date_2_u.split("-");
                     var lastLogin= new Date(f[0],f[1]-1,f[2]);
                     $(".lastLogin").html(spanishDate(lastLogin));                  
-                    $(".costs").html(numeral(localStorage.costo).format('0,0')); 
                                        
                     $(".status").html(msg.data.status);
                     if(msg.data.status_u!="0")$(".msg1").hide();
                     $("#bar").css("width",msg.data.percent+"%");
                     $(".percent").html(msg.data.percent+"%");
                     if(msg.data.percent<100){
-                        $(".msg_perfil").removeClass('grey-text').addClass("red-text").html('<a href="05_Profile_Incomplete-4.html?section=mi_perfil" class="red-text">Tú perfil esta incompleto. Completa tú perfil para poder acceder a todos los servicios.</a>');                                   
+                        $(".msg_perfil").removeClass('grey-text').addClass("red-text").html("Tú perfil esta incompleto. Completa tú perfil para poder acceder a todos los servicios.");                                   
                     }
                     localStorage.setItem("percent",msg.data.percent);
                     var starts='';
@@ -469,8 +442,7 @@ function getUserData(){
 
                     var saldo=0;
                     if(msg.data.amount_u>0)saldo= msg.data.amount_u - msg.data.investments;
-                    $(".saldo-inversionista").html(numeral(saldo).format('0,0'));
-                    $("#saldo-inversionista").val(saldo);
+                    $(".saldo-inversionista").html(numeral(saldo).format('0,0'));                    
                     $(".days_study").html(msg.data.days_study);
                     $(".wrapper").show();
                     $(".progress").hide();
@@ -532,17 +504,7 @@ var getFullUserData= function getFullUserData(){
                           }                          
                           if(select){
                             if(index=="city_u")getCities(value);
-                            if(index=="occupation_u"){
-                                if(value=="otro ¿cuál?"){
-                                    $("#occupation2_u").show();
-                                }
-                            }
-                            if(index=="situacion_laboral_u"){
-                                if(value=="0"||value=="2"){
-                                    $(".empresa").hide();
-                                }
-                            }                            
-                            $('#'+index+' option[value="'+value+'"]').attr('selected','selected');
+                            $('#'+index+' option[value='+value+']').attr('selected','selected');
                             $('#'+index).material_select();                            
                           }
                          if(checkbox){

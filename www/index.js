@@ -1,5 +1,4 @@
 document.addEventListener("deviceready", onDeviceReady, false);
-document.addEventListener("pause", onPause, false);
 function onDeviceReady() {
     //var ref = cordova.InAppBrowser.open('01_Splash.html', '_self', 'location=no,zoom=no,enableviewportscale=yes');
     checkConnection();    
@@ -17,9 +16,6 @@ function onDeviceReady() {
     console.log("UUID " + uuid);
     initPushwoosh();   
     //cordova.plugins.notification.badge.configure({ autoClear: true });     
-  }
-  function onPause() {
-      localStorage.setItem("login","true");
   }
   function checkConnection() {
     console.log("checkConnection");
@@ -48,17 +44,18 @@ function onDeviceReady() {
     cordova.plugins.notification.badge;
     cordova.plugins.notification.badge.set(value);      
   }
-  function send_notification(msg,page,id_u){
-    //alert("Notification");
+  function send_notification(page,uuid){
+    alert("Notification");
     var beep='.mp3';
     if(sessionStorage.OS!="Android"){
       beep='.caf';
     }
-    if(localStorage.id_u&&localStorage.id_u==id_u){    
+  //if(uuid==sessionStorage.UUID){
+    if(sessionStorage.UUID&&1==1){    
       navigator.vibrate([1200]);
       cordova.plugins.notification.local.schedule({
         id: 1,
-        text: msg,
+        text: 'Nuevo mensaje negociación',
         icon: 'http://bankucolombia.com/images/logoMobil.png',
         sound: 'file://beep'+beep,
         badge: 1,
