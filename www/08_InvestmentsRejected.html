@@ -33,7 +33,7 @@
         <div class="col s12">    
           <h3 class="center hide-on-med-and-down">Proyectos para invertir</h3>
           <br>
-          <p class="mensaje">Aquí encontraras un listado de los proyectos o inversiones que puedes realizar, negocia con alguno de ellos para construir tu portafolio de inversiones</p>  
+          <p class="mensaje">Aquí encontraras un listado de las ofertas que han sido rechazadas, puedes reversar estos rechazos y volver a negociar con ellos.</p>  
           <br>                                         
         </div>         
         <div class="offerts"></div>
@@ -44,7 +44,7 @@
     <div class="container margin-top-40">  
       <div class="row"> 
         <div class="col s12 center btn-register btn-find-proyects">
-          <a href="#" class="waves-effect waves-light green accent-4 btn-large negociar-todos">Aceptar todo</a>
+          <a href="#" class="waves-effect waves-light green accent-4 btn-large negociar-todos">Negociar con todos</a>
         </div> 
       </div>                                                                                
     </div>
@@ -100,44 +100,31 @@
     sessionRedirect();
     getScroll();    
     setTimeout(function(){ $(".brand-logo").text("Negociar"); }, 300);
-    if(localStorage.approved_u=="No"||localStorage.approved_u=="0")$('#info2').modal('open');   
-    $( ".negociar-todos" ).click(function() {
-        var offerts= [];
-        $.each($(".btn-negociar"), function( index, value ) {
-          offerts.push($(this).attr("id"));
-        });
-        $.ajax({
-            type: "POST",
-            url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
-            data: "action=negociar_todos&id_user="+localStorage.id_u+"&offerts="+offerts,
-            dataType:'JSON',
-            success: function(msg){
-                $(".progress").show();
-                $('#modal3').modal('open');
-                setTimeout(function(){ $('#modal3').modal('close');window.location.href = "11_EarningsStep1.html?section=mis_ganancias"; }, 2000);
-                Materialize.toast('Datos guardados exitosamente', 3000, 'rounded');
-            },
-            error: function(XMLHttpRequest, textStatus, errorThrown) { 
-                alert("Problemas procesando datos: " + textStatus +" - "+errorThrown);
-            }
-        });              
-    });    
+    if(localStorage.approved_u=="No"||localStorage.approved_u=="0")$('#info2').modal('open');
     getOfferts();                     
   });
+function removeOfferRejected(id_offer,id_u){
+  $.ajax({
+    type: "POST",
+    url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
+    data: "action=remove_reject_offer&id_u="+localStorage.id_u+"&id_offer="+id_offer,
+    dataType:'JSON',
+    success: function(msg){
+      window.location.href = '08_InvestmentsStep4.html?id_ofert='+id_offer+'&prest='+id_u;
+    },
+    error: function(XMLHttpRequest, textStatus, errorThrown) { 
+      alert("Problemas procesando datos: " + textStatus +" - "+errorThrown);
+    }
+  });  
+}   
 function getOfferts(){
-  //Vars personales
-  var amount= parseInt(localStorage.amount);
-  var amount2= parseInt(localStorage.amount2); 
-  var interest= parseFloat(localStorage.interest);
-  var interest2= parseFloat(localStorage.interest2);       
-  var duration= parseInt(localStorage.duration);
-  var duration2= parseInt(localStorage.duration2)
-   
+   var amount=localStorage.amount;
+   var amount2=localStorage.amount2;
    if(amount!="0"&&amount2!="0"){
      $.ajax({
         type: "POST",
         url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
-        data: "action=getConfigOffersInv&status=0&search=true&amount="+amount+"&amount2="+amount2+"&interest="+interest+"&interest2="+interest2+"&duration="+duration+"&duration2="+duration2+"&id_u="+localStorage.id_u+"&type_user="+localStorage.type_user,
+        data: "action=getConfigOffersInvRej&status=0&search=true&amount="+amount+"&amount2="+amount2+"&id_u="+localStorage.id_u+"&type_user="+localStorage.type_user,
         dataType:'JSON',
         success: function(msg){
            $(".offerts").html('');
@@ -145,12 +132,10 @@ function getOfferts(){
             $.each(msg.data, function( index, value ) {
               var starts= getStarts(value.calification2_u);
               var cuota= calcCuota(value.amount,value.interest,value.duration);
-              var pago_total= "$"+numeral((cuota * value.duration)).format('0,0');
-              $(".offerts").append('<div class="col s12 m6">  <div class="box-proyect"><div class="info-proyect"><div class="row"><div class="col s7"> <h5>'+value.user_u+'</h5></div>   <div class="col s12"> <hr><p>'+value.ldestination+'<br>% '+value.interest+'  |  '+value.duration+' Meses</p> <div class="star-user">'+starts+'</div></div></div> </div><div class="desc-proyect">  <h3>$'+numeral(value.amount).format('0,0')+'</h3>  <p><small>Recibo Mensual: $'+numeral(cuota).format('0,0')+'<br/><b>Recibo Total: <span>'+pago_total+'</span></b></small></p>  <a href="08_InvestmentsStep4.html?id_ofert='+value.id+'&prest='+value.id_u+'" class="btn-negociar" id="'+value.id+'">Negociar</a></div></div>  </div>');
+              $(".offerts").append('<div class="col s12 m6">  <div class="box-proyect"><div class="info-proyect"><div class="row"><div class="col s7"> <h5>'+value.user_u+'</h5></div>   <div class="col s12"> <hr><p>'+value.ldestination+'<br>% '+value.interest+'  |  '+value.duration+' Meses</p> <div class="star-user">'+starts+'</div></div></div> </div><div class="desc-proyect">  <h3>$'+numeral(value.amount).format('0,0')+'</h3>  <p><small>Pago Mensual: $'+numeral(cuota).format('0,0')+'</small></p>  <a href="#!" onClick="removeOfferRejected('+value.id+','+value.id_u+');" class="btn-negociar">Negociar</a></div></div>  </div>');
             });
-            $(".negociar-todos").css("display","block");
           }else{
-            $(".offerts").html('<p class="center"><small>No existen negociaciones disponibles</small></p>');            
+            $(".offerts").html('<p class="center"><small>No existen negociaciones disponibles</small></p>');
           }
         }
       }); 

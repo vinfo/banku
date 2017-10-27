@@ -28,15 +28,24 @@
                         <br>                                                                 
                     </div>
                     <div class="col s12">
-                        <form action="#">
+                        <form id="frm_register" name="frm_register" action="#">
                             <div class="input-field col s12">
                                 <h4><span class="names_u"></span> <span class="lastnames_u"></span></h4>
                                 <h6>E-mail: <span class="email_u"></span></h6>
                                 <h6>Teléfono: <span class="cellphone_u"></span></h6><br/>
                             </div>
                             <div class="input-field col s12">
-                                <textarea id="comentarios" name="comentarios" class="materialize-textarea"></textarea>
-                                <label for="comentarios">Dejanos algunos detalles sobre como podemos ayudarte y y resolver tus dudas lo más pronto posible. </label>
+                              <select id="tipo" name="tipo" required>
+                                <option value="" disabled selected>Selecciona opción</option>
+                                <option value="Dudas sobre la plataforma">Dudas sobre la plataforma</option>
+                                <option value="Soporte técnico">Soporte técnico</option>
+                                <option value="Quejas o reclamos">Quejas o reclamos</option>
+                                <option value="Dudas sobre la comunidad BankU">Dudas sobre la comunidad BankU</option>
+                                <option value="Recomendaciones para mejorar BankU">Recomendaciones para mejorar BankU</option>
+                              </select>                              
+                            </div>
+                            <div class="input-field col s12">
+                                <textarea id="comentarios" name="comentarios" class="materialize-textarea" placeholder="Dejanos algunos detalles sobre como podemos ayudarte y y resolver tus dudas lo más pronto posible." required></textarea>
                                 <a class="waves-effect waves-light btn green accent-4 white-text btn-large">Enviar comentarios</a>
                             </div>
                         </form>            
@@ -78,14 +87,21 @@
         <script type="text/javascript" src="assets/js/includes.js?v=1.0.0"></script>        
         <script type="text/javascript">
          $( document ).ready(function(){
+            setTimeout(function(){ $(".brand-logo").text("Ayuda y soporte"); }, 300);
             getFullUserData();
+            $( "#comentarios" ).focus(function() {
+              var $win = $(window);
+              var pos = $(".accent-4").position().top;
+              $win.scrollTop(pos + 10);
+            });
+            var $win = $(window);
             $( ".accent-4" ).click(function() {
-              if($("#comentarios").val()!=""){
+              var validator = $("#frm_register").validate({errorPlacement: function(error,element) {return true;}});
+              validator.form();
+              if(validator.valid()){
+                $("#comentarios").val("");
                 $('#info2').modal('open');
-                $("#comentarios").val("").removeClass("error");
-               }else{
-                $("#comentarios").addClass("error");
-               }
+              }              
             });
          });
         </script>

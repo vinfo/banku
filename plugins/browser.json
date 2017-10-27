@@ -7,16 +7,10 @@
         "files": {}
     },
     "installed_plugins": {
-        "cordova-plugin-inappbrowser": {
+        "cordova-plugin-badge": {
             "PACKAGE_NAME": "com.vinfo.banku"
         },
-        "cordova-plugin-whitelist": {
-            "PACKAGE_NAME": "com.vinfo.banku"
-        },
-        "cordova-plugin-network-information": {
-            "PACKAGE_NAME": "com.vinfo.banku"
-        },
-        "cordova-plugin-geolocation": {
+        "cordova-plugin-camera": {
             "PACKAGE_NAME": "com.vinfo.banku"
         },
         "cordova-plugin-console": {
@@ -28,19 +22,22 @@
         "cordova-plugin-dialogs": {
             "PACKAGE_NAME": "com.vinfo.banku"
         },
+        "cordova-plugin-geolocation": {
+            "PACKAGE_NAME": "com.vinfo.banku"
+        },
+        "cordova-plugin-inappbrowser": {
+            "PACKAGE_NAME": "com.vinfo.banku"
+        },
+        "cordova-plugin-network-information": {
+            "PACKAGE_NAME": "com.vinfo.banku"
+        },
         "cordova-plugin-vibration": {
             "PACKAGE_NAME": "com.vinfo.banku"
         },
-        "cordova-plugin-camera": {
-            "PACKAGE_NAME": "com.vinfo.banku"
-        },
-        "satpal-phonegap-smsplugin": {
+        "cordova-plugin-whitelist": {
             "PACKAGE_NAME": "com.vinfo.banku"
         },
         "cordova-plugin-x-socialsharing": {
-            "PACKAGE_NAME": "com.vinfo.banku"
-        },
-        "cordova-plugin-badge": {
             "PACKAGE_NAME": "com.vinfo.banku"
         },
         "de.appplant.cordova.plugin.local-notification": {
@@ -50,6 +47,9 @@
             "LOG_LEVEL": "DEBUG",
             "IOS_FOREGROUND_ALERT_TYPE": "NONE",
             "ANDROID_FOREGROUND_PUSH": "false",
+            "PACKAGE_NAME": "com.vinfo.banku"
+        },
+        "satpal-phonegap-smsplugin": {
             "PACKAGE_NAME": "com.vinfo.banku"
         }
     },

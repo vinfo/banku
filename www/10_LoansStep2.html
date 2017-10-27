@@ -40,8 +40,7 @@
                     <div class="col s12">          
                         <h3 class="center hide-on-med-and-down">Configuración de mi proyecto</h3>
                         <br>
-                        <p>• Configura las características de tu proyecto.<br>
-                        • Cuando hagas este paso podrás crear tu portafolio y empezar a recibir financiamiento para tus proyectos.</p>
+                        <p>• Configura las características de tu proyecto.<br></p>
                         <p>&nbsp;</p>                                           
                     </div>  
                 </div>
@@ -52,7 +51,7 @@
                         <div class="row">
                             <div class="col s10 offset-s1">                                    
                                     <div id="capital"></div>
-                                    <h5><small>Capital:</small> 2 - 6 Mill.</h5>
+                                    <h6><small>Monto a prestar:</small> 2 - 6 Mill.</h6>
                                     <input type="hidden" id="monto" name="monto" value="2000000">
                             </div>
                         </div>                                            
@@ -63,7 +62,7 @@
                         <div class="row">
                             <div class="col s10 offset-s1">                                    
                                     <div id="interest"></div>
-                                    <h5><small>Interes:</small> 0,8 - 2,3 % E.M.</h5>
+                                    <h6><small>Interés a pagar:</small> 0,8 - 2,3 % E.M.</h6>
                                     <input type="hidden" id="interes" name="interes" value="0.8">
                             </div>
                         </div>                                            
@@ -74,7 +73,7 @@
                         <div class="row">
                             <div class="col s10 offset-s1">                                    
                                     <div id="duration"></div>
-                                    <h5><small>Duración:</small> 0 - 12 Meses</h5>
+                                    <h6><small>Duración del préstamo:</small> 0 - 12 Meses</h6>
                                     <input type="hidden" id="duracion" name="duracion" value="6">
                                     <input type="hidden" id="action" name="action" value="setDataBusinnes">
                                     <input type="hidden" id="type" name="type" value="">
@@ -89,7 +88,7 @@
                     <div class="col s10 offset-s1 margin-top-40">
                         <div class="input-field col s12">
                             <select id="motivo" name="motivo" class="form-control">
-                                <option value="" disabled selected>Selecciona uno</option>
+                                <option value="" selected>Selecciona uno</option>
                                 <option value="791">Educación</option>
                                 <option value="792">Libre Inversión</option>
                                 <option value="793">Vivienda</option>
@@ -162,7 +161,8 @@
         <script type="text/javascript" src="assets/js/wNumb.js"></script>
         <script type="text/javascript">
          $( document ).ready(function(){            
-            var socket = io('https://banku-services.herokuapp.com/');           
+            var socket = io('https://banku-services.herokuapp.com/');  
+            var rand=  Math.random();         
             $("#id_u").val(localStorage.id_u);
             var type=3;
             if(localStorage.type_user=="prestatario")type=4;
@@ -184,7 +184,8 @@
                         dataType:'JSON',
                         success: function(msg){
                             $(".progress").show();
-                            var data = {page:"08_InvestmentsStep3.html?section=negociar",action:"new_offer_prest",monto:$("#monto").val(),interes:$("#interes").val(),duracion:$("#duracion").val()};                    
+                            localStorage.setItem("set_offer","true");
+                            var data = {page:"08_InvestmentsStep3.html?section=negociar&rand="+rand,action:"new_offer_prest",monto:$("#monto").val(),interes:$("#interes").val(),duracion:$("#duracion").val()};                    
                             socket.emit('setOffert', data);
                             $('#modal3').modal('open');
                             setTimeout(function(){ $('#modal3').modal('close');window.location = "10_LoansStep3.html?section=solicitar_dinero"; }, 2000);
@@ -195,6 +196,9 @@
                         }
                     });
                 }else{
+                    var top = $('.cuota').position().top;
+                    $(window).scrollTop( top );
+                    $("#motivo").addClass("error");
                     $('#info2').modal('open');
                 }             
             });            
@@ -225,6 +229,7 @@
             });             
         }
         function setSliders(){
+            var saldo= parseInt(localStorage.saldo);
             var capital = document.getElementById('capital');
             var interest = document.getElementById('interest');
             var duration = document.getElementById('duration');
@@ -239,6 +244,9 @@
             var duracion= parseInt($("#duracion").val());
             var find = ["$","%","."];
             var replace = ['','',''];
+            var max_monto= mount2;
+            if(saldo < mount2)max_monto= saldo;
+
             noUiSlider.create(capital, {
                 start: [ monto ],
                 connect: true,
@@ -246,7 +254,7 @@
                 step: 100000,
                 range: {
                     'min': mount1,
-                    'max': mount2
+                    'max': max_monto
                 },
                 format: wNumb({
                     decimals: 0,

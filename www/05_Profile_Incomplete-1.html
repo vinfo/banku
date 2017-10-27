@@ -26,9 +26,9 @@
     <div class="container">
       <div class="row">
         <div class="col s9 m8 l10">
-          <a href="05_Profile_Incomplete-2.html?section=mi_perfil">
+          <a href="05_Profile_Incomplete-4.html?section=mi_perfil">
             <h4 class="margin-bottom-0 names">&nbsp;</h4>
-            <h6>Ver y editar perfil</h6>
+            <h5 class="editar">Ver y editar perfil</h5>
           </a>
         </div>
         <div class="col s3 m4 l2">
@@ -75,13 +75,22 @@
   <!-- Modal Structure -->
   <div id="info1" class="modal">
     <div class="modal-content">
-      <h4>Actualizar información del perfil</h4>
-      <p>Recuerda que debes actualizar tú perfil para mejorar tu calificación.</p>
+      <h4 class="modal_title">Bienvenida</h4>
+      <p class="modal_text">Hola, bienvenido a la comunidad BankU</p>
     </div>
     <div class="modal-footer">
       <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Aceptar</a>
     </div>
-  </div> 
+  </div>
+  <div id="info2" class="modal">
+    <div class="modal-content">
+      <h4 class="modal_title">Actualizar información del perfil</h4>
+      <p class="modal_text">Recuerda que debes actualizar tú perfil para mejorar tu calificación.</p>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Aceptar</a>
+    </div>
+  </div>   
   <script type="text/javascript" src="cordova.js"></script>
   <script type="text/javascript" src="index.js"></script>             
   <!--Import jQuery before materialize.js-->
@@ -96,14 +105,24 @@
    $( document ).ready(function(){
     sessionRedirect();
     setTimeout(function(){ $(".brand-logo").text("Mi Perfil"); }, 300);    
-
-    if(localStorage.login){
-      if(localStorage.percent<100)$('#info1').modal('open');
-      localStorage.removeItem("login");
+    if(localStorage.login&&!localStorage.bienvenida){        
+        $('#info1').modal('open',{
+          dismissible: true,
+          complete: function() {
+            localStorage.setItem("bienvenida","true");
+            if(localStorage.percent<100){
+              $('#info2').modal('open');
+            }
+          }
+        }
+        );
+        localStorage.removeItem("login");
     }
+
+
     $( ".friends" ).click(function() {
       if(sessionStorage.OS!="browser"){
-        window.plugins.socialsharing.share('Te recomiendo BankU, una nueva propuesta de negocio.', 'App recomendada', null, 'http://bankucolombia.com');
+        window.plugins.socialsharing.share('Hola, te recomiendo BankU, la mejor y más confiable opción para invertir y lograr tus objetivos de negocio. O para prestar dinero y así cumplir tus sueños y proyectos de vida. Únete aquí: www.banku.com.co #BankUSoyYo.', 'App recomendada', null, '');
       }else{
         window.location.replace("16_Share.html?section=mi_perfil");
       }

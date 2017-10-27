@@ -46,11 +46,8 @@
 
 
       </div>
-    </div>              
-
-  </div>  
-
-
+    </div>
+  </div> 
 
   <footer class="page-footer">
     <div class="footer-copyright">
@@ -62,7 +59,16 @@
 
   <!--Nav footer Responsive-->
   <div class="footer-nav menu_footer"></div>    
-  
+  <!-- Modal Structure -->
+  <div id="info1" class="modal">
+    <div class="modal-content">
+      <h4 class="modal_title">Solicitud aceptada</h4>
+      <p class="modal_text">Tu solicitud de crédito fue aceptada. En las próximas 24 horas recibirás en tu cuenta bancaria el desembolso y el plan de pagos</p>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Aceptar</a>
+    </div>
+  </div>   
   <!--Import jQuery before materialize.js-->
   <script type="text/javascript" src="assets/js/jquery-2.1.1.min.js"></script>
   <script type="text/javascript" src="assets/js/materialize.min.js"></script>
@@ -74,16 +80,19 @@
   <script type="text/javascript">
    $( document ).ready(function(){
     getScroll();
+    var msg= getUrlParameter("msg");
+    if(msg&&msg=="aceptada")$('#info1').modal('open');
     $.ajax({
       type: "POST",
       url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
       data: "action=getBusiness&id_user="+localStorage.id_u+"&type_user="+localStorage.type_user,
       dataType:'JSON',
       success: function(msg){
-        if(msg.data.length==0)$(".lista").html('<p class="center"><small>No existen inversiones disponibles</small></p>');
+        if(msg.data.length==0)$(".lista").html('<p class="center"><small>No existen prestamos disponibles</small></p>');
         $.each(msg.data, function( index, value ) {
           var starts= getStarts(value.calification2_u);
-          $(".lista").append('<div class="col s12 m6"><div class="box-proyect"><div class="info-proyect"><div class="row"><div class="col s7"> <h5>'+value.user_inv+'</h5></div> <div class="col s12"> <hr><p>'+value.ldestination+'<br>% '+value.interes_b+'  |  '+value.plazo_b+' Meses</p> <div class="star-user">'+starts+'</div> </div> </div> </div><div class="desc-proyect"><h3>$'+numeral(value.total_b).format('0,0')+'</h3><p><small>Pago Mensual: $'+numeral(value.quota_b).format('0,0')+'</small></p><a href="12_PaymentsStep3.html?section=mis_pagos&id_b='+value.id_b+'" class="btn-negociar">Histórico</a></div></div></div>');
+          var id_n= setDigits(value.id_b,7);
+          $(".lista").append('<div class="col s12 m6"><div class="box-proyect"><div class="info-proyect"><div class="row"><div class="col s10"><span># Negociación<br/>'+id_n+'</span><h5>'+value.user_inv+'</h5></div> <div class="col s12"> <hr><p>'+value.ldestination+'<br>% '+value.interes_b+'  |  '+value.plazo_b+' Meses</p> <div class="star-user">'+starts+'</div> </div> </div> </div><div class="desc-proyect"><h3>$'+numeral(value.total_b).format('0,0')+'</h3><p><small>Pago Mensual: $'+numeral(value.quota_b).format('0,0')+'</small></p><a href="12_PaymentsStep3.html?section=mis_pagos&id_b='+value.id_b+'" class="btn-negociar">Histórico</a></div></div></div>');
         });
       },
       error: function(XMLHttpRequest, textStatus, errorThrown) { 
