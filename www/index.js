@@ -96,7 +96,7 @@ function onDeviceReady() {
     function(status) {
       var pushToken = status.pushToken;
       localStorage.setItem("pushtoken",pushToken);
-          // handle successful registration here
+      pushwoosh.createLocalNotification({msg:"Your pumpkins are ready!", seconds:30, userData:"optional"}
         },
         function(status) {
         // handle registration error here
