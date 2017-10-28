@@ -18,7 +18,9 @@
     <preference name='phonegap-version' value='cli-6.5.0' />
     <preference name="EnableViewportScale" value="true"/>
     <preference name="orientation" value="portrait" />
-    
+    <preference name="android-build-tool" value="gradle" />
+    <preference name="android-minSdkVersion" value="18" />
+
     
     <plugin name="cordova-plugin-inappbrowser" spec="~1.7.1" />
     <plugin name="cordova-plugin-console" version="1.0.6" />
@@ -32,7 +34,7 @@
     
     <plugin name="cordova-plugin-x-socialsharing" version="5.2.0" />
     <plugin name="pushwoosh-cordova-plugin" version="7.0.7" />
-    <plugin name="diogo-cordova-plugin-local-notifications" version="0.1.26" />    
+    <plugin name="de.appplant.cordova.plugin.local-notification" version="0.8.5" />    
     
 
 
