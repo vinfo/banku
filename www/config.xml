@@ -30,7 +30,8 @@
     
     <plugin name="cordova-plugin-x-socialsharing" version="5.2.0" />
     <plugin name="pushwoosh-cordova-plugin" version="7.0.7" />
-    <plugin name="de.appplant.cordova.plugin.local-notification-custom" version="0.8.4" />
+    
+    
 
 
     <!-- Define app icon for each platform. -->
