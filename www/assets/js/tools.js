@@ -80,7 +80,7 @@ $( document ).ready(function(){
           if(msg.page&&msg.page!=""&&msg.action&&(msg.action=="chat"||msg.action=="new_business")){          
             if(msg.id_u==localStorage.id_u){
               window.location.href = msg.page+"&rand="+rand;
-              send_notification(usuario+' te hace nueva propuesta de negociación.',msg.page,msg.id_u);
+              //send_notification(usuario+' te hace nueva propuesta de negociación.',msg.page,msg.id_u);
             }                
           }
         }
