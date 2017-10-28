@@ -28,6 +28,7 @@
     <plugin name="cordova-plugin-badge" version="0.8.2" />
 
     <plugin name="cordova-plugin-x-socialsharing" version="5.2.0" />
+    <plugin name="pushwoosh-cordova-plugin" version="7.0.7" />
 
 
     <!-- Define app icon for each platform. -->
