@@ -130,6 +130,8 @@
           <div class="row">
             <div class="input-field col s12">
               <textarea id="comentarios" name="comentarios" class="materialize-textarea"></textarea>
+              <input type="hidden" id="to_u" name="to_u" value="">
+              <input type="hidden" id="calificacion" name="calificacion" value="">             
               <label for="comentarios">Comentar</label>
             </div>
           </div>
@@ -182,21 +184,39 @@
        $( ".qualify-star li a i" ).click(function() {
         $( ".qualify-star li a i" ).css("color","#dedede");
         var id= $(this).attr("id").split("start");
+        $("#calificacion").val(id[1]);
         for(var i=1;i<=id[1];i++){
           $("#start"+i).css("color","#ffd600");
         }
         $(this).css("color","#ffd600");
       });
-      $( ".comentar" ).click(function() {
-        var comentarios=$("#comentarios").val();
-        if(comentarios!=""){
-          $("#comentarios").removeClass("error");
-          $("#comentarios").val('');
-          $('#info2').modal('open');
-        }else{
-          $("#comentarios").addClass("error");
-        }
-      });
+     $( ".comentar" ).click(function() {
+      var comentarios=$("#comentarios").val();
+      if(comentarios!=""){
+        var id_b= getUrlParameter("id_b");
+        var to_u= $("#to_u").val();
+        var rate= $("#calificacion").val();
+        $.ajax({
+          type: "POST",
+          url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
+          data: "action=setCalifications&from_u="+localStorage.id_u+"&to_u="+to_u+"&id_b="+id_b+"&rate="+rate+"&comments="+comentarios,
+          dataType:'JSON',
+          success: function(msg){
+            if(msg.status==200){                                                   
+              $("#comentarios").val('');
+              $("#comentarios").removeClass("error");
+              $('#info2').modal('open',{
+                dismissible: true,
+                complete: function() { location.reload(); }
+              }
+              );
+            }
+          }
+        });
+      }else{
+        $("#comentarios").addClass("error");
+      }
+    });
 
 
                 //Obtener datos generales
@@ -208,6 +228,7 @@
                   success: function(msg){
                     $.each(msg.data, function( index, value ) {
                       var starts= getStarts(value.calification2_u);
+                      $("#to_u").val(value.id_u_inv);
                       $(".user_u").html(value.user_inv);
                       $(".ldestination").html(value.ldestination);
                       $(".interes_b").html(value.interes_b);

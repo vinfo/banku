@@ -134,6 +134,7 @@
                       success: function(msg){
                         if(msg.status==200){                                                   
                           $(".msg-success").html("Datos guardados exitosamente").show();
+                          setTimeout(function(){ location.reload(); },1000);
                         }
                       }
                     });
