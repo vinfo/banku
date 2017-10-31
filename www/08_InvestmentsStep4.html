@@ -23,7 +23,7 @@
     <div class="nav-wrapper">
       <a href="#!" class="brand-logo center">En negociación con <span class="negociando-con"></span></a>
       <ul class="left ">
-        <li><a href="#!" class="back"><i class="material-icons">keyboard_arrow_left</i></a></li>
+        <li><a href="08_InvestmentsStep3.html?section=negociar"><i class="material-icons">keyboard_arrow_left</i></a></li>
       </ul>
       <ul class="right ">
         <li><a href="#!" class="red-text tooltipped eliminar" data-position="top" data-delay="50" data-tooltip="Eliminar proyecto"><i class="material-icons">cancel</i></a></li>
@@ -37,7 +37,7 @@
         <div class="col s12 pag-nav">
           <span class="btn-nav-pag">
             <a href="#!" class="btn grey lighten-1"><i class="material-icons left">&nbsp;</i>Volver</a>   
-            <a href="10_LoansStep3.html" class="btn grey lighten-1">Buscar proyecto</a>                         
+            <a href="08_InvestmentsStep3.html" class="btn grey lighten-1">Buscar proyecto</a>                         
           </span>
         </div>
         <div class="col s12">    
@@ -198,6 +198,7 @@
       getFavorite(id_ofert,localStorage.id_u,localStorage.type_user);
       $("#prest_b").val(localStorage.id_u)      
       $( ".btn-aceptar" ).click(function() {
+        $(".btn-action-bussines").hide();
         var monto= $("#total_b").val();
         var interes= $("#interes_b").val();
         if($(".l_interes").first().html())interes= $(".l_interes").first().html();

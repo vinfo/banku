@@ -164,26 +164,26 @@
                         <select id="bank_u" name="bank_u">
                           <option value="" disabled selected>Selecciona un banco</option>
                           <option value="">Seleccionar</option>
-                          <option value="5">AVVILLAS</option>
-                          <option value="6">BANCAFE</option>
-                          <option value="7">BANCO CAJA SOCIAL BCSC</option>
-                          <option value="1">BANCO COLPATRIA</option>
-                          <option value="8">BANCO DE BOGOTÁ</option>
-                          <option value="9">BANCO DE OCCIDENTE</option>
-                          <option value="10">BANCO GNB SUDAMERIS</option>
-                          <option value="2">BANCO POPULAR</option>
-                          <option value="11">BANCO SANTANDER</option>
-                          <option value="3">BANCOLOMBIA</option>
-                          <option value="12">BBVA COLOMBIA S.A</option>
-                          <option value="13">CITIBANK</option>
-                          <option value="4">COLMENA BCSC</option>
-                          <option value="14">COOMEVA COOPERATIVA FINANCIERA</option>
-                          <option value="15">DAVIVIENDA</option>
-                          <option value="16">HELM BANK S.A.</option>
-                          <option value="17">HSBC COLOMBIA</option>
-                          <option value="18">ROYAL BANK OF SCOTLAND</option>
+                          <option value="796">AVVILLAS</option>
+                          <option value="797">BANCAFE</option>
+                          <option value="798">BANCO CAJA SOCIAL BCSC</option>
+                          <option value="799">BANCO COLPATRIA</option>
+                          <option value="800">BANCO DE BOGOTÁ</option>
+                          <option value="801">BANCO DE OCCIDENTE</option>
+                          <option value="802">BANCO GNB SUDAMERIS</option>
+                          <option value="803">BANCO POPULAR</option>
+                          <option value="804">BANCO SANTANDER</option>
+                          <option value="805">BANCOLOMBIA</option>
+                          <option value="806">BBVA COLOMBIA S.A</option>
+                          <option value="807">CITIBANK</option>
+                          <option value="808">COLMENA BCSC</option>
+                          <option value="809">COOMEVA COOPERATIVA FINANCIERA</option>
+                          <option value="810">DAVIVIENDA</option>
+                          <option value="811">HELM BANK S.A.</option>
+                          <option value="812">HSBC COLOMBIA</option>
+                          <option value="813">ROYAL BANK OF SCOTLAND</option>
                         </select>
-                        <label class="transform">Banco</label>
+                        <label>Banco</label>
                       </div>
                       <div class="input-field col s12 m6">
                         <select id="banktype_u" name="banktype_u">
@@ -622,7 +622,7 @@
         },
         minLength: 1,
       });
-    $('#bank_u,#occupation_u').select2();         
+    $('#occupation_u').select2();         
     $('input').bind({'focusin': function(Event){
       $(".footer-nav").fadeOut('fast');
     }, 'focusout': function(Event){
@@ -657,10 +657,10 @@
       }
     });    
     $( "#occupation_u" ).change(function() {
-      if($(this).val()=="otro ¿cuál?"){
-        $("#occupation2_u").show();
+      if($(this).val()=="25"){
+        $("#occupation2_u").val('').attr("required","required").show();
       }else{
-        $("#occupation2_u").val('').hide();
+        $("#occupation2_u").val('').removeAttr("required").hide();
       }
     });
 
@@ -783,7 +783,7 @@
                       success: function (data) {      
                         $.each(data, function( index, value ) {
                               $('#occupation_u').append($('<option>', { 
-                                  value: value.label,
+                                  value: value.value,
                                   text : value.label
                               }));
                         });

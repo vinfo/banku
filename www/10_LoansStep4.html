@@ -195,6 +195,7 @@
       var negociando= getUrlParameter("negociando");
       getFavorite(id_ofert,localStorage.id_u,localStorage.type_user);       
       $( ".btn-aceptar" ).click(function() {
+        $(".btn-action-bussines").hide();        
         var monto= $("#total_b").val();
         var interes= $("#interes_b").val();
         if($(".l_interes").first().html())interes= $(".l_interes").first().html();
@@ -272,6 +273,7 @@
         var duracion= $("#duracion").val();         
         var inv_b= $("#inv_b").val(); 
         if(monto!=""&&interes!=""&&duracion!=""){
+          $(".btn-action-bussines").hide();
           var setoffer= setOfferTemp(id_ofert,inv_b,localStorage.id_u,interes,duracion);
           if(setoffer){
             $(".interest").html(interes+"% | ");

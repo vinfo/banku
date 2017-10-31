@@ -957,7 +957,7 @@ padding-top: 10px;
 .error{
 	border-bottom: 2px solid red!important; 
 }
-.prestatario,.inversionista,.next_pay{
+.prestatario,.inversionista,.next_pay,.row-negociar{
 	display: none;
 }
 .noUi-handle{
@@ -1012,6 +1012,10 @@ a.small{
 .msg-pasos > p{
 	font-size: 14px;
 	text-align: justify;
+}
+.msg-success{
+	padding: 4px;
+	display: none;
 }
 .width-40{
 	max-width:40%!important;

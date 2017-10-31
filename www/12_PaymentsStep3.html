@@ -108,19 +108,19 @@
         <div class="col s12">
           <ul class="qualify-star">
             <li>
-              <a href="#!"><i class="material-icons">star_border</i></a>
+              <a href="#!"><i id="start1" class="material-icons">star_border</i></a>
             </li>
             <li>
-              <a href="#!"><i class="material-icons">star_border</i></a>
+              <a href="#!"><i id="start2" class="material-icons">star_border</i></a>
             </li>
             <li>
-              <a href="#!"><i class="material-icons">star_border</i></a>
+              <a href="#!"><i id="start3" class="material-icons">star_border</i></a>
             </li>
             <li>
-              <a href="#!"><i class="material-icons">star_border</i></a>
+              <a href="#!"><i id="start4" class="material-icons">star_border</i></a>
             </li>
             <li>
-              <a href="#!"><i class="material-icons">star_border</i></a>
+              <a href="#!"><i id="start5" class="material-icons">star_border</i></a>
             </li>
           </ul>
           <p>Califica que tan agusto estás con esta inversión y déjanos tu comentario del porque.</p>
@@ -179,8 +179,12 @@
       getScroll();
       $('#comentarios').trigger('autoresize');
       var id_b=getUrlParameter("id_b");
-      $( ".qualify-star li a i" ).click(function() {
+       $( ".qualify-star li a i" ).click(function() {
         $( ".qualify-star li a i" ).css("color","#dedede");
+        var id= $(this).attr("id").split("start");
+        for(var i=1;i<=id[1];i++){
+          $("#start"+i).css("color","#ffd600");
+        }
         $(this).css("color","#ffd600");
       });
       $( ".comentar" ).click(function() {

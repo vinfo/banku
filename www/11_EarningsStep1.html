@@ -59,13 +59,12 @@
                         <div class="col s12 center margin-bottom-40 btn-register">
                             <ul>
                                 <li><a href="11_EarningsStep2.html?section=mis_ganancias" class="waves-effect waves-light btn yellow lighten-1 btn-large">Detalle de mis inversiones</a></li>
-                                <li><a href="05_Profile_Incomplete-4.html?section=mi_perfil#amount_u" class="waves-effect waves-light btn green lighten-1 btn-large">Incrementar inversión</a></li>
+                                <li><a href="#!" class="waves-effect waves-light btn green lighten-1 btn-large info3">Incrementar inversión</a></li>
                             </ul>
                         </div> 
                     </div>
                 </div>
-            </div>  
-
+            </div>
 
             <footer class="page-footer">
                 <div class="footer-copyright">
@@ -87,12 +86,24 @@
                     <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Aceptar</a>
                 </div>
             </div>
+            <div id="info3" class="modal">
+                <div class="modal-content">
+                    <h4>Monto disponible para invertir ($)</h4>
+                    <p><input placeholder="Monto disponible" id="amount_u" name="amount_u" type="text" class="validate money valid"></p>
+                </div>
+                <div class="msg-success"></div>
+                <div class="modal-footer">
+                    <a href="#!" class="modal-action modal-close waves-effect waves-gray btn-flat">Cerrar</a> 
+                    <a href="#!" class="modal-action waves-effect waves-green btn-flat set-amount">Aceptar</a>                                       
+                </div>
+            </div>            
             <script type="text/javascript" src="cordova.js"></script>
             <script type="text/javascript" src="index.js"></script>             
             <!--Import jQuery before materialize.js-->
             <script type="text/javascript" src="assets/js/jquery-2.1.1.min.js"></script>
             <script type="text/javascript" src="assets/js/materialize.min.js"></script>
             <script type="text/javascript" src="assets/js/jquery.validate.min.js"></script>
+            <script type="text/javascript" src="assets/js/jquery.mask.min.js"></script>
             <script type="text/javascript" src="assets/js/numeral.min.js"></script>
             <script src="assets/js/socket.io.js"></script>
             <script type="text/javascript" src="assets/js/tools.js?v=1.0.0"></script>         
@@ -100,10 +111,34 @@
             <script type="text/javascript">
             $( document ).ready(function(){
                 setTimeout(function(){ $(".brand-logo").text("Mis Ganancias"); }, 300);
+                $('.money').mask('#.##0', {reverse: true});
                 getScroll();
+                $("#amount_u").val(numeral(localStorage.inversion).format('0,0'));
                 if(localStorage.approved_u=="No"||localStorage.approved_u=="0"){
                     $('#info2').modal('open');
                 }
+                $( ".info3" ).click(function() {
+                  $(".msg-success").hide();
+                  $('#info3').modal('open');
+                });
+                $( ".set-amount" ).click(function() {
+                  var amount_u= $("#amount_u").val();                  
+                  if(amount_u!=""&&amount_u!="0"){
+                    $(".set-amount").hide();
+                    localStorage.setItem("inversion",amount_u);
+                    $.ajax({
+                      type: "POST",
+                      url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
+                      data: "action=updateUserAmount&id_u="+localStorage.id_u+"&amount_u="+amount_u,
+                      dataType:'JSON',
+                      success: function(msg){
+                        if(msg.status==200){                                                   
+                          $(".msg-success").html("Datos guardados exitosamente").show();
+                        }
+                      }
+                    });
+                  }
+                });
             });
         </script>
     </body>

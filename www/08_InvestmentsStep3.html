@@ -100,7 +100,9 @@
     sessionRedirect();
     getScroll();    
     setTimeout(function(){ $(".brand-logo").text("Negociar"); }, 300);
-    if(localStorage.approved_u=="No"||localStorage.approved_u=="0")$('#info2').modal('open');   
+    if(localStorage.approved_u=="No"||localStorage.approved_u=="0")$('#info2').modal('open');
+    $(".offerts").html('');
+    getOffertTemp();   
     $( ".negociar-todos" ).click(function() {
         var offerts= [];
         $.each($(".btn-negociar"), function( index, value ) {
@@ -125,7 +127,7 @@
     getOfferts();                     
   });
 function getOfferts(){
-  //Vars personales
+  //Vars personales  
   var amount= parseInt(localStorage.amount);
   var amount2= parseInt(localStorage.amount2); 
   var interest= parseFloat(localStorage.interest);
@@ -139,8 +141,7 @@ function getOfferts(){
         url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
         data: "action=getConfigOffersInv&status=0&search=true&amount="+amount+"&amount2="+amount2+"&interest="+interest+"&interest2="+interest2+"&duration="+duration+"&duration2="+duration2+"&id_u="+localStorage.id_u+"&type_user="+localStorage.type_user,
         dataType:'JSON',
-        success: function(msg){
-           $(".offerts").html('');
+        success: function(msg){           
           if(msg.status&&msg.data&&msg.data.length>0){                   
             $.each(msg.data, function( index, value ) {
               var starts= getStarts(value.calification2_u);
@@ -149,14 +150,35 @@ function getOfferts(){
               $(".offerts").append('<div class="col s12 m6">  <div class="box-proyect"><div class="info-proyect"><div class="row"><div class="col s7"> <h5>'+value.user_u+'</h5></div>   <div class="col s12"> <hr><p>'+value.ldestination+'<br>% '+value.interest+'  |  '+value.duration+' Meses</p> <div class="star-user">'+starts+'</div></div></div> </div><div class="desc-proyect">  <h3>$'+numeral(value.amount).format('0,0')+'</h3>  <p><small>Recibo Mensual: $'+numeral(cuota).format('0,0')+'<br/><b>Recibo Total: <span>'+pago_total+'</span></b></small></p>  <a href="08_InvestmentsStep4.html?id_ofert='+value.id+'&prest='+value.id_u+'" class="btn-negociar" id="'+value.id+'">Negociar</a></div></div>  </div>');
             });
             $(".negociar-todos").css("display","block");
-          }else{
-            $(".offerts").html('<p class="center"><small>No existen negociaciones disponibles</small></p>');            
           }
         }
       }); 
-   }else{
-      $(".offerts").html('<p class="center"><small>No existen negociaciones disponibles</small></p>');
-   }    
+   }
+   setTimeout(function(){ if($(".box-proyect").length==0)$(".offerts").html('<p class="center"><small>No existen negociaciones disponibles</small></p>'); }, 2000); 
+}
+function getOffertTemp(){
+  $.ajax({
+    type: "POST",
+    url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
+    data: "action=getOfferTemp&id_u="+localStorage.id_u+"&type_user="+localStorage.type_user,
+    dataType:'JSON',
+    success: function(msg){
+      var list='';
+      if(msg.data.length>0){
+        $(".iconAccess,.btn-register").hide();            
+        $.each(msg.data, function( index, value ) {
+          var starts= getStarts(value.calification2_u_inv);
+          var cuota= calcCuota(value.amount_prest,value.interest_prest,value.duration_prest);
+          var pago_total= "$"+numeral((cuota * value.duration_prest)).format('0,0');
+          list+='<div class="col s12 m6"><div class="box-proyect" style="background-color:#FFCB05;"><div class="info-proyect" style="background-image:url(assets/images/border-box-proyect2.png);"><div class="row"><div class="col s7"> <h5>'+value.user_prest+'</h5></div> <div class="col s12"> <hr><p>'+value.ldestination+'<br>% '+value.interest_prest+'|'+value.duration_prest+' Meses</p> <div class="star-user">'+starts+'</div></div></div> </div><div class="desc-proyect"><h3>$'+numeral(value.amount_prest).format('0,0')+'</h3><p><small>Recibo Mensual: $'+numeral(cuota).format('0,0')+'<br/><b>Recibo Total: <span>'+pago_total+'</span></b></small></p><a href="08_InvestmentsStep4.html?section=negociar&id_ofert='+value.id_ofert+'&prest='+value.id_u_prest+'&negociando=true" class="btn-negociar small">En Negociación</a></div></div></div>';
+        });
+        $(".offerts").html(list);
+      }
+    },
+    error: function(XMLHttpRequest, textStatus, errorThrown) { 
+      alert("Problemas procesando datos: " + textStatus +" - "+errorThrown);
+    }
+  });          
 }   
 </script>
 </body>

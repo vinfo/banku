@@ -29,17 +29,15 @@
                     <hr>
                 </div>
                 <div class="lista"></div>
-                <div class="col s12 center iconAccess no-lists">
+                <div class="col s12 center iconAccess">
                     <img class="responsive-img width-40" src="assets/images/iconInvestment.png" alt="BankU">
                 </div>
-                <div class="col s12 center margin-top-40 margin-bottom-0 btn-register no-lists">
+                <div class="col s12 center margin-top-40 margin-bottom-0 btn-register">
                     <a href="#!" class="waves-effect waves-light btn green lighten-1 btn-large">Invertir aquí</a>
                 </div>                   
             </div>                                                                                
         </div>
-    </div>  
-
-
+    </div>
     <footer class="page-footer">
         <div class="footer-copyright">
             <div class="container">
@@ -82,35 +80,8 @@
           }else{
             window.location.href = "08_InvestmentsStep2.html?section=mis_inversiones";
           }
-        });
-        getOffertTemp();       
-    });
-    function getOffertTemp(){
-      $.ajax({
-        type: "POST",
-        url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
-        data: "action=getOfferTemp&id_u="+localStorage.id_u+"&type_user="+localStorage.type_user,
-        dataType:'JSON',
-        success: function(msg){
-          var list='';
-          if(msg.data.length>0){
-            $(".iconAccess,.btn-register").hide();            
-            $.each(msg.data, function( index, value ) {
-              var starts= getStarts(value.calification2_u_inv);
-              var cuota= calcCuota(value.amount_prest,value.interest_prest,value.duration_prest);
-              var pago_total= "$"+numeral((cuota * value.duration_prest)).format('0,0');
-              list+='<div class="col s12 m6"><div class="box-proyect" style="background-color:#FFCB05;"><div class="info-proyect"><div class="row"><div class="col s7"> <h5>'+value.user_prest+'</h5></div> <div class="col s12"> <hr><p>'+value.ldestination+'<br>% '+value.interest_prest+'|'+value.duration_prest+' Meses</p> <div class="star-user">'+starts+'</div></div></div> </div><div class="desc-proyect"><h3>$'+numeral(value.amount_prest).format('0,0')+'</h3><p><small>Recibo Mensual: $'+numeral(cuota).format('0,0')+'<br/><b>Recibo Total: <span>'+pago_total+'</span></b></small></p><a href="08_InvestmentsStep4.html?section=negociar&id_ofert='+value.id_ofert+'&prest='+value.id_u_prest+'&negociando=true" class="btn-negociar small">En Negociación</a></div></div></div>';
-            });
-            $(".lista").html(list);
-          }else{
-            $(".no-lists").show();
-          }
-        },
-        error: function(XMLHttpRequest, textStatus, errorThrown) { 
-          alert("Problemas procesando datos: " + textStatus +" - "+errorThrown);
-        }
-      });          
-    }    
+        });               
+    });   
 </script>
 </body>
 </html>

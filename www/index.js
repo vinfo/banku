@@ -5,6 +5,7 @@ function onDeviceReady() {
     checkConnection();    
     getDeviceProperty();
     cordova.plugins.notification.badge;
+    initPushwoosh();
   }
   function getDeviceProperty() {
     console.log("getDeviceProperty");    
@@ -68,40 +69,24 @@ function onDeviceReady() {
   }
 
   function initPushwoosh() {
-    var pushwoosh = cordova.require("pushwoosh-cordova-plugin.PushNotification");
-
-  // Should be called before pushwoosh.onDeviceReady
-  document.addEventListener('push-notification', function(event) {
-    var title = event.notification.title;
-    var userData = event.notification.userdata;
-
-    var notification = event.notification;
-
-    //clear the app badge
-    pushNotification.setApplicationIconBadgeNumber(0);            
-
-    //dump custom data to the console if it exists
-    if(typeof(userData) != "undefined") {
-        //alert('user data: ' + JSON.stringify(userData));
-    }
-  });
+   var pushNotification = cordova.require("pushwoosh-cordova-plugin.PushNotification");
   
   // Initialize Pushwoosh. This will trigger all pending push notifications on start.
-  pushwoosh.onDeviceReady({
+  pushNotification.onDeviceReady({
     appid: "4B708-1B8C1",
     projectid: "928675299174"
   });
 
-  pushwoosh.registerDevice(
+  pushNotification.registerDevice(
     function(status) {
       var pushToken = status.pushToken;
       localStorage.setItem("pushtoken",pushToken);
       
       },
-        function(status) {
+      function(status) {
         // handle registration error here
       }
-      );  
+  );  
 }
 
 function registerLog(log){

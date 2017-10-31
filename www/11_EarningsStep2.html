@@ -11,6 +11,12 @@
   <link type="text/css" href="assets/css/custom.css" rel="stylesheet"/>
   <!--Let browser know website is optimized for mobile-->
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <style>
+  .btn-negociar{
+    font-size:12px;
+    padding: 10px 4px;
+  }
+</style>
 </head>
 
 <body class="profile settings-investment">
@@ -95,7 +101,7 @@
           var pago_total= "$"+numeral((value.quota_b * value.plazo_b)).format('0,0');
           var estado='Prestamo en proceso';
           var color='style="background-color:#FFCB05"';
-          $(".lista").append('<div class="col s12 m6"><div class="box-proyect" '+color+'><div class="info-proyect"><div class="row"><div class="col s7"><span>ID. # '+setDigits(value.id_b,7)+'</span><h5>'+value.user_prest+'</h5></div> <div class="col s12"> <hr><p>'+value.ldestination+'<br>% '+value.interes_b+'  |  '+value.plazo_b+' Meses</p> <div class="star-user">'+starts+'</div> </div> </div> </div><div class="desc-proyect"><h3>$'+numeral(value.total_b).format('0,0')+'</h3><p><small>Recibo Mensual: $'+numeral(value.quota_b).format('0,0')+'<br/><b>Recibo Total: <span>'+pago_total+'<br/>Próximo pago: ## el ##/##/####</span></b></small></p><a href="11_EarningsStep3.html?section=mis_ganancias&id_b='+value.id_b+'" class="btn-negociar">'+estado+'</a></div></div></div>');
+          $(".lista").append('<div class="col s12 m6"><div class="box-proyect" '+color+'><div class="info-proyect" style="background-image:url(assets/images/border-box-proyect2.png);"><div class="row"><div class="col s7"><span>ID. # '+setDigits(value.id_b,7)+'</span><h5>'+value.user_prest+'</h5></div> <div class="col s12"> <hr><p>'+value.ldestination+'<br>% '+value.interes_b+'  |  '+value.plazo_b+' Meses</p> <div class="star-user">'+starts+'</div> </div> </div> </div><div class="desc-proyect"><h3>$'+numeral(value.total_b).format('0,0')+'</h3><p><small>Recibo Mensual: $'+numeral(value.quota_b).format('0,0')+'<br/><b>Recibo Total: <span>'+pago_total+'<br/>Próximo pago: ## el ##/##/####</span></b></small></p><a href="11_EarningsStep3.html?section=mis_ganancias&id_b='+value.id_b+'" class="btn-negociar">'+estado+'</a></div></div></div>');
         });
       },
       error: function(XMLHttpRequest, textStatus, errorThrown) { 

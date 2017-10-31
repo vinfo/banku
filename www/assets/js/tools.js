@@ -49,7 +49,7 @@ $( document ).ready(function(){
 
 
         var usuario='';
-        //alert(type_user+"= "+msg.page+" | "+msg.action);
+        //alert(type_user+"= "+msg.page+" | "+msg.action+" "+localStorage.set_offer);
         if(localStorage.set_offer){        
           if(type_user=="prestatario"){            
             if(msg.page&&msg.page!=""&&msg.action){
@@ -512,11 +512,12 @@ function getUserData(){
                     $(".monto").html(numeral(msg.data.amount_u).format('0,0'));
                     $(".investments").html(numeral(msg.data.investments).format('0,0'));
                     $(".num_investments").html(msg.data.num_investments);
-                    $(".fecha_registro").html(dateFormat(msg.data.date_1_u));
-                    
+                    $(".fecha_registro").html(dateFormat(msg.data.date_1_u));                    
 
                     var saldo=0;
-                    if(msg.data.amount_u>0)saldo= msg.data.amount_u - msg.data.investments;
+                    if(msg.data.amount_u>0)saldo= parseInt(msg.data.amount_u) - (parseInt(msg.data.investments) + parseInt(msg.data.offers_temp));
+
+
                     $(".saldo-inversionista").html(numeral(saldo).format('0,0'));
                     $(".saldo-negociacion").html(numeral(msg.data.offers_temp).format('0,0'));
                     localStorage.setItem("saldo",saldo);
@@ -588,7 +589,7 @@ var getFullUserData= function getFullUserData(){
                           if(select){
                             if(index=="city_u")getCities(value);
                             if(index=="occupation_u"){
-                                if(value=="otro ¿cuál?"){
+                                if(value=="25"){
                                     $("#occupation2_u").show();
                                 }
                             }
@@ -596,9 +597,16 @@ var getFullUserData= function getFullUserData(){
                                 if(value=="0"||value=="2"){
                                     $(".empresa").hide();
                                 }
-                            }                            
-                            $('#'+index+' option[value="'+value+'"]').attr('selected','selected');
-                            $('#'+index).material_select();                            
+                            }
+                            
+                            if(value!=null&&value&&value!=""&&$('#'+index).length>0){
+                              if(index=="occupation_u"){
+                                $('#'+index).val(value);
+                                $('#'+index).trigger('change');                               
+                              }
+                              $('#'+index+' option[value="'+value+'"]').attr('selected','selected');
+                              $('#'+index).material_select();                                                     
+                            }
                           }
                          if(checkbox){
                             if(value==1){
