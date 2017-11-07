@@ -1027,11 +1027,17 @@ a.small{
 .publications{
 	font-size: 13px;
 }
+.offset-s1>h6{
+	padding: 10px 0;
+}
 .width-40{
 	max-width:40%!important;
 }
 .btn-nego,.btn-aceptar,.negociar-todos{
 	display: none;
+}
+.noUi-base{
+	z-index: 9999;
 }
 ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
     color:    #999;
