@@ -40,12 +40,12 @@
                     <div class="col s12">          
                         <h3 class="center hide-on-med-and-down">Configuración de mi proyecto</h3>
                         <br>
-                        <p>• Configura las características de tu proyecto.<br></p>
+                        <p class="txt-msg">• Configura las características de tu proyecto.<br></p>
                         <p>&nbsp;</p>                                           
                     </div>  
                 </div>
             </div>                  
-            <div class="col s12 m5">
+            <div class="col s12 m5 configuration">
                 <div class="card-panel white">
                     <div class="container">
                         <div class="row">
@@ -83,7 +83,7 @@
                     </div>
                 </div>
             </div>
-            <div class="container">
+            <div class="container configuration">
                 <div class="row">
                     <div class="col s10 offset-s1 margin-top-40">
                         <div class="input-field col s12">
@@ -104,7 +104,7 @@
                     </div>
                 </div>
             </div>
-            <div class="container margin-top-40">  
+            <div class="container margin-top-40 configuration">  
                 <div class="row"> 
                     <div class="col s12 center margin-top-40 btn-register btn-find-proyects">
                         <a href="#!" class="waves-effect waves-light green accent-4 btn-large">Guardar y solicitar préstamos</a>
@@ -139,8 +139,8 @@
         <!-- Modal Structure -->        
         <div id="info2" class="modal">
             <div class="modal-content">
-                <h4>Validación de datos</h4>
-                <p>Existen campos obligatorios que deben ser seleccionados.</p>
+                <h4 class="title-msg">Validación de datos</h4>
+                <p class="txt-msg">Existen campos obligatorios que deben ser seleccionados.</p>
             </div>
             <div class="modal-footer">
                 <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Aceptar</a>
@@ -168,6 +168,14 @@
             if(localStorage.type_user=="prestatario")type=4;
             $("#type").val(type);
             getConfig();
+            var saldo= parseInt(localStorage.saldo);           
+            if(saldo<="0"){
+                $('.title-msg').html('Monto mínimo de prestamos');
+                $('.txt-msg').html('Aun no tiene cupo asignado de prestamo.<br/>Comuniquese con el administrador.');
+                $(".configuration").hide();
+                $('#info2').modal('open');
+            }
+
             $( ".accent-4" ).click(function() {
                 var monto= $("#monto").val();
                 var interes= $("#interes").val();
@@ -264,6 +272,7 @@
             });
             capital.noUiSlider.on('change', function(data){
                 $("#monto").val(rplMoney(data.toString()));
+                console.log(monto +" "+mount1+"  "+max_monto);
                 calcCuota($("#monto").val(),$("#interes").val(),$("#duracion").val());
             });        
             noUiSlider.create(interest, {

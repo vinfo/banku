@@ -511,8 +511,10 @@ function getUserData(){
                     $(".star-user-perfil").html(starts);
                     $(".monto").html(numeral(msg.data.amount_u).format('0,0'));
                     $(".investments").html(numeral(msg.data.investments).format('0,0'));
-                    $(".num_investments").html(msg.data.num_investments);
-                    $(".fecha_registro").html(dateFormat(msg.data.date_1_u));                    
+                    $(".num_investments").html(msg.data.num_investments);                    
+                    var fecha= 'N/D';
+                    if(msg.data.date_1_u!=null)fecha= dateFormat(msg.data.date_1_u);
+                    $(".fecha_registro").html(fecha);                   
 
                     var saldo=0;
                     if(msg.data.amount_u>0)saldo= parseInt(msg.data.amount_u) - (parseInt(msg.data.investments) + parseInt(msg.data.offers_temp));
@@ -524,7 +526,7 @@ function getUserData(){
                     $(".days_study").html(msg.data.days_study);
                     $(".wrapper").show();
                     $(".progress").hide();
-					if(msg.data.approved_u=="0")$('#info2').modal('open');
+					         if(msg.data.approved_u=="0")$('#info2').modal('open');
                     $(".progress").hide();
                     $(".wrapper").show();                                  
                     //console.log("Datos usuario");
@@ -577,7 +579,7 @@ var getFullUserData= function getFullUserData(){
                                 $("#"+index).val(value);
                             }
                           }
-                          if(hidden){			  
+                          if(hidden){	  
                             $("#H"+index).val(value);
                           }							  
                           if(password){

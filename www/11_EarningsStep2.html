@@ -67,15 +67,20 @@
   <!--Nav footer Responsive-->
   <div class="footer-nav menu_footer"></div>    
    <!-- Modal Structure -->
-  <div id="info1" class="modal">
-    <div class="modal-content">
-      <h4 class="modal_title">Negociación aceptada</h4>
-      <p class="modal_text">Tu negociación ha sido aceptada, para que la negociación sea efectiva tienes 12 horas para consignar el dinero de tu inversión a la cuenta bancaria</p>
+  <div id="modal4" class="modal">
+    <a href="#!" class="modal-action modal-close"><i class="material-icons close">close</i></a>
+    <div class="modal-content content-done valign-wrapper">            
+      <div class="container" style="padding-top: 60%;">                
+        <div class="icon-donde"><i class="material-icons done">done</i></div>
+        <h4>En hora buena!</h4>
+        <p>Trato aceptado con <span class="negociando-con"></span></p>
+        <hr>
+        <div class="row">
+          <div class="col s12"><p>Hola <span class="names"></span>, para completar tu inversión debes seguir estos pasos en las próximas 24 horas:</p><p>1) Consignar en la cuenta #<span class="cuenta"></span>, banco <span class="banco"></span> el valor de <span class="amount"></span><br/>2) En la consignación debes adicionar el siguiente código NEG<span class="id_b"></span><br/>3) A partir del siguiente mes recibirás la suma de $<span class="cuota"></span> durante <span class="duration"></span>, al final de los meses negociados recibirás <span class="pago_total"></span>.<br/>4) Recuerda que si no consignas el valor de dinero en el tiempo estipulado el negocio no será válido. Esto claramente perjudica tu puntuación dentro de la comunidad BankU.</p><p>Te invitamos a seguir invirtiendo y agrandando tu portafolio de inversión, si tienes alguna duda puedes escribirnos en la sesión de quejas y reclamos con el número de tu transacción</p></div> 
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="modal-footer">
-      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Aceptar</a>
-    </div>
-  </div> 
   <!--Import jQuery before materialize.js-->
   <script type="text/javascript" src="assets/js/jquery-2.1.1.min.js"></script>
   <script type="text/javascript" src="assets/js/materialize.min.js"></script>
@@ -88,7 +93,18 @@
    $( document ).ready(function(){
     getScroll();
     var msg= getUrlParameter("msg");
-    if(msg&&msg=="aceptada")$('#info1').modal('open');
+    if(msg&&msg=="aceptada"){
+      $(".banco").html(getUrlParameter("banco"));
+      $(".cuenta").html(getUrlParameter("cuenta"));
+      $(".tipo_cuenta").html(getUrlParameter("tipo_cuenta"));
+      $(".amount").html("$"+numeral(getUrlParameter("monto")).format('0,0'));
+      $(".cuota").html(numeral(getUrlParameter("cuota")).format('0,0'));
+      $(".duration").html(getUrlParameter("duracion")+" meses");
+      var pago_total= getUrlParameter("cuota") * getUrlParameter("duracion");
+      $(".pago_total").html("$"+numeral(pago_total).format('0,0'));
+      $(".id_b").html(setDigits(getUrlParameter("id_b"),4));
+      $('#modal4').modal('open');
+    }
     $.ajax({
       type: "POST",
       url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
@@ -101,7 +117,25 @@
           var pago_total= "$"+numeral((value.quota_b * value.plazo_b)).format('0,0');
           var estado='Prestamo en proceso';
           var color='style="background-color:#FFCB05"';
-          $(".lista").append('<div class="col s12 m6"><div class="box-proyect" '+color+'><div class="info-proyect" style="background-image:url(assets/images/border-box-proyect2.png);"><div class="row"><div class="col s7"><span>ID. # '+setDigits(value.id_b,7)+'</span><h5>'+value.user_prest+'</h5></div> <div class="col s12"> <hr><p>'+value.ldestination+'<br>% '+value.interes_b+'  |  '+value.plazo_b+' Meses</p> <div class="star-user">'+starts+'</div> </div> </div> </div><div class="desc-proyect"><h3>$'+numeral(value.total_b).format('0,0')+'</h3><p><small>Recibo Mensual: $'+numeral(value.quota_b).format('0,0')+'<br/><b>Recibo Total: <span>'+pago_total+'<br/>Próximo pago: ## el ##/##/####</span></b></small></p><a href="11_EarningsStep3.html?section=mis_ganancias&id_b='+value.id_b+'" class="btn-negociar">'+estado+'</a></div></div></div>');
+          var img='border-box-proyect2.png';
+          if(value.status_p=="0"||value.status_p=="1"){
+            color='style="background-color:#8cd88d"';
+            img='border-box-proyect.png';
+            estado='Ver detalles';
+          }
+          if(value.status_p=="2"){
+            color='style="background-color:#FF3535"';
+            img='border-box-proyect3.png';
+            estado='Prestamo en Mora';
+          }
+          if(value.status_b=="2"){
+            color='style="background-color:#CCC"';
+            img='border-box-proyect4.png';
+            estado='Prestamo Terminado';
+          }                  
+          var ldestination='';
+          if(value.ldestination!=null)ldestination= value.ldestination+'<br>';
+          $(".lista").append('<div class="col s12 m6"><div class="box-proyect" '+color+'><div class="info-proyect" style="background-image:url(assets/images/'+img+');"><div class="row"><div class="col s7"><span>ID. # '+setDigits(value.id_b,7)+'</span><h5>'+value.user_prest+'</h5></div> <div class="col s12"> <hr><p>'+ldestination+'% '+value.interes_b+'  |  '+value.plazo_b+' Meses</p> <div class="star-user">'+starts+'</div> </div> </div> </div><div class="desc-proyect"><h3>$'+numeral(value.total_b).format('0,0')+'</h3><p><small>Recibo Mensual: $'+numeral(value.quota_b).format('0,0')+'<br/><b>Recibo Total: <span>'+pago_total+'</b><br/>Próximo pago: '+value.fecha_pago+'</span></small></p><a href="11_EarningsStep3.html?section=mis_ganancias&id_b='+value.id_b+'" class="btn-negociar">'+estado+'</a></div></div></div>');
         });
       },
       error: function(XMLHttpRequest, textStatus, errorThrown) { 

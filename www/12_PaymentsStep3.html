@@ -40,13 +40,9 @@
           <h3 class="center hide-on-med-and-down">Histórico de mi pago</h3>
           <br>
         </div>
-        <div class="col s5 m4 l2">
+        <div class="col s6 m4 l2">
           <h4 class="margin-bottom-0"><span class="user_u"></span></h4>
           <h6>Nombre de usuario</h6>
-        </div>
-        <div class="col s6 m8 l10">
-          <h4 class="margin-bottom-0"><span class="ldestination"></span></h4>
-          <h6>Inversión (<span class="calification_u"></span>)</h6>
         </div>
 
         <div class="col s12">
@@ -104,7 +100,7 @@
   <div id="modal3" class="modal">
     <a href="#!" class="modal-action modal-close"><i class="material-icons close">close</i></a>
     <div class="modal-content content-done valign-wrapper">
-      <div class="row">
+      <div class="row content-moda">
         <div class="col s12">
           <ul class="qualify-star">
             <li>
@@ -123,16 +119,15 @@
               <a href="#!"><i id="start5" class="material-icons">star_border</i></a>
             </li>
           </ul>
-          <p>Califica que tan agusto estás con esta inversión y déjanos tu comentario del porque.</p>
+          <p>Califica que tan a gusto estás con esta inversión y déjanos tu comentario del porque.</p>
         </div>
 
         <form class="col s12">
           <div class="row">
             <div class="input-field col s12">
-              <textarea id="comentarios" name="comentarios" class="materialize-textarea"></textarea>
+              <textarea id="comentarios" name="comentarios" placeholder="Comentar" class="materialize-textarea"></textarea>
               <input type="hidden" id="to_u" name="to_u" value="">
-              <input type="hidden" id="calificacion" name="calificacion" value="">             
-              <label for="comentarios">Comentar</label>
+              <input type="hidden" id="calificacion" name="calificacion" value="">
             </div>
           </div>
         </form>
@@ -236,6 +231,13 @@
                       $(".total_b").html(numeral(value.total_b).format('0,0'));
                       $(".quota_b").html(numeral(value.quota_b).format('0,0'));
                       $(".calification_u").html(getCalification(value.calification_u));
+                      if(value.calification){
+                        var starts='';
+                        for(var i=1;i<value.calification;i++){
+                          starts+='<i class="material-icons yellow-text text-accent-4">star_border</i>';
+                        }
+                        $(".qualify-earning").html(starts);
+                      }
                     });
                   },
                   error: function(XMLHttpRequest, textStatus, errorThrown) {

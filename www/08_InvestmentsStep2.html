@@ -40,12 +40,12 @@
                     <div class="col s12">          
                         <h3 class="center hide-on-med-and-down">Configuración de mi inversión</h3>
                         <br>                        
-                        <p>• Configura las características de tus inversiones.<br></p>
+                        <p class="txt-msg">• Configura las características de tus inversiones.<br></p>
                         <br> 
                     </div>  
                 </div>
             </div>                  
-            <div class="col s12 m5">
+            <div class="col s12 m5 configuration">
                 <div class="card-panel white">
                     <div class="container">
                         <div class="row">
@@ -86,7 +86,7 @@
                     </div>
                 </div>
             </div>
-                <div class="col s12 center margin-top-40 btn-register btn-find-proyects">
+                <div class="col s12 center margin-top-40 btn-register btn-find-proyects configuration">
                     <a href="#!" class="waves-effect waves-light green accent-4 btn-large">Buscar proyecto para invertir</a>
                 </div>            
             <div class="container margin-top-40">
@@ -138,8 +138,8 @@
 </div>
 <div id="info2" class="modal">
     <div class="modal-content">
-        <h4>Saldo insuficiente</h4>
-        <p>Su saldo (<span class="saldo"></span>) no es suficiente para poder invertir el monto especificado.</p>
+        <h4 class="title-msg">Saldo insuficiente</h4>
+        <p class="txt-msg">Su saldo (<span class="saldo"></span>) no es suficiente para poder invertir el monto especificado.</p>
     </div>
     <div class="modal-footer">
         <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Aceptar</a>
@@ -165,7 +165,14 @@
     var type=3;
     if(localStorage.type_user=="prestatario")type=4;
     $("#type").val(type);
-    getConfig();      
+    getConfig();
+    var saldo= parseInt(localStorage.saldo);           
+    if(saldo<="0"){
+        $('.title-msg').html('Monto mínimo de inversión');
+        $('.txt-msg').html('Aun no tiene un saldo minímo de inversión definido.<br/>Debe ajustar el valor disponible de inversión para poder continuar.');
+        $(".configuration").hide();
+        $('#info2').modal('open');
+    }
     $( ".accent-4" ).click(function() {
         var inversion= parseInt(localStorage.inversion);
         var monto2= $("#monto2").val(); 

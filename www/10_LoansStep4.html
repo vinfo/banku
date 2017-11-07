@@ -58,7 +58,7 @@
                 </div> 
                 <div class="col s5 right-align">                                 
                   <h3 class="amount"></h3>
-                  <p><small>Pago Mensual: <span class="cuota"></span></small></p>                    
+                  <p><small>Pago Mensual: <span class="cuota"></span><br/><b>Pago Total: <span class="pago_total"></span></small></p>                    
                 </div>  
                 <div class="col s12">
                   <input id="inv_b" name="inv_b" type="hidden" value="">
@@ -97,28 +97,29 @@
   <div id="modal3" class="modal">
     <a href="#!" class="modal-action modal-close"><i class="material-icons close">close</i></a>
     <div class="modal-content content-done valign-wrapper">  
-      <div class="row">            
+      <div class="row content-modal">            
         <div class="col s12">
-          <p>Configura las nuevas características para renegociar tu inversión.</p>  
-          <div class="card-panel white">
-            <h5 class="left"><small>Interes:</small> <strong>0,8 - 2,3 % E.M.</strong></h5>
-          </div> 
+          <p>&nbsp;</p>
+          <p>Configura las nuevas características para renegociar tu inversión.</p>
+          <p>&nbsp;</p>
           <div class="card-panel white">
             <p class="range-field"><div id="interest"></div></p> 
             <input type="hidden" id="monto" name="monto" value="">
             <input type="hidden" id="interes" name="interes" value="">             
             <input type="hidden" id="interesF" name="interesF" value="">
-            <div class="clear"></div>  
+            <div class="clear"></div>
+            <h5 class="left"><small>Interes:</small> <strong>0,8 - 2,3 % E.M.</strong></h5>
+            <p>&nbsp;</p>
           </div>
-          <div class="card-panel white"> 
-            <h5 class="left"><small>Duración:</small> <strong>0 - 12 Meses</strong></h5>
-          </div>
+          
           <div class="card-panel white">
             <p class="range-field"><div id="duration"></div></p>
             <input type="hidden" id="duracion" name="duracion" value=""> 
             <input type="hidden" id="duracionF" name="duracionF" value="">
-            <div class="clear"></div>    
-          </div>
+            <div class="clear"></div> 
+            <h5 class="left"><small>Duración:</small> <strong>0 - 12 Meses</strong></h5>  
+            <p>&nbsp;</p>
+          </div>         
 
         </div>
 
@@ -224,7 +225,7 @@
                       if(obj.online=="0"){
                         sendPushMessage(obj.pushtoken,"Aceptación de negociación en el sistema BankU.");
                         }else{                        
-                        var data = {page:"11_EarningsStep2.html?section=mis_ganancias&msg=aceptada",action:"new_business",id_u:$("#inv_b").val()};                    
+                        var data = {page:"11_EarningsStep2.html?section=mis_ganancias&user="+localStorage.user_u+"&banco="+localStorage.banco+"&cuenta="+localStorage.cuenta+"&tipo_cuenta="+localStorage.tipo_cuenta+"&monto="+$("#total_b").val()+"&cuota="+$("#quota_b").val()+"&duracion="+$("#plazo_b").val()+"&id_b="+msg.id_b+"&msg=aceptada",action:"new_business",id_u:$("#inv_b").val()};                    
                         socket.emit('setOffert', data);                          
                         }                                 
                       setTimeout(function(){ $('#modal4').modal('close');window.location.href = "12_PaymentsStep1.html?section=mis_pagos"; }, 1500);              
@@ -280,6 +281,7 @@
             $(".duration").html(duracion+" Meses");
             var cuota= calcCuota(monto,interes,duracion);
             $(".cuota").html("$"+numeral(cuota).format('0,0'));
+            $(".pago_total").html("$"+numeral(cuota * duracion).format('0,0'));            
             $(".btn-nego,.btn-aceptar").hide();
             $('#modal3').modal('close');
             var data = {page:"08_InvestmentsStep4.html?id_ofert="+id_ofert+"&negociando=true",action:"chat",id_u:inv_b};
@@ -322,8 +324,10 @@
         $(".duration").html(duracion+" Meses");
       }
       var cuota= calcCuota(monto,interes,duracion);
+      //alert(monto+" "+interes +" "+duracion);
       $(".cuotaSlider").html(numeral(cuota).format('0,0'));
       $(".cuota").html("$"+numeral(cuota).format('0,0'));
+      $(".pago_total").html("$"+numeral(cuota * duracion).format('0,0'));
         
       var find = ["$","%","."];
       var replace = ['','',''];

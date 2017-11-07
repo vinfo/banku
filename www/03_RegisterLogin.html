@@ -138,6 +138,9 @@
                     localStorage.setItem("calification2_u",msg.data.calification2_u);
                     localStorage.setItem("login","true");
                     localStorage.setItem("approved_u",msg.data.approved_u);
+                    localStorage.setItem("banco",msg.data.banco);
+                    localStorage.setItem("cuenta",msg.data.cuenta);
+                    localStorage.setItem("tipo_cuenta",msg.data.tipo_cuenta);
                     window.location = "05_Profile_Incomplete-1.html?section=mi_perfil";
                   }else{
                     Materialize.toast('Email/Contraseña no validos', 1000, 'rounded');
