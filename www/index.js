@@ -2,14 +2,11 @@ document.addEventListener("deviceready", onDeviceReady, false);
 document.addEventListener("pause", onPause, false);
 function onDeviceReady() {
     //var ref = cordova.InAppBrowser.open('01_Splash.html', '_self', 'location=no,zoom=no,enableviewportscale=yes');
-    alert(1);
+    //Ingresa siempre cada carga de página y solo se caragan todos en Mobil compilado
     checkConnection();
-    alert(2);
     cordova.plugins.notification.badge;
     cordova.plugins.notification.badge.clear();
-    alert(3);
     initPushwoosh();
-    alert(4);
     getDeviceProperty(); 
   }
   function getDeviceProperty() {
@@ -26,7 +23,6 @@ function onDeviceReady() {
   }
   function onPause() {
       localStorage.setItem("login","true");
-      alert("Pausa");
   }
   function checkConnection() {
     console.log("checkConnection");
