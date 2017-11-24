@@ -21,6 +21,7 @@ function onDeviceReady() {
   }
   function onPause() {
       localStorage.setItem("login","true");
+      alert("Pausa");
   }
   function checkConnection() {
     console.log("checkConnection");
@@ -80,7 +81,8 @@ function onDeviceReady() {
   pushNotification.registerDevice(
     function(status) {
       var pushToken = status.pushToken;
-      localStorage.setItem("pushtoken",pushToken);      
+      localStorage.setItem("pushtoken",pushToken);
+      alert("Register");     
       },
       function(status) {
         // handle registration error here
