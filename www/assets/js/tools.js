@@ -273,12 +273,12 @@ function getOffersTemp(id_ofert){
                     $(".negociando-con").html(value.user_prest);
                     $("#negociando-con").val(value.id_u_prest);
                     $("#inv_b").val(localStorage.id_u);
-                    getComments(value.id_u_prest,0,3);
+                    if(cont==0)getComments(value.id_u_prest,0,3);
                 }else{
                     $(".negociando-con").html(value.user_inv);
                     $("#negociando-con").val(value.id_u_inv);
                     $("#inv_b").val(value.id_u_inv);
-                    getComments(value.id_u_inv,0,3);
+                    if(cont==0)getComments(value.id_u_inv,0,3);
                     msg_mes= "Pago mensual";          
                     msg_total= "Pago total";                    
                 }
