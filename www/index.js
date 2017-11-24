@@ -56,8 +56,8 @@ function onDeviceReady() {
   pushNotification.registerDevice(
     function(status) {
       var pushToken = status.pushToken;
-      localStorage.setItem("pushtoken",pushToken);
-      alert(pushToken);      
+      alert("Registrar PushToken: "+pushToken);
+      localStorage.setItem("pushtoken",pushToken);            
       },
       function(status) {
         // handle registration error here
