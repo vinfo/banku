@@ -265,26 +265,39 @@ function getOffersTemp(id_ofert){
             var cont= 0;
             $.each(msg.data, function( index, value ) {
                 var cls='bubble-rigth left';
-                var photo='';                
+                var photo='';
+                var msg_mes= "Recibo mensual";          
+                var msg_total= "Recibo total";
                 if(localStorage.type_user=="inversionista"){
                     $(".negociando-con").html(value.user_prest);
                     $("#negociando-con").val(value.id_u_prest);
                     $("#inv_b").val(localStorage.id_u);
+                    getComments(value.id_u_prest,0,3);
                 }else{
                     $(".negociando-con").html(value.user_inv);
                     $("#negociando-con").val(value.id_u_inv);
                     $("#inv_b").val(value.id_u_inv);
+                    getComments(value.id_u_inv,0,3);
+                    msg_mes= "Pago mensual";          
+                    msg_total= "Pago total";                    
                 }
                 $("#destination_b").val(value.destination_prest);
                
                 if(localStorage.type_user=="inversionista")$("#prest_b").val(value.id_u_prest);
                              
+                var monto= value.amount_prest;
+                var cuota= 0;
+                var total= 0;
                 if(value.admin==localStorage.id_u){
                   cls='bubble-left right';
                   if(localStorage.photo&&localStorage.photo!="")photo='<a href="#!user" class="avatar-nego"><img class="circle photo" src="data:image/jpeg;base64,' + decodeURIComponent(localStorage.photo)+'"></a>';                  
-                  chat += '<div class="'+cls+'">'+photo+'<div class="info-nego"><h5 data-id="'+value.id_admin+'" class="user_id">'+value.user_admin+'</h5><p>Interés (%) E.M.: <strong class="l_interes">'+value.interest_inv+'</strong><br>Plazo: <strong class="l_plazo">'+value.duration_inv+'</strong></p> </div> <div class="date-buble">'+value.date.substr(0,16)+'</div></div>';
+                  cuota= calcCuota(monto,value.interest_inv,value.duration_inv);
+                  total= cuota * value.duration_inv;
+                  chat += '<div class="'+cls+'">'+photo+'<div class="info-nego"><h5 data-id="'+value.id_admin+'" class="user_id">'+value.user_admin+'</h5><p>Interés (%) E.M.: <strong class="l_interes">'+value.interest_inv+'</strong><br>Plazo: <strong class="l_plazo">'+value.duration_inv+'</strong><br>'+msg_mes+': <strong class="l_mes">$'+numeral(cuota).format('0,0')+'</strong><br>'+msg_total+': <strong class="l_total">$'+numeral(total).format('0,0')+'</strong></p> </div> <div class="date-buble">'+value.date.substr(0,16)+'</div></div>';
                 }else{
-                  chat += '<div class="'+cls+'"><div class="info-nego"><h5 data-id="'+value.id_admin+'" class="user_id">'+value.user_admin+' Propone</h5><p>Interés (%) E.M.: <strong class="l_interes">'+value.interest_prest+'</strong><br>Plazo: <strong class="l_plazo">'+value.duration_prest+'</strong></p> </div> <div class="date-buble">'+value.date.substr(0,16)+'</div></div>';
+                  cuota= calcCuota(monto,value.interest_prest,value.duration_prest);
+                  total= cuota * value.duration_prest;                  
+                  chat += '<div class="'+cls+'"><div class="info-nego"><h5 data-id="'+value.id_admin+'" class="user_id">'+value.user_admin+' Propone</h5><p>Interés (%) E.M.: <strong class="l_interes">'+value.interest_prest+'</strong><br>Plazo: <strong class="l_plazo">'+value.duration_prest+'</strong><br>'+msg_mes+': <strong class="l_mes">$'+numeral(cuota).format('0,0')+'</strong><br>'+msg_total+': <strong class="l_total">$'+numeral(total).format('0,0')+'</strong></p> </div> <div class="date-buble">'+value.date.substr(0,16)+'</div></div>';
                 }
                 if(value.status=="1"){
                     chat +='<div class="bubble-rigth left"><a href="#!user" class="avatar-nego"><img class="circle" src="assets/images/avatarUser.jpg"></a><div class="info-nego"><h5 class="negociando-con"></h5><h3>Acepto tu oferta!!!</h3></div> <div class="date-buble">4m</div></div>';
@@ -321,6 +334,30 @@ function getFavorite(id_ofert='',id_user,type_user){
     });
     return true;    
 }
+function getComments(id_user,start,limit){
+    var html='';
+    var cont=0;
+    $.ajax({
+        type: "POST",
+        async:true,
+        url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
+        data: "action=getComments&id_user="+id_user+"&start="+start+"&limit="+limit,
+        dataType:'JSON',
+        success: function(msg){
+            if(msg.data.length!=0){
+                $.each(msg.data, function( index, value ) {
+                    html+='<div class="commentProfile"><h5>'+value.user_u+'</h5><p>'+value.comments+'</p></div><div class="divider"></div>';
+                    cont++;
+                });                
+                if(cont==3)$(".more-comments").show();
+            }else{
+              html+='<div class="commentProfile"><h5>No existen comentarios</h5></div><div class="divider"></div>';
+            }
+            $(".getComments").append(html);
+        }
+    });
+    return true;    
+}
 function sessionRedirect(){
     if(!localStorage.id_u)window.location.href = "02_Login.html";    
 }
@@ -328,8 +365,7 @@ function calcCuota(monto,interes,duracion){
     var interes = interes/100;
     var cuota= (interes * Math.pow(interes+1,duracion))*monto;
     var cuota2= Math.pow(interes+1,duracion)-1;
-    var total= Math.round(cuota/cuota2);
-    $(".cuota").html(numeral(total).format('0,0'));
+    var total= Math.round(cuota/cuota2);    
     return total;
 }
 function getStarts(value){      

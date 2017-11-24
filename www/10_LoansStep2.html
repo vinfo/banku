@@ -229,7 +229,8 @@
                         }
                     }
                     setSliders();                
-                    calcCuota($("#monto").val(),$("#interes").val(),$("#duracion").val());
+                    var cuota= calcCuota($("#monto").val(),$("#interes").val(),$("#duracion").val());
+                    $(".cuota").html(numeral(cuota).format('0,0'));
                 },
                 error: function(XMLHttpRequest, textStatus, errorThrown) { 
                     alert("Problemas procesando datos: " + textStatus +" - "+errorThrown);
@@ -253,6 +254,7 @@
             var find = ["$","%","."];
             var replace = ['','',''];
             var max_monto= mount2;
+            var cuota=0;
             if(saldo < mount2)max_monto= saldo;
 
             noUiSlider.create(capital, {
@@ -273,7 +275,8 @@
             capital.noUiSlider.on('change', function(data){
                 $("#monto").val(rplMoney(data.toString()));
                 console.log(monto +" "+mount1+"  "+max_monto);
-                calcCuota($("#monto").val(),$("#interes").val(),$("#duracion").val());
+                cuota=calcCuota($("#monto").val(),$("#interes").val(),$("#duracion").val());
+                $(".cuota").html(numeral(cuota).format('0,0'));
             });        
             noUiSlider.create(interest, {
                 start: [ interes ],
@@ -291,7 +294,8 @@
             });
             interest.noUiSlider.on('change', function(data){
                 $("#interes").val(rplPerc(data.toString()));
-                calcCuota($("#monto").val(),$("#interes").val(),$("#duracion").val());
+                cuota=calcCuota($("#monto").val(),$("#interes").val(),$("#duracion").val());
+                $(".cuota").html(numeral(cuota).format('0,0'));
             });        
             noUiSlider.create(duration, {
                 start: [ duracion ],
@@ -307,7 +311,8 @@
             });
             duration.noUiSlider.on('change', function(data){
                 $("#duracion").val(data.toString());
-                calcCuota($("#monto").val(),$("#interes").val(),$("#duracion").val());
+                cuota=calcCuota($("#monto").val(),$("#interes").val(),$("#duracion").val());
+                $(".cuota").html(numeral(cuota).format('0,0'));
             });            
         }                            
         </script>

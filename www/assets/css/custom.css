@@ -372,7 +372,7 @@ input:not([type]):focus:not([readonly]), input[type=text]:not(.browser-default):
 
 
 /*Modal*/
-#modal2.modal, #modal3.modal, #modal4.modal {
+#modal2.modal, #modal3.modal, #modal4.modal, #modal5.modal {
     top: 0%!important;
     width: 100%;
     height: 100%;
@@ -381,13 +381,14 @@ input:not([type]):focus:not([readonly]), input[type=text]:not(.browser-default):
 #modal2.modal {
     background-color: rgba(255, 203, 4, 0.95);
 }
-#modal3.modal {
+#modal3.modal, #modal5.modal {
     background-color: rgba(255, 255, 255, 0.95);
 }
-#modal3 p{
+#modal3 p, #modal5 p{
 	color: #263746;
+	font-size:14px;
 }
-#modal3 .modal-close i.close { 
+#modal3 .modal-close i.close, #modal5 .modal-close i.close { 
     color: #263746;
     opacity: 0.4;
 }
@@ -415,8 +416,8 @@ input:not([type]):focus:not([readonly]), input[type=text]:not(.browser-default):
     border-radius: 50%;
     padding: 5px;
     position: absolute;
-    top: 20px;
-    right: 20px;
+    top:30px;
+    right:40px;
 }
 .content-done h4{
 	font-weight: 600;
@@ -445,7 +446,12 @@ input:not([type]):focus:not([readonly]), input[type=text]:not(.browser-default):
 .content-done hr{
 	border-bottom: 1px;
 }
-
+#modal5 .content-done h4 {    
+    padding-top: 10px;
+}
+#modal5 .star-user i {
+    font-size: 1.8em;
+}
 /*Bar Progress*/
 .progress {
     display: block;
@@ -483,6 +489,7 @@ input:not([type]):focus:not([readonly]), input[type=text]:not(.browser-default):
 .settings-investment .card-panel {
 	padding: 10px;
 	margin: 0;
+	width: 100%;
 }
 .payment-month{
 	margin-top: 30px;
@@ -1027,13 +1034,16 @@ a.small{
 .publications{
 	font-size: 13px;
 }
+.gComments{
+	cursor: pointer;
+}
 .offset-s1>h6{
 	padding: 10px 0;
 }
 .width-40{
 	max-width:40%!important;
 }
-.btn-nego,.btn-aceptar,.negociar-todos{
+.btn-nego,.btn-aceptar,.negociar-todos,.more-comments{
 	display: none;
 }
 .noUi-base{

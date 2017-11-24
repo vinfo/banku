@@ -52,9 +52,9 @@
                 <div class="col s7">
                   <a href="#!user" class="avatar-nego"><img class="circle photo" src="assets/images/avatarUser.jpg"></a>
                   <div class="info-nego">
-                    <h5 class="nombre-user"></h5>  
+                    <h5 class="negociando-con gComments"></h5>  
                     <p><span class="destination"></span><span class="interest"></span><span class="duration"></span></p> 
-                    <div class="star-user"></div>
+                    <div class="star-user gComments"></div>
                   </div>                                                           
                 </div> 
                 <div class="col s5 right-align">                                 
@@ -148,17 +148,48 @@
   <div id="modal4" class="modal">
     <a href="#!" class="modal-action modal-close"><i class="material-icons close">close</i></a>
     <div class="modal-content content-done valign-wrapper">            
-      <div class="container" style="padding-top: 60%;">                
+      <div class="container" style="padding-top:65%;">                
         <div class="icon-donde"><i class="material-icons done">done</i></div>
         <h4>En hora buena!</h4>
         <p>Trato aceptado con <span class="negociando-con"></span></p>
         <hr>
         <div class="row">
-          <div class="col s12"><p>Hola <span class="names"></span>, para completar tu inversión debes seguir estos pasos en las próximas 24 horas:</p><p>1) Consignar en la cuenta #<span class="cuenta"></span>, banco <span class="banco"></span> el valor de <span class="amount"></span><br/>2) En la consignación debes adicionar el siguiente código NEG<span class="id_b"></span><br/>3) A partir del siguiente mes recibirás la suma de $<span class="cuota"></span> durante <span class="duration"></span>, al final de los meses negociados recibirás <span class="pago_total"></span>.<br/>4) Recuerda que si no consignas el valor de dinero en el tiempo estipulado el negocio no será válido. Esto claramente perjudica tu puntuación dentro de la comunidad BankU.</p><p>Te invitamos a seguir invirtiendo y agrandando tu portafolio de inversión, si tienes alguna duda puedes escribirnos en la sesión de quejas y reclamos con el número de tu transacción</p></div> 
+          <div class="col s12"><p>Hola <span class="names"></span>, para completar tu inversión debes seguir estos pasos en las próximas 24 horas:</p><p>1) Consignar en la cuenta #<span class="cuenta"></span> <span class="tipo_cuenta"></span>, banco <span class="banco"></span> el valor de <span class="amount"></span><br/>2) En la consignación debes adicionar el siguiente código NEG<span class="id_b"></span><br/>3) A partir del siguiente mes recibirás la suma de <span class="cuotaF"></span> durante <span class="durationF"></span>, al final de los meses negociados recibirás <span class="pago_totalF"></span>.<br/>4) Recuerda que si no consignas el valor de dinero en el tiempo estipulado el negocio no será válido. Esto claramente perjudica tu puntuación dentro de la comunidad BankU.</p><p>Te invitamos a seguir invirtiendo y agrandando tu portafolio de inversión, si tienes alguna duda puedes escribirnos en la sesión de quejas y reclamos con el número de tu transacción</p></div> 
           </div>
         </div>
       </div>
     </div>
+    <div id="modal5" class="modal">
+      <a href="#!" class="modal-action modal-close"><i class="material-icons close">close</i></a>
+      <div class="modal-content content-done valign-wrapper">            
+        <div class="card-panel grey lighten-5 z-depth-1"> 
+          <div class="container">  
+            <div class="row">
+              <div class="col s9 m8 l10 left-align">
+                <a href="#!">
+                  <h4 class="margin-bottom-0 negociando-con"></h4>
+                </a>
+                <div class="star-user"></div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col s12 center">                                   
+                <div class="divider"></div>
+                <div class="row">
+                  <div class="col s12 left-align">
+                   <p class="grey-text center-align">Comentarios</p>
+                   <div class="getComments"></div>
+                   <p class="center-align more-comments">
+                    <a class="grey-text" href="#" class="show-comments">Ver todos los comentarios</a>
+                  </p>
+                </div>                                   
+              </div>                                                                                                     
+            </div>
+          </div>  
+        </div>
+      </div>
+    </div>
+  </div>    
 
     <footer class="page-footer">
       <div class="footer-copyright">
@@ -201,7 +232,11 @@
         if($(".l_duracion").first().html())duracion= $(".l_duracion").first().html();
         var cuota= calcCuota(monto,interes,duracion);
         $(".f_cuota").html(numeral(cuota).format('0,0'));   
-                
+        
+        $(".cuotaF").html("$"+numeral(cuota).format('0,0'));
+        $(".durationF").html(duracion+" Meses");
+        $(".pago_totalF").html("$"+numeral(cuota * duracion).format('0,0'));
+
         $.ajax({
           type: "POST",
           url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
@@ -251,6 +286,9 @@
           });          
         }
       });
+      $( ".gComments" ).click(function() {
+        $('#modal5').modal('open');
+      });       
       $( ".btn-favorito" ).click(function() {
         $.ajax({
           type: "POST",
@@ -309,18 +347,18 @@
       var interes= $("#interes").val();
       if($("#interesF").val()!=""){
         interes= $("#interesF").val();
-        $(".interest").html(interes+"% | ");
+        //$(".interest").html(interes+"% | ");
       }
       var duracion= $("#duracion").val();
       if($("#duracionF").val()!=""){
         duracion= $("#duracionF").val();
-        $(".duration").html(duracion+" Meses");  
+        //$(".duration").html(duracion+" Meses");  
       }   
 
       var cuota= calcCuota(monto,interes,duracion);
       $(".cuotaSlider").html(numeral(cuota).format('0,0'));
-      $(".cuota").html("$"+numeral(cuota).format('0,0'));      
-      $(".pago_total").html("$"+numeral(cuota*duracion).format('0,0'));      
+      //$(".cuota").html("$"+numeral(cuota).format('0,0'));      
+      //$(".pago_total").html("$"+numeral(cuota*duracion).format('0,0'));      
 
       var find = ["$","%","."];
       var replace = ['','',''];
@@ -339,7 +377,7 @@
         }) 
       });
       interest.noUiSlider.on('change', function(data){
-        $(".cuota").html("0");
+        //$(".cuota").html("0");
         if(monto!=""&&interes!=""&&duracion!=""&&monto!="0"&&interes!="0"&&duracion!="0"){
           var interes= rplPerc(data.toString());
           var duracion= duration.noUiSlider.get();          
@@ -362,8 +400,8 @@
         })             
       });
       duration.noUiSlider.on('change', function(data){
-        $(".cuota").html("0");
-        if(monto!=""&&interes!=""&&duracion!=""&&monto!="0"&&interes!="0"&&duracion!="0"){          
+        //$(".cuota").html("0");
+        if(monto!=""&&interes!=""&&duracion!=""&&monto!="0"&&interes!="0"&&duracion!="0"){
           var interes= rplPerc(interest.noUiSlider.get());
           var duracion= data.toString();
           $("#interes").val(interes);
@@ -384,20 +422,21 @@ function getHeaderOffert(id_ofert){
                 $.each(msg.data, function( index, value ) {
                   var monto= parseInt(localStorage.amount);
                   var interes= parseFloat(localStorage.interest);
-                  var duracion= parseInt(localStorage.duration);
+                  var duracion= parseInt(localStorage.duration);                  
                   
                   if(localStorage.id_u!=value.id_u){
+                    alert(3333333);                  
                     $(".avatar-nego").hide();
                     $(".nombre-user").html(value.user_u);
                     $("#negociando-con").val(value.id_u);
-                    $(".negociando-con").html(value.user_u);
+                    //$(".negociando-con").html(value.user_u);
                     $("#prest_b").val(value.id_u);
+                    $(".tipo_cuenta").html(value.tipo_cuenta);
+                    $(".cuenta").html(value.cuenta);
                     $(".banco").html(value.banco);
                     monto= parseInt(value.amount);
                     interes= parseFloat(value.interest);
-                    duracion= parseInt(value.duration);
-
-
+                    duracion= parseInt(value.duration);                    
                   }
                   var starts= getStarts(value.calification2_u);
                   $(".star-user").html(starts);
