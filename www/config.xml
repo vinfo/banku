@@ -20,8 +20,7 @@
     <preference name="EnableViewportScale" value="true"/>
     <preference name="orientation" value="portrait" />
     <preference name="android-build-tool" value="gradle" />
-    <preference name="android-minSdkVersion" value="18" />
-
+    <preference name="android-minSdkVersion" value="25" />
     
     <plugin name="cordova-plugin-inappbrowser" spec="~1.7.1" />
     <plugin name="cordova-plugin-console" version="1.0.6" />
