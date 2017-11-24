@@ -7,7 +7,8 @@ function onDeviceReady() {
     cordova.plugins.notification.badge;
     cordova.plugins.notification.badge.clear();
     initPushwoosh();
-    getDeviceProperty(); 
+    getDeviceProperty();
+    cordova.plugins.backgroundMode.enable();
   }
   function getDeviceProperty() {
     console.log("getDeviceProperty");    
