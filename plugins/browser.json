@@ -54,6 +54,9 @@
         },
         "satpal-phonegap-smsplugin": {
             "PACKAGE_NAME": "com.vinfo.banku"
+        },
+        "cordova-plugin-background-mode": {
+            "PACKAGE_NAME": "com.vinfo.banku"
         }
     },
     "dependent_plugins": {

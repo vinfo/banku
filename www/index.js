@@ -2,13 +2,9 @@ document.addEventListener("deviceready", onDeviceReady, false);
 document.addEventListener("pause", onPause, false);
 function onDeviceReady() {
     //var ref = cordova.InAppBrowser.open('01_Splash.html', '_self', 'location=no,zoom=no,enableviewportscale=yes');
-    //Ingresa siempre cada carga de página y solo se caragan todos en Mobil compilado
-    checkConnection();
-    cordova.plugins.notification.badge;
-    cordova.plugins.notification.badge.clear();
-    initPushwoosh();
+    checkConnection();    
     getDeviceProperty();
-    cordova.plugins.backgroundMode.enable();
+    initPushwoosh();
   }
   function getDeviceProperty() {
     console.log("getDeviceProperty");    
@@ -47,31 +43,6 @@ function onDeviceReady() {
     }
     return state;
   }
-  function setBadge(value){
-    //alert("Badge");
-    cordova.plugins.notification.badge;
-    cordova.plugins.notification.badge.set(value);      
-  }
-  function send_notification(msg,page,id_u){
-    //alert("Notification");
-    var beep='.mp3';
-    if(sessionStorage.OS!="Android"){
-      beep='.caf';
-    }
-    if(localStorage.id_u&&localStorage.id_u==id_u){    
-      navigator.vibrate([1200]);
-      alert("Notificacion Entra");
-      cordova.plugins.notification.local.schedule({
-        id: 1,
-        text: msg,
-        icon: 'http://bankucolombia.com/images/logoMobil.png',
-        sound: 'file://beep'+beep,
-        badge: 1,
-        data: { page: page }
-      });
-      alert("Notificacion sale");
-    }
-  }
 
   function initPushwoosh() {
    var pushNotification = cordova.require("pushwoosh-cordova-plugin.PushNotification");
@@ -86,6 +57,7 @@ function onDeviceReady() {
     function(status) {
       var pushToken = status.pushToken;
       localStorage.setItem("pushtoken",pushToken);
+      alert(pushToken);      
       },
       function(status) {
         // handle registration error here
