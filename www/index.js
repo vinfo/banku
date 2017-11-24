@@ -47,7 +47,7 @@ function onDeviceReady() {
     return state;
   }
   function setBadge(value){
-    alert("Badge");
+    //alert("Badge");
     cordova.plugins.notification.badge;
     cordova.plugins.notification.badge.set(value);      
   }
