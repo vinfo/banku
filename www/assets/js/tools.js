@@ -49,11 +49,13 @@ $( document ).ready(function(){
 
         var usuario='';
         //alert(type_user+"= "+msg.page+" | "+msg.action+" "+localStorage.set_offer);
+        if(sessionStorage.OS!="browser"&&localStorage.id_u==msg.id_u){
+          cordova.plugins.notification.badge.set(1);
+        }
         if(localStorage.set_offer){        
           if(type_user=="prestatario"){            
             if(msg.page&&msg.page!=""&&msg.action){
-              if(msg.action=="new_offer_inv"&&amount>0&&amount>=monto&&amount<=monto2&&duration>=duracion&&duration<=duracion2&&Math.round(interest * 100)>=Math.round(interes * 100)&&Math.round(interest * 100)<=Math.round(interes2 * 100)){
-                if(sessionStorage.OS!="browser")cordova.plugins.notification.badge.set(1);
+              if(msg.action=="new_offer_inv"&&amount>0&&amount>=monto&&amount<=monto2&&duration>=duracion&&duration<=duracion2&&Math.round(interest * 100)>=Math.round(interes * 100)&&Math.round(interest * 100)<=Math.round(interes2 * 100)){                
                 window.location.href = msg.page+"&rand="+rand;
               }                
             }
@@ -69,7 +71,6 @@ $( document ).ready(function(){
               console.log("Interes: "+interes +">="+ interest +"&&"+ interes +"<="+ interest2);
               if(msg.action=="new_offer_prest" && (monto >= amount && monto <= amount2) && (duracion >= duration && duracion <= duration2) && (Math.round(interes * 100) >= Math.round(interest * 100) && Math.round(interes * 100) <= Math.round(interest2 * 100))){
                       //alert("Redirigir"+msg.page);
-                      if(sessionStorage.OS!="browser")cordova.plugins.notification.badge.set(1);
                       window.location.href = msg.page+"&rand="+rand;
                     }
                     if(msg.action=="del_offert"&&localStorage.id_u==msg.id_u){                    
@@ -80,7 +81,6 @@ $( document ).ready(function(){
           //Generico nueva respuesta Chat
           if(msg.page&&msg.page!=""&&msg.action&&(msg.action=="chat"||msg.action=="new_business")){          
             if(msg.id_u==localStorage.id_u){
-              if(sessionStorage.OS!="browser")cordova.plugins.notification.badge.set(1);
               window.location.href = msg.page+"&rand="+rand;
               send_notification(usuario+' te hace nueva propuesta de negociación.',msg.page,msg.id_u);
             }                
