@@ -21,8 +21,6 @@ function onDeviceReady() {
   }
   function onPause() {
       localStorage.setItem("login","true");
-      alert("PAUSA");
-      pushwoosh.createLocalNotification({msg:"Your pumpkins are ready!", seconds:30, userData:"optional"}
   }
   function checkConnection() {
     console.log("checkConnection");
@@ -82,9 +80,7 @@ function onDeviceReady() {
   pushNotification.registerDevice(
     function(status) {
       var pushToken = status.pushToken;
-      localStorage.setItem("pushtoken",pushToken);
-      alert("Pushing");
-      pushwoosh.createLocalNotification({msg:"Your pumpkins are ready!", seconds:30, userData:"optional"}   
+      localStorage.setItem("pushtoken",pushToken);      
       },
       function(status) {
         // handle registration error here

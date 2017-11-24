@@ -34,7 +34,7 @@
     <plugin name="pushwoosh-cordova-plugin" version="7.0.8" />
     
     <plugin name="cordova-plugin-x-socialsharing" version="5.2.0" />
-    <plugin name="pushwoosh-cordova-plugin" version="7.0.8" />      
+        
 
 
     <!-- Define app icon for each platform. -->
