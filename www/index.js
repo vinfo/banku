@@ -2,10 +2,14 @@ document.addEventListener("deviceready", onDeviceReady, false);
 document.addEventListener("pause", onPause, false);
 function onDeviceReady() {
     //var ref = cordova.InAppBrowser.open('01_Splash.html', '_self', 'location=no,zoom=no,enableviewportscale=yes');
-    checkConnection();    
-    getDeviceProperty();
+    alert(1);
+    checkConnection();
+    alert(2);
     cordova.plugins.notification.badge;
+    alert(3);
     initPushwoosh();
+    alert(4);
+    getDeviceProperty(); 
   }
   function getDeviceProperty() {
     console.log("getDeviceProperty");    
@@ -22,6 +26,8 @@ function onDeviceReady() {
   function onPause() {
       localStorage.setItem("login","true");
       alert("Pausa");
+      cordova.plugins.notification.badge.set(10);
+      cordova.plugins.notification.badge.clear();
   }
   function checkConnection() {
     console.log("checkConnection");
@@ -82,7 +88,6 @@ function onDeviceReady() {
     function(status) {
       var pushToken = status.pushToken;
       localStorage.setItem("pushtoken",pushToken);
-      alert("Register");     
       },
       function(status) {
         // handle registration error here
