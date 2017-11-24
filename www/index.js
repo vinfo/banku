@@ -56,7 +56,6 @@ function onDeviceReady() {
   pushNotification.registerDevice(
     function(status) {
       var pushToken = status.pushToken;
-      alert("Registrar PushToken: "+pushToken);
       localStorage.setItem("pushtoken",pushToken);            
       },
       function(status) {
