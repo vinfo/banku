@@ -28,6 +28,9 @@
         "cordova-plugin-inappbrowser": {
             "PACKAGE_NAME": "com.vinfo.banku"
         },
+        "cordova-plugin-local-notification": {
+            "PACKAGE_NAME": "com.vinfo.banku"
+        },
         "cordova-plugin-network-information": {
             "PACKAGE_NAME": "com.vinfo.banku"
         },
@@ -55,6 +58,9 @@
     },
     "dependent_plugins": {
         "cordova-plugin-compat": {
+            "PACKAGE_NAME": "com.vinfo.banku"
+        },
+        "cordova-plugin-app-event": {
             "PACKAGE_NAME": "com.vinfo.banku"
         },
         "es6-promise-plugin": {
