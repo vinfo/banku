@@ -6,6 +6,7 @@ function onDeviceReady() {
     checkConnection();
     alert(2);
     cordova.plugins.notification.badge;
+    cordova.plugins.notification.badge.clear();
     alert(3);
     initPushwoosh();
     alert(4);
@@ -26,8 +27,6 @@ function onDeviceReady() {
   function onPause() {
       localStorage.setItem("login","true");
       alert("Pausa");
-      cordova.plugins.notification.badge.set(10);
-      cordova.plugins.notification.badge.clear();
   }
   function checkConnection() {
     console.log("checkConnection");
@@ -64,6 +63,7 @@ function onDeviceReady() {
     }
     if(localStorage.id_u&&localStorage.id_u==id_u){    
       navigator.vibrate([1200]);
+      alert("Notificacion Entra");
       cordova.plugins.notification.local.schedule({
         id: 1,
         text: msg,
@@ -72,6 +72,7 @@ function onDeviceReady() {
         badge: 1,
         data: { page: page }
       });
+      alert("Notificacion sale");
     }
   }
 
