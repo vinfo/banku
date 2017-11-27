@@ -490,6 +490,7 @@
                         </div>
                       </div>
                       <div class="clear"></div>
+                      <div class="loading col s12 txt-green"></div>
                       <div class="filesUser"></div>
                       <div class="clear"></div> 
                     </span>
@@ -591,11 +592,15 @@
                         });
     getStates();
     getFullUserData();
-    $(document).on('change', '#name_f', function() {
+  
+    $(document).on('change', '#type_f,#name_f', function() {
       var extensiones_permitidas = new Array(".jpg",".jpeg",".pdf",".doc",".docx");
       var type_f= $("#type_f").val();
+      var name_f= $("#name_f").val();
       if(type_f!=""){
-        comprueba_extension("name_f",this.value,extensiones_permitidas);
+        if(name_f!=""){
+          comprueba_extension("name_f",name_f,extensiones_permitidas);
+        }        
       }else{
         alert("Debe seleccionar el tipo de archivo a cargar");
       }      
@@ -778,7 +783,7 @@ function comprueba_extension(id,archivo,extensiones_permitidas) {
      alert (mierror); 
     }else{        
       tipo="documento";
-      $(".file-path-wrapper").html('Cargando...');
+      $(".loading").html('Cargando archivo...');
       if(tam==1){
         tipo="foto";
       }
@@ -794,8 +799,9 @@ function comprueba_extension(id,archivo,extensiones_permitidas) {
         data: form_data,                         
         type: 'post',
         success: function(response){
-          $(".file-path-wrapper").html('');
+          $(".loading").html('');
           $("#name_f").val("");
+          $("#type_f").prop("selectedIndex", 0);
           getUserFiles();
         }
        });       
