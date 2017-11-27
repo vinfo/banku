@@ -802,6 +802,7 @@ function comprueba_extension(id,archivo,extensiones_permitidas) {
           $(".loading").html('');
           $("#name_f").val("");
           $("#type_f").prop("selectedIndex", 0);
+          $('#type_f').material_select(); 
           getUserFiles();
         }
        });       
