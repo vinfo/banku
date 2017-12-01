@@ -80,9 +80,9 @@ $( document ).ready(function(){
           //Generico nueva respuesta Chat
           if(msg.page&&msg.page!=""&&msg.action&&(msg.action=="chat"||msg.action=="new_business")){          
             if(msg.id_u==localStorage.id_u){
-              window.location.href = msg.page+"&rand="+rand;
               //sendPushMessage(obj.pushtoken,usuario+' te hace nueva propuesta de negociación.');
-              sendNotification();
+              sendNotification();              
+              window.location.href = msg.page+"&rand="+rand;
             }                
           }
         }
