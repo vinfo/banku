@@ -57,6 +57,9 @@
         },
         "cordova-plugin-background-mode": {
             "PACKAGE_NAME": "com.vinfo.banku"
+        },
+        "phonegap-plugin-local-notification": {
+            "PACKAGE_NAME": "com.vinfo.banku"
         }
     },
     "dependent_plugins": {

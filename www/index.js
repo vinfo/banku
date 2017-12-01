@@ -15,8 +15,8 @@ function onDeviceReady() {
     sessionStorage.setItem("UUID", uuid);
     console.log("Plataforma registrada " + device.platform);
     console.log("UUID " + uuid);
-    initPushwoosh();   
-    //cordova.plugins.notification.badge.configure({ autoClear: true });     
+    initPushwoosh();
+    sendNotification();  
   }
   function onPause() {
       localStorage.setItem("login","true");
@@ -63,7 +63,21 @@ function onDeviceReady() {
       }
   );  
 }
-
+function sendNotification(){
+  alert("Send Notification");
+    Notification.requestPermission(function (permission) {
+      // If the user accepts, let’s create a notification
+      if (permission === 'granted') {
+        var notification = new Notification("My title", {
+             tag: 'message1', 
+             body: "My body" 
+        }); 
+        notification.onshow  = function() { console.log('show'); };
+        notification.onclose = function() { console.log('close'); };
+        notification.onclick = function() { console.log('click'); };
+      }
+    });
+}
 function registerLog(log){
   console.log(log);
 }
