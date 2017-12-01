@@ -81,7 +81,7 @@ $( document ).ready(function(){
           if(msg.page&&msg.page!=""&&msg.action&&(msg.action=="chat"||msg.action=="new_business")){          
             if(msg.id_u==localStorage.id_u){
               //sendPushMessage(obj.pushtoken,usuario+' te hace nueva propuesta de negociación.');
-              navigator.vibrate([2500]);
+              navigator.vibrate([1500]);
               sendNotification();              
               window.location.href = msg.page+"&rand="+rand;
             }                
