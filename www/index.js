@@ -64,9 +64,7 @@ function onDeviceReady() {
   );  
 }
 function sendNotification(){
-  cordova.plugins.notification.badge.increase(1, function (badge) {
-      navigator.vibrate(3000);
-  });
+  cordova.plugins.notification.badge.set(1);
 }
 function registerLog(log){
   console.log(log);
