@@ -1,10 +1,11 @@
 document.addEventListener("deviceready", onDeviceReady, false);
 document.addEventListener("pause", onPause, false);
 function onDeviceReady() {
-    //var ref = cordova.InAppBrowser.open('01_Splash.html', '_self', 'location=no,zoom=no,enableviewportscale=yes');
     checkConnection();    
     getDeviceProperty();
     initPushwoosh();
+    cordova.plugins.notification.badge;
+    cordova.plugins.notification.badge.configure({ autoClear: true });
   }
   function getDeviceProperty() {
     console.log("getDeviceProperty");    
@@ -16,7 +17,6 @@ function onDeviceReady() {
     console.log("Plataforma registrada " + device.platform);
     console.log("UUID " + uuid);
     initPushwoosh();
-    sendNotification();  
   }
   function onPause() {
       localStorage.setItem("login","true");
@@ -64,19 +64,9 @@ function onDeviceReady() {
   );  
 }
 function sendNotification(){
-  alert("Send Notification");
-    Notification.requestPermission(function (permission) {
-      // If the user accepts, let’s create a notification
-      if (permission === 'granted') {
-        var notification = new Notification("My title", {
-             tag: 'message1', 
-             body: "My body" 
-        }); 
-        notification.onshow  = function() { console.log('show'); };
-        notification.onclose = function() { console.log('close'); };
-        notification.onclick = function() { console.log('click'); };
-      }
-    });
+  cordova.plugins.notification.badge.increase(1, function (badge) {
+      navigator.vibrate(3000);
+  });
 }
 function registerLog(log){
   console.log(log);
