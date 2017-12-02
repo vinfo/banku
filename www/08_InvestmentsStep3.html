@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <!--Import Google Icon Font-->
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="assets/css/icon.css?family=Material+Icons" rel="stylesheet">
 
   <!--Import materialize.css-->
   <link type="text/css" rel="stylesheet" href="assets/css/materialize.min.css"  media="screen,projection"/>
@@ -99,7 +99,7 @@
    $( document ).ready(function(){
     sessionRedirect();
     getScroll();    
-    setTimeout(function(){ $(".brand-logo").text("Negociar"); }, 300);
+    setTimeout(function(){ $(".brand-logo").text("Negociar"); }, 300);    
     if(localStorage.approved_u=="No"||localStorage.approved_u=="0")$('#info2').modal('open');
     $(".offerts").html('');
     getOffertTemp();   

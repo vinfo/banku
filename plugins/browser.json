@@ -7,6 +7,9 @@
         "files": {}
     },
     "installed_plugins": {
+        "cordova-plugin-background-mode": {
+            "PACKAGE_NAME": "com.vinfo.banku"
+        },
         "cordova-plugin-badge": {
             "PACKAGE_NAME": "com.vinfo.banku"
         },
@@ -46,6 +49,9 @@
         "de.appplant.cordova.plugin.local-notification": {
             "PACKAGE_NAME": "com.vinfo.banku"
         },
+        "phonegap-plugin-local-notification": {
+            "PACKAGE_NAME": "com.vinfo.banku"
+        },
         "pushwoosh-cordova-plugin": {
             "LOG_LEVEL": "DEBUG",
             "IOS_FOREGROUND_ALERT_TYPE": "NONE",
@@ -53,12 +59,6 @@
             "PACKAGE_NAME": "com.vinfo.banku"
         },
         "satpal-phonegap-smsplugin": {
-            "PACKAGE_NAME": "com.vinfo.banku"
-        },
-        "cordova-plugin-background-mode": {
-            "PACKAGE_NAME": "com.vinfo.banku"
-        },
-        "phonegap-plugin-local-notification": {
             "PACKAGE_NAME": "com.vinfo.banku"
         }
     },

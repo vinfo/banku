@@ -309,6 +309,7 @@ function getOffersTemp(id_ofert){
                 cont++;
             });            
             $(".chat").append(chat);
+            setValues();
         }
     });
     return true;    
@@ -434,6 +435,7 @@ function getNumsOffersUser(){
     }
   });    
 }
+
 function getUserData(){
     numeral.register('locale', 'es', {
         delimiters: {

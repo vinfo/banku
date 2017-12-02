@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <!--Import Google Icon Font-->
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link href="assets/css/icon.css?family=Material+Icons" rel="stylesheet">
         
         <!--Import materialize.css-->
         <link type="text/css" rel="stylesheet" href="assets/css/materialize.min.css"  media="screen,projection"/>
@@ -168,6 +168,7 @@
             if(localStorage.type_user=="prestatario")type=4;
             $("#type").val(type);
             getConfig();
+            getOffertTemp();
             var saldo= parseInt(localStorage.saldo);           
             if(saldo<="0"){
                 $('.title-msg').html('Monto mínimo de prestamos');
@@ -314,7 +315,23 @@
                 cuota=calcCuota($("#monto").val(),$("#interes").val(),$("#duracion").val());
                 $(".cuota").html(numeral(cuota).format('0,0'));
             });            
-        }                            
+        }
+  function getOffertTemp(){
+      $.ajax({
+        type: "POST",
+        url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
+        data: "action=getOfferTemp&id_u="+localStorage.id_u+"&type_user="+localStorage.type_user,
+        dataType:'JSON',
+        success: function(msg){
+          if(msg.data.length>0){
+            $(".btn-find-proyects").html("<h4>No puede realizar cambios de configuración.</h4><h5>Existen negociaciones abiertas</h5>");
+          }
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) { 
+          alert("Problemas procesando datos: " + textStatus +" - "+errorThrown);
+        }
+      });          
+    }                                   
         </script>
     </body>
 </html>

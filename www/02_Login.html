@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <!--Import Google Icon Font-->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="assets/css/icon.css?family=Material+Icons" rel="stylesheet">
 
     <!--Import materialize.css-->
     <link type="text/css" rel="stylesheet" href="assets/css/materialize.min.css"  media="screen,projection"/>
@@ -45,9 +45,20 @@
             <script>
                  $( document ).ready(function(){
                     $(".wrapper").show();
-                    $( ".terminos" ).load( "includes/terminos.html");
-                 });
-                localStorage.clear();
+                    $( ".terminos" ).load( "includes/terminos.html", function() {
+                        $.ajax({
+                            type:"GET",
+                            url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
+                            data: "action=getContent&id=7",
+                            dataType:'JSON',
+                            success: function(msg){
+                                alert(msg);
+                                $(".data-description").html(msg.data);
+                            }
+                        });                      
+                    });
+                    localStorage.clear();
+                 });                
                 history.pushState(null, null, location.href);
                 window.onpopstate = function(event) {
                     navigator.app.exitApp();

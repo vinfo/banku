@@ -1,11 +1,11 @@
 document.addEventListener("deviceready", onDeviceReady, false);
 document.addEventListener("pause", onPause, false);
-function onDeviceReady() {
+function onDeviceReady() {    
     checkConnection();    
     getDeviceProperty();
     initPushwoosh();
     cordova.plugins.notification.badge;
-    cordova.plugins.notification.badge.clear();    
+    cordova.plugins.notification.badge.clear();      
   }
   function getDeviceProperty() {
     console.log("getDeviceProperty");    
@@ -64,8 +64,8 @@ function onDeviceReady() {
   );  
 }
 function sendNotification(){
-  cordova.plugins.notification.badge.set(1);
   cordova.plugins.notification.badge.configure({ autoClear: true });
+  cordova.plugins.notification.badge.set(1);  
 }
 function registerLog(log){
   console.log(log);

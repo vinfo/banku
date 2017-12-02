@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <!--Import Google Icon Font-->
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="assets/css/icon.css?family=Material+Icons" rel="stylesheet">
 
   <!--Import materialize.css-->
   <link type="text/css" rel="stylesheet" href="assets/css/materialize.min.css"  media="screen,projection"/>
@@ -220,6 +220,19 @@
       $(".duracion1").html(localStorage.duracion1);
       $(".duracion2").html(localStorage.duracion2);          
       var id_ofert= getUrlParameter("id_ofert");
+      if(id_ofert){
+        getHeaderOffert(id_ofert);
+        getOffersTemp(id_ofert);
+        setTimeout(function(){          
+          setValues();
+        },1000);         
+        setTimeout(function(){
+          if($(".l_interes").html())$("#interesF").val($(".l_interes").html());
+          if($(".l_plazo").html())$("#duracionF").val($(".l_plazo").html());
+          setSliders();                  
+        },2000);    
+      } 
+
       getFavorite(id_ofert,localStorage.id_u,localStorage.type_user);
       $("#prest_b").val(localStorage.id_u);
 
@@ -321,27 +334,21 @@
             location.reload();
           }
         }
-      });
-      if(id_ofert){
-        getHeaderOffert(id_ofert);
-        getOffersTemp(id_ofert);
-        setTimeout(function(){
-          if($(".l_interes").html())$("#interesF").val($(".l_interes").html());
-          if($(".l_plazo").html())$("#duracionF").val($(".l_plazo").html());
-          
-          if($(".user_id").attr("data-id")){
-            if($(".user_id").attr("data-id") != localStorage.id_u){
-              $(".btn-nego,.btn-aceptar").css('display','inline-block');
-            }else{
-              $(".btn-nego,.btn-aceptar").css('display','none');
-            }           
-          }else{
-            $(".btn-nego,.btn-aceptar").css('display','inline-block');
-          }
-          setSliders();                  
-        },1500);    
-      }              
+      });             
     })
+      function setValues(){
+        if($(".l_interes").first().html())$("#interesF").val($(".l_interes").first().html());
+        if($(".l_plazo").first().html())$("#duracionF").val($(".l_plazo").first().html());
+        if($(".user_id").attr("data-id")){
+          if($(".user_id").attr("data-id") != localStorage.id_u){
+            $(".btn-nego,.btn-aceptar").css('display','inline-block');
+          }else{
+            $(".btn-nego,.btn-aceptar").css('display','none');
+          }           
+        }else{
+          $(".btn-nego,.btn-aceptar").css('display','inline-block');
+        }        
+      }
      function setSliders(){
       var monto= $("#monto").val();
       var interes= $("#interes").val();
@@ -409,7 +416,7 @@
           var cuota= calcCuota(monto,interes,duracion);
           $(".cuotaSlider").html(numeral(cuota).format('0,0'));
         }
-      });            
+      });              
     }
 function getHeaderOffert(id_ofert){
          $.ajax({

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <!--Import Google Icon Font-->
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="assets/css/icon.css?family=Material+Icons" rel="stylesheet">
 
   <!--Import materialize.css-->
   <link type="text/css" rel="stylesheet" href="assets/css/materialize.min.css"  media="screen,projection"/>
@@ -331,26 +331,25 @@
 
       if(id_ofert){        
         getOffersTemp(id_ofert);
-        getHeaderOffert(id_ofert);
-        setTimeout(function(){          
-          setValues();
-        },1000);        
+        getHeaderOffert(id_ofert);      
         $(".btn-action-bussines").hide();      
         setTimeout(function(){          
           setSliders();
         },3000);
       }              
     })
-      function setValues(){
+      function setValues(){        
         if($(".l_interes").first().html())$("#interesF").val($(".l_interes").first().html());
         if($(".l_plazo").first().html())$("#duracionF").val($(".l_plazo").first().html());
+        var user_id= $(".user_id").attr("data-id");
         if($(".user_id").attr("data-id")){
-          if($(".user_id").attr("data-id") != localStorage.id_u){
+          alert(user_id);
+          if(user_id != localStorage.id_u){
             $(".btn-nego,.btn-aceptar").css('display','inline-block');
           }            
         }else{
           $(".btn-nego,.btn-aceptar").css('display','inline-block');
-        }        
+        }
       }
      function setSliders(){
       var monto= $("#monto").val();
