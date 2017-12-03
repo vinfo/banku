@@ -30,7 +30,9 @@
       </ul>
     </div>
   </nav>
-
+  <div class="progress">
+    <div class="indeterminate"></div>
+  </div> 
   <div class="wrapper">
     <div class="container box-messages">
       <div class="row">
@@ -155,189 +157,189 @@
         <hr>
         <div class="row">
           <div class="col s12"><p>Hola <span class="names"></span>, para completar tu inversión debes seguir estos pasos en las próximas 24 horas:</p><p>1) Consignar en la cuenta #<span class="cuenta"></span> <span class="tipo_cuenta"></span>, banco <span class="banco"></span> el valor de <span class="amount"></span><br/>2) En la consignación debes adicionar el siguiente código NEG<span class="id_b"></span><br/>3) A partir del siguiente mes recibirás la suma de <span class="cuotaF"></span> durante <span class="durationF"></span>, al final de los meses negociados recibirás <span class="pago_totalF"></span>.<br/>4) Recuerda que si no consignas el valor de dinero en el tiempo estipulado el negocio no será válido. Esto claramente perjudica tu puntuación dentro de la comunidad BankU.</p><p>Te invitamos a seguir invirtiendo y agrandando tu portafolio de inversión, si tienes alguna duda puedes escribirnos en la sesión de quejas y reclamos con el número de tu transacción</p></div> 
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="modal5" class="modal">
+    <a href="#!" class="modal-action modal-close"><i class="material-icons close">close</i></a>
+    <div class="modal-content content-done valign-wrapper">            
+      <div class="card-panel grey lighten-5 z-depth-1"> 
+        <div class="container">  
+          <div class="row">
+            <div class="col s9 m8 l10 left-align">
+              <a href="#!">
+                <h4 class="margin-bottom-0 negociando-con"></h4>
+              </a>
+              <div class="star-user"></div>
+            </div>
           </div>
-        </div>
+          <div class="row">
+            <div class="col s12 center">                                   
+              <div class="divider"></div>
+              <div class="row">
+                <div class="col s12 left-align">
+                 <p class="grey-text center-align">Comentarios</p>
+                 <div class="getComments"></div>
+                 <p class="center-align more-comments">
+                  <a class="grey-text" href="#" class="show-comments">Ver todos los comentarios</a>
+                </p>
+              </div>                                   
+            </div>                                                                                                     
+          </div>
+        </div>  
       </div>
     </div>
-    <div id="modal5" class="modal">
-      <a href="#!" class="modal-action modal-close"><i class="material-icons close">close</i></a>
-      <div class="modal-content content-done valign-wrapper">            
-        <div class="card-panel grey lighten-5 z-depth-1"> 
-          <div class="container">  
-            <div class="row">
-              <div class="col s9 m8 l10 left-align">
-                <a href="#!">
-                  <h4 class="margin-bottom-0 negociando-con"></h4>
-                </a>
-                <div class="star-user"></div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col s12 center">                                   
-                <div class="divider"></div>
-                <div class="row">
-                  <div class="col s12 left-align">
-                   <p class="grey-text center-align">Comentarios</p>
-                   <div class="getComments"></div>
-                   <p class="center-align more-comments">
-                    <a class="grey-text" href="#" class="show-comments">Ver todos los comentarios</a>
-                  </p>
-                </div>                                   
-              </div>                                                                                                     
-            </div>
-          </div>  
-        </div>
-      </div>
+  </div>
+</div>    
+
+<footer class="page-footer">
+  <div class="footer-copyright">
+    <div class="container">
+      © 2017 BankU                    
     </div>
-  </div>    
+  </div>
+</footer>           
+<script type="text/javascript" src="cordova.js"></script>
+<script type="text/javascript" src="index.js"></script> 
+<!--Import jQuery before materialize.js-->
+<script type="text/javascript" src="assets/js/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="assets/js/materialize.min.js"></script>
+<script type="text/javascript" src="assets/js/jquery.validate.min.js"></script>
+<script type="text/javascript" src="assets/js/numeral.min.js"></script>
+<script src="assets/js/socket.io.js"></script>
+<script type="text/javascript" src="assets/js/tools.js?v=1.0.0"></script>         
+<script type="text/javascript" src="assets/js/includes.js?v=1.0.0"></script> 
+<script type="text/javascript" src="assets/js/nouislider.min.js"></script> 
+<script type="text/javascript" src="assets/js/wNumb.js"></script>     
+<script type="text/javascript">
+ $( document ).ready(function(){     
+  const socket = io('https://banku-services.herokuapp.com/');
+  $('.tooltipped').tooltip({delay: 50});
+  $(".wrapper").show();
+  $(".interes1").html(localStorage.interes1);
+  $(".interes2").html(localStorage.interes2);
+  $(".duracion1").html(localStorage.duracion1);
+  $(".duracion2").html(localStorage.duracion2);          
+  var id_ofert= getUrlParameter("id_ofert");
+  if(id_ofert){
+    getHeaderOffert(id_ofert);
+    getOffersTemp(id_ofert);
+  } 
 
-    <footer class="page-footer">
-      <div class="footer-copyright">
-        <div class="container">
-          © 2017 BankU                    
-        </div>
-      </div>
-    </footer>           
-    <script type="text/javascript" src="cordova.js"></script>
-    <script type="text/javascript" src="index.js"></script> 
-    <!--Import jQuery before materialize.js-->
-    <script type="text/javascript" src="assets/js/jquery-2.1.1.min.js"></script>
-    <script type="text/javascript" src="assets/js/materialize.min.js"></script>
-    <script type="text/javascript" src="assets/js/jquery.validate.min.js"></script>
-    <script type="text/javascript" src="assets/js/numeral.min.js"></script>
-    <script src="assets/js/socket.io.js"></script>
-    <script type="text/javascript" src="assets/js/tools.js?v=1.0.0"></script>         
-    <script type="text/javascript" src="assets/js/includes.js?v=1.0.0"></script> 
-    <script type="text/javascript" src="assets/js/nouislider.min.js"></script> 
-    <script type="text/javascript" src="assets/js/wNumb.js"></script>     
-    <script type="text/javascript">
-     $( document ).ready(function(){     
-      const socket = io('https://banku-services.herokuapp.com/');
-      $('.tooltipped').tooltip({delay: 50});
-      $(".wrapper").show();
-      $(".interes1").html(localStorage.interes1);
-      $(".interes2").html(localStorage.interes2);
-      $(".duracion1").html(localStorage.duracion1);
-      $(".duracion2").html(localStorage.duracion2);          
-      var id_ofert= getUrlParameter("id_ofert");
-      if(id_ofert){
-        getHeaderOffert(id_ofert);
-        getOffersTemp(id_ofert);
-      } 
+  getFavorite(id_ofert,localStorage.id_u,localStorage.type_user);
+  $("#prest_b").val(localStorage.id_u);
 
-      getFavorite(id_ofert,localStorage.id_u,localStorage.type_user);
-      $("#prest_b").val(localStorage.id_u);
+  $( ".btn-aceptar" ).click(function() {
+    $(".btn-action-bussines").hide();
+    var monto= $("#total_b").val();
+    var interes= $("#interes_b").val();
+    if($(".l_interes").first().html())interes= $(".l_interes").first().html();
+    var duracion= $("#plazo_b").val();
+    if($(".l_duracion").first().html())duracion= $(".l_duracion").first().html();
+    var cuota= calcCuota(monto,interes,duracion);
+    $(".f_cuota").html(numeral(cuota).format('0,0'));   
+    
+    $(".cuotaF").html("$"+numeral(cuota).format('0,0'));
+    $(".durationF").html(duracion+" Meses");
+    $(".pago_totalF").html("$"+numeral(cuota * duracion).format('0,0'));
 
-      $( ".btn-aceptar" ).click(function() {
-        $(".btn-action-bussines").hide();
-        var monto= $("#total_b").val();
-        var interes= $("#interes_b").val();
-        if($(".l_interes").first().html())interes= $(".l_interes").first().html();
-        var duracion= $("#plazo_b").val();
-        if($(".l_duracion").first().html())duracion= $(".l_duracion").first().html();
-        var cuota= calcCuota(monto,interes,duracion);
-        $(".f_cuota").html(numeral(cuota).format('0,0'));   
-        
-        $(".cuotaF").html("$"+numeral(cuota).format('0,0'));
-        $(".durationF").html(duracion+" Meses");
-        $(".pago_totalF").html("$"+numeral(cuota * duracion).format('0,0'));
-
-        $.ajax({
-          type: "POST",
-          url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
-          data: "action=setOfferFinal&inv_b="+localStorage.id_u+"&prest_b="+$("#prest_b").val()+"&total_b="+monto+"&quota_b="+cuota+"&interes_b="+$("#interes_b").val()+"&plazo_b="+duracion+"&destination_b="+$("#destination_b").val()+"&offer_b="+id_ofert+"&admin="+localStorage.id_u,
-          dataType:'JSON',
-          success: function(msg){
-            if(msg.status){                
-                var id_b= msg.id_b;
-                $(".id_b").html(setDigits(id_b,4));
-                showMsgConfirm();
-                $.ajax({
-                  type: "POST",
-                  url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
-                  data: "action=setPaysxBusiness&fecha="+localStorage.fecha+"&prest="+$("#prest_b").val()+"&monto="+$("#total_b").val()+"&quota_b="+$("#quota_b").val()+"&tasa1="+$("#interes_b").val()+"&meses="+$("#plazo_b").val()+"&id_b="+id_b,
-                  dataType:'JSON',
-                  success: function(msg){
-                    if(msg.status){                      
-                      var obj = jQuery.parseJSON ( getOnline($("#prest_b").val()) );
-                      if(obj.online=="0"){
-                        sendPushMessage(obj.pushtoken,"Aceptación de negociación en el sistema BankU.");
-                        }else{
-                        var data = {page:"12_PaymentsStep2.html?section=mis_pagos&msg=aceptada",action:"new_business",id_u:$("#negociando-con").val()};
-                          socket.emit('setOffert', data);                          
-                        }             
-                    }
-                  }
-                });             
-            }
-          }
-        });
-      });      
-      $( ".eliminar" ).click(function() {
-        var conf=confirm("¿Está seguro de que desea eliminar esta negociación?");
-        if(conf){
+    $.ajax({
+      type: "POST",
+      url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
+      data: "action=setOfferFinal&inv_b="+localStorage.id_u+"&prest_b="+$("#prest_b").val()+"&total_b="+monto+"&quota_b="+cuota+"&interes_b="+$("#interes_b").val()+"&plazo_b="+duracion+"&destination_b="+$("#destination_b").val()+"&offer_b="+id_ofert+"&admin="+localStorage.id_u,
+      dataType:'JSON',
+      success: function(msg){
+        if(msg.status){                
+          var id_b= msg.id_b;
+          $(".id_b").html(setDigits(id_b,4));
+          showMsgConfirm();
           $.ajax({
             type: "POST",
             url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
-            data: "action=delOfferMatch&inv="+localStorage.id_u+"&id="+id_ofert+"&owner_offer="+$("#prest_b").val(),
+            data: "action=setPaysxBusiness&fecha="+localStorage.fecha+"&prest="+$("#prest_b").val()+"&monto="+$("#total_b").val()+"&quota_b="+$("#quota_b").val()+"&tasa1="+$("#interes_b").val()+"&meses="+$("#plazo_b").val()+"&id_b="+id_b,
             dataType:'JSON',
-            success: function(msg){  
-              if(msg.status){
-                var data = {page:"10_LoansStep1.html?section=mis_proyectos",action:"del_offert",id_ofert:id_ofert,id_u:$("#prest_b").val()};                    
-                socket.emit('setOffert', data);             
-                window.location.href = "08_InvestmentsStep3.html?section=negociar";
+            success: function(msg){
+              if(msg.status){                      
+                var obj = jQuery.parseJSON ( getOnline($("#prest_b").val()) );
+                if(obj.online=="0"){
+                  sendPushMessage(obj.pushtoken,"Aceptación de negociación en el sistema BankU.");
+                }else{
+                  var data = {page:"12_PaymentsStep2.html?section=mis_pagos&msg=aceptada",action:"new_business",id_u:$("#negociando-con").val()};
+                  socket.emit('setOffert', data);                          
+                }             
               }
             }
-          });          
+          });             
         }
-      });
-      $( ".gComments" ).click(function() {
-        $('#modal5').modal('open');
-      });       
-      $( ".btn-favorito" ).click(function() {
-        $.ajax({
-          type: "POST",
-          url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
-          data: "action=setFavorite&admin="+localStorage.id_u+"&inv="+localStorage.id_u+"&prest="+$("#prest_b").val()+"&id="+id_ofert,
-          dataType:'JSON',
-          success: function(msg){  
-            if(msg.status){
-              $(".btn-favorito").css("background-position","right -2px bottom 21px").css("color","#fed22c");
-              $('#info2').modal('open');
-            }
-          }
-        });
-      });      
-      $( ".negociar" ).click(function() {
-        var monto= $("#monto").val();
-        var interes= $("#interes").val();
-        var duracion= $("#duracion").val();         
-        if(monto!=""&&interes!=""&&duracion!=""){
-          var setoffer= setOfferTemp(id_ofert,localStorage.id_u,$("#prest_b").val(),interes,duracion);          
-          if(setoffer){
-            $(".btn-nego,.btn-aceptar").hide();
-            var redir= "10_LoansStep4.html?section=solicitar_dinero&id_ofert="+id_ofert+"&negociando=true";
-            var data = {page: redir,action:"chat",id_u:$("#prest_b").val()};
-            socket.emit('setOffert',data);
-            var obj = jQuery.parseJSON ( getOnline($("#prest_b").val()) );
-            if(obj.online=="0"){
-              sendPushMessage(obj.pushtoken,'Nuevo solicitud del usuario '+$(".nombre-user").html()+'.');
-            }
-            location.reload();
-          }
-        }
-      });             
-    })
-      function setValues(){
-          if($(".l_interes").first().html())$("#interesF").val($(".l_interes").first().html());
-          if($(".l_plazo").first().html())$("#duracionF").val($(".l_plazo").first().html());
-          setSliders();
       }
-     function setSliders(){
-      var monto= $("#monto").val();
-      var interes= $("#interes").val();
-      if($("#interesF").val()!=""){
-        interes= $("#interesF").val();
+    });
+  });      
+  $( ".eliminar" ).click(function() {
+    var conf=confirm("¿Está seguro de que desea eliminar esta negociación?");
+    if(conf){
+      $.ajax({
+        type: "POST",
+        url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
+        data: "action=delOfferMatch&inv="+localStorage.id_u+"&id="+id_ofert+"&owner_offer="+$("#prest_b").val(),
+        dataType:'JSON',
+        success: function(msg){  
+          if(msg.status){
+            var data = {page:"10_LoansStep1.html?section=mis_proyectos",action:"del_offert",id_ofert:id_ofert,id_u:$("#prest_b").val()};                    
+            socket.emit('setOffert', data);             
+            window.location.href = "08_InvestmentsStep3.html?section=negociar";
+          }
+        }
+      });          
+    }
+  });
+  $( ".gComments" ).click(function() {
+    $('#modal5').modal('open');
+  });       
+  $( ".btn-favorito" ).click(function() {
+    $.ajax({
+      type: "POST",
+      url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
+      data: "action=setFavorite&admin="+localStorage.id_u+"&inv="+localStorage.id_u+"&prest="+$("#prest_b").val()+"&id="+id_ofert,
+      dataType:'JSON',
+      success: function(msg){  
+        if(msg.status){
+          $(".btn-favorito").css("background-position","right -2px bottom 21px").css("color","#fed22c");
+          $('#info2').modal('open');
+        }
+      }
+    });
+  });      
+  $( ".negociar" ).click(function() {
+    var monto= $("#monto").val();
+    var interes= $("#interes").val();
+    var duracion= $("#duracion").val();         
+    if(monto!=""&&interes!=""&&duracion!=""){
+      var setoffer= setOfferTemp(id_ofert,localStorage.id_u,$("#prest_b").val(),interes,duracion);          
+      if(setoffer){
+        $(".btn-nego,.btn-aceptar").hide();
+        var redir= "10_LoansStep4.html?section=solicitar_dinero&id_ofert="+id_ofert+"&negociando=true";
+        var data = {page: redir,action:"chat",id_u:$("#prest_b").val()};
+        socket.emit('setOffert',data);
+        var obj = jQuery.parseJSON ( getOnline($("#prest_b").val()) );
+        if(obj.online=="0"){
+          sendPushMessage(obj.pushtoken,'Nuevo solicitud del usuario '+$(".nombre-user").html()+'.');
+        }
+        location.reload();
+      }
+    }
+  });             
+})
+function setValues(){
+  if($(".l_interes").first().html())$("#interesF").val($(".l_interes").first().html());
+  if($(".l_plazo").first().html())$("#duracionF").val($(".l_plazo").first().html());
+  setSliders();
+}
+function setSliders(){
+  var monto= $("#monto").val();
+  var interes= $("#interes").val();
+  if($("#interesF").val()!=""){
+    interes= $("#interesF").val();
         //$(".interest").html(interes+"% | ");
       }
       var duracion= $("#duracion").val();
@@ -416,23 +418,23 @@
         location.reload();
       }
     }
-function getHeaderOffert(id_ofert){
-         $.ajax({
-            type: "POST",
-            url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
-            data: "action=getHeaderOffert&id_ofert="+id_ofert,
-            dataType:'JSON',
-            success: function(msg){    
-              if(msg.status&&msg.data){
-                $.each(msg.data, function( index, value ) {
-                  var monto= parseInt(localStorage.amount);
-                  var interes= parseFloat(localStorage.interest);
-                  var duracion= parseInt(localStorage.duration);                  
-                  
-                  if(localStorage.id_u!=value.id_u){
-                    $(".avatar-nego").hide();
-                    $(".nombre-user").html(value.user_u);
-                    $("#negociando-con").val(value.id_u);
+    function getHeaderOffert(id_ofert){
+     $.ajax({
+      type: "POST",
+      url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
+      data: "action=getHeaderOffert&id_ofert="+id_ofert,
+      dataType:'JSON',
+      success: function(msg){    
+        if(msg.status&&msg.data){
+          $.each(msg.data, function( index, value ) {
+            var monto= parseInt(localStorage.amount);
+            var interes= parseFloat(localStorage.interest);
+            var duracion= parseInt(localStorage.duration);                  
+            
+            if(localStorage.id_u!=value.id_u){
+              $(".avatar-nego").hide();
+              $(".nombre-user").html(value.user_u);
+              $("#negociando-con").val(value.id_u);
                     //$(".negociando-con").html(value.user_u);
                     $("#prest_b").val(value.id_u);
                     $(".tipo_cuenta").html(value.tipo_cuenta);
@@ -446,7 +448,7 @@ function getHeaderOffert(id_ofert){
                   $(".star-user").html(starts);
                   var cuota= calcCuota(monto,interes,duracion);
                   var calification= value.calification;                  
-                                   
+                  
                   if(localStorage.type_user!="prestatario"&&value.ldestination)$(".destination").html(value.ldestination+'<br>');
                   $(".interest").html(interes+'% | ');
                   if($("#interesF").val()=="")$("#interesF").val(interes);
@@ -466,20 +468,20 @@ function getHeaderOffert(id_ofert){
                   $("#offer_b").val(id_ofert);
                   $("#inv_b").val(localStorage.id_u);
                 });                
-              }
-            }
-          });  
-}
+        }
+      }
+    });  
+   }
 
-function showMsgConfirm(){  
-  var negociando= $("#negociando-con").val();
-  $('#modal4').modal('open',{
-    dismissible: true,
-    complete: function() {
-      window.location.href = "11_EarningsStep1.html?section=mis_ganancias";
-    }
-  });
-}          
-  </script>
+   function showMsgConfirm(){  
+    var negociando= $("#negociando-con").val();
+    $('#modal4').modal('open',{
+      dismissible: true,
+      complete: function() {
+        window.location.href = "11_EarningsStep1.html?section=mis_ganancias";
+      }
+    });
+  }          
+</script>
 </body>
 </html>
