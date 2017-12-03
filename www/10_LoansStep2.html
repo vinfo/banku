@@ -254,6 +254,10 @@
     var monto= parseInt($("#monto").val());
     var interes= parseFloat($("#interes").val());
     var duracion= parseInt($("#duracion").val());
+    if(monto==null)monto=0;
+    if(interes==null)interes=0;
+    if(duracion==null)duracion=0;
+    
     var find = ["$","%","."];
     var replace = ['','',''];
     var max_monto= mount2;

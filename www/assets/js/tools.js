@@ -89,7 +89,6 @@ $( document ).ready(function(){
             }                
           }
         }
-        //if(msg.id_u==localStorage.id_u)location.reload();
       });
     }
 
@@ -304,7 +303,7 @@ function getOffersTemp(id_ofert){
                   total= cuota * value.duration_prest;                  
                   chat += '<div class="'+cls+'"><div class="info-nego"><h5 data-id="'+value.id_admin+'" class="user_id">'+value.user_admin+' Propone</h5><p>Interés (%) E.M.: <strong class="l_interes">'+value.interest_prest+'</strong><br>Plazo: <strong class="l_plazo">'+value.duration_prest+'</strong><br>'+msg_mes+': <strong class="l_mes">$'+numeral(cuota).format('0,0')+'</strong><br>'+msg_total+': <strong class="l_total">$'+numeral(total).format('0,0')+'</strong></p> </div> <div class="date-buble">'+value.date.substr(0,16)+'</div></div>';
                 }
-                if(value.status=="1"){
+                if(value.status=="3"){
                     chat +='<div class="bubble-rigth left"><a href="#!user" class="avatar-nego"><img class="circle" src="assets/images/avatarUser.jpg"></a><div class="info-nego"><h5 class="negociando-con"></h5><h3>Acepto tu oferta!!!</h3></div> <div class="date-buble">4m</div></div>';
                     $(".btn-nego,.btn-aceptar").hide();
                 }
@@ -561,7 +560,6 @@ function getUserData(){
 
                     var saldo=0;
                     if(msg.data.amount_u>0)saldo= parseInt(msg.data.amount_u) - (parseInt(msg.data.investments) + parseInt(msg.data.offers_temp));
-
 
                     $(".saldo-inversionista").html(numeral(saldo).format('0,0'));
                     $(".saldo-negociacion").html(numeral(msg.data.offers_temp).format('0,0'));

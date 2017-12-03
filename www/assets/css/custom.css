@@ -272,15 +272,19 @@ nav ul li{
 
 .footer-nav li.link1 a{
 	background-image: url(../images/iconFooter_01.png);
+	background-repeat: no-repeat;
 }
 .footer-nav li.link2 a{
 	background-image: url(../images/iconFooter_02.png);
+	background-repeat: no-repeat;
 }
 .footer-nav li.link3 a{
 	background-image: url(../images/iconFooter_03.png);
+	background-repeat: no-repeat;
 }
 .footer-nav li.link4 a{
 	background-image: url(../images/iconFooter_04.png);
+	background-repeat: no-repeat;
 }
 .footer-nav li.link1 a:hover, .footer-nav li.link2 a:hover, .footer-nav li.link3 a:hover, .footer-nav li.link4 a:hover{	
 	background-position: center bottom 10px;

@@ -269,6 +269,10 @@
             var duracion= parseInt($("#duracion").val());
             var duracion2= parseInt($("#duracion2").val());
 
+            if(monto==null)monto=0;
+            if(interes==null)interes=0;
+            if(duracion==null)duracion=0;
+
             var find = ["$","%","."];
             var replace = ['','',''];
             var max_monto= parseInt(localStorage.monto2);
