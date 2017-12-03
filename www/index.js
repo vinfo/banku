@@ -1,5 +1,6 @@
 document.addEventListener("deviceready", onDeviceReady, false);
 document.addEventListener("pause", onPause, false);
+document.addEventListener("resume", onResume, false);
 function onDeviceReady() {    
     checkConnection();    
     getDeviceProperty();
@@ -20,6 +21,9 @@ function onDeviceReady() {
   function onPause() {
       localStorage.setItem("login","true");
   }
+  function onResume() {
+      cordova.plugins.notification.badge.clear();
+  }  
   function checkConnection() {
     console.log("checkConnection");
     var state = true;
