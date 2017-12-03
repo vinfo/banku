@@ -307,7 +307,7 @@ function getOffersTemp(id_ofert){
                     $(".btn-nego,.btn-aceptar").hide();
                 }
                 cont++;
-            });            
+            });         
             $(".chat").append(chat);
             setValues();
         }

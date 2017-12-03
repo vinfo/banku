@@ -553,7 +553,17 @@
    $( document ).ready(function(){
     getProfesions();
     $('.tooltipped').tooltip({delay: 50});
-    $( ".terminos" ).load( "includes/terminos.html");
+    $( ".terminos" ).load( "includes/terminos.html", function() {
+      $.ajax({
+        type:"GET",
+        url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
+        data: "action=getContent&id=7",
+        dataType:'JSON',
+        success: function(msg){
+          $(".data-description").html(msg.data);
+        }
+      });                      
+    });
     getScroll();
     if(localStorage.type_user=="prestatario"){
       getUserFiles();

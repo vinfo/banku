@@ -122,7 +122,17 @@
     sessionRedirect();
     getFullUserData();
     getScroll();
-    $( ".terminos" ).load( "includes/terminos.html");
+    $( ".terminos" ).load( "includes/terminos.html", function() {
+      $.ajax({
+        type:"GET",
+        url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
+        data: "action=getContent&id=7",
+        dataType:'JSON',
+        success: function(msg){
+          $(".data-description").html(msg.data);
+        }
+      });                      
+    });
     $( ".delete-account" ).click(function() {
       var conf=confirm("Realmente desea borrar la cuenta?");
       if(conf){

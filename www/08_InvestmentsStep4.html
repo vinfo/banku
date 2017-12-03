@@ -223,14 +223,6 @@
       if(id_ofert){
         getHeaderOffert(id_ofert);
         getOffersTemp(id_ofert);
-        setTimeout(function(){          
-          setValues();
-        },1000);         
-        setTimeout(function(){
-          if($(".l_interes").html())$("#interesF").val($(".l_interes").html());
-          if($(".l_plazo").html())$("#duracionF").val($(".l_plazo").html());
-          setSliders();                  
-        },2000);    
       } 
 
       getFavorite(id_ofert,localStorage.id_u,localStorage.type_user);
@@ -337,17 +329,9 @@
       });             
     })
       function setValues(){
-        if($(".l_interes").first().html())$("#interesF").val($(".l_interes").first().html());
-        if($(".l_plazo").first().html())$("#duracionF").val($(".l_plazo").first().html());
-        if($(".user_id").attr("data-id")){
-          if($(".user_id").attr("data-id") != localStorage.id_u){
-            $(".btn-nego,.btn-aceptar").css('display','inline-block');
-          }else{
-            $(".btn-nego,.btn-aceptar").css('display','none');
-          }           
-        }else{
-          $(".btn-nego,.btn-aceptar").css('display','inline-block');
-        }        
+          if($(".l_interes").first().html())$("#interesF").val($(".l_interes").first().html());
+          if($(".l_plazo").first().html())$("#duracionF").val($(".l_plazo").first().html());
+          setSliders();
       }
      function setSliders(){
       var monto= $("#monto").val();
@@ -416,7 +400,21 @@
           var cuota= calcCuota(monto,interes,duracion);
           $(".cuotaSlider").html(numeral(cuota).format('0,0'));
         }
-      });              
+      });
+      if($(".user_id").attr("data-id")){                    
+        if($(".user_id").attr("data-id") != localStorage.id_u){
+          $(".btn-nego,.btn-aceptar").css('display','inline-block');
+        }else{
+          $(".btn-nego,.btn-aceptar").css('display','none');
+        }           
+      }else{
+        $(".btn-nego,.btn-aceptar").css('display','inline-block');
+      }
+      if(interes&&duracion){
+        $(".btn-action-bussines").show();
+      }else{        
+        location.reload();
+      }
     }
 function getHeaderOffert(id_ofert){
          $.ajax({
@@ -466,7 +464,7 @@ function getHeaderOffert(id_ofert){
                   $("#destination_b").val(value.destination);                  
                   $("#plazo_b").val(duracion);
                   $("#offer_b").val(id_ofert);
-                  $("#inv_b").val(localStorage.id_u);                  
+                  $("#inv_b").val(localStorage.id_u);
                 });                
               }
             }

@@ -30,7 +30,9 @@
       </ul>
     </div>
   </nav>
-
+  <div class="progress">
+    <div class="indeterminate"></div>
+  </div> 
   <div class="wrapper">
     <div class="container box-messages">
       <div class="row">
@@ -59,146 +61,146 @@
                 <div class="col s5 right-align">                                 
                   <h3 class="amount"></h3>
                   <p><small>Pago Mensual: <span class="cuota"></span><br/><b>Pago Total: <span class="pago_total"></span></small></p>                    
-                </div>  
-                <div class="col s12">
-                  <input id="inv_b" name="inv_b" type="hidden" value="">
-                  <input id="prest_b" name="prest_b" type="hidden" value="">                  
-                  <input id="total_b" name="total_b" type="hidden" value="">
-                  <input id="quota_b" name="quota_b" type="hidden" value="">
-                  <input id="interes_b" name="interes_b" type="hidden" value="">
-                  <input id="plazo_b" name="plazo_b" type="hidden" value="">
-                  <input id="destination_b" name="destination_b" type="hidden" value="">
-                  <input id="offer_b" name="offer_b" type="hidden" value="">
-                  <hr style="width: 90%">
-                </div>
-              </div>                     
+                  </div>  
+                  <div class="col s12">
+                    <input id="inv_b" name="inv_b" type="hidden" value="">
+                    <input id="prest_b" name="prest_b" type="hidden" value="">                  
+                    <input id="total_b" name="total_b" type="hidden" value="">
+                    <input id="quota_b" name="quota_b" type="hidden" value="">
+                    <input id="interes_b" name="interes_b" type="hidden" value="">
+                    <input id="plazo_b" name="plazo_b" type="hidden" value="">
+                    <input id="destination_b" name="destination_b" type="hidden" value="">
+                    <input id="offer_b" name="offer_b" type="hidden" value="">
+                    <hr style="width: 90%">
+                  </div>
+                </div>                     
+              </div>
             </div>
+
+          </div>                     
+        </div>
+        <div class="chat"></div>
+        <div class="clear"></div> 
+      </div>                         
+
+      <div class="box-businnes"> 
+        <div class="btn-action-bussines">
+          <a href="#modal3" class="btn-nego">Negociar</a>
+          <a href="#!" class="btn-aceptar">Aceptar</a>        
+        </div>
+        <div class="info-money">
+          <strong class="negociaciones"></strong>
+        </div> 
+      </div>                                                                                
+
+    </div>         
+
+    <!-- Modal Structure Load -->
+    <div id="modal3" class="modal">
+      <a href="#!" class="modal-action modal-close"><i class="material-icons close">close</i></a>
+      <div class="modal-content content-done valign-wrapper">  
+        <div class="row content-modal">            
+          <div class="col s12">
+            <p>&nbsp;</p>
+            <p>Configura las nuevas características para renegociar tu inversión.</p>
+            <p>&nbsp;</p>
+            <div class="card-panel white">
+              <p class="range-field"><div id="interest"></div></p> 
+              <input type="hidden" id="monto" name="monto" value="">
+              <input type="hidden" id="interes" name="interes" value="">             
+              <input type="hidden" id="interesF" name="interesF" value="">
+              <div class="clear"></div>
+              <h5 class="left"><small>Interes:</small> <strong>0,8 - 2,3 % E.M.</strong></h5>
+              <p>&nbsp;</p>
+            </div>
+            
+            <div class="card-panel white">
+              <p class="range-field"><div id="duration"></div></p>
+              <input type="hidden" id="duracion" name="duracion" value=""> 
+              <input type="hidden" id="duracionF" name="duracionF" value="">
+              <div class="clear"></div> 
+              <h5 class="left"><small>Duración:</small> <strong>0 - 12 Meses</strong></h5>  
+              <p>&nbsp;</p>
+            </div>         
+
           </div>
 
-        </div>                     
-      </div>
-      <div class="chat"></div>
-      <div class="clear"></div> 
-    </div>                         
-
-    <div class="box-businnes"> 
-      <div class="btn-action-bussines">
-        <a href="#modal3" class="btn-nego">Negociar</a>
-        <a href="#!" class="btn-aceptar">Aceptar</a>        
-      </div>
-      <div class="info-money">
-        <strong class="negociaciones"></strong>
-      </div> 
-    </div>                                                                                
-
-  </div>         
-
-  <!-- Modal Structure Load -->
-  <div id="modal3" class="modal">
-    <a href="#!" class="modal-action modal-close"><i class="material-icons close">close</i></a>
-    <div class="modal-content content-done valign-wrapper">  
-      <div class="row content-modal">            
-        <div class="col s12">
-          <p>&nbsp;</p>
-          <p>Configura las nuevas características para renegociar tu inversión.</p>
-          <p>&nbsp;</p>
-          <div class="card-panel white">
-            <p class="range-field"><div id="interest"></div></p> 
-            <input type="hidden" id="monto" name="monto" value="">
-            <input type="hidden" id="interes" name="interes" value="">             
-            <input type="hidden" id="interesF" name="interesF" value="">
-            <div class="clear"></div>
-            <h5 class="left"><small>Interes:</small> <strong>0,8 - 2,3 % E.M.</strong></h5>
-            <p>&nbsp;</p>
+          <div class="col s12 center payment-month">
+            <p>Pago (mes)</p>
+            <h2>$<span class="cuotaSlider"></span></h2>
           </div>
-          
-          <div class="card-panel white">
-            <p class="range-field"><div id="duration"></div></p>
-            <input type="hidden" id="duracion" name="duracion" value=""> 
-            <input type="hidden" id="duracionF" name="duracionF" value="">
-            <div class="clear"></div> 
-            <h5 class="left"><small>Duración:</small> <strong>0 - 12 Meses</strong></h5>  
-            <p>&nbsp;</p>
-          </div>         
 
+          <div class="col s12 center margin-top-40 btn-register">
+            <a class="waves-effect waves-light green accent-4 btn-large negociar">Negociar</a>
+          </div>                    
         </div>
+      </div>  
+    </div>
 
-        <div class="col s12 center payment-month">
-          <p>Pago (mes)</p>
-          <h2>$<span class="cuotaSlider"></span></h2>
-        </div>
-
-        <div class="col s12 center margin-top-40 btn-register">
-          <a class="waves-effect waves-light green accent-4 btn-large negociar">Negociar</a>
-        </div>                    
+    <!-- Modal Structure Agree -->
+    <div id="info2" class="modal">
+      <div class="modal-content">
+        <h4>Adcionar Favoritos</h4>
+        <p>La negociación ha sido adicionada a favoritos.</p>
+      </div>
+      <div class="modal-footer">
+        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Aceptar</a>
       </div>
     </div>  
-  </div>
+    <div id="modal4" class="modal">
+      <a href="#!" class="modal-action modal-close"><i class="material-icons close">close</i></a>
+      <div class="modal-content content-done valign-wrapper">            
+        <div class="container">                
+          <div class="icon-donde"><i class="material-icons done">done</i></div>
+          <h4>En hora buena!</h4>
+          <p>Trato aceptado con <span class="negociando-con"></span></p>
+          <hr>
+          <div class="row">
+            <div class="col s8"> 
+              <div class="info-nego left-align"> 
+                <p><span class="destination"></span></p> 
+              </div>                                                           
+            </div> 
+            <div class="col s4 right-align">                           
+              <p><strong><small>Pago Mensual: </small><br>
+                $<span class="f_cuota"></span></strong></p>              
+              </div> 
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="modal5" class="modal">
+        <a href="#!" class="modal-action modal-close"><i class="material-icons close">close</i></a>
+        <div class="modal-content content-done valign-wrapper">            
+          <div class="card-panel grey lighten-5 z-depth-1"> 
+            <div class="container">  
+              <div class="row">
+                <div class="col s9 m8 l10 left-align">
+                  <a href="#!">
+                    <h4 class="margin-bottom-0 negociando-con"></h4>
+                  </a>
+                  <div class="star-user"></div>
+                </div>
+              </div> 
 
-  <!-- Modal Structure Agree -->
-  <div id="info2" class="modal">
-    <div class="modal-content">
-      <h4>Adcionar Favoritos</h4>
-      <p>La negociación ha sido adicionada a favoritos.</p>
-    </div>
-    <div class="modal-footer">
-      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Aceptar</a>
-    </div>
-  </div>  
-  <div id="modal4" class="modal">
-    <a href="#!" class="modal-action modal-close"><i class="material-icons close">close</i></a>
-    <div class="modal-content content-done valign-wrapper">            
-      <div class="container">                
-        <div class="icon-donde"><i class="material-icons done">done</i></div>
-        <h4>En hora buena!</h4>
-        <p>Trato aceptado con <span class="negociando-con"></span></p>
-        <hr>
-        <div class="row">
-          <div class="col s8"> 
-            <div class="info-nego left-align"> 
-              <p><span class="destination"></span></p> 
-            </div>                                                           
-          </div> 
-          <div class="col s4 right-align">                           
-            <p><strong><small>Pago Mensual: </small><br>
-              $<span class="f_cuota"></span></strong></p>              
+              <div class="row">
+                <div class="col s12 center">                                   
+                  <div class="divider"></div>
+                  <div class="row">
+                    <div class="col s12 left-align">
+                     <p class="grey-text center-align">Comentarios</p>
+                     <div class="getComments"></div>
+                     <p class="center-align more-comments">
+                      <a class="grey-text" href="#" class="show-comments">Ver todos los comentarios</a>
+                    </p>
+                  </div>                                   
+                </div>                                                                                                     
+              </div>
             </div> 
           </div>
         </div>
       </div>
-    </div>
-    <div id="modal5" class="modal">
-      <a href="#!" class="modal-action modal-close"><i class="material-icons close">close</i></a>
-      <div class="modal-content content-done valign-wrapper">            
-        <div class="card-panel grey lighten-5 z-depth-1"> 
-          <div class="container">  
-            <div class="row">
-              <div class="col s9 m8 l10 left-align">
-                <a href="#!">
-                  <h4 class="margin-bottom-0 negociando-con"></h4>
-                </a>
-                <div class="star-user"></div>
-              </div>
-            </div> 
-
-            <div class="row">
-              <div class="col s12 center">                                   
-                <div class="divider"></div>
-                <div class="row">
-                  <div class="col s12 left-align">
-                   <p class="grey-text center-align">Comentarios</p>
-                   <div class="getComments"></div>
-                   <p class="center-align more-comments">
-                    <a class="grey-text" href="#" class="show-comments">Ver todos los comentarios</a>
-                  </p>
-                </div>                                   
-              </div>                                                                                                     
-            </div>
-          </div> 
-        </div>
-      </div>
-    </div>
-  </div>      
+    </div>      
 
     <footer class="page-footer">
       <div class="footer-copyright">
@@ -247,24 +249,24 @@
           dataType:'JSON',
           success: function(msg){  
             if(msg.status){
-                $.ajax({
-                  type: "POST",
-                  url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
-                  data: "action=setPaysxBusiness&fecha="+localStorage.fecha+"&prest="+$("#prest_b").val()+"&monto="+$("#total_b").val()+"&quota_b="+$("#quota_b").val()+"&tasa1="+$("#interes_b").val()+"&meses="+$("#plazo_b").val()+"&id_b="+msg.id_b,
-                  dataType:'JSON',
-                  success: function(msg){
-                    if(msg.status){
-                      var obj = jQuery.parseJSON ( getOnline($("#prest_b").val()) );
-                      if(obj.online=="0"){
-                        sendPushMessage(obj.pushtoken,"Aceptación de negociación en el sistema BankU.");
-                        }else{                        
-                        var data = {page:"11_EarningsStep2.html?section=mis_ganancias&user="+localStorage.user_u+"&banco="+localStorage.banco+"&cuenta="+localStorage.cuenta+"&tipo_cuenta="+localStorage.tipo_cuenta+"&monto="+$("#total_b").val()+"&cuota="+$("#quota_b").val()+"&duracion="+$("#plazo_b").val()+"&id_b="+msg.id_b+"&msg=aceptada",action:"new_business",id_u:$("#inv_b").val()};                    
-                        socket.emit('setOffert', data);                          
-                        }                                 
-                      setTimeout(function(){ $('#modal4').modal('close');window.location.href = "12_PaymentsStep1.html?section=mis_pagos"; }, 1500);              
-                    }
+              $.ajax({
+                type: "POST",
+                url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
+                data: "action=setPaysxBusiness&fecha="+localStorage.fecha+"&prest="+$("#prest_b").val()+"&monto="+$("#total_b").val()+"&quota_b="+$("#quota_b").val()+"&tasa1="+$("#interes_b").val()+"&meses="+$("#plazo_b").val()+"&id_b="+msg.id_b,
+                dataType:'JSON',
+                success: function(msg){
+                  if(msg.status){
+                    var obj = jQuery.parseJSON ( getOnline($("#prest_b").val()) );
+                    if(obj.online=="0"){
+                      sendPushMessage(obj.pushtoken,"Aceptación de negociación en el sistema BankU.");
+                    }else{                        
+                      var data = {page:"11_EarningsStep2.html?section=mis_ganancias&user="+localStorage.user_u+"&banco="+localStorage.banco+"&cuenta="+localStorage.cuenta+"&tipo_cuenta="+localStorage.tipo_cuenta+"&monto="+$("#total_b").val()+"&cuota="+$("#quota_b").val()+"&duracion="+$("#plazo_b").val()+"&id_b="+msg.id_b+"&msg=aceptada",action:"new_business",id_u:$("#inv_b").val()};                    
+                      socket.emit('setOffert', data);                          
+                    }                                 
+                    setTimeout(function(){ $('#modal4').modal('close');window.location.href = "12_PaymentsStep1.html?section=mis_pagos"; }, 1500);              
                   }
-                });             
+                }
+              });             
             }
           }
         });
@@ -329,48 +331,37 @@
         }
       }); 
 
-      if(id_ofert){        
-        getOffersTemp(id_ofert);
-        getHeaderOffert(id_ofert);      
-        $(".btn-action-bussines").hide();      
-        setTimeout(function(){          
-          setSliders();
-        },3000);
+      if(id_ofert){
+        getHeaderOffert(id_ofert);
+        getOffersTemp(id_ofert);     
+        $(".btn-action-bussines").hide();
       }              
     })
-      function setValues(){        
-        if($(".l_interes").first().html())$("#interesF").val($(".l_interes").first().html());
-        if($(".l_plazo").first().html())$("#duracionF").val($(".l_plazo").first().html());
-        var user_id= $(".user_id").attr("data-id");
-        if($(".user_id").attr("data-id")){
-          alert(user_id);
-          if(user_id != localStorage.id_u){
-            $(".btn-nego,.btn-aceptar").css('display','inline-block');
-          }            
-        }else{
-          $(".btn-nego,.btn-aceptar").css('display','inline-block');
-        }
-      }
-     function setSliders(){
-      var monto= $("#monto").val();
-      var interes= $("#interes").val();
-      if($("#interesF").val()!=""){
-        interes= $("#interesF").val();
-        $(".interest").html(interes+"% | ");
-      }
-      console.log(interes);
-      var duracion= $("#duracion").val();
-      if($("#duracionF").val()!=""){
-        duracion= $("#duracionF").val();
-        $(".duration").html(duracion+" Meses");
-      }
-      console.log(duracion);
-      var cuota= calcCuota(monto,interes,duracion);
+function setValues(){        
+  if($(".l_interes").first().html())$("#interesF").val($(".l_interes").first().html());
+  if($(".l_plazo").first().html())$("#duracionF").val($(".l_plazo").first().html());
+  setSliders();
+}
+function setSliders(){
+  var monto= $("#monto").val();
+  var interes= $("#interes").val();
+  if($("#interesF").val()!=""){
+    interes= $("#interesF").val();
+    $(".interest").html(interes+"% | ");
+  }
+  console.log(interes);
+  var duracion= $("#duracion").val();
+  if($("#duracionF").val()!=""){
+    duracion= $("#duracionF").val();
+    $(".duration").html(duracion+" Meses");
+  }
+  console.log(duracion);
+  var cuota= calcCuota(monto,interes,duracion);
       //alert(monto+" "+interes +" "+duracion);
       $(".cuotaSlider").html(numeral(cuota).format('0,0'));
       //$(".cuota").html("$"+numeral(cuota).format('0,0'));
       //$(".pago_total").html("$"+numeral(cuota * duracion).format('0,0'));
-        
+      
       var find = ["$","%","."];
       var replace = ['','',''];
       noUiSlider.create(interest, {
@@ -421,66 +412,75 @@
           $(".cuotaSlider").html(numeral(cuota).format('0,0'));
         }
       });
+      var user_id= $(".user_id").attr("data-id");
+      if($(".user_id").attr("data-id")){
+        alert(user_id);
+        if(user_id != localStorage.id_u){
+          $(".btn-nego,.btn-aceptar").css('display','inline-block');
+        }            
+      }else{
+        $(".btn-nego,.btn-aceptar").css('display','inline-block');
+      }      
       if(interes&&duracion){
         $(".btn-action-bussines").show();
       }else{        
         location.reload();
-      }              
+      }
     } 
-function getHeaderOffert(id_ofert){
-         $.ajax({
-            type: "POST",
-            url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
-            data: "action=getHeaderOffert&id_ofert="+id_ofert,
-            dataType:'JSON',
-            success: function(msg){    
-              if(msg.status&&msg.data){
-                $.each(msg.data, function( index, value ) {
-                var monto= parseInt(localStorage.amount);
-                var interes= parseFloat(value.interest2);
-                var duracion= parseInt(localStorage.duration);
-                if(localStorage.id_u==value.id_u){
-                  monto= parseInt(value.amount);
-                  interes= parseFloat(value.interest);
-                  $("#prest_b").val(localStorage.id_u);                 
-                }else{
-                  if(parseInt(localStorage.amount) > parseInt(value.amount2))monto= parseInt(value.amount2);
-                  if(parseInt(localStorage.duration)<parseInt(value.duration) || parseInt(localStorage.duration)>parseInt(value.duration2))duracion= parseInt(value.duration2);
-                }
-                
-                  if(localStorage.id_u!=value.id_u){
-                    $(".negociando-con").html(value.user_u);
-                    $("#inv_b").val(value.id_u);
-                    $(".avatar-nego").hide();                    
-                    $("#prest_b").val(localStorage.id_u);                             
-                  }
-                  $(".nombre-user").html(value.user_u); 
-                  var starts= getStarts(value.calification2_u);
-                  $(".star-user").html(starts);
-                  
-                  var calification= value.calification;
-                                   
-                  if(localStorage.type_user!="prestatario"&&value.ldestination)$(".destination").html(value.ldestination+'<br>');
-                  var cuota= calcCuota(monto,interes,duracion);
-                  $(".interest").html(interes+'% | ');
-                  $(".duration").html(duracion+' Meses');
-                  $(".amount").html("$"+numeral(monto).format('0,0'));
-                  $(".cuota").html("$"+numeral(cuota).format('0,0'));
-                  $(".pago_total").html("$"+numeral(cuota * duracion).format('0,0'));
-                  $("#monto").val(monto);
-                  $("#interes").val(interes);
-                  $("#duracion").val(duracion);
-                  $("#total_b").val(monto);
-                  $("#quota_b").val(cuota);
-                  $("#destination_b").val(value.destination);                  
-                  $("#interes_b").val(interes);
-                  $("#plazo_b").val(duracion);
-                  $("#offer_b").val(id_ofert);                                     
-                });
-              }
+    function getHeaderOffert(id_ofert){
+     $.ajax({
+      type: "POST",
+      url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
+      data: "action=getHeaderOffert&id_ofert="+id_ofert,
+      dataType:'JSON',
+      success: function(msg){    
+        if(msg.status&&msg.data){
+          $.each(msg.data, function( index, value ) {
+            var monto= parseInt(localStorage.amount);
+            var interes= parseFloat(value.interest2);
+            var duracion= parseInt(localStorage.duration);
+            if(localStorage.id_u==value.id_u){
+              monto= parseInt(value.amount);
+              interes= parseFloat(value.interest);
+              $("#prest_b").val(localStorage.id_u);                 
+            }else{
+              if(parseInt(localStorage.amount) > parseInt(value.amount2))monto= parseInt(value.amount2);
+              if(parseInt(localStorage.duration)<parseInt(value.duration) || parseInt(localStorage.duration)>parseInt(value.duration2))duracion= parseInt(value.duration2);
             }
-          });  
-}                 
-  </script>
+            
+            if(localStorage.id_u!=value.id_u){
+              $(".negociando-con").html(value.user_u);
+              $("#inv_b").val(value.id_u);
+              $(".avatar-nego").hide();                    
+              $("#prest_b").val(localStorage.id_u);                             
+            }
+            $(".nombre-user").html(value.user_u); 
+            var starts= getStarts(value.calification2_u);
+            $(".star-user").html(starts);
+            
+            var calification= value.calification;
+            
+            if(localStorage.type_user!="prestatario"&&value.ldestination)$(".destination").html(value.ldestination+'<br>');
+            var cuota= calcCuota(monto,interes,duracion);
+            $(".interest").html(interes+'% | ');
+            $(".duration").html(duracion+' Meses');
+            $(".amount").html("$"+numeral(monto).format('0,0'));
+            $(".cuota").html("$"+numeral(cuota).format('0,0'));
+            $(".pago_total").html("$"+numeral(cuota * duracion).format('0,0'));
+            $("#monto").val(monto);
+            $("#interes").val(interes);
+            $("#duracion").val(duracion);
+            $("#total_b").val(monto);
+            $("#quota_b").val(cuota);
+            $("#destination_b").val(value.destination);                  
+            $("#interes_b").val(interes);
+            $("#plazo_b").val(duracion);
+            $("#offer_b").val(id_ofert);                                     
+          });
+        }
+      }
+    });  
+   }                 
+ </script>
 </body>
 </html>

@@ -18,9 +18,10 @@
   <div class="navbar-fixed nav-descktop"></div>
 
   <!--Nav Responsive-->
-  <nav class="nav-app menu_left">
-
-  </nav>
+  <nav class="nav-app menu_left"></nav>
+  <div class="progress">
+    <div class="indeterminate"></div>
+  </div>   
 
   <div class="wrapper">
     <div class="container">
@@ -104,29 +105,29 @@
     $(".offerts").html('');
     getOffertTemp();   
     $( ".negociar-todos" ).click(function() {
-        var offerts= [];
-        $.each($(".btn-negociar"), function( index, value ) {
-          offerts.push($(this).attr("id"));
-        });
-        $.ajax({
-            type: "POST",
-            url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
-            data: "action=negociar_todos&id_user="+localStorage.id_u+"&offerts="+offerts,
-            dataType:'JSON',
-            success: function(msg){
-                $(".progress").show();
-                $('#modal3').modal('open');
-                setTimeout(function(){ $('#modal3').modal('close');window.location.href = "11_EarningsStep1.html?section=mis_ganancias"; }, 2000);
-                Materialize.toast('Datos guardados exitosamente', 3000, 'rounded');
-            },
-            error: function(XMLHttpRequest, textStatus, errorThrown) { 
-                alert("Problemas procesando datos: " + textStatus +" - "+errorThrown);
-            }
-        });              
+      var offerts= [];
+      $.each($(".btn-negociar"), function( index, value ) {
+        offerts.push($(this).attr("id"));
+      });
+      $.ajax({
+        type: "POST",
+        url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
+        data: "action=negociar_todos&id_user="+localStorage.id_u+"&offerts="+offerts,
+        dataType:'JSON',
+        success: function(msg){
+          $(".progress").show();
+          $('#modal3').modal('open');
+          setTimeout(function(){ $('#modal3').modal('close');window.location.href = "11_EarningsStep1.html?section=mis_ganancias"; }, 2000);
+          Materialize.toast('Datos guardados exitosamente', 3000, 'rounded');
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) { 
+          alert("Problemas procesando datos: " + textStatus +" - "+errorThrown);
+        }
+      });              
     });    
     getOfferts();                     
   });
-function getOfferts(){
+   function getOfferts(){
   //Vars personales  
   var amount= parseInt(localStorage.amount);
   var amount2= parseInt(localStorage.amount2); 
@@ -134,27 +135,28 @@ function getOfferts(){
   var interest2= parseFloat(localStorage.interest2);       
   var duration= parseInt(localStorage.duration);
   var duration2= parseInt(localStorage.duration2)
-   
-   if(amount!="0"&&amount2!="0"){
-     $.ajax({
-        type: "POST",
-        url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
-        data: "action=getConfigOffersInv&status=0&search=true&amount="+amount+"&amount2="+amount2+"&interest="+interest+"&interest2="+interest2+"&duration="+duration+"&duration2="+duration2+"&id_u="+localStorage.id_u+"&type_user="+localStorage.type_user,
-        dataType:'JSON',
-        success: function(msg){           
-          if(msg.status&&msg.data&&msg.data.length>0){                   
-            $.each(msg.data, function( index, value ) {
-              var starts= getStarts(value.calification2_u);
-              var cuota= calcCuota(value.amount,value.interest,value.duration);
-              var pago_total= "$"+numeral((cuota * value.duration)).format('0,0');
-              $(".offerts").append('<div class="col s12 m6">  <div class="box-proyect"><div class="info-proyect"><div class="row"><div class="col s7"> <h5>'+value.user_u+'</h5></div>   <div class="col s12"> <hr><p>'+value.ldestination+'<br>% '+value.interest+'  |  '+value.duration+' Meses</p> <div class="star-user">'+starts+'</div></div></div> </div><div class="desc-proyect">  <h3>$'+numeral(value.amount).format('0,0')+'</h3>  <p><small>Recibo Mensual: $'+numeral(cuota).format('0,0')+'<br/><b>Recibo Total: <span>'+pago_total+'</span></b></small></p>  <a href="08_InvestmentsStep4.html?id_ofert='+value.id+'&prest='+value.id_u+'" class="btn-negociar" id="'+value.id+'">Negociar</a></div></div>  </div>');
-            });
-            $(".negociar-todos").css("display","block");
-          }
-        }
-      }); 
-   }
-   setTimeout(function(){ if($(".box-proyect").length==0)$(".offerts").html('<p class="center"><small>No existen negociaciones disponibles</small></p>'); }, 2000); 
+  
+  if(amount!="0"&&amount2!="0"){
+   $.ajax({
+    type: "POST",
+    url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
+    data: "action=getConfigOffersInv&status=0&search=true&amount="+amount+"&amount2="+amount2+"&interest="+interest+"&interest2="+interest2+"&duration="+duration+"&duration2="+duration2+"&id_u="+localStorage.id_u+"&type_user="+localStorage.type_user,
+    dataType:'JSON',
+    success: function(msg){           
+      if(msg.status&&msg.data&&msg.data.length>0){                   
+        $.each(msg.data, function( index, value ) {
+          var starts= getStarts(value.calification2_u);
+          var cuota= calcCuota(value.amount,value.interest,value.duration);
+          var pago_total= "$"+numeral((cuota * value.duration)).format('0,0');
+          $(".offerts").append('<div class="col s12 m6">  <div class="box-proyect"><div class="info-proyect"><div class="row"><div class="col s7"> <h5>'+value.user_u+'</h5></div>   <div class="col s12"> <hr><p>'+value.ldestination+'<br>% '+value.interest+'  |  '+value.duration+' Meses</p> <div class="star-user">'+starts+'</div></div></div> </div><div class="desc-proyect">  <h3>$'+numeral(value.amount).format('0,0')+'</h3>  <p><small>Recibo Mensual: $'+numeral(cuota).format('0,0')+'<br/><b>Recibo Total: <span>'+pago_total+'</span></b></small></p>  <a href="08_InvestmentsStep4.html?id_ofert='+value.id+'&prest='+value.id_u+'" class="btn-negociar" id="'+value.id+'">Negociar</a></div></div>  </div>');
+        });
+        $(".no_record").hide();
+        $(".negociar-todos").css("display","block");
+      }
+    }
+  }); 
+ }
+ setTimeout(function(){ if($(".box-proyect").length==0)$(".offerts").html('<p class="center no_record"><small>No existen negociaciones disponibles</small></p>'); }, 2000); 
 }
 function getOffertTemp(){
   $.ajax({

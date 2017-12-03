@@ -26,7 +26,9 @@
       </ul>
     </div>
   </nav>
-
+  <div class="progress">
+    <div class="indeterminate"></div>
+  </div> 
 
   <div class="wrapper">
     <div class="container">
@@ -176,7 +178,7 @@
       getScroll();
       $('#comentarios').trigger('autoresize');
       var id_b=getUrlParameter("id_b");
-       $( ".qualify-star li a i" ).click(function() {
+      $( ".qualify-star li a i" ).click(function() {
         $( ".qualify-star li a i" ).css("color","#dedede");
         var id= $(this).attr("id").split("start");
         $("#calificacion").val(id[1]);
@@ -185,33 +187,33 @@
         }
         $(this).css("color","#ffd600");
       });
-     $( ".comentar" ).click(function() {
-      var comentarios=$("#comentarios").val();
-      if(comentarios!=""){
-        var id_b= getUrlParameter("id_b");
-        var to_u= $("#to_u").val();
-        var rate= $("#calificacion").val();
-        $.ajax({
-          type: "POST",
-          url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
-          data: "action=setCalifications&from_u="+localStorage.id_u+"&to_u="+to_u+"&id_b="+id_b+"&rate="+rate+"&comments="+comentarios,
-          dataType:'JSON',
-          success: function(msg){
-            if(msg.status==200){                                                   
-              $("#comentarios").val('');
-              $("#comentarios").removeClass("error");
-              $('#info2').modal('open',{
-                dismissible: true,
-                complete: function() { location.reload(); }
+      $( ".comentar" ).click(function() {
+        var comentarios=$("#comentarios").val();
+        if(comentarios!=""){
+          var id_b= getUrlParameter("id_b");
+          var to_u= $("#to_u").val();
+          var rate= $("#calificacion").val();
+          $.ajax({
+            type: "POST",
+            url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
+            data: "action=setCalifications&from_u="+localStorage.id_u+"&to_u="+to_u+"&id_b="+id_b+"&rate="+rate+"&comments="+comentarios,
+            dataType:'JSON',
+            success: function(msg){
+              if(msg.status==200){                                                   
+                $("#comentarios").val('');
+                $("#comentarios").removeClass("error");
+                $('#info2').modal('open',{
+                  dismissible: true,
+                  complete: function() { location.reload(); }
+                }
+                );
               }
-              );
             }
-          }
-        });
-      }else{
-        $("#comentarios").addClass("error");
-      }
-    });
+          });
+        }else{
+          $("#comentarios").addClass("error");
+        }
+      });
 
 
                 //Obtener datos generales
