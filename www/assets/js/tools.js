@@ -54,6 +54,7 @@ $( document ).ready(function(){
             if(msg.page&&msg.page!=""&&msg.action){
               if(msg.action=="new_offer_inv"&&amount>0&&amount>=monto&&amount<=monto2&&duration>=duracion&&duration<=duracion2&&Math.round(interest * 100)>=Math.round(interes * 100)&&Math.round(interest * 100)<=Math.round(interes2 * 100)){                
                 navigator.vibrate([1200]);
+                sendNotification();
                 window.location.href = msg.page+"&rand="+rand;
               }                
             }
@@ -70,6 +71,7 @@ $( document ).ready(function(){
               if(msg.action=="new_offer_prest" && (monto >= amount && monto <= amount2) && (duracion >= duration && duracion <= duration2) && (Math.round(interes * 100) >= Math.round(interest * 100) && Math.round(interes * 100) <= Math.round(interest2 * 100))){
                       //alert("Redirigir"+msg.page);
                       navigator.vibrate([1200]);
+                      sendNotification();
                       window.location.href = msg.page+"&rand="+rand;
                     }
                     if(msg.action=="del_offert"&&localStorage.id_u==msg.id_u){                    
