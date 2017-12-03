@@ -4,7 +4,7 @@ function onDeviceReady() {
     checkConnection();    
     getDeviceProperty();
     initPushwoosh();
-    cordova.plugins.notification.badge;         
+    cordova.plugins.notification.badge.configure({ autoClear: true });      
   }
   function getDeviceProperty() {
     console.log("getDeviceProperty");    
@@ -62,7 +62,6 @@ function onDeviceReady() {
   );  
 }
 function sendNotification(){
-  cordova.plugins.notification.badge.configure({ autoClear: true });
   cordova.plugins.notification.badge.set(1);  
 }
 function registerLog(log){
