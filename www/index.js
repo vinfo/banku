@@ -3,7 +3,8 @@ document.addEventListener("pause", onPause, false);
 function onDeviceReady() {    
     checkConnection();    
     getDeviceProperty();
-    initPushwoosh();         
+    initPushwoosh();
+    cordova.plugins.notification.badge;        
   }
   function getDeviceProperty() {
     console.log("getDeviceProperty");    
@@ -61,7 +62,7 @@ function onDeviceReady() {
   );  
 }
 function sendNotification(){
-  cordova.plugins.notification.badge.set(1);  
+  cordova.plugins.notification.badge.set(1);
 }
 function registerLog(log){
   console.log(log);
