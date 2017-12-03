@@ -119,6 +119,7 @@
       success: function(msg){
         if(msg.status&&msg.data&&msg.data.length>0&&msg.hasOffers){          
           $(".offerts").html('');
+          var cont=0;
           $.each(msg.data, function( index, value ) {
             var starts= getStarts(value.calification2_u);
             var monto= parseInt(localStorage.amount);
@@ -129,7 +130,10 @@
 
             var cuota= calcCuota(monto,interes,duracion);
             var total= cuota * duracion;
-            $(".offerts").append('<div class="col s12 m6"><div class="box-proyect"><div class="info-proyect"><div class="row"><div class="col s7"> <h5>'+value.user_u+'</h5></div><div class="col s12"> <hr><p><br>% '+interes+'  |  '+duracion+' Meses</p> <div class="star-user">'+starts+'</div> </div></div></div><div class="desc-proyect"><h3>$'+numeral(monto).format('0,0')+'</h3><p><small>Pago Mensual: $'+numeral(cuota).format('0,0')+'<br/>Pago Total: $'+numeral(total).format('0,0')+'</small></p>  <a href="10_LoansStep4.html?section=solicitar_dinero&id_ofert='+value.id+'" class="btn-negociar">Negociar</a></div></div></div>');
+            if(cont==0){
+              $(".offerts").append('<div class="col s12 m6"><div class="box-proyect"><div class="info-proyect"><div class="row"><div class="col s7"> <h5>'+value.user_u+'</h5></div><div class="col s12"> <hr><p><br>% '+interes+'  |  '+duracion+' Meses</p> <div class="star-user">'+starts+'</div> </div></div></div><div class="desc-proyect"><h3>$'+numeral(monto).format('0,0')+'</h3><p><small>Pago Mensual: $'+numeral(cuota).format('0,0')+'<br/>Pago Total: $'+numeral(total).format('0,0')+'</small></p>  <a href="10_LoansStep4.html?section=solicitar_dinero&id_ofert='+value.id+'" class="btn-negociar">Negociar</a></div></div></div>');
+            } 
+            cont++;
           });
         }
       }
