@@ -61,7 +61,6 @@ function onDeviceReady() {
   );  
 }
 function sendNotification(){
-  cordova.plugins.notification.badge.configure({ autoClear: true }); 
   cordova.plugins.notification.badge.set(1);  
 }
 function registerLog(log){
