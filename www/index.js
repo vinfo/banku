@@ -4,8 +4,7 @@ function onDeviceReady() {
     checkConnection();    
     getDeviceProperty();
     initPushwoosh();
-    cordova.plugins.notification.badge;
-    cordova.plugins.notification.badge.clear();      
+    cordova.plugins.notification.badge;         
   }
   function getDeviceProperty() {
     console.log("getDeviceProperty");    
@@ -46,7 +45,7 @@ function onDeviceReady() {
 
   function initPushwoosh() {
    var pushNotification = cordova.require("pushwoosh-cordova-plugin.PushNotification");
-  
+   cordova.plugins.notification.badge.clear();  
   // Initialize Pushwoosh. This will trigger all pending push notifications on start.
   pushNotification.onDeviceReady({
     appid: "4B708-1B8C1",
