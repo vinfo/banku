@@ -22,6 +22,7 @@ function onDeviceReady() {
       localStorage.setItem("login","true");
   }
   function onResume() {
+      cordova.plugins.notification.badge.configure({ autoClear: true });
       cordova.plugins.notification.badge.clear();
   }  
   function checkConnection() {
