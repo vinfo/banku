@@ -21,10 +21,12 @@ function onDeviceReady() {
   function onPause() {
       localStorage.setItem("login","true");
       cordova.plugins.notification.badge.clear();
+      console.log("Pausa");
   }
   function onResume() {
       cordova.plugins.notification.badge.configure({ autoClear: true });
       cordova.plugins.notification.badge.clear();
+      console.log("Resumen");
   }  
   function checkConnection() {
     console.log("checkConnection");
