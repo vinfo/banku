@@ -20,6 +20,7 @@ function onDeviceReady() {
   }
   function onPause() {
       localStorage.setItem("login","true");
+      cordova.plugins.notification.badge.clear();
   }
   function onResume() {
       cordova.plugins.notification.badge.configure({ autoClear: true });
