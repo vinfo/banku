@@ -14,7 +14,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
 
-<body class="profile">
+<body class="profile" oncontextmenu="return false">
   <!--Nav Main-->
   <div class="navbar-fixed nav-descktop"></div>
 
@@ -519,6 +519,7 @@
       <div class="container">
         © 2017 BankU
       </div>
+      <input type="hidden" id="config" name="config" value="">
     </div>
   </footer>
 
@@ -544,6 +545,8 @@
   <script type="text/javascript" src="assets/js/numeral.min.js"></script>
   <script type="text/javascript" src="assets/js/jquery.mask.min.js"></script>
   <script type="text/javascript" src="assets/js/numeral.min.js"></script>
+  <script type="text/javascript" src="assets/js/CryptoJS/aes.js"></script>
+  <script type="text/javascript" src="assets/js/CryptoJS/aes-json-format.js"></script>   
   <script src="assets/js/socket.io.js"></script>
   <script type="text/javascript" src="assets/js/tools.js?v=1.0.0"></script>
   <script type="text/javascript" src="assets/js/includes.js?v=1.0.0"></script>
@@ -551,12 +554,12 @@
   <script type="text/javascript" src="assets/js/select2.full.min.js"></script>
   <script type="text/javascript">   
    $( document ).ready(function(){
-    getProfesions();
+    getProfesions();       
     $('.tooltipped').tooltip({delay: 50});
     $( ".terminos" ).load( "includes/terminos.html", function() {
       $.ajax({
         type:"GET",
-        url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
+        url: "https://bankucolombia.com/lib/ajax_service_mobil.php",
         data: "action=getContent&id=7",
         dataType:'JSON',
         success: function(msg){
@@ -602,7 +605,7 @@
                         });
     getStates();
     getFullUserData();
-  
+
     $(document).on('change', '#type_f,#name_f', function() {
       var extensiones_permitidas = new Array(".jpg",".jpeg",".pdf",".doc",".docx");
       var type_f= $("#type_f").val();
@@ -643,7 +646,7 @@
       }
     });
     $( "#state_u" ).change(function() {
-      getCities();
+      getCities(0);
       $('#city_u').select2();
       $(".lbl-city_u").css("transform","translateY(-140%)");
     });    
@@ -668,7 +671,7 @@
         if(pass1!=""&&pass2!=""&&pass3!=""&&pass2!=pass3){
           $.ajax({
             type: "POST",
-            url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
+            url: "https://bankucolombia.com/lib/ajax_service_mobil.php",
             data: "action=checkPass&pass="+pass3,
             success: function(msg){
               if(msg!=pass2){
@@ -681,7 +684,7 @@
               }
             },
             error: function(XMLHttpRequest, textStatus, errorThrown) {
-              alert("Problemas procesando datos: " + textStatus +" - "+errorThrown);
+              console.log("Problemas procesando datos: " + textStatus +" - "+errorThrown);
             }
           });
         }else{
@@ -699,18 +702,20 @@
 function updateProfile(){
   $.ajax({
     type: "POST",
-    url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
-    data: $("#frm_register").serialize()+"&action=updateUserFull&id_u="+localStorage.id_u+"&type_user="+localStorage.type_user,
+    url: "https://bankucolombia.com/lib/ajax_service_mobil.php",
+    data: $("#frm_register").serialize()+"&action=updateUserFull&id_u="+encodeURIComponent(localStorage.data)+"&type_user="+localStorage.type_user,
     dataType:'JSON',
     success: function(msg){
+      var page="10_LoansStep2.html?section=mis_proyectos";
+      if(localStorage.type_user=="inversionista")page="08_InvestmentsStep2.html?section=mis_inversiones";
       $('#modal2').modal('open',{
         dismissible: true,
-        complete: function() { window.location.href = "08_InvestmentsStep1.html?section=mis_inversiones"; }
+        complete: function() { window.location.href = page; }
       }
       );
     },
     error: function(XMLHttpRequest, textStatus, errorThrown) {
-      alert("Problemas procesando datos: " + textStatus +" - "+errorThrown);
+      console.log("Problemas procesando datos: " + textStatus +" - "+errorThrown);
     }
   });
 }
@@ -731,7 +736,7 @@ function takePicture(){
       localStorage.setItem("foto",imageData);
       $.ajax({
         type: "POST",
-        url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
+        url: "https://bankucolombia.com/lib/ajax_service_mobil.php",
         data: "action=updateUser&id_u="+localStorage.id_u+"&cellphone_u="+$("#cellphone_u").val()+"&photo_u="+encodeURIComponent(imageData),
         dataType:'JSON',
         success: function(msg){
@@ -741,97 +746,98 @@ function takePicture(){
         }
       });
     }
- function cameraError(error){
-   console.log("Problemas Captura"+error);
- }
- function getProfesions(sel=''){
-   $.ajax({
-     url: "http://bankucolombia.com/lib/json/cargos.json?callback=jsonCallback",
-     success: function (data) {      
-       $.each(data, function( index, value ) {
-         $('#occupation_u').append($('<option>', { 
-           value: value.value,
-           text : value.label
-         }));
-       });
-     }
-   });
- }
- function delFileUser(id=''){
-      var conf=confirm("Desea borrar realmente el archivo seleccionado?");
-      if(conf){   
-        var file=id;
-        var name= file.split("_");
-        $(".c"+name[0]).remove();
-        $.ajax({
-         type: "POST",
-         url: "http://bankucolombia.com/lib/ajax_services.php",
-         data: "action=delFile&mobil=true&id="+localStorage.id_u+"&file="+file,
-         success: function(data){
-         }
-       });      
-      }
- }
-function comprueba_extension(id,archivo,extensiones_permitidas) {  
-  var mierror = "";
-  var tam= extensiones_permitidas.length;
-  if (!archivo) {  
-   mierror = "No has seleccionado ningún archivo"; 
-   return false;
-  }else{
+    function cameraError(error){
+     console.log("Problemas Captura"+error);
+   }
+   function getProfesions(sel=''){
+     $.ajax({
+       url: "https://bankucolombia.com/lib/json/cargos.json?callback=jsonCallback",
+       success: function (data) {      
+         $.each(data, function( index, value ) {
+           $('#occupation_u').append($('<option>', { 
+             value: value.value,
+             text : value.label
+           }));
+         });
+       }
+     });
+   }
+   function delFileUser(id=''){
+    var conf=confirm("Desea borrar realmente el archivo seleccionado?");
+    if(conf){   
+      var file=id;
+      var name= file.split("_");
+      $(".c"+name[0]).remove();
+      $.ajax({
+       type: "POST",
+       url: "https://bankucolombia.com/lib/ajax_service_mobil.php",
+       data: "action=delFile&mobil=true&id="+encodeURIComponent(localStorage.data)+"&file="+file,
+       success: function(data){
+       }
+     });      
+    }
+  }
+  function comprueba_extension(id,archivo,extensiones_permitidas) {  
+    var mierror = "";
+    var tam= extensiones_permitidas.length;
+    if (!archivo) {  
+     mierror = "No has seleccionado ningún archivo"; 
+     return false;
+   }else{
     var extension = (archivo.substring(archivo.lastIndexOf("."))).toLowerCase(); 
     var permitida = false; 
     for (var i = 0; i < tam; i++) { 
      if (extensiones_permitidas[i] == extension) { 
-     permitida = true; 
-     break; 
+       permitida = true; 
+       break; 
      } 
-    }    
-    if (!permitida) { 
+   }    
+   if (!permitida) { 
      mierror = "Comprueba la extensión de los archivos a subir. \nSólo se pueden subir archivos con extensiones: " + extensiones_permitidas.join();    
      $("#name_f").val("");  
-     alert (mierror); 
-    }else{        
-      tipo="documento";
-      $(".loading").html('Cargando archivo...');
-      if(tam==1){
-        tipo="foto";
-      }
-      var file_data = $("#name_f").prop('files')[0];   
-      var form_data = new FormData();                  
-      form_data.append('file', file_data);   
-      $.ajax({
-        url: "http://bankucolombia.com/lib/ajax_service_mobil.php?action=loadFile&id_u="+localStorage.id_u+"&id="+id+"&tipo="+tipo+"&type_f="+$("#type_f").val(),
-        dataType: 'text',
-        cache: false,
-        contentType: false,
-        processData: false,
-        data: form_data,                         
-        type: 'post',
-        success: function(response){
-          $(".loading").html('');
-          $("#name_f").val("");
-          $("#type_f").prop("selectedIndex", 0);
-          $('#type_f').material_select(); 
-          getUserFiles();
-        }
-       });       
+     alert (mierror);
+     return false;
+   }else{        
+    tipo="documento";
+    $(".loading").html('Cargando archivo...');
+    if(tam==1){
+      tipo="foto";
     }
+    var file_data = $("#name_f").prop('files')[0];   
+    var form_data = new FormData();                  
+    form_data.append('file', file_data);   
+    $.ajax({
+      url: "https://bankucolombia.com/lib/ajax_service_mobil.php?action=loadFile&id_u="+encodeURIComponent(localStorage.data)+"&id="+id+"&tipo="+tipo+"&type_f="+$("#type_f").val(),
+      dataType: 'text',
+      cache: false,
+      contentType: false,
+      processData: false,
+      data: form_data,                         
+      type: 'post',
+      success: function(response){
+        $(".loading").html('');
+        $("#name_f").val("");
+        $("#type_f").prop("selectedIndex", 0);
+        $('#type_f').material_select(); 
+        getUserFiles();
+      }
+    });       
   }
-  return false; 
 }
-function getUserFiles(){
-      $.ajax({
-        type: "POST",
-        url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
-        data: "action=getFilesUser&id_u="+localStorage.id_u,
-        dataType:'JSON',
-        success: function(msg){
-          if(msg.data!==null){
-            $(".filesUser ").html(msg.data);
-          }
-        }
-      });  
+return false; 
+}
+function getUserFiles(){  
+  $.ajax({
+    type: "POST",
+    url: "https://bankucolombia.com/lib/ajax_service_mobil.php",
+    data: "action=getFilesUser&id_u="+encodeURIComponent(localStorage.data),
+    dataType:'JSON',
+    success: function(msg){
+      if(msg.data!==null){
+        $(".filesUser ").html(msg.data);
+      }
+    }
+  });  
 }                              
 </script>
 </body>

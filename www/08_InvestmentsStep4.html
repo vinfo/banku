@@ -14,7 +14,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
 
-<body class="profile settings-investment">
+<body class="profile settings-investment" oncontextmenu="return false">
   <!--Nav Main-->
   <div class="navbar-fixed nav-descktop"></div>
 
@@ -61,7 +61,7 @@
                 </div> 
                 <div class="col s5 right-align">                                 
                   <h3 class="amount"></h3>
-                  <p><small>Recibo Mensual: <span class="cuota"></span><br/><b>Recibo Total: <span class="pago_total"></span></b></small></p>                    
+                  <p><small>Recibo Mensual: <span class="cuota"></span><br/><b>Recibo Total: <span class="pago_total"></span></b><br>Oferta #<span class="id_ofert"></span></small></p>                    
                 </div>  
                 <div class="col s12">
                   <input id="prest_b" name="prest_b" type="hidden" value="">
@@ -198,6 +198,7 @@
     <div class="container">
       © 2017 BankU                    
     </div>
+    <input type="hidden" id="config" name="config" value="">
   </div>
 </footer>           
 <script type="text/javascript" src="cordova.js"></script>
@@ -207,6 +208,8 @@
 <script type="text/javascript" src="assets/js/materialize.min.js"></script>
 <script type="text/javascript" src="assets/js/jquery.validate.min.js"></script>
 <script type="text/javascript" src="assets/js/numeral.min.js"></script>
+<script type="text/javascript" src="assets/js/CryptoJS/aes.js"></script>
+<script type="text/javascript" src="assets/js/CryptoJS/aes-json-format.js"></script>  
 <script src="assets/js/socket.io.js"></script>
 <script type="text/javascript" src="assets/js/tools.js?v=1.0.0"></script>         
 <script type="text/javascript" src="assets/js/includes.js?v=1.0.0"></script> 
@@ -216,19 +219,15 @@
  $( document ).ready(function(){     
   const socket = io('https://banku-services.herokuapp.com/');
   $('.tooltipped').tooltip({delay: 50});
-  $(".wrapper").show();
-  $(".interes1").html(localStorage.interes1);
-  $(".interes2").html(localStorage.interes2);
-  $(".duracion1").html(localStorage.duracion1);
-  $(".duracion2").html(localStorage.duracion2);          
+  $(".wrapper").show(); 
   var id_ofert= getUrlParameter("id_ofert");
+  $(".id_ofert").html(id_ofert);
   if(id_ofert){
     getHeaderOffert(id_ofert);
     getOffersTemp(id_ofert);
   } 
 
-  getFavorite(id_ofert,localStorage.id_u,localStorage.type_user);
-  $("#prest_b").val(localStorage.id_u);
+  getFavorite(id_ofert,encodeURIComponent(localStorage.data),localStorage.type_user);
 
   $( ".btn-aceptar" ).click(function() {
     $(".btn-action-bussines").hide();
@@ -244,10 +243,12 @@
     $(".durationF").html(duracion+" Meses");
     $(".pago_totalF").html("$"+numeral(cuota * duracion).format('0,0'));
 
+    var prest_b= cryptData($("#prest_b").val());
+    var localdata= JSON.parse(decryptData($("#config").val()));
     $.ajax({
       type: "POST",
-      url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
-      data: "action=setOfferFinal&inv_b="+localStorage.id_u+"&prest_b="+$("#prest_b").val()+"&total_b="+monto+"&quota_b="+cuota+"&interes_b="+$("#interes_b").val()+"&plazo_b="+duracion+"&destination_b="+$("#destination_b").val()+"&offer_b="+id_ofert+"&admin="+localStorage.id_u,
+      url: "https://bankucolombia.com/lib/ajax_service_mobil.php",
+      data: "action=setOfferFinal&inv_b="+encodeURIComponent(localStorage.data)+"&prest_b="+encodeURIComponent(prest_b)+"&total_b="+monto+"&quota_b="+cuota+"&interes_b="+$("#interes_b").val()+"&plazo_b="+duracion+"&destination_b="+$("#destination_b").val()+"&offer_b="+id_ofert+"&admin="+encodeURIComponent(localStorage.data),
       dataType:'JSON',
       success: function(msg){
         if(msg.status){                
@@ -256,8 +257,8 @@
           showMsgConfirm();
           $.ajax({
             type: "POST",
-            url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
-            data: "action=setPaysxBusiness&fecha="+localStorage.fecha+"&prest="+$("#prest_b").val()+"&monto="+$("#total_b").val()+"&quota_b="+$("#quota_b").val()+"&tasa1="+$("#interes_b").val()+"&meses="+$("#plazo_b").val()+"&id_b="+id_b,
+            url: "https://bankucolombia.com/lib/ajax_service_mobil.php",
+            data: "action=setPaysxBusiness&fecha="+localdata.fecha+"&prest="+encodeURIComponent(cryptData($("#prest_b").val()))+"&monto="+$("#total_b").val()+"&quota_b="+$("#quota_b").val()+"&tasa1="+$("#interes_b").val()+"&meses="+$("#plazo_b").val()+"&id_b="+id_b,
             dataType:'JSON',
             success: function(msg){
               if(msg.status){                      
@@ -280,8 +281,8 @@
     if(conf){
       $.ajax({
         type: "POST",
-        url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
-        data: "action=delOfferMatch&inv="+localStorage.id_u+"&id="+id_ofert+"&owner_offer="+$("#prest_b").val(),
+        url: "https://bankucolombia.com/lib/ajax_service_mobil.php",
+        data: "action=delOfferMatch&inv="+encodeURIComponent(localStorage.data)+"&id="+id_ofert+"&owner_offer="+$("#prest_b").val(),
         dataType:'JSON',
         success: function(msg){  
           if(msg.status){
@@ -299,8 +300,8 @@
   $( ".btn-favorito" ).click(function() {
     $.ajax({
       type: "POST",
-      url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
-      data: "action=setFavorite&admin="+localStorage.id_u+"&inv="+localStorage.id_u+"&prest="+$("#prest_b").val()+"&id="+id_ofert,
+      url: "https://bankucolombia.com/lib/ajax_service_mobil.php",
+      data: "action=setFavorite&admin="+encodeURIComponent(localStorage.data)+"&inv="+encodeURIComponent(localStorage.data)+"&prest="+$("#prest_b").val()+"&id="+id_ofert,
       dataType:'JSON',
       success: function(msg){  
         if(msg.status){
@@ -311,16 +312,18 @@
     });
   });      
   $( ".negociar" ).click(function() {
+    $(".btn-register").html('<img src="assets/images/ajax-loader.gif" alt="Procesando...">');
     var monto= $("#monto").val();
     var interes= $("#interes").val();
     var duracion= $("#duracion").val();         
-    if(monto!=""&&interes!=""&&duracion!=""){
-      var setoffer= setOfferTemp(id_ofert,localStorage.id_u,$("#prest_b").val(),interes,duracion);          
+    if(monto!=""&&interes!=""&&duracion!=""){      
+      var setoffer= setOfferTemp(id_ofert,localStorage.data,cryptData($("#prest_b").val()),interes,duracion);
       if(setoffer){
         $(".btn-nego,.btn-aceptar").hide();
         var redir= "10_LoansStep4.html?section=solicitar_dinero&id_ofert="+id_ofert+"&negociando=true";
         var data = {page: redir,action:"chat",id_u:$("#prest_b").val()};
         socket.emit('setOffert',data);
+        
         var obj = jQuery.parseJSON ( getOnline($("#prest_b").val()) );
         if(obj.online=="0"){
           sendPushMessage(obj.pushtoken,'Nuevo solicitud del usuario '+$(".nombre-user").html()+'.');
@@ -336,6 +339,7 @@ function setValues(){
   setSliders();
 }
 function setSliders(){
+  var data= JSON.parse(decryptData($("#config").val()));
   var monto= $("#monto").val();
   var interes= $("#interes").val();
   if($("#interesF").val()!=""){
@@ -347,7 +351,7 @@ function setSliders(){
         duracion= $("#duracionF").val();
         //$(".duration").html(duracion+" Meses");  
       }   
-
+      console.log(monto+"-"+interes+"-"+duracion);
       var cuota= calcCuota(monto,interes,duracion);
       $(".cuotaSlider").html(numeral(cuota).format('0,0'));
       //$(".cuota").html("$"+numeral(cuota).format('0,0'));      
@@ -360,8 +364,8 @@ function setSliders(){
         connect: true,
         tooltips: [ true ],
         range: {
-          'min': parseFloat(localStorage.interes1),
-          'max': parseFloat(localStorage.interes2)
+          'min': parseFloat(data.interes1),
+          'max': parseFloat(data.interes2)
         },
         format: wNumb({
           decimals: 2,
@@ -385,8 +389,8 @@ function setSliders(){
         connect: true,
         tooltips: [ true ],
         range: {
-          'min': parseInt(localStorage.duracion1),
-          'max': parseInt(localStorage.duracion2)
+          'min': parseInt(data.duracion1),
+          'max': parseInt(data.duracion2)
         },
         format: wNumb({
           decimals: 0
@@ -403,8 +407,9 @@ function setSliders(){
           $(".cuotaSlider").html(numeral(cuota).format('0,0'));
         }
       });
-      if($(".user_id").attr("data-id")){                    
-        if($(".user_id").attr("data-id") != localStorage.id_u){
+      if($(".user_id").attr("data-id")){
+        //alert($(".user_id").attr("data-id")+" - "+decryptData(localStorage.data));                   
+        if($(".user_id").attr("data-id") != decryptData(localStorage.data)){
           $(".btn-nego,.btn-aceptar").css('display','inline-block');
         }else{
           $(".btn-nego,.btn-aceptar").css('display','none');
@@ -421,53 +426,57 @@ function setSliders(){
     function getHeaderOffert(id_ofert){
      $.ajax({
       type: "POST",
-      url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
+      url: "https://bankucolombia.com/lib/ajax_service_mobil.php",
       data: "action=getHeaderOffert&id_ofert="+id_ofert,
+      async:false,
       dataType:'JSON',
       success: function(msg){    
         if(msg.status&&msg.data){
+          var data= JSON.parse(decryptData($("#config").val()));
           $.each(msg.data, function( index, value ) {
-            var monto= parseInt(localStorage.amount);
-            var interes= parseFloat(localStorage.interest);
-            var duracion= parseInt(localStorage.duration);                  
+            var monto= parseInt(data.amount);
+            var interes= parseFloat(data.interest);
+            var duracion= parseInt(data.duration);                  
             
-            if(localStorage.id_u!=value.id_u){
+            //alert(decryptData(localStorage.data)+"!="+value.id_u);
+            if(decryptData(localStorage.data)!=value.id_u){
               $(".avatar-nego").hide();
               $(".nombre-user").html(value.user_u);
               $("#negociando-con").val(value.id_u);
-                    //$(".negociando-con").html(value.user_u);
-                    $("#prest_b").val(value.id_u);
-                    $(".tipo_cuenta").html(value.tipo_cuenta);
-                    $(".cuenta").html(value.cuenta);
-                    $(".banco").html(value.banco);
-                    monto= parseInt(value.amount);
-                    interes= parseFloat(value.interest);
-                    duracion= parseInt(value.duration);                    
-                  }
-                  var starts= getStarts(value.calification2_u);
-                  $(".star-user").html(starts);
-                  var cuota= calcCuota(monto,interes,duracion);
-                  var calification= value.calification;                  
-                  
-                  if(localStorage.type_user!="prestatario"&&value.ldestination)$(".destination").html(value.ldestination+'<br>');
-                  $(".interest").html(interes+'% | ');
-                  if($("#interesF").val()=="")$("#interesF").val(interes);
-                  $(".duration").html(duracion+' Meses');
-                  if($("#duracionF").val()=="")$("#duracionF").val(duracion);
-                  $(".amount").html("$"+numeral(monto).format('0,0'));
-                  $(".cuota").html("$"+numeral(cuota).format('0,0'));
-                  $(".pago_total").html("$"+numeral((cuota * duracion)).format('0,0'));
-                  $("#monto").val(monto);
-                  $("#interes").val(interes);
-                  $("#duracion").val(duracion);
-                  $("#total_b").val(monto);
-                  $("#quota_b").val(cuota);
-                  $("#interes_b").val(interes);
-                  $("#destination_b").val(value.destination);                  
-                  $("#plazo_b").val(duracion);
-                  $("#offer_b").val(id_ofert);
-                  $("#inv_b").val(localStorage.id_u);
-                });                
+              $(".negociando-con").html(value.user_u);
+              $("#prest_b").val(value.id_u);
+              $(".tipo_cuenta").html(value.tipo_cuenta);
+              $(".cuenta").html(value.cuenta);
+              $(".banco").html(value.banco);
+              monto= parseInt(value.amount);
+              interes= parseFloat(value.interest);
+              duracion= parseInt(value.duration);                    
+            }
+            
+            var starts= getStarts(value.calification2_u);
+            $(".star-user").html(starts);
+            var cuota= calcCuota(monto,interes,duracion);
+            var calification= value.calification;                  
+
+            if(localStorage.type_user!="prestatario"&&value.ldestination)$(".destination").html(value.ldestination+'<br>');
+            $(".interest").html(interes+'% | ');
+            if($("#interesF").val()=="")$("#interesF").val(interes);
+            $(".duration").html(duracion+' Meses');
+            if($("#duracionF").val()=="")$("#duracionF").val(duracion);
+            $(".amount").html("$"+numeral(monto).format('0,0'));
+            $(".cuota").html("$"+numeral(cuota).format('0,0'));
+            $(".pago_total").html("$"+numeral((cuota * duracion)).format('0,0'));
+            $("#monto").val(monto);
+            $("#interes").val(interes);
+            $("#duracion").val(duracion);
+            $("#total_b").val(monto);
+            $("#quota_b").val(cuota);
+            $("#interes_b").val(interes);
+            $("#destination_b").val(value.destination);                  
+            $("#plazo_b").val(duracion);
+            $("#offer_b").val(id_ofert);
+            $("#inv_b").val(decryptData(localStorage.data));
+          });                
         }
       }
     });  

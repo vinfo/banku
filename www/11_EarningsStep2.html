@@ -19,7 +19,7 @@
 </style>
 </head>
 
-<body class="profile settings-investment">
+<body class="profile settings-investment" oncontextmenu="return false">
   <!--Nav Main-->
   <div class="navbar-fixed nav-descktop"></div>
   <!--Nav Responsive-->
@@ -59,6 +59,7 @@
       <div class="container">
         © 2017 BankU                    
       </div>
+      <input type="hidden" id="config" name="config" value="">
     </div>
   </footer>  
 
@@ -84,6 +85,8 @@
   <script type="text/javascript" src="assets/js/materialize.min.js"></script>
   <script type="text/javascript" src="assets/js/jquery.validate.min.js"></script>
   <script type="text/javascript" src="assets/js/numeral.min.js"></script>
+  <script type="text/javascript" src="assets/js/CryptoJS/aes.js"></script>
+  <script type="text/javascript" src="assets/js/CryptoJS/aes-json-format.js"></script>  
   <script src="assets/js/socket.io.js"></script>
   <script type="text/javascript" src="assets/js/tools.js?v=1.0.0"></script>         
   <script type="text/javascript" src="assets/js/includes.js?v=1.0.0"></script>        
@@ -105,8 +108,8 @@
     }
     $.ajax({
       type: "POST",
-      url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
-      data: "action=getBusiness&id_user="+localStorage.id_u+"&type_user="+localStorage.type_user,
+      url: "https://bankucolombia.com/lib/ajax_service_mobil.php",
+      data: "action=getBusiness&id_user="+encodeURIComponent(localStorage.data)+"&type_user="+localStorage.type_user,
       dataType:'JSON',
       success: function(msg){
         if(msg.data.length==0)$(".lista").html('<p class="center"><small>No existen inversiones disponibles</small></p>');
@@ -137,7 +140,7 @@
         });
       },
       error: function(XMLHttpRequest, textStatus, errorThrown) { 
-        alert("Problemas procesando datos: " + textStatus +" - "+errorThrown);
+        console.log("Problemas procesando datos: " + textStatus +" - "+errorThrown);
       }
     });            
   });

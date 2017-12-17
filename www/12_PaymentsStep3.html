@@ -13,7 +13,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
 
-<body class="profile">
+<body class="profile" oncontextmenu="return false">
   <!--Nav Main-->
   <div class="navbar-fixed nav-descktop"></div>
 
@@ -170,6 +170,8 @@
   <script type="text/javascript" src="assets/js/materialize.min.js"></script>
   <script type="text/javascript" src="assets/js/jquery.validate.min.js"></script>
   <script type="text/javascript" src="assets/js/numeral.min.js"></script>
+  <script type="text/javascript" src="assets/js/CryptoJS/aes.js"></script>
+  <script type="text/javascript" src="assets/js/CryptoJS/aes-json-format.js"></script>   
   <script src="assets/js/socket.io.js"></script>
   <script type="text/javascript" src="assets/js/tools.js?v=1.0.0"></script>
   <script type="text/javascript" src="assets/js/includes.js?v=1.0.0"></script>
@@ -191,12 +193,12 @@
         var comentarios=$("#comentarios").val();
         if(comentarios!=""){
           var id_b= getUrlParameter("id_b");
-          var to_u= $("#to_u").val();
+          var to_u= cryptData($("#to_u").val());
           var rate= $("#calificacion").val();
           $.ajax({
             type: "POST",
-            url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
-            data: "action=setCalifications&from_u="+localStorage.id_u+"&to_u="+to_u+"&id_b="+id_b+"&rate="+rate+"&comments="+comentarios,
+            url: "https://bankucolombia.com/lib/ajax_service_mobil.php",
+            data: "action=setCalifications&from_u="+encodeURIComponent(localStorage.data)+"&to_u="+encodeURIComponent(to_u)+"&id_b="+id_b+"&rate="+rate+"&comments="+comentarios,
             dataType:'JSON',
             success: function(msg){
               if(msg.status==200){                                                   
@@ -219,8 +221,8 @@
                 //Obtener datos generales
                 $.ajax({
                   type: "POST",
-                  url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
-                  data: "action=getBusiness&id_b="+id_b+"&id_user="+localStorage.id_u+"&type_user="+localStorage.type_user,
+                  url: "https://bankucolombia.com/lib/ajax_service_mobil.php",
+                  data: "action=getBusiness&id_b="+id_b+"&id_user="+encodeURIComponent(localStorage.data)+"&type_user="+localStorage.type_user,
                   dataType:'JSON',
                   success: function(msg){
                     $.each(msg.data, function( index, value ) {
@@ -235,7 +237,7 @@
                       $(".calification_u").html(getCalification(value.calification_u));
                       if(value.calification){
                         var starts='';
-                        for(var i=1;i<value.calification;i++){
+                        for(var i=0;i<value.calification;i++){
                           starts+='<i class="material-icons yellow-text text-accent-4">star_border</i>';
                         }
                         $(".qualify-earning").html(starts);
@@ -243,13 +245,13 @@
                     });
                   },
                   error: function(XMLHttpRequest, textStatus, errorThrown) {
-                    alert("Problemas procesando datos: " + textStatus +" - "+errorThrown);
+                    console.log("Problemas procesando datos: " + textStatus +" - "+errorThrown);
                   }
                 });
                 //Obtener detalle de pagos
                 $.ajax({
                   type: "POST",
-                  url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
+                  url: "https://bankucolombia.com/lib/ajax_service_mobil.php",
                   data: "action=getPaysxBusiness&id_b="+id_b,
                   dataType:'JSON',
                   success: function(msg){
@@ -271,7 +273,7 @@
                     $(".estado_pago").html(estado);
                   },
                   error: function(XMLHttpRequest, textStatus, errorThrown) {
-                    alert("Problemas procesando datos: " + textStatus +" - "+errorThrown);
+                    console.log("Problemas procesando datos: " + textStatus +" - "+errorThrown);
                   }
                 });
 

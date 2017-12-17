@@ -5,33 +5,41 @@ function onDeviceReady() {
     checkConnection();    
     getDeviceProperty();
     initPushwoosh();
-    cordova.plugins.notification.badge;      
+    if(sessionStorage.OS&&sessionStorage.OS!="browser"){    
+      cordova.plugins.notification.badge;
+    }   
   }
   function getDeviceProperty() {
-    console.log("getDeviceProperty");    
-    var deviceOS = device.platform;  //fetch the device operating system
-    var deviceOSVersion = device.version;  //fetch the device OS version
-    var uuid = device.uuid;
-    sessionStorage.setItem("OS", deviceOS);
-    sessionStorage.setItem("UUID", uuid);
-    console.log("Plataforma registrada " + device.platform);
-    console.log("UUID " + uuid);
-    initPushwoosh();
+    //console.log("getDeviceProperty");
+    if(device){
+      var deviceOS = device.platform;  //fetch the device operating system
+      var deviceOSVersion = device.version;  //fetch the device OS version
+      var uuid = device.uuid;
+      sessionStorage.setItem("OS", deviceOS);
+      sessionStorage.setItem("UUID", uuid);
+      //console.log("Plataforma registrada " + device.platform);
+      //console.log("UUID " + uuid);
+      if(sessionStorage.OS&&sessionStorage.OS!="browser"){
+        initPushwoosh();
+      }
+    }
   }
   function onPause() {
       localStorage.setItem("login","true");
-      cordova.plugins.notification.badge.clear();
-      console.log("Pausa");
+      if(sessionStorage.OS&&sessionStorage.OS!="browser")cordova.plugins.notification.badge.clear();
+      //console.log("Pausa");
   }
   function onResume() {
+    if(sessionStorage.OS&&sessionStorage.OS!="browser"){
       cordova.plugins.notification.badge.configure({ autoClear: true });
       cordova.plugins.notification.badge.clear();
-      console.log("Resumen");
+      //console.log("Resumen");
+    }
   }  
   function checkConnection() {
-    console.log("checkConnection");
-    var state = true;
-    if(sessionStorage.OS){        
+    //console.log("checkConnection");
+    var state = true;    
+    if(sessionStorage.OS&&sessionStorage.OS!="browser"){        
       var networkState = navigator.connection.type;
       var states = {};
       states[Connection.UNKNOWN] = 'Unknown connection';
@@ -51,7 +59,7 @@ function onDeviceReady() {
     return state;
   }
 
-  function initPushwoosh() {
+function initPushwoosh() {
    var pushNotification = cordova.require("pushwoosh-cordova-plugin.PushNotification");
   // Initialize Pushwoosh. This will trigger all pending push notifications on start.
   pushNotification.onDeviceReady({
@@ -70,8 +78,10 @@ function onDeviceReady() {
   );  
 }
 function sendNotification(){
-  cordova.plugins.notification.badge.set(1);
+  if(sessionStorage.OS&&sessionStorage.OS!="browser"){
+    cordova.plugins.notification.badge.set(1);
+  }  
 }
 function registerLog(log){
-  console.log(log);
+  //console.log(log);
 }

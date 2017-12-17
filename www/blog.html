@@ -1,38 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <!--Import Google Icon Font-->
-    <link href="assets/css/icon.css?family=Material+Icons" rel="stylesheet">
+  <meta charset="utf-8">
+  <!--Import Google Icon Font-->
+  <link href="assets/css/icon.css?family=Material+Icons" rel="stylesheet">
 
-    <!--Import materialize.css-->
-    <link type="text/css" rel="stylesheet" href="assets/css/materialize.min.css"  media="screen,projection"/>
-    <!--Import my style-->
-    <link type="text/css" rel="stylesheet" href="assets/css/custom.css" rel="stylesheet"/>
-    <!--Let browser know website is optimized for mobile-->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <!--Import materialize.css-->
+  <link type="text/css" rel="stylesheet" href="assets/css/materialize.min.css"  media="screen,projection"/>
+  <!--Import my style-->
+  <link type="text/css" rel="stylesheet" href="assets/css/custom.css" rel="stylesheet"/>
+  <!--Let browser know website is optimized for mobile-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
 
-<body class="profile">
-    <!--Nav Main-->
-    <div class="navbar-fixed nav-descktop"></div>
+<body class="profile" oncontextmenu="return false">
+  <!--Nav Main-->
+  <div class="navbar-fixed nav-descktop"></div>
 
-    <!--Nav Responsive-->
-    <nav class="nav-app menu_left"></nav>
+  <!--Nav Responsive-->
+  <nav class="nav-app menu_left"></nav>
 
-    <div class="wrapper edit-profile">
-        <div class="container">
-            <div class="row">
-                <div class="col s12">          
-                    <h3 class="hide-on-med-and-down center">Blog Informativo<br><br></h3>
-                    <h5 class="center">Bienvenido a la Comunidad BankU</h5>
-                    <p class="center">Aquí encontraras información de gran intéres.</p>
-                </div>                
-            </div>
-            <div class="row publications"></div>
-             <div class="row center"><a class="waves-effect waves-light btn green more-data white-text btn-large">Más publicaciones</a><input id="cont" name="cont" type="hidden" value="0"></div>                                                                               
-        </div>
-    </div>  
+  <div class="wrapper edit-profile">
+    <div class="container">
+      <div class="row">
+        <div class="col s12">          
+          <h3 class="hide-on-med-and-down center">Blog Informativo<br><br></h3>
+          <h5 class="center">Bienvenido a la Comunidad BankU</h5>
+          <p class="center">Aquí encontraras información de gran intéres.</p>
+        </div>                
+      </div>
+      <div class="row publications"></div>
+      <div class="row center"><a class="waves-effect waves-light btn green more-data white-text btn-large">Más publicaciones</a><input id="cont" name="cont" type="hidden" value="0"></div>                                                                               
+    </div>
+  </div>  
   <!-- Modal Structure -->        
   <div id="info1" class="modal">
     <div class="modal-content">
@@ -44,70 +44,72 @@
     </div>
   </div>
 
-    <footer class="page-footer">
-        <div class="footer-copyright">
-            <div class="container">
-                © 2017 BankU                    
-            </div>
-        </div>
-    </footer>            
+  <footer class="page-footer">
+    <div class="footer-copyright">
+      <div class="container">
+        © 2017 BankU                    
+      </div>
+    </div>
+  </footer>            
 
-    <!--Nav footer Responsive-->
-    <div class="footer-nav menu_footer"></div>
+  <!--Nav footer Responsive-->
+  <div class="footer-nav menu_footer"></div>
 
-    <!--Import jQuery before materialize.js-->
-    <script type="text/javascript" src="cordova.js"></script>
-    <script type="text/javascript" src="index.js"></script>             
-    <!--Import jQuery before materialize.js-->
-    <script type="text/javascript" src="assets/js/jquery-2.1.1.min.js"></script>
-    <script type="text/javascript" src="assets/js/materialize.min.js"></script>
-    <script type="text/javascript" src="assets/js/jquery.validate.min.js"></script>
-    <script type="text/javascript" src="assets/js/numeral.min.js"></script>
-    <script src="assets/js/socket.io.js"></script>
-    <script type="text/javascript" src="assets/js/tools.js?v=1.0.0"></script>         
-    <script type="text/javascript" src="assets/js/includes.js?v=1.0.0"></script>
-    <script type="text/javascript">
-        $( document ).ready(function(){
-            setTimeout(function(){ $(".brand-logo").text("Blog Informativo"); }, 300);
-            getBlogs(0);
-            $( "body" ).on( "click", ".show-mas", function(event) {  
-              event.preventDefault();
-              $(this).next("div").show();
-            });
-            $( "body" ).on( "click", ".send-comment", function() {
-              event.preventDefault();
-              $(".comments").hide();
-              $('td[name=comentarios]').val('');
-              $('#info1').modal('open');
-            });            
-            $( ".more-data" ).click(function(event) {
-              event.preventDefault();
-              var cont= $("#cont").val();
-              getBlogs(cont);
-              return false;
-            });
-        });
-        function getBlogs(cont){
-              $.ajax({
-                  type: "POST",
-                  url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
-                  data: "action=getBlogs&cont="+cont,
-                  dataType:'JSON',
-                  success: function(msg){
-                      $(".publications").append(msg.data);
-                      if(cont>0){
-                        var $win = $(window);
-                        var pos = $( "h5" ).last().position().top;
-                        $win.scrollTop(pos); 
-                      }                     
-                      $("#cont").val(parseInt(cont)+1);
-                      if(cont>1)$("#cont").val(0);                      
-                  },
-                  error: function(XMLHttpRequest, textStatus, errorThrown) { 
-                      alert("Problemas procesando datos: " + textStatus +" - "+errorThrown);
-                  }
-              });          
+  <!--Import jQuery before materialize.js-->
+  <script type="text/javascript" src="cordova.js"></script>
+  <script type="text/javascript" src="index.js"></script>             
+  <!--Import jQuery before materialize.js-->
+  <script type="text/javascript" src="assets/js/jquery-2.1.1.min.js"></script>
+  <script type="text/javascript" src="assets/js/materialize.min.js"></script>
+  <script type="text/javascript" src="assets/js/jquery.validate.min.js"></script>
+  <script type="text/javascript" src="assets/js/numeral.min.js"></script>
+  <script type="text/javascript" src="assets/js/CryptoJS/aes.js"></script>
+  <script type="text/javascript" src="assets/js/CryptoJS/aes-json-format.js"></script>     
+  <script src="assets/js/socket.io.js"></script>
+  <script type="text/javascript" src="assets/js/tools.js?v=1.0.0"></script>         
+  <script type="text/javascript" src="assets/js/includes.js?v=1.0.0"></script>
+  <script type="text/javascript">
+    $( document ).ready(function(){
+      setTimeout(function(){ $(".brand-logo").text("Blog Informativo"); }, 300);
+      getBlogs(0);
+      $( "body" ).on( "click", ".show-mas", function(event) {  
+        event.preventDefault();
+        $(this).next("div").show();
+      });
+      $( "body" ).on( "click", ".send-comment", function() {
+        event.preventDefault();
+        $(".comments").hide();
+        $('td[name=comentarios]').val('');
+        $('#info1').modal('open');
+      });            
+      $( ".more-data" ).click(function(event) {
+        event.preventDefault();
+        var cont= $("#cont").val();
+        getBlogs(cont);
+        return false;
+      });
+    });
+    function getBlogs(cont){
+      $.ajax({
+        type: "POST",
+        url: "https://bankucolombia.com/lib/ajax_service_mobil.php",
+        data: "action=getBlogs&cont="+cont,
+        dataType:'JSON',
+        success: function(msg){
+          $(".publications").append(msg.data);
+          if(cont>0){
+            var $win = $(window);
+            var pos = $( "h5" ).last().position().top;
+            $win.scrollTop(pos); 
+          }                     
+          $("#cont").val(parseInt(cont)+1);
+          if(cont>1)$("#cont").val(0);                      
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) { 
+          console.log("Problemas procesando datos: " + textStatus +" - "+errorThrown);
         }
-    </script>
+      });          
+    }
+  </script>
 </body>
 </html>

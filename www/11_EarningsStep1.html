@@ -13,7 +13,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
 
-<body class="profile">
+<body class="profile" oncontextmenu="return false">
     <!--Nav Main-->
     <div class="navbar-fixed nav-descktop"></div>
 
@@ -74,6 +74,7 @@
                     <div class="container">
                         © 2017 BankU                    
                     </div>
+                    <input type="hidden" id="config" name="config" value="">
                 </div>
             </footer>            
 
@@ -108,42 +109,44 @@
             <script type="text/javascript" src="assets/js/jquery.validate.min.js"></script>
             <script type="text/javascript" src="assets/js/jquery.mask.min.js"></script>
             <script type="text/javascript" src="assets/js/numeral.min.js"></script>
+            <script type="text/javascript" src="assets/js/CryptoJS/aes.js"></script>
+            <script type="text/javascript" src="assets/js/CryptoJS/aes-json-format.js"></script>
             <script src="assets/js/socket.io.js"></script>
             <script type="text/javascript" src="assets/js/tools.js?v=1.0.0"></script>         
             <script type="text/javascript" src="assets/js/includes.js?v=1.0.0"></script>        
             <script type="text/javascript">
-            $( document ).ready(function(){
-                setTimeout(function(){ $(".brand-logo").text("Mis Ganancias"); }, 300);
-                $('.money').mask('#.##0', {reverse: true});
-                getScroll();
-                $("#amount_u").val(numeral(localStorage.inversion).format('0,0'));
-                if(localStorage.approved_u=="No"||localStorage.approved_u=="0"){
-                    $('#info2').modal('open');
-                }
-                $( ".info3" ).click(function() {
-                  $(".msg-success").hide();
-                  $('#info3').modal('open');
-                });
-                $( ".set-amount" ).click(function() {
-                  var amount_u= $("#amount_u").val();                  
-                  if(amount_u!=""&&amount_u!="0"){
-                    $(".set-amount").hide();
-                    localStorage.setItem("inversion",amount_u);
-                    $.ajax({
-                      type: "POST",
-                      url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
-                      data: "action=updateUserAmount&id_u="+localStorage.id_u+"&amount_u="+amount_u,
-                      dataType:'JSON',
-                      success: function(msg){
-                        if(msg.status==200){                                                   
-                          $(".msg-success").html("Datos guardados exitosamente").show();
-                          setTimeout(function(){ location.reload(); },1000);
-                        }
+                $( document ).ready(function(){
+                    setTimeout(function(){ $(".brand-logo").text("Mis Ganancias"); }, 300);
+                    $('.money').mask('#.##0', {reverse: true});
+                    getScroll();
+                    $("#amount_u").val(numeral(localStorage.inversion).format('0,0'));
+                    if(localStorage.approved_u=="No"||localStorage.approved_u=="0"){
+                        $('#info2').modal('open');
+                    }
+                    $( ".info3" ).click(function() {
+                      $(".msg-success").hide();
+                      $('#info3').modal('open');
+                  });
+                    $( ".set-amount" ).click(function() {
+                      var amount_u= $("#amount_u").val();                  
+                      if(amount_u!=""&&amount_u!="0"){
+                        $(".set-amount").hide();
+                        localStorage.setItem("inversion",amount_u);
+                        $.ajax({
+                          type: "POST",
+                          url: "https://bankucolombia.com/lib/ajax_service_mobil.php",
+                          data: "action=updateUserAmount&id_u="+localStorage.id_u+"&amount_u="+amount_u,
+                          dataType:'JSON',
+                          success: function(msg){
+                            if(msg.status==200){                                                   
+                              $(".msg-success").html("Datos guardados exitosamente").show();
+                              setTimeout(function(){ location.reload(); },1000);
+                          }
                       }
-                    });
-                  }
+                  });
+                    }
                 });
-            });
-        </script>
-    </body>
-    </html>
+                });
+            </script>
+        </body>
+        </html>

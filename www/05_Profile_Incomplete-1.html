@@ -13,7 +13,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>    
 </head>
 
-<body class="profile">
+<body class="profile" oncontextmenu="return false">
   <!--Nav Main-->
   <div class="navbar-fixed nav-descktop"></div>
   <!--Nav Responsive-->
@@ -69,6 +69,7 @@
 
   <div id='footer'>
     <div class="container">© 2017 BankU</div>
+    <input type="hidden" id="config" name="config" value="">
   </div>             
 
   <!--Nav footer Responsive-->
@@ -99,6 +100,8 @@
   <script type="text/javascript" src="assets/js/materialize.min.js"></script>
   <script type="text/javascript" src="assets/js/jquery.validate.min.js"></script>
   <script type="text/javascript" src="assets/js/numeral.min.js"></script>
+  <script type="text/javascript" src="assets/js/CryptoJS/aes.js"></script>
+  <script type="text/javascript" src="assets/js/CryptoJS/aes-json-format.js"></script>  
   <script src="assets/js/socket.io.js"></script>
   <script type="text/javascript" src="assets/js/tools.js?v=1.0.0"></script>         
   <script type="text/javascript" src="assets/js/includes.js?v=1.0.0"></script>      
