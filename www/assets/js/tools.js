@@ -1,4 +1,20 @@
 $( document ).ready(function(){
+  $(window).load(function() {
+    $(".wrapper").show();
+    $(".progress").hide();
+    if(localStorage.configs){
+      var configs= JSON.parse(decryptData(localStorage.configs));
+      //console.log(decryptData(localStorage.configs));
+      var photo_u=configs.photo;
+      var photo="assets/images/avatarUseraa.jpg";
+      if(configs.photo!=null&&configs.photo!=""){      
+        photo="data:image/jpeg;base64," + configs.photo;
+      }
+      setTimeout(function(){
+        $(".photo").attr("src",photo);
+      },1000);
+    }       
+  });
   numeral.register('locale', 'es', {
     delimiters: {
       thousands: '.',
@@ -21,8 +37,6 @@ $( document ).ready(function(){
   var clients = "";    
   var type_user= localStorage.type_user;    
   if(localStorage.data){
-    getUserData();
-    getNumsOffersUser();
     $(".wrapper").show();
     var rand=  Math.random();
 
@@ -52,7 +66,7 @@ $( document ).ready(function(){
     socket.on('setOffert', function(msg){
         //Vars personales
         var id_u = decryptData(localStorage.data);
-        var data= JSON.parse(decryptData($("#config").val()));
+        var data= JSON.parse(decryptData(localStorage.configs));
         var amount= parseInt(data.amount);
         var amount2= parseInt(data.amount2); 
         var interest= parseFloat(data.interest);
@@ -504,7 +518,7 @@ function getUserData(){
                   if(msg.data.photo_u!=null&&msg.data.photo_u!=""){
                     photo="data:image/jpeg;base64," + msg.data.photo_u;
                   }
-                  $(".photo").attr("src",photo);
+                  $(".photo").attr("src",photo);                  
                   $(".user").html(msg.data.user_u);
                   $(".first-name").html(ucFirst(msg.data.names_u));
                   $(".names").html(ucFirst(msg.data.names_u)+" "+ucFirst(msg.data.lastnames_u));
@@ -569,8 +583,6 @@ function getUserData(){
                   $(".saldo-inversionista").html(numeral(saldo).format('0,0'));
                   $(".saldo-negociacion").html(numeral(msg.data.offers_temp).format('0,0'));
                   $(".days_study").html(msg.data.days_study);
-                  $(".wrapper").show();
-                  $(".progress").hide();
                   if(msg.data.approved_u=="0"){
                     $('#ModalPerfilEstudio').modal('open');
                   }
@@ -581,7 +593,8 @@ function getUserData(){
                   $(".progress").hide();
                   $(".wrapper").show();
                   var config= {"photo": msg.data.photo_u,"costo": msg.data.costo,"monto1": msg.data.monto1,"monto2": msg.data.monto2,"interes1": msg.data.interes1,"interes2": msg.data.interes2,"duracion1": msg.data.duracion1,"duracion2": msg.data.duracion2,"fecha": msg.data.fecha,"amount": msg.data.amount,"amount2": monto2,"interest": msg.data.interest,"interest2": msg.data.interest2,"duration": msg.data.duration,"duration2": msg.data.duration2,"status_u": msg.data.status_u,"approved_u":msg.data.approved_u,"inversion": msg.data.amount_u,"percent": msg.data.percent,"saldo": saldo};
-                  $("#config").val(cryptData(JSON.stringify(config)));                               
+                  $("#config").val(cryptData(JSON.stringify(config)));
+                  localStorage.setItem("configs",cryptData(JSON.stringify(config)));                           
                     //console.log("Datos usuario");
                   }
                 }

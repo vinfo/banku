@@ -155,7 +155,7 @@
         <h4>En hora buena!</h4>
         <p>Trato aceptado con <span class="negociando-con"></span></p>
         <hr>
-        <div class="row">
+        <div class="row content-msg">
           <div class="col s12"><p>Hola <span class="names"></span>, para completar tu inversión debes seguir estos pasos en las próximas 24 horas:</p><p>1) Consignar en la cuenta #<span class="cuenta"></span> <span class="tipo_cuenta"></span>, banco <span class="banco"></span> el valor de <span class="amount"></span><br/>2) En la consignación debes adicionar el siguiente código NEG<span class="id_b"></span><br/>3) A partir del siguiente mes recibirás la suma de <span class="cuotaF"></span> durante <span class="durationF"></span>, al final de los meses negociados recibirás <span class="pago_totalF"></span>.<br/>4) Recuerda que si no consignas el valor de dinero en el tiempo estipulado el negocio no será válido. Esto claramente perjudica tu puntuación dentro de la comunidad BankU.</p><p>Te invitamos a seguir invirtiendo y agrandando tu portafolio de inversión, si tienes alguna duda puedes escribirnos en la sesión de quejas y reclamos con el número de tu transacción</p></div> 
         </div>
       </div>
@@ -201,7 +201,7 @@
     <input type="hidden" id="config" name="config" value="">
   </div>
 </footer>           
-<script type="text/javascript" src="cordova.js"></script>
+<!-- <script type="text/javascript" src="cordova.js"></script> -->
 <script type="text/javascript" src="index.js"></script> 
 <!--Import jQuery before materialize.js-->
 <script type="text/javascript" src="assets/js/jquery-2.1.1.min.js"></script>
@@ -244,7 +244,7 @@
     $(".pago_totalF").html("$"+numeral(cuota * duracion).format('0,0'));
 
     var prest_b= cryptData($("#prest_b").val());
-    var localdata= JSON.parse(decryptData($("#config").val()));
+    var localdata= JSON.parse(decryptData(localStorage.configs));
     $.ajax({
       type: "POST",
       url: "https://bankucolombia.com/lib/ajax_service_mobil.php",
@@ -282,7 +282,7 @@
       $.ajax({
         type: "POST",
         url: "https://bankucolombia.com/lib/ajax_service_mobil.php",
-        data: "action=delOfferMatch&inv="+encodeURIComponent(localStorage.data)+"&id="+id_ofert+"&owner_offer="+$("#prest_b").val(),
+        data: "action=delOfferMatch&inv="+encodeURIComponent(localStorage.data)+"&id="+id_ofert+"&owner_offer="+encodeURIComponent(cryptData($("#prest_b").val())),
         dataType:'JSON',
         success: function(msg){  
           if(msg.status){
@@ -339,7 +339,7 @@ function setValues(){
   setSliders();
 }
 function setSliders(){
-  var data= JSON.parse(decryptData($("#config").val()));
+  var data= JSON.parse(decryptData(localStorage.configs));
   var monto= $("#monto").val();
   var interes= $("#interes").val();
   if($("#interesF").val()!=""){
@@ -432,7 +432,7 @@ function setSliders(){
       dataType:'JSON',
       success: function(msg){    
         if(msg.status&&msg.data){
-          var data= JSON.parse(decryptData($("#config").val()));
+          var data= JSON.parse(decryptData(localStorage.configs));
           $.each(msg.data, function( index, value ) {
             var monto= parseInt(data.amount);
             var interes= parseFloat(data.interest);

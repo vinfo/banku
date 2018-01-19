@@ -32,7 +32,7 @@
           </a>
         </div>
         <div class="col s3 m4 l2">
-          <a href="#!" class="right"><img src="assets/images/avatarUser.jpg" alt="" class="circle responsive-img photo"></a> <!-- notice the "circle" class -->
+          <a href="05_Profile_Incomplete-4.html?section=mi_perfil" class="right"><img src="assets/images/avatarUser.jpg" alt="" class="circle responsive-img photo"></a> <!-- notice the "circle" class -->
         </div> 
       </div>                                                                                
     </div>
@@ -69,7 +69,6 @@
 
   <div id='footer'>
     <div class="container">© 2017 BankU</div>
-    <input type="hidden" id="config" name="config" value="">
   </div>             
 
   <!--Nav footer Responsive-->
@@ -93,7 +92,7 @@
       <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Aceptar</a>
     </div>
   </div>   
-  <script type="text/javascript" src="cordova.js"></script>
+  <!-- <script type="text/javascript" src="cordova.js"></script> -->
   <script type="text/javascript" src="index.js"></script>             
   <!--Import jQuery before materialize.js-->
   <script type="text/javascript" src="assets/js/jquery-2.1.1.min.js"></script>
@@ -108,7 +107,8 @@
   <script type="text/javascript">
    $( document ).ready(function(){
     sessionRedirect();
-    setTimeout(function(){ $(".brand-logo").text("Mi Perfil"); }, 300);    
+    setTimeout(function(){ $(".brand-logo").text("Mi Perfil"); }, 300);
+    getUserData();
     if(localStorage.login&&!localStorage.bienvenida){        
         $('#info1').modal('open',{
           dismissible: true,

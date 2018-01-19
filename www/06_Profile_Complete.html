@@ -106,7 +106,7 @@
           <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Aceptar</a>
         </div>
       </div>         
-      <script type="text/javascript" src="cordova.js"></script>
+      <!-- <script type="text/javascript" src="cordova.js"></script> -->
       <script type="text/javascript" src="index.js"></script>             
       <!--Import jQuery before materialize.js-->
       <script type="text/javascript" src="assets/js/jquery-2.1.1.min.js"></script>
@@ -121,7 +121,8 @@
       <script type="text/javascript">
        $( document ).ready(function(){
         sessionRedirect();
-        setTimeout(function(){ $(".brand-logo").text("Mi Perfil"); }, 300);        
+        setTimeout(function(){ $(".brand-logo").text("Mi Perfil"); }, 300);
+        getUserData();      
         $( ".friends" ).click(function() {
           if(sessionStorage.OS!="browser"){
             window.plugins.socialsharing.share('Hola, te recomiendo BankU, la mejor y más confiable opción para invertir y lograr tus objetivos de negocio. O para prestar dinero y así cumplir tus sueños y proyectos de vida. Únete aquí: www.banku.com.co #BankUSoyYo.', 'App recomendada', null, '');

@@ -150,7 +150,7 @@
     </div>
   </div>
 
-  <script type="text/javascript" src="cordova.js"></script>
+  <!-- <script type="text/javascript" src="cordova.js"></script> -->
   <script type="text/javascript" src="index.js"></script>                     
   <!--Import jQuery before materialize.js-->
   <script type="text/javascript" src="assets/js/jquery-2.1.1.min.js"></script>
@@ -190,6 +190,7 @@
           success: function(msg){
             $(".progress").show();
             localStorage.setItem("set_offer","true");
+            getUserData();
             var data = {page:"08_InvestmentsStep3.html?section=negociar&rand="+rand,action:"new_offer_prest",monto:$("#monto").val(),interes:$("#interes").val(),duracion:$("#duracion").val()};                    
             socket.emit('setOffert', data);
             $('#modal3').modal('open');
@@ -236,7 +237,7 @@
     });             
   }
   function setSliders(){
-    var data= JSON.parse(decryptData($("#config").val()));
+    var data= JSON.parse(decryptData(localStorage.configs));
     var saldo= parseInt(data.saldo);           
     if(saldo<="0"){
       $('.title-msg').html('Monto mínimo de prestamos');

@@ -92,7 +92,7 @@
       <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Aceptar</a>
     </div>
   </div>                   
-  <script type="text/javascript" src="cordova.js"></script>
+  <!-- <script type="text/javascript" src="cordova.js"></script> -->
   <script type="text/javascript" src="index.js"></script>                     
   <!--Import jQuery before materialize.js-->
   <script type="text/javascript" src="assets/js/jquery-2.1.1.min.js"></script>
@@ -109,14 +109,13 @@
     sessionRedirect();
     var socket = io('https://banku-services.herokuapp.com/');
     setTimeout(function(){ $(".brand-logo").text("Solicitar Dinero"); }, 300);
-    getOffertTemp();
-    getAllOffers();
+    getOffertTemp();    
   });
 function getAllOffers(){
-    var data= JSON.parse(decryptData($("#config").val()));
-    var amount= data.amount;   
-    var interest= data.interest;
-    var duration= data.duration;
+    var configs= JSON.parse(decryptData(localStorage.configs));
+    var amount= configs.amount;   
+    var interest= configs.interest;
+    var duration= configs.duration;
     $.ajax({
     type: "POST",
     url: "https://bankucolombia.com/lib/ajax_service_mobil.php",
@@ -124,7 +123,7 @@ function getAllOffers(){
     dataType:'JSON',
     async:false,
     success: function(msg){
-      var cont=0;    
+      var cont=0;      
       $.each(msg.data, function( index, value ) {
         getOfferts(amount,duration,value);
         cont++;
@@ -135,7 +134,7 @@ function getAllOffers(){
     }
   });
 }    
-   function getOfferts(amount,duration,value){   
+function getOfferts(amount,duration,value){   
       var starts= getStarts(value.calification2_u);
       var monto= parseInt(amount);      
       var interes= parseFloat(value.interest2);
@@ -144,8 +143,8 @@ function getAllOffers(){
       var cuota= calcCuota(monto,interes,duracion);
       var total= cuota * duracion;
       $(".offerts").append('<div class="col s12 m6"><div class="box-proyect"><div class="info-proyect"><div class="row"><div class="col s7"> <h5>'+value.user_u+'</h5></div><div class="col s12"> <hr><p><br>% '+interes+'  |  '+duracion+' Meses</p> <div class="star-user">'+starts+'</div> </div></div></div><div class="desc-proyect"><h3>$'+numeral(monto).format('0,0')+'</h3><p><small>Pago Mensual: $'+numeral(cuota).format('0,0')+'<br/>Pago Total: $'+numeral(total).format('0,0')+'<br/>#'+value.id+'</small></p>  <a href="10_LoansStep4.html?section=solicitar_dinero&id_ofert='+value.id+'" class="btn-negociar">Negociar</a></div></div></div>');     
-  }
-  function getOffertTemp(){
+}
+function getOffertTemp(){
     $.ajax({
       type: "POST",
       url: "https://bankucolombia.com/lib/ajax_service_mobil.php",
@@ -164,6 +163,8 @@ function getAllOffers(){
             var total= cuota * value.duration_inv;
             $(".offerts").html('<div class="col s12 m6"><div class="box-proyect" style="background-color:#FFCB05;"><div class="info-proyect" style="background-image:url(assets/images/border-box-proyect2.png);"><div class="row"><div class="col s7"> <h5>'+value.user_inv+'</h5></div> <div class="col s12"> <hr><p>'+value.ldestination+'<br>% '+interest2+'|'+value.duration_inv+' Meses</p> <div class="star-user">'+starts+'</div></div></div> </div><div class="desc-proyect"><h3>$'+numeral(value.amount_prest).format('0,0')+'</h3><p><small>Pago Mensual: $'+numeral(cuota).format('0,0')+'<br/><b>Pago Total: $'+numeral(total).format('0,0')+'</b><br/>Oferta #'+value.id_ofert+'</small></p><a href="10_LoansStep4.html?section=solicitar_dinero&id_ofert='+value.id_ofert+'&negociando=true" class="btn-negociar small">En Negociación</a></div></div></div>');
           });
+        }else{
+          getAllOffers();
         }
       },
       error: function(XMLHttpRequest, textStatus, errorThrown) { 

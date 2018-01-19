@@ -155,7 +155,7 @@
           <h4>En hora buena!</h4>
           <p>Trato aceptado con <span class="negociando-con"></span></p>
           <hr>
-          <div class="row">
+          <div class="row content-msg">
             <div class="col s8"> 
               <div class="info-nego left-align"> 
                 <p><span class="destination"></span></p> 
@@ -210,7 +210,7 @@
         <input type="hidden" id="config" name="config" value="">
       </div>
     </footer>           
-    <script type="text/javascript" src="cordova.js"></script>
+    <!-- <script type="text/javascript" src="cordova.js"></script> -->
     <script type="text/javascript" src="index.js"></script> 
     <!--Import jQuery before materialize.js-->
     <script type="text/javascript" src="assets/js/jquery-2.1.1.min.js"></script>
@@ -247,7 +247,7 @@
         $('#modal4').modal('open');
 
         var inv_b= cryptData($("#inv_b").val());
-        var localdata= JSON.parse(decryptData($("#config").val()));
+        var localdata= JSON.parse(decryptData(localStorage.configs));
         $.ajax({
           type: "POST",
           url: "https://bankucolombia.com/lib/ajax_service_mobil.php",
@@ -351,7 +351,7 @@ function setValues(){
   setSliders();
 }
 function setSliders(){
-  var data= JSON.parse(decryptData($("#config").val()));
+  var data= JSON.parse(decryptData(localStorage.configs));
   var monto= $("#monto").val();
   var interes= $("#interes").val();
   if($("#interesF").val()!=""){
@@ -442,7 +442,7 @@ function setSliders(){
       async:false,
       success: function(msg){    
         if(msg.status&&msg.data){
-          var data= JSON.parse(decryptData($("#config").val()));
+          var data= JSON.parse(decryptData(localStorage.configs));
           $.each(msg.data, function( index, value ) {
             var monto= parseInt(data.amount);
             var interes= parseFloat(value.interest2);

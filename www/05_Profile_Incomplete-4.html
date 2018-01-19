@@ -519,7 +519,6 @@
       <div class="container">
         © 2017 BankU
       </div>
-      <input type="hidden" id="config" name="config" value="">
     </div>
   </footer>
 
@@ -536,7 +535,7 @@
     </div>
   </div>
   <div id="modal1" class="modal terminos"></div>
-  <script type="text/javascript" src="cordova.js"></script>
+  <!-- <script type="text/javascript" src="cordova.js"></script> -->
   <script type="text/javascript" src="index.js"></script>
   <!--Import jQuery before materialize.js-->
   <script type="text/javascript" src="assets/js/jquery-2.1.1.min.js"></script>
@@ -554,7 +553,8 @@
   <script type="text/javascript" src="assets/js/select2.full.min.js"></script>
   <script type="text/javascript">   
    $( document ).ready(function(){
-    getProfesions();       
+    getProfesions();
+    getUserData();     
     $('.tooltipped').tooltip({delay: 50});
     $( ".terminos" ).load( "includes/terminos.html", function() {
       $.ajax({

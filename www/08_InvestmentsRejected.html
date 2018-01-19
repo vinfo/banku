@@ -86,7 +86,7 @@
       <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Aceptar</a>
     </div>
   </div>                     
-  <script type="text/javascript" src="cordova.js"></script>
+  <!-- <script type="text/javascript" src="cordova.js"></script> -->
   <script type="text/javascript" src="index.js"></script>                     
   <!--Import jQuery before materialize.js-->
   <script type="text/javascript" src="assets/js/jquery-2.1.1.min.js"></script>
@@ -121,7 +121,7 @@
     });  
   }   
   function getOfferts(){
-   var data= JSON.parse(decryptData($("#config").val()));
+   var data= JSON.parse(decryptData(localStorage.configs));
    var amount=data.amount;
    var amount2=data.amount2;
    if(amount!="0"&&amount2!="0"){

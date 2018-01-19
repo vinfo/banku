@@ -87,7 +87,7 @@
       <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Aceptar</a>
     </div>
   </div>                     
-  <script type="text/javascript" src="cordova.js"></script>
+  <!-- <script type="text/javascript" src="cordova.js"></script> -->
   <script type="text/javascript" src="index.js"></script>                     
   <!--Import jQuery before materialize.js-->
   <script type="text/javascript" src="assets/js/jquery-2.1.1.min.js"></script>
@@ -147,7 +147,7 @@ function getAllOffers(){
 }   
    function getOfferts(amount,amount2,interest,interest2,duration,duration2){  
   if(amount!="0"&&amount2!="0"){
-    var data= JSON.parse(decryptData($("#config").val()));
+    var data= JSON.parse(decryptData(localStorage.configs));
     var saldo= data.saldo;     
     $.ajax({
     type: "POST",
