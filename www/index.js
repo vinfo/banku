@@ -1,7 +1,7 @@
 document.addEventListener("deviceready", onDeviceReady, false);
 document.addEventListener("pause", onPause, false);
 document.addEventListener("resume", onResume, false);
-
+alert("index.js");
 function onDeviceReady() {
     alert("DeviceReady");
     getDeviceProperty();
