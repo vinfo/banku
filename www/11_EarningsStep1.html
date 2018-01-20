@@ -51,7 +51,7 @@
                         <div class="row">
                             <div class="col s12">
                                 Monto disponible para inversiones
-                                <h2 class="green-text text-lighten-1">$<span class="saldo-inversionista"></span></h2>
+                                <h2 class="green-text text-lighten-1">$<span class="monto-disponible"></span></h2>
                             </div>
                         </div>                    
                     </div>
@@ -121,6 +121,10 @@
                     getScroll();
                     getUserData();
                     $("#amount_u").val(numeral(localStorage.inversion).format('0,0'));
+                    var saldo_inversionista= rplMoney($(".saldo-inversionista").html());
+                    var investments= rplMoney($(".investments").html());
+                    var monto_disponible= saldo_inversionista - investments;
+                    $(".monto-disponible").html(numeral(monto_disponible).format('0,0'));
                     if(localStorage.approved_u=="No"||localStorage.approved_u=="0"){
                         $('#info2').modal('open');
                     }
