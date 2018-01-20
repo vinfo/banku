@@ -61,22 +61,18 @@
   };
 function getDeviceProperty() {
     console.log("getDeviceProperty");
-    localStorage.setItem("OS","browser");
-    alert("OS"+localStorage.OS); 
     if(device){
       var deviceOS = device.platform;  //fetch the device operating system
       var deviceOSVersion = device.version;  //fetch the device OS version
       var uuid = device.uuid;
       localStorage.setItem("OS", deviceOS);
-      alert("deviceOS: "+ localStorage.getItem("OS"));
       localStorage.setItem("UUID", uuid);
       //console.log("Plataforma registrada " + device.platform);
       //console.log("UUID " + uuid);
     }
 }
 function checkConnection() {
-    console.log("checkConnection");
-    alert("deviceOS Final: "+ localStorage.getItem("OS"));   
+    console.log("checkConnection");   
     var state = true;    
     if(localStorage.OS&&localStorage.OS!="browser"){        
       var networkState = navigator.connection.type;
