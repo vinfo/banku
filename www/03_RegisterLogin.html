@@ -122,6 +122,7 @@
         validator.form();
         if(validator.valid()){                  
           var con= checkConnection();
+          alert(222);
           if(con){
             var json = cryptData($("#password").val());
             var pass= JSON.parse(json);

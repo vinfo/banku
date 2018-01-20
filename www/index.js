@@ -36,7 +36,11 @@
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
       console.log("onDeviceReady");
-      app.receivedEvent('deviceready');
+      getDeviceProperty();      
+      if(localStorage.OS&&localStorage.OS!="browser"){    
+        cordova.plugins.notification.badge;
+        checkConnection();
+      }
     },
     onPause: function() {
       localStorage.setItem("login","true");
@@ -48,27 +52,17 @@
           cordova.plugins.notification.badge.clear();
         //console.log("Resumen");
       }
-    },        
-    // Update DOM on a Received Event
-    receivedEvent: function(id) {
-      console.log("DeviceReady");
-      getDeviceProperty();
-      checkConnection();
-      if(localStorage.OS&&localStorage.OS!="browser"){    
-        cordova.plugins.notification.badge;
-      }  
     }
   };
 function getDeviceProperty() {
     console.log("getDeviceProperty");
+    localStorage.setItem("OS", "browser");
     if(device){
       var deviceOS = device.platform;  //fetch the device operating system
       var deviceOSVersion = device.version;  //fetch the device OS version
       var uuid = device.uuid;
       localStorage.setItem("OS", deviceOS);
       localStorage.setItem("UUID", uuid);
-      //console.log("Plataforma registrada " + device.platform);
-      //console.log("UUID " + uuid);
     }
 }
 function checkConnection() {
