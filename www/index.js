@@ -2,7 +2,8 @@ document.addEventListener("deviceready", onDeviceReady, false);
 document.addEventListener("pause", onPause, false);
 document.addEventListener("resume", onResume, false);
 
-function onDeviceReady() {    
+function onDeviceReady() {
+    alert("DeviceReady");
     getDeviceProperty();
     checkConnection();    
     initPushwoosh();
