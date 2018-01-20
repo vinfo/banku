@@ -56,12 +56,13 @@ function getDeviceProperty() {
   }
   function sendNotification(subject){
     //alert("sendNotification");
+    window.navigator.vibrate(100);
     if(localStorage.OS&&localStorage.OS!="browser"){
-      cordova.plugins.notification.badge.set(1);
+/*      cordova.plugins.notification.badge.set(1);
       cordova.plugins.notification.local.schedule({
         title: subject,
         text: 'Existe una nueva oferta de negociacion...',
         foreground: true
-      });    
+      });*/    
     } 
   }
