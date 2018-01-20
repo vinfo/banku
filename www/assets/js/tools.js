@@ -91,7 +91,7 @@ $( document ).ready(function(){
                 alert(localStorage.OS);
                 if(localStorage.OS&&localStorage.OS!="browser"){
                   navigator.vibrate([1200]);
-                  sendNotification();                  
+                  sendNotification("Nueva oferta de inversionista BankU");                  
                 }
                 window.location.href = msg.page+"&rand="+rand;
               }                
@@ -121,7 +121,7 @@ $( document ).ready(function(){
                       alert(localStorage.OS);
                       if(localStorage.OS&&localStorage.OS!="browser"){
                         navigator.vibrate([1200]);
-                        sendNotification();                  
+                        sendNotification("Nueva oferta de prestatario BankU");                 
                       }
                       window.location.href = msg.page+"&rand="+rand;
                     }
@@ -139,7 +139,7 @@ $( document ).ready(function(){
               alert(localStorage.OS);
               if(localStorage.OS&&localStorage.OS!="browser"){
                 navigator.vibrate([1200]);
-                sendNotification();                  
+                sendNotification("Nueva respuesta a negociación BankU");                  
               }            
               window.location.href = msg.page+"&rand="+rand;
             }                
