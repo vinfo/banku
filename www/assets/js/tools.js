@@ -88,7 +88,6 @@ $( document ).ready(function(){
           if(type_user=="prestatario"){            
             if(msg.page&&msg.page!=""&&msg.action){
               if(msg.action=="new_offer_inv"&&amount>0&&amount>=monto&&amount<=monto2&&duration>=duracion&&duration<=duracion2&&Math.round(interest * 100)>=Math.round(interes * 100)&&Math.round(interest * 100)<=Math.round(interes2 * 100)){                
-                alert(localStorage.OS);
                 if(localStorage.OS&&localStorage.OS!="browser"){
                   sendNotification("Nueva oferta de inversionista BankU");                  
                 }
@@ -117,7 +116,6 @@ $( document ).ready(function(){
               console.log("Interes: "+interes +">="+ minInterest +"&&"+ interes +"<="+ maxInterest);
               if(msg.action=="new_offer_prest" && (monto >= minAmount && monto <= maxAmount) && (duracion >= minDuration && duracion <= maxDuration) && (Math.round(interes * 100) >= Math.round(minInterest * 100) && Math.round(interes * 100) <= Math.round(maxInterest * 100))){
                       //alert("Redirigir"+msg.page);
-                      alert(localStorage.OS);
                       if(localStorage.OS&&localStorage.OS!="browser"){
                         sendNotification("Nueva oferta de prestatario BankU");                 
                       }
