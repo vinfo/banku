@@ -90,7 +90,7 @@ $( document ).ready(function(){
               if(msg.action=="new_offer_inv"&&amount>0&&amount>=monto&&amount<=monto2&&duration>=duracion&&duration<=duracion2&&Math.round(interest * 100)>=Math.round(interes * 100)&&Math.round(interest * 100)<=Math.round(interes2 * 100)){                
                 alert(localStorage.OS);
                 if(localStorage.OS&&localStorage.OS!="browser"){
-                  navigator.vibrate([1200]);
+                  //navigator.vibrate([1200]);
                   sendNotification("Nueva oferta de inversionista BankU");                  
                 }
                 window.location.href = msg.page+"&rand="+rand;
@@ -120,7 +120,7 @@ $( document ).ready(function(){
                       //alert("Redirigir"+msg.page);
                       alert(localStorage.OS);
                       if(localStorage.OS&&localStorage.OS!="browser"){
-                        navigator.vibrate([1200]);
+                        //navigator.vibrate([1200]);
                         sendNotification("Nueva oferta de prestatario BankU");                 
                       }
                       window.location.href = msg.page+"&rand="+rand;
@@ -136,9 +136,9 @@ $( document ).ready(function(){
             //alert(msg.id_u+"=="+id_u);      
             if(msg.id_u==id_u){
               //sendPushMessage(obj.pushtoken,usuario+' te hace nueva propuesta de negociación.');
-              alert(localStorage.OS);
+              //alert(localStorage.OS);
               if(localStorage.OS&&localStorage.OS!="browser"){
-                navigator.vibrate([1200]);
+                //navigator.vibrate([1200]);
                 sendNotification("Nueva respuesta a negociación BankU");                  
               }            
               window.location.href = msg.page+"&rand="+rand;
