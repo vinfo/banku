@@ -10,7 +10,7 @@ function onDeviceReady() {
     }   
   }
   function getDeviceProperty() {
-    //console.log("getDeviceProperty");
+    alert("getDeviceProperty");    
     if(device){
       var deviceOS = device.platform;  //fetch the device operating system
       var deviceOSVersion = device.version;  //fetch the device OS version
@@ -37,7 +37,7 @@ function onDeviceReady() {
     }
   }  
   function checkConnection() {
-    //console.log("checkConnection");
+    alert("checkConnection");
     var state = true;    
     if(sessionStorage.OS&&sessionStorage.OS!="browser"){        
       var networkState = navigator.connection.type;
@@ -60,7 +60,8 @@ function onDeviceReady() {
   }
 
 function initPushwoosh() {
-   var pushNotification = cordova.require("pushwoosh-cordova-plugin.PushNotification");
+  alert("initPushwoosh");
+  var pushNotification = cordova.require("pushwoosh-cordova-plugin.PushNotification");
   // Initialize Pushwoosh. This will trigger all pending push notifications on start.
   pushNotification.onDeviceReady({
     appid: "4B708-1B8C1",
