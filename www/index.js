@@ -6,33 +6,33 @@ function onDeviceReady() {
     getDeviceProperty();
     checkConnection();    
     initPushwoosh();
-    if(sessionStorage.OS&&sessionStorage.OS!="browser"){    
+    if(localStorage.OS&&localStorage.OS!="browser"){    
       cordova.plugins.notification.badge;
     }   
 }
   function getDeviceProperty() {
     alert("getDeviceProperty");
-    sessionStorage.setItem("OS","browser");    
+    localStorage.setItem("OS","browser");    
     if(device){
       var deviceOS = device.platform;  //fetch the device operating system
       var deviceOSVersion = device.version;  //fetch the device OS version
       var uuid = device.uuid;
-      sessionStorage.setItem("OS", deviceOS);
-      sessionStorage.setItem("UUID", uuid);
+      localStorage.setItem("OS", deviceOS);
+      localStorage.setItem("UUID", uuid);
       //console.log("Plataforma registrada " + device.platform);
       //console.log("UUID " + uuid);
-      if(sessionStorage.OS&&sessionStorage.OS!="browser"){
+      if(localStorage.OS&&localStorage.OS!="browser"){
         initPushwoosh();
       }
     }
   }
   function onPause() {
       localStorage.setItem("login","true");
-      if(sessionStorage.OS&&sessionStorage.OS!="browser")cordova.plugins.notification.badge.clear();
+      if(localStorage.OS&&localStorage.OS!="browser")cordova.plugins.notification.badge.clear();
       //console.log("Pausa");
   }
   function onResume() {
-    if(sessionStorage.OS&&sessionStorage.OS!="browser"){
+    if(localStorage.OS&&localStorage.OS!="browser"){
       cordova.plugins.notification.badge.configure({ autoClear: true });
       cordova.plugins.notification.badge.clear();
       //console.log("Resumen");
@@ -41,7 +41,7 @@ function onDeviceReady() {
   function checkConnection() {
     alert("checkConnection");
     var state = true;    
-    if(sessionStorage.OS&&sessionStorage.OS!="browser"){        
+    if(localStorage.OS&&localStorage.OS!="browser"){        
       var networkState = navigator.connection.type;
       var states = {};
       states[Connection.UNKNOWN] = 'Unknown connection';
@@ -81,7 +81,7 @@ function initPushwoosh() {
   );  
 }
 function sendNotification(){
-  if(sessionStorage.OS&&sessionStorage.OS!="browser"){
+  if(localStorage.OS&&localStorage.OS!="browser"){
     cordova.plugins.notification.badge.set(1);
     cordova.plugins.notification.local.schedule({
         title: 'Notificacion BankU',
