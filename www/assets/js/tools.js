@@ -88,8 +88,11 @@ $( document ).ready(function(){
           if(type_user=="prestatario"){            
             if(msg.page&&msg.page!=""&&msg.action){
               if(msg.action=="new_offer_inv"&&amount>0&&amount>=monto&&amount<=monto2&&duration>=duracion&&duration<=duracion2&&Math.round(interest * 100)>=Math.round(interes * 100)&&Math.round(interest * 100)<=Math.round(interes2 * 100)){                
-                navigator.vibrate([1200]);
-                sendNotification();
+                alert(sessionStorage.OS);
+                if(sessionStorage.OS!="browser"){
+                  navigator.vibrate([1200]);
+                  sendNotification();                  
+                }
                 window.location.href = msg.page+"&rand="+rand;
               }                
             }
@@ -115,8 +118,11 @@ $( document ).ready(function(){
               console.log("Interes: "+interes +">="+ minInterest +"&&"+ interes +"<="+ maxInterest);
               if(msg.action=="new_offer_prest" && (monto >= minAmount && monto <= maxAmount) && (duracion >= minDuration && duracion <= maxDuration) && (Math.round(interes * 100) >= Math.round(minInterest * 100) && Math.round(interes * 100) <= Math.round(maxInterest * 100))){
                       //alert("Redirigir"+msg.page);
-                      navigator.vibrate([1200]);
-                      sendNotification();
+                      alert(sessionStorage.OS);
+                      if(sessionStorage.OS!="browser"){
+                        navigator.vibrate([1200]);
+                        sendNotification();                  
+                      }
                       window.location.href = msg.page+"&rand="+rand;
                     }
                     if(msg.action=="del_offert"&&id_u==decryptData(msg.id_u)){                    
@@ -130,35 +136,38 @@ $( document ).ready(function(){
             //alert(msg.id_u+"=="+id_u);      
             if(msg.id_u==id_u){
               //sendPushMessage(obj.pushtoken,usuario+' te hace nueva propuesta de negociación.');
-              navigator.vibrate([1500]);
-              sendNotification();              
+              alert(sessionStorage.OS);
+              if(sessionStorage.OS!="browser"){
+                navigator.vibrate([1200]);
+                sendNotification();                  
+              }            
               window.location.href = msg.page+"&rand="+rand;
             }                
           }
         //}
       });
-  }
+}
 
-  if(type_user=="prestatario"){
-    $(".inversionista").remove();
-    $(".msg-action").html("prestar");
-  }else{
-    $(".prestatario").remove();
-    $(".msg-action").html("invertir");
-  }
+if(type_user=="prestatario"){
+  $(".inversionista").remove();
+  $(".msg-action").html("prestar");
+}else{
+  $(".prestatario").remove();
+  $(".msg-action").html("invertir");
+}
 
-  $('select').material_select();
-  $('.modal').modal();
-  $( ".back" ).click(function() {
-    window.history.back();
-  });
-  $( "body" ).on( "click", ".close-session", function() {
-    localStorage.clear();
-    window.location.href = "02_Login.html";
+$('select').material_select();
+$('.modal').modal();
+$( ".back" ).click(function() {
+  window.history.back();
+});
+$( "body" ).on( "click", ".close-session", function() {
+  localStorage.clear();
+  window.location.href = "02_Login.html";
       //navigator.app.exitApp();
     });   
-  var section= getUrlParameter("section");
-  setTimeout(function(){ $("."+section).addClass('active'); },1000);
+var section= getUrlParameter("section");
+setTimeout(function(){ $("."+section).addClass('active'); },1000);
 })
 
 var getNamePage = function getNamePage() {
@@ -493,9 +502,9 @@ function decryptData(data){
   return JSON.parse(CryptoJS.AES.decrypt(data,author, {format: CryptoJSAesJson}).toString(CryptoJS.enc.Utf8));   
 }
 function calcAprox(value,porc,action){
-    var aprox= value + (value * (porc/100));
-    if(action=="-")aprox= value - (value * (porc/100));
-    return aprox;
+  var aprox= value + (value * (porc/100));
+  if(action=="-")aprox= value - (value * (porc/100));
+  return aprox;
 }
 function getUserData(){
   var id_u= encodeURIComponent(localStorage.data);  
