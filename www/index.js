@@ -53,8 +53,7 @@
     receivedEvent: function(id) {
       alert("DeviceReady");
       getDeviceProperty();
-      checkConnection();    
-      initPushwoosh();
+      checkConnection();
       if(localStorage.OS&&localStorage.OS!="browser"){    
         cordova.plugins.notification.badge;
       }  
@@ -97,25 +96,6 @@ function checkConnection() {
       }
     }
     return state;
-}
-
-function initPushwoosh() {
-    alert("initPushwoosh");
-/*  var pushNotification = cordova.require("pushwoosh-cordova-plugin.PushNotification");
-  pushNotification.onDeviceReady({
-    appid: "4B708-1B8C1",
-    projectid: "928675299174"
-  });
-
-  pushNotification.registerDevice(
-    function(status) {
-      var pushToken = status.pushToken;
-      localStorage.setItem("pushtoken",pushToken);            
-      },
-      function(status) {
-        // handle registration error here
-      }
-      ); */ 
 }
 function sendNotification(){
       if(localStorage.OS&&localStorage.OS!="browser"){
