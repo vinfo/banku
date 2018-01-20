@@ -27,6 +27,8 @@
     // 'load', 'deviceready', 'offline', and 'online'.
     bindEvents: function() {
       document.addEventListener('deviceready', this.onDeviceReady, false);
+      document.addEventListener("pause", this.onPause, false);
+      document.addEventListener("resume", this.onResume, false);      
     },
     // deviceready Event Handler
     //
@@ -36,6 +38,17 @@
       alert("onDeviceReady");
       app.receivedEvent('deviceready');
     },
+    onPause: function() {
+      localStorage.setItem("login","true");
+      if(localStorage.OS&&localStorage.OS!="browser")cordova.plugins.notification.badge.clear();
+    },
+    onResume: function() {
+      if(localStorage.OS&&localStorage.OS!="browser"){
+          cordova.plugins.notification.badge.configure({ autoClear: true });
+          cordova.plugins.notification.badge.clear();
+        //console.log("Resumen");
+      }
+    },        
     // Update DOM on a Received Event
     receivedEvent: function(id) {
       alert("DeviceReady");
@@ -63,18 +76,6 @@ function getDeviceProperty() {
       }
     }
 }
-function onPause() {
-    localStorage.setItem("login","true");
-    if(localStorage.OS&&localStorage.OS!="browser")cordova.plugins.notification.badge.clear();
-      //console.log("Pausa");
-    }
-    function onResume() {
-      if(localStorage.OS&&localStorage.OS!="browser"){
-        cordova.plugins.notification.badge.configure({ autoClear: true });
-        cordova.plugins.notification.badge.clear();
-      //console.log("Resumen");
-    }
-}  
 function checkConnection() {
     alert("checkConnection");
     var state = true;    
