@@ -120,10 +120,7 @@
         e.preventDefault();  
         var validator = $("#frm_register").validate({errorPlacement: function(error,element) {return true;}});
         validator.form();
-        if(validator.valid()){                  
-          var con= checkConnection();
-          alert(222);
-          if(con){
+        if(validator.valid()){ 
             var json = cryptData($("#password").val());
             var pass= JSON.parse(json);
             $("#password").val(pass["ct"]); 
@@ -149,9 +146,7 @@
               error: function(XMLHttpRequest, textStatus, errorThrown) { 
                 console.log("Sistema no disponible. Reintentar en un momento.");
               }
-            });  
-          }
-          
+            });          
         }
       });                                
     })

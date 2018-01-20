@@ -10,7 +10,7 @@ function onDeviceReady() {
 }   
 }
 function getDeviceProperty() {
-    alert("getDeviceProperty");
+    //alert("getDeviceProperty");
     localStorage.setItem("OS", "browser");
     if(device){
       var deviceOS = device.platform;  //fetch the device operating system
@@ -33,7 +33,7 @@ function getDeviceProperty() {
     }
   }  
   function checkConnection() {
-    alert("checkConnection");
+    //alert("checkConnection");
     var state = true;    
     if(localStorage.OS&&localStorage.OS!="browser"){        
       var networkState = navigator.connection.type;
@@ -55,7 +55,7 @@ function getDeviceProperty() {
     return state;
   }
   function sendNotification(subject){
-    alert("sendNotification");
+    //alert("sendNotification");
     if(localStorage.OS&&localStorage.OS!="browser"){
       cordova.plugins.notification.badge.set(1);
       cordova.plugins.notification.local.schedule({
