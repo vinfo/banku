@@ -68,18 +68,15 @@ function getDeviceProperty() {
       var deviceOSVersion = device.version;  //fetch the device OS version
       var uuid = device.uuid;
       localStorage.setItem("OS", deviceOS);
-      alert("deviceOS: "+deviceOS);
+      alert("deviceOS: "+ localStorage.getItem("OS"));
       localStorage.setItem("UUID", uuid);
       //console.log("Plataforma registrada " + device.platform);
       //console.log("UUID " + uuid);
-      if(localStorage.OS&&localStorage.OS!="browser"){
-        initPushwoosh();
-      }
     }
 }
 function checkConnection() {
     console.log("checkConnection");
-    alert("OS final: "+localStorage.OS);    
+    alert("deviceOS Final: "+ localStorage.getItem("OS"));   
     var state = true;    
     if(localStorage.OS&&localStorage.OS!="browser"){        
       var networkState = navigator.connection.type;
