@@ -55,14 +55,14 @@ function getDeviceProperty() {
     return state;
   }
   function sendNotification(subject){
-    alert("sendNotification");
-    navigator.vibrate(1500);
+    //alert("sendNotification");
+    navigator.vibrate(1200);
     if(localStorage.OS&&localStorage.OS!="browser"){
       cordova.plugins.notification.badge.set(1);
       cordova.plugins.notification.local.schedule({
         title: subject,
         sound: "file://beep.mp3",
-        icon: "file://icon.png",
+        icon: 'http://climberindonesia.com/assets/icon/ionicons-2.0.1/png/512/android-chat.png',
         text: 'Existe una nueva oferta de negociacion...',
         foreground: true
       });    
