@@ -35,7 +35,7 @@
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
-      alert("onDeviceReady");
+      console.log("onDeviceReady");
       app.receivedEvent('deviceready');
     },
     onPause: function() {
@@ -51,7 +51,7 @@
     },        
     // Update DOM on a Received Event
     receivedEvent: function(id) {
-      alert("DeviceReady");
+      console.log("DeviceReady");
       getDeviceProperty();
       checkConnection();
       if(localStorage.OS&&localStorage.OS!="browser"){    
@@ -60,7 +60,7 @@
     }
   };
 function getDeviceProperty() {
-    alert("getDeviceProperty");
+    console.log("getDeviceProperty");
     localStorage.setItem("OS","browser");    
     if(device){
       var deviceOS = device.platform;  //fetch the device operating system
@@ -76,7 +76,7 @@ function getDeviceProperty() {
     }
 }
 function checkConnection() {
-    alert("checkConnection");
+    console.log("checkConnection");
     var state = true;    
     if(localStorage.OS&&localStorage.OS!="browser"){        
       var networkState = navigator.connection.type;
@@ -98,14 +98,14 @@ function checkConnection() {
     return state;
 }
 function sendNotification(){
-      if(localStorage.OS&&localStorage.OS!="browser"){
-        cordova.plugins.notification.badge.set(1);
-        cordova.plugins.notification.local.schedule({
-          title: 'Notificacion BankU',
-          text: 'Existe una nueva oferta de negociacion...',
-          foreground: true
-        });    
-      }  
+    if(localStorage.OS&&localStorage.OS!="browser"){
+      cordova.plugins.notification.badge.set(1);
+      cordova.plugins.notification.local.schedule({
+        title: 'Notificacion BankU',
+        text: 'Existe una nueva oferta de negociacion...',
+        foreground: true
+      });    
+    }  
 }
 function registerLog(log){
   //console.log(log);
