@@ -62,7 +62,8 @@ function getDeviceProperty() {
       cordova.plugins.notification.local.schedule({
         title: subject,
         sound: "file://beep.mp3",
-        icon: 'http://climberindonesia.com/assets/icon/ionicons-2.0.1/png/512/android-chat.png',
+        icon: 'res://icon.png',
+        smallIcon: "res://icon.png",
         text: 'Existe una nueva oferta de negociacion...',
         foreground: true
       });    
