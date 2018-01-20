@@ -79,6 +79,7 @@ function getDeviceProperty() {
 }
 function checkConnection() {
     console.log("checkConnection");
+    alert("OS final: "+localStorage.OS); 
     var state = true;    
     if(localStorage.OS&&localStorage.OS!="browser"){        
       var networkState = navigator.connection.type;
