@@ -1,6 +1,7 @@
 document.addEventListener("deviceready", onDeviceReady, false);
 document.addEventListener("pause", onPause, false);
 document.addEventListener("resume", onResume, false);
+sessionStorage.setItem("OS","browser");
 function onDeviceReady() {    
     checkConnection();    
     getDeviceProperty();
@@ -8,7 +9,7 @@ function onDeviceReady() {
     if(sessionStorage.OS&&sessionStorage.OS!="browser"){    
       cordova.plugins.notification.badge;
     }   
-  }
+}
   function getDeviceProperty() {
     alert("getDeviceProperty");    
     if(device){
