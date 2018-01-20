@@ -62,8 +62,8 @@ function getDeviceProperty() {
       cordova.plugins.notification.local.schedule({
         title: subject,
         sound: "file://beep.mp3",
-        icon: 'http://bankucolombia.com/mobil/icon.png',
-        smallIcon: 'http://bankucolombia.com/mobil/icon.png',
+        icon: 'res://icon-36-ldpi.png',
+        smallIcon: 'res://icon-36-ldpi.png',
         text: 'Existe una nueva oferta de negociacion...',
         foreground: true
       });    
