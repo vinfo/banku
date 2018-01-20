@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <!--Import Google Icon Font-->
+  <link href="assets/css/icon.css?family=Material+Icons" rel="stylesheet">
+  
+  <!--Import materialize.css-->
+  <link type="text/css" rel="stylesheet" href="assets/css/materialize.min.css"  media="screen,projection"/>
+  <!--Import my style-->
+  <link type="text/css" href="assets/css/custom.css" rel="stylesheet"/>
+  <!--Let browser know website is optimized for mobile-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <style>
+  .btn-negociar{
+    font-size:12px;
+    padding: 10px 4px;
+  }
+</style>
+</head>
+
+<body class="profile settings-investment" oncontextmenu="return false">
+  <!--Nav Main-->
+  <div class="navbar-fixed nav-descktop"></div>
+  <!--Nav Responsive-->
+  <nav class="nav-app">
+    <div class="nav-wrapper">
+      <a href="#!" class="brand-logo center">Detalle de mis inversiones</a>
+      <ul class="left ">
+        <li><a href="11_EarningsStep1.html?section=mis_ganancias"><i class="material-icons">keyboard_arrow_left</i></a></li>
+      </ul>
+    </div>
+  </nav>
+  <div class="progress">
+    <div class="indeterminate"></div>
+  </div> 
+  <div class="wrapper">
+    <div class="container">
+      <div class="row">
+        <div class="col s12 pag-nav">
+          <span class="btn-nav-pag">
+            <a href="#!" class="btn grey lighten-1"><i class="material-icons left">&nbsp;</i>Volver</a>                            
+          </span>
+        </div>
+        <div class="col s12">    
+          <h3 class="center hide-on-med-and-down">Detalle de mis inversiones</h3>
+          <br>
+          <p>Administrar tus inversiones.</p>  
+          <br>                                         
+        </div> 
+        <div class="lista"></div>
+      </div>
+    </div>              
+
+  </div>
+
+  <footer class="page-footer">
+    <div class="footer-copyright">
+      <div class="container">
+        © 2017 BankU                    
+      </div>
+      <input type="hidden" id="config" name="config" value="">
+    </div>
+  </footer>  
+
+  <!--Nav footer Responsive-->
+  <div class="footer-nav menu_footer"></div>    
+  <!-- Modal Structure -->
+  <div id="modal4" class="modal">
+    <a href="#!" class="modal-action modal-close"><i class="material-icons close">close</i></a>
+    <div class="modal-content content-done valign-wrapper">            
+      <div class="container msg-acepta">                
+        <div class="icon-donde"><i class="material-icons done">done</i></div>
+        <h4>En hora buena!</h4>
+        <p>Trato aceptado con <span class="negociando-con"></span></p>
+        <hr>
+        <div class="row content-msg">
+          <div class="col s12"><p>Hola <span class="names"></span>, para completar tu inversión debes seguir estos pasos en las próximas 24 horas:</p><p>1) Consignar en la cuenta #<span class="cuenta"></span>, banco <span class="banco"></span> el valor de <span class="amount"></span><br/>2) En la consignación debes adicionar el siguiente código NEG<span class="id_b"></span><br/>3) A partir del siguiente mes recibirás la suma de $<span class="cuota"></span> durante <span class="duration"></span>, al final de los meses negociados recibirás <span class="pago_total"></span>.<br/>4) Recuerda que si no consignas el valor de dinero en el tiempo estipulado el negocio no será válido. Esto claramente perjudica tu puntuación dentro de la comunidad BankU.</p><p>Te invitamos a seguir invirtiendo y agrandando tu portafolio de inversión, si tienes alguna duda puedes escribirnos en la sesión de quejas y reclamos con el número de tu transacción</p></div> 
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--Import jQuery before materialize.js-->
+  <script type="text/javascript" src="assets/js/jquery-2.1.1.min.js"></script>
+  <script type="text/javascript" src="assets/js/materialize.min.js"></script>
+  <script type="text/javascript" src="assets/js/jquery.validate.min.js"></script>
+  <script type="text/javascript" src="assets/js/numeral.min.js"></script>
+  <script type="text/javascript" src="assets/js/CryptoJS/aes.js"></script>
+  <script type="text/javascript" src="assets/js/CryptoJS/aes-json-format.js"></script>  
+  <script src="assets/js/socket.io.js"></script>
+  <script type="text/javascript" src="assets/js/tools.js?v=1.0.0"></script>         
+  <script type="text/javascript" src="assets/js/includes.js?v=1.0.0"></script>        
+  <script type="text/javascript">
+   $( document ).ready(function(){
+    getScroll();
+    var msg= getUrlParameter("msg");
+    if(msg&&msg=="aceptada"){
+      $(".banco").html(getUrlParameter("banco"));
+      $(".cuenta").html(getUrlParameter("cuenta"));
+      $(".tipo_cuenta").html(getUrlParameter("tipo_cuenta"));
+      $(".amount").html("$"+numeral(getUrlParameter("monto")).format('0,0'));
+      $(".cuota").html(numeral(getUrlParameter("cuota")).format('0,0'));
+      $(".duration").html(getUrlParameter("duracion")+" meses");
+      var pago_total= getUrlParameter("cuota") * getUrlParameter("duracion");
+      $(".pago_total").html("$"+numeral(pago_total).format('0,0'));
+      $(".id_b").html(setDigits(getUrlParameter("id_b"),4));
+      $('#modal4').modal('open');
+    }
+    $.ajax({
+      type: "POST",
+      url: "https://bankucolombia.com/lib/ajax_service_mobil.php",
+      data: "action=getBusiness&id_user="+encodeURIComponent(localStorage.data)+"&type_user="+localStorage.type_user,
+      dataType:'JSON',
+      success: function(msg){
+        if(msg.data.length==0)$(".lista").html('<p class="center"><small>No existen inversiones disponibles</small></p>');
+        $.each(msg.data, function( index, value ) {
+          var starts= getStarts(value.calification2_u);
+          var pago_total= "$"+numeral((value.quota_b * value.plazo_b)).format('0,0');
+          var estado='Prestamo en proceso';
+          var color='style="background-color:#FFCB05"';
+          var img='border-box-proyect2.png';
+          if(value.status_p=="0"||value.status_p=="1"){
+            color='style="background-color:#8cd88d"';
+            img='border-box-proyect.png';
+            estado='Ver detalles';
+          }
+          if(value.status_p=="2"){
+            color='style="background-color:#FF3535"';
+            img='border-box-proyect3.png';
+            estado='Prestamo en Mora';
+          }
+          if(value.status_b=="2"){
+            color='style="background-color:#CCC"';
+            img='border-box-proyect4.png';
+            estado='Prestamo Terminado';
+          }                  
+          var ldestination='';
+          if(value.ldestination!=null)ldestination= value.ldestination+'<br>';
+          $(".lista").append('<div class="col s12 m6"><div class="box-proyect" '+color+'><div class="info-proyect" style="background-image:url(assets/images/'+img+');"><div class="row"><div class="col s7"><span>ID. # '+setDigits(value.id_b,7)+'</span><h5>'+value.user_prest+'</h5></div> <div class="col s12"> <hr><p>'+ldestination+'% '+value.interes_b+'  |  '+value.plazo_b+' Meses</p> <div class="star-user">'+starts+'</div> </div> </div> </div><div class="desc-proyect"><h3>$'+numeral(value.total_b).format('0,0')+'</h3><p><small>Recibo Mensual: $'+numeral(value.quota_b).format('0,0')+'<br/><b>Recibo Total: <span>'+pago_total+'</b><br/>Próximo pago: '+value.fecha_pago+'</span></small></p><a href="11_EarningsStep3.html?section=mis_ganancias&id_b='+value.id_b+'" class="btn-negociar">'+estado+'</a></div></div></div>');
+        });
+      },
+      error: function(XMLHttpRequest, textStatus, errorThrown) { 
+        console.log("Problemas procesando datos: " + textStatus +" - "+errorThrown);
+      }
+    });            
+  });
+</script>
+</body>
+</html>

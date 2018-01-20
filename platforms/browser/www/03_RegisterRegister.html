@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <!--Import Google Icon Font-->
+    <link href="assets/css/icon.css?family=Material+Icons" rel="stylesheet">
+
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="assets/css/materialize.min.css"  media="screen,projection"/>
+    <!--Import my style-->
+    <link type="text/css" href="assets/css/custom.css" rel="stylesheet"/>
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
+
+<body class="profile" oncontextmenu="return false">
+    <!--Nav Responsive-->
+    <nav class="nav-app">
+        <div class="nav-wrapper">
+            <a href="#!" class="brand-logo center">Crear una cuenta</a>
+            <ul class="left ">
+                <li><a href="#!" class="back"><i class="material-icons">keyboard_arrow_left</i></a></li>
+            </ul>
+        </div>
+    </nav>
+
+
+    <!-- Modal Structure OK -->
+    <div id="modal2" class="modal">
+        <div class="modal-content content-done">
+            <a href="#!" class="modal-action modal-close"><i class="material-icons close">close</i></a>
+            <div class="icon-donde"><i class="material-icons done">done</i></div>
+            <h4>¡Tus cambios están<br>
+                siendo analizados!</h4>
+                <hr>
+                <p>Pronto te estaremos confirmando de su actualización! Recuerda que estos cambios tiene un costo de $<span class="costs"></span>, según términos y condición del contrato.</p>
+                <p>Gracias!</p>
+            </div>
+        </div>
+
+        
+
+        <div class="wrapper edit-profile">
+            <div class="container">
+                <div class="row">                
+                    <div class="col s12 center brand-register">
+                        <img class="responsive-img" src="assets/images/logoRegister.png" alt="BankU">
+                        <h5 class="hide-on-med-and-down">Crean una cuenta</h5>
+                    </div>                    
+                    <form id="frm_register" name="frm_register" method="POST" action="http://localhost:6002/user/register" enctype="multipart/form-data" class="col s12 form-general-data">
+                        <div class="row">
+                            <div class="input-field col s6 m6">
+                                <input placeholder="Primer nombre" id="names_u" name="names_u" type="text" value="" class="validate" required>
+                                <label for="names_u">Primer Nombre</label>
+                            </div>
+                            <div class="input-field col s6 m6">
+                                <input placeholder="Segundo nombre" id="names1_u" name="names1_u" type="text" value="" class="validate">
+                                <label for="names1_u">Segundo Nombre</label>
+                            </div>
+                            <div class="clear"></div>                            
+                            <div class="input-field col s6 m6">
+                                <input placeholder="Primer apellido" id="lastnames_u" name="lastnames_u" type="text" value="" class="validate" required>
+                                <label for="lastnames_u">Primer Apellido</label>
+                            </div>
+                            <div class="input-field col s6 m6">
+                                <input placeholder="Segundo apellido" id=" lastnames1_u" name="  lastnames1_u" type="text" value="" class="validate">
+                                <label for="    lastnames1_u">Segundo Apellido</label>
+                            </div>                            
+                            <div class="input-field col s12">
+                                <input value="" placeholder="correo@correo.com" id="email_u" name="email_u" type="email" class="validate" required>
+                                <label for="email_u">Email</label>
+                                <span class="msg-error red-text">E-mail ya existe en nuestro sistema!</span>
+                            </div>
+                            <div class="input-field col s12">                                
+                                <input placeholder="Ingresa tu contraseña" id="password_u" name="password_u" type="password" value="" class="validate" required>
+                                <label for="password_u">Contraseña</label>
+                            </div>
+                        </div>
+                        <div class="col s12 center margin-top-40 btn-register">
+                            <a class="waves-effect waves-light yellow accent-4 btn-large">Regístrate</a>
+                            <input type="hidden" id="type_user" name="type_user" value="">
+                            <input type="hidden" id="action" name="action" value="registerUser">
+                            <br><br>
+                            <h5 class="grey-text text-grey"><small>O bien, <a href="03_RegisterLogin.html">inicia sesión</a></small></h5>
+                        </div>                         
+                    </form>  
+
+                </div>                                                                                
+            </div>
+        </div>  
+
+        <footer class="page-footer">
+            <div class="footer-copyright">
+                <div class="container">
+                    © 2017 BankU                    
+                </div>
+            </div>
+        </footer>
+        <!-- <script type="text/javascript" src="cordova.js"></script> -->
+        <script type="text/javascript" src="index.js"></script>
+        <!--Import jQuery before materialize.js-->
+        <script type="text/javascript" src="assets/js/jquery-2.1.1.min.js"></script>
+        <script type="text/javascript" src="assets/js/materialize.min.js"></script>
+        <script type="text/javascript" src="assets/js/jquery.validate.min.js"></script>
+        <script type="text/javascript" src="assets/js/numeral.min.js"></script
+        <script src="assets/js/socket.io.js"></script>
+        <script type="text/javascript" src="assets/js/tools.js"></script>
+        <script type="text/javascript">
+        	$( document ).ready(function(){                
+                $(".wrapper").show();
+                var type_user = getUrlParameter('type_user');
+                registerLog("Página de registro: "+type_user);
+                $("#type_user").val(type_user);
+                localStorage.setItem("type_user",type_user);
+                $( "#email_u" ).change(function() {
+                    if(this.value!=""){
+                        $.ajax({
+                            type: "POST",
+                            url: "https://bankucolombia.com/lib/ajax_service_mobil.php",
+                            data: "action=checkExists&email="+this.value+"&type_user="+type_user,
+                            dataType:'JSON',
+                            success: function(msg){
+                                if(msg.data==1){
+                                    $("#email_u").val('');
+                                    Materialize.toast('El Email ya existe en nuestro sistema', 1500, 'rounded',function(){return false;});
+                                    return false;
+                                }
+                            }
+                        }); 
+                    }
+                });
+                $( ".accent-4" ).click(function() {
+                    var validator = $("#frm_register").validate({errorPlacement: function(error,element) {return true;}});
+                    validator.form();
+                    if(validator.valid()){
+                    	$(".accent-4").html('<img src="assets/images/ajax-loader.gif" alt="Procesando...">');
+                        $.ajax({
+                            type: "POST",
+                            url: "https://bankucolombia.com/lib/ajax_service_mobil.php",
+                            data: $("#frm_register").serialize(),
+                            dataType:'JSON',
+                            success: function(msg){
+                                if(msg.status==200){
+                                    localStorage.setItem("id_u",msg.data.id_u);
+									localStorage.setItem("login","true");
+                                    window.location = "04_AccessStep1.html";
+                                }
+                            },
+							error: function(XMLHttpRequest, textStatus, errorThrown) { 
+								console.log("Problemas procesando datos: " + textStatus +" - "+errorThrown);
+								location.reload();
+							}
+                        });                 
+                    }
+                });
+            })
+        </script>
+    </body>
+    </html>

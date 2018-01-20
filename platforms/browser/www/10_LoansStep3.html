@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <!--Import Google Icon Font-->
+  <link href="assets/css/icon.css?family=Material+Icons" rel="stylesheet">
+  
+  <!--Import materialize.css-->
+  <link type="text/css" rel="stylesheet" href="assets/css/materialize.min.css"  media="screen,projection"/>
+  <!--Import my style-->
+  <link type="text/css" href="assets/css/custom.css" rel="stylesheet"/>
+  <!--Let browser know website is optimized for mobile-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
+
+<body class="profile settings-investment" oncontextmenu="return false">
+  <!--Nav Main-->
+  <div class="navbar-fixed nav-descktop"></div>
+
+  <!--Nav Responsive-->
+  <nav class="nav-app">
+    <div class="nav-wrapper">
+      <a href="#!" class="brand-logo center">&nbsp;</a>
+      <ul class="left ">
+        <li><a href="#!" class="back"><i class="material-icons">keyboard_arrow_left</i></a></li>
+      </ul>
+    </div>
+  </nav>
+  <div class="progress">
+    <div class="indeterminate"></div>
+  </div>
+  <div class="wrapper">
+    <div class="container">
+      <div class="row">
+        <div class="col s12 pag-nav">
+          <span class="btn-nav-pag">
+            <a href="#!" class="btn grey lighten-1"><i class="material-icons left">&nbsp;</i>Volver</a>                            
+          </span>
+        </div>
+        <div class="col s12">    
+          <h3 class="center hide-on-med-and-down">Inversiones para tus proyecto</h3>
+          <br>
+          <p>Con los siguientes inversionistas puedes ajustar el monto, la tasa y el tiempo hasta que tu solicitud sea aceptada por uno de los inversionistas de la comunidad BankU.</p>  
+          <br>                                         
+        </div>
+        <div class="offerts"></div>
+      </div>
+    </div>
+
+    <div class="container margin-top-40 row-negociar">  
+      <div class="row"> 
+        <div class="col s12 center btn-register btn-find-proyects">
+          <a href="#modal3" class="waves-effect waves-light green accent-4 btn-large">Negociar con todos</a>
+        </div> 
+      </div>                                                                               
+    </div>
+  </div>  
+
+  <!-- Modal Structure Load -->
+  <div id="modal3" class="modal">
+    <div class="modal-content content-done valign-wrapper">
+      <!--<a href="#!" class="modal-action modal-close"><i class="material-icons close">close</i></a>-->
+      <div class="row">            
+        <div class="col s12">
+          <div class="icon-donde"><img src="assets/images/logoLoad.png"></div>
+          <div class="progress">
+            <div class="indeterminate green accent-4"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--Nav footer Responsive-->
+  <div class="footer-nav menu_footer"></div>         
+
+  <footer class="page-footer">
+    <div class="footer-copyright">
+      <div class="container">
+        © 2017 BankU                    
+      </div>
+      <input type="hidden" id="config" name="config" value="">
+    </div>
+  </footer>  
+  <!-- Modal Structure -->        
+  <div id="ModalPerfilEstudio" class="modal">
+    <div class="modal-content">
+      <h4>Perfil en estudio</h4>
+      <p>Su perfil esta en estudio, pronto podrá disfrutar de todos los servicios.</p>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Aceptar</a>
+    </div>
+  </div>                   
+  <!-- <script type="text/javascript" src="cordova.js"></script> -->
+  <script type="text/javascript" src="index.js"></script>                     
+  <!--Import jQuery before materialize.js-->
+  <script type="text/javascript" src="assets/js/jquery-2.1.1.min.js"></script>
+  <script type="text/javascript" src="assets/js/materialize.min.js"></script>
+  <script type="text/javascript" src="assets/js/jquery.validate.min.js"></script>
+  <script type="text/javascript" src="assets/js/numeral.min.js"></script>
+  <script type="text/javascript" src="assets/js/CryptoJS/aes.js"></script>
+  <script type="text/javascript" src="assets/js/CryptoJS/aes-json-format.js"></script>   
+  <script src="assets/js/socket.io.js"></script>
+  <script type="text/javascript" src="assets/js/tools.js?v=1.0.0"></script>         
+  <script type="text/javascript" src="assets/js/includes.js?v=1.0.0"></script>        
+  <script type="text/javascript">                   
+   $( document ).ready(function(){
+    sessionRedirect();
+    var socket = io('https://banku-services.herokuapp.com/');
+    setTimeout(function(){ $(".brand-logo").text("Solicitar Dinero"); }, 300);
+    getOffertTemp();    
+  });
+function getAllOffers(){
+    var configs= JSON.parse(decryptData(localStorage.configs));
+    var amount= configs.amount;   
+    var interest= configs.interest;
+    var duration= configs.duration;
+    $.ajax({
+    type: "POST",
+    url: "https://bankucolombia.com/lib/ajax_service_mobil.php",
+    data: "action=getOffersByParams&id_u="+encodeURIComponent(localStorage.data)+"&amount="+amount+"&interest="+interest+"&duration="+duration,
+    dataType:'JSON',
+    async:false,
+    success: function(msg){
+      var cont=0;      
+      $.each(msg.data, function( index, value ) {
+        getOfferts(amount,duration,value);
+        cont++;
+      });
+      if(cont==0){
+        setTimeout(function(){ if($(".box-proyect").length==0)$(".offerts").html('<p class="center"><small>No existen negociaciones disponibles</small></p>'); }, 2000); 
+      }     
+    }
+  });
+}    
+function getOfferts(amount,duration,value){   
+      var starts= getStarts(value.calification2_u);
+      var monto= parseInt(amount);      
+      var interes= parseFloat(value.interest2);
+      var duracion= parseInt(duration);
+
+      var cuota= calcCuota(monto,interes,duracion);
+      var total= cuota * duracion;
+      $(".offerts").append('<div class="col s12 m6"><div class="box-proyect"><div class="info-proyect"><div class="row"><div class="col s7"> <h5>'+value.user_u+'</h5></div><div class="col s12"> <hr><p><br>% '+interes+'  |  '+duracion+' Meses</p> <div class="star-user">'+starts+'</div> </div></div></div><div class="desc-proyect"><h3>$'+numeral(monto).format('0,0')+'</h3><p><small>Pago Mensual: $'+numeral(cuota).format('0,0')+'<br/>Pago Total: $'+numeral(total).format('0,0')+'<br/>#'+value.id+'</small></p>  <a href="10_LoansStep4.html?section=solicitar_dinero&id_ofert='+value.id+'" class="btn-negociar">Negociar</a></div></div></div>');     
+}
+function getOffertTemp(){
+    $.ajax({
+      type: "POST",
+      url: "https://bankucolombia.com/lib/ajax_service_mobil.php",
+      data: "action=getOfferTemp&id_u="+encodeURIComponent(localStorage.data)+"&type_user="+localStorage.type_user,
+      dataType:'JSON',
+      async:false,
+      success: function(msg){
+        if(msg.data.length>0){
+          $(".iconAccess,.btn-register").hide();
+          var interest2= msg.dataOR[0].interest2;          
+
+          $.each(msg.data, function( index, value ) {
+            if(msg.dataOR[0].owner==decryptData(localStorage.data))interest2= msg.dataOR[0].interest;
+            var starts= getStarts(value.calification2_u_inv);
+            var cuota= calcCuota(value.amount_prest,interest2,value.duration_inv);
+            var total= cuota * value.duration_inv;
+            $(".offerts").html('<div class="col s12 m6"><div class="box-proyect" style="background-color:#FFCB05;"><div class="info-proyect" style="background-image:url(assets/images/border-box-proyect2.png);"><div class="row"><div class="col s7"> <h5>'+value.user_inv+'</h5></div> <div class="col s12"> <hr><p>'+value.ldestination+'<br>% '+interest2+'|'+value.duration_inv+' Meses</p> <div class="star-user">'+starts+'</div></div></div> </div><div class="desc-proyect"><h3>$'+numeral(value.amount_prest).format('0,0')+'</h3><p><small>Pago Mensual: $'+numeral(cuota).format('0,0')+'<br/><b>Pago Total: $'+numeral(total).format('0,0')+'</b><br/>Oferta #'+value.id_ofert+'</small></p><a href="10_LoansStep4.html?section=solicitar_dinero&id_ofert='+value.id_ofert+'&negociando=true" class="btn-negociar small">En Negociación</a></div></div></div>');
+          });
+        }else{
+          getAllOffers();
+        }
+      },
+      error: function(XMLHttpRequest, textStatus, errorThrown) { 
+        console.log("Problemas procesando datos: " + textStatus +" - "+errorThrown);
+      }
+    });          
+  }
+</script>
+</body>
+</html>
