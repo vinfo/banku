@@ -1,17 +1,18 @@
 document.addEventListener("deviceready", onDeviceReady, false);
 document.addEventListener("pause", onPause, false);
 document.addEventListener("resume", onResume, false);
-sessionStorage.setItem("OS","browser");
+
 function onDeviceReady() {    
-    checkConnection();    
     getDeviceProperty();
+    checkConnection();    
     initPushwoosh();
     if(sessionStorage.OS&&sessionStorage.OS!="browser"){    
       cordova.plugins.notification.badge;
     }   
 }
   function getDeviceProperty() {
-    alert("getDeviceProperty");    
+    alert("getDeviceProperty");
+    sessionStorage.setItem("OS","browser");    
     if(device){
       var deviceOS = device.platform;  //fetch the device operating system
       var deviceOSVersion = device.version;  //fetch the device OS version
