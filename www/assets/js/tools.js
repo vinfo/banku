@@ -134,7 +134,7 @@ $( document ).ready(function(){
               //sendPushMessage(obj.pushtoken,usuario+' te hace nueva propuesta de negociación.');
               //alert(localStorage.OS);
               if(localStorage.OS&&localStorage.OS!="browser"){
-                sendNotification("Nueva respuesta a negociación BankU");                  
+                sendNotification("Propuesta negociación BankU");                  
               }            
               window.location.href = msg.page+"&rand="+rand;
             }                
