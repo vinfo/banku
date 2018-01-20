@@ -56,11 +56,13 @@ function getDeviceProperty() {
   }
   function sendNotification(subject){
     alert("sendNotification");
-    navigator.vibrate(3000);
+    navigator.vibrate(1500);
     if(localStorage.OS&&localStorage.OS!="browser"){
       cordova.plugins.notification.badge.set(1);
       cordova.plugins.notification.local.schedule({
         title: subject,
+        sound: "file://beep.mp3",
+        icon: "file://icon.png",
         text: 'Existe una nueva oferta de negociacion...',
         foreground: true
       });    
