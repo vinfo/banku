@@ -148,7 +148,7 @@
                   <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Aceptar</a>
                 </div>
               </div>
-              <script type="text/javascript" src="cordova.js"></script>
+              <!-- <script type="text/javascript" src="cordova.js"></script> -->
               <script type="text/javascript" src="index.js"></script>                     
               <!--Import jQuery before materialize.js-->
               <script type="text/javascript" src="assets/js/jquery-2.1.1.min.js"></script>
@@ -170,7 +170,10 @@
                 if(localStorage.type_user=="prestatario")type=4;
                 $("#type").val(type);                
                 $(".configuration").hide();
-                if(localStorage.status_u=="2"){
+                var data= JSON.parse(decryptData(localStorage.configs));
+                var status_u=data.status_u;
+
+                if(status_u=="2"){
                   $(".configuration").show();
                   getScroll();
                   getConfig();
@@ -274,6 +277,8 @@
             var duracion= parseInt($("#duracion").val());
             var duracion2= parseInt($("#duracion2").val());
 
+            //alert(monto+"|"+monto2+"|"+interes+"|"+interes2+"|"+duracion+"|"+duracion2);
+
             if(monto==null)monto=0;
             if(interes==null)interes=0;
             if(duracion==null)duracion=0;
@@ -284,13 +289,17 @@
             if(saldo < data.monto2){
               max_monto= saldo;
             }
+            //alert(data.monto1+"|"+data.monto2+"|"+data.interes1+"|"+data.interes2+"|"+data.duracion1+"|"+data.duracion2);
+            //alert("max_monto "+max_monto+" data.monto1 "+data.monto1);
+            var montoIn= data.monto1;
+            if(max_monto==data.monto1)montoIn= 0;
             noUiSlider.create(capital, {
               start: [monto,monto2],
               connect: true,
               tooltips: [ true, true ],
               step: 100000,
               range: {
-                'min': parseInt(data.monto1),
+                'min': parseInt(montoIn),
                 'max': parseInt(max_monto)
               },
               format: wNumb({

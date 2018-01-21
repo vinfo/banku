@@ -559,6 +559,7 @@ function getUserData(){
                   if(msg.data.status=="Perfil en estudio")msg_status="Su perfil está en estudio, en menos de 24 horas tendrá respuesta";                    
                   $(".status").html(msg_status);
                   if(msg.data.status_u!="0")$(".msg1").hide();
+                  localStorage.setItem("status_u",msg.data.status_u);
                   $("#bar").css("width",msg.data.percent+"%");
                   $(".percent").html(msg.data.percent+"%");
                   if(msg.data.percent<100){
