@@ -651,7 +651,11 @@
       $(".lbl-city_u").css("transform","translateY(-140%)");
     });    
     $( ".take_photo" ).click(function() {
-      takePicture();
+      if(localStorage.OS=="browser"){
+        alert("Captura de fotos restringida a la versión mobil");
+      }else{
+        takePicture();
+      }
     });
     $( ".btn-save" ).click(function() {
       var validator = $("#frm_register").validate({  rules: {
