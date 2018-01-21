@@ -135,6 +135,7 @@
                   var data= decryptData(msg.data);                 
                   localStorage.setItem("data",msg.data);
                   localStorage.setItem("type_user",msg.rol);
+                  localStorage.setItem("status_u",msg.status_u);
                   localStorage.setItem("login","true");
                   window.location = "05_Profile_Incomplete-1.html?section=mi_perfil";
                 }else{

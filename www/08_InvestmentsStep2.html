@@ -165,14 +165,18 @@
               <script type="text/javascript">
                $( document ).ready(function(){    
                 const socket = io('https://banku-services.herokuapp.com/');
-                getScroll();              
                 $("#id_u").val(localStorage.data);
                 var type=3;
                 if(localStorage.type_user=="prestatario")type=4;
-                $("#type").val(type);
-                getConfig();
-                getOffertTemp();
-                setSliders();
+                $("#type").val(type);                
+                $(".configuration").hide();
+                if(localStorage.status_u=="2"){
+                  $(".configuration").show();
+                  getScroll();
+                  getConfig();
+                  getOffertTemp();
+                  setSliders();                  
+                }
 
                 $( ".accent-4" ).click(function() {
                   var inversion= parseInt(localStorage.inversion);

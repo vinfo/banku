@@ -146,6 +146,7 @@
               var data= decryptData(msg.data.data);                 
               localStorage.setItem("data",msg.data.data);
               localStorage.setItem("type_user",msg.data.rol);
+              localStorage.setItem("status_u",msg.data.status_u);
               localStorage.setItem("login","true");
               window.location = "04_AccessStep1.html";
             }
