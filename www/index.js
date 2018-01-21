@@ -69,3 +69,6 @@ function getDeviceProperty() {
       });    
     } 
   }
+  function registerLog(log){
+  //console.log(log);
+}
