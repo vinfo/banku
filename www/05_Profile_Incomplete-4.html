@@ -737,7 +737,7 @@ function takePicture(){
       $.ajax({
         type: "POST",
         url: "https://bankucolombia.com/lib/ajax_service_mobil.php",
-        data: "action=updateUser&id_u="+localStorage.id_u+"&cellphone_u="+$("#cellphone_u").val()+"&photo_u="+encodeURIComponent(imageData),
+        data: "action=updateUser&id_u="+encodeURIComponent(localStorage.data)+"&cellphone_u="+$("#cellphone_u").val()+"&photo_u="+encodeURIComponent(imageData),
         dataType:'JSON',
         success: function(msg){
           if(msg.status==200){
