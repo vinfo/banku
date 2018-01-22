@@ -6,7 +6,7 @@ $( document ).ready(function(){
       var configs= JSON.parse(decryptData(localStorage.configs));
       //console.log(decryptData(localStorage.configs));
       var photo_u=configs.photo;
-      var photo="assets/images/avatarUseraa.jpg";
+      var photo="assets/images/avatarUser.jpg";
       if(configs.photo!=null&&configs.photo!=""){      
         photo="data:image/jpeg;base64," + configs.photo;
       }
