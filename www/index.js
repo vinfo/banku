@@ -10,8 +10,7 @@ function onDeviceReady() {
 }   
 }
 function getDeviceProperty() {
-    //alert("getDeviceProperty");
-    localStorage.setItem("OS", "browser");
+    //alert("getDeviceProperty");    
     if(device){
       var deviceOS = device.platform;  //fetch the device operating system
       var deviceOSVersion = device.version;  //fetch the device OS version

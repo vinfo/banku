@@ -53,7 +53,7 @@
             <div class="row">
               <div class="col s10 offset-s1">                                    
                 <div id="capital"></div>
-                <h6><small>Monto a prestar:</small> 2 - 6 Mill.</h6>
+                <h6><small class="lmonto">Monto a prestar: 2 - 6 Mill.</small></h6>
                 <input type="hidden" id="monto" name="monto" value="2000000">
               </div>
             </div>                                            
@@ -267,14 +267,20 @@
     var max_monto= mount2;
     var cuota=0;
     if(saldo < mount2)max_monto= saldo;
-
+    var montoIn= mount1;
+    if(monto>mount1){
+      montoIn=1;
+      max_monto=mount1;
+      $(".lmonto").html("Monto a prestar: $"+numeral(max_monto).format('0,0'));
+    }    
+    //alert(monto+" "+montoIn);
     noUiSlider.create(capital, {
       start: [ monto ],
       connect: true,
       tooltips: [ true ],
       step: 100000,
       range: {
-        'min': mount1,
+        'min': montoIn,
         'max': max_monto
       },
       format: wNumb({
