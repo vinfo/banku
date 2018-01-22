@@ -1,369 +1,391 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <!--Import Google Icon Font-->
-  <link href="assets/css/icon.css?family=Material+Icons" rel="stylesheet">
+<meta charset="utf-8">
+<!--Import Google Icon Font-->
+<link href="assets/css/icon.css?family=Material+Icons" rel="stylesheet">
 
-  <!--Import materialize.css-->
-  <link type="text/css" rel="stylesheet" href="assets/css/materialize.min.css"  media="screen,projection"/>
-  <!--Import my style-->
-  <link type="text/css" href="assets/css/custom.css" rel="stylesheet"/>
-  <link type="text/css" href="assets/css/nouislider.min.css" rel="stylesheet"/>
-  <!--Let browser know website is optimized for mobile-->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<!--Import materialize.css-->
+<link type="text/css" rel="stylesheet" href="assets/css/materialize.min.css"  media="screen,projection"/>
+<!--Import my style-->
+<link type="text/css" href="assets/css/custom.css" rel="stylesheet"/>
+<link type="text/css" href="assets/css/nouislider.min.css" rel="stylesheet"/>
+<!--Let browser know website is optimized for mobile-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
 
 <body class="profile settings-investment" oncontextmenu="return false">
-  <!--Nav Main-->
-  <div class="navbar-fixed nav-descktop"></div>
+<!--Nav Main-->
+<div class="navbar-fixed nav-descktop"></div>
 
-  <!--Nav Responsive-->
-  <nav class="nav-app">
-    <div class="nav-wrapper">
-      <a href="#!" class="brand-logo center">Configuración de mi inversión</a>
-      <ul class="left ">
-        <li><a href="#!" class="back"><i class="material-icons">keyboard_arrow_left</i></a></li>
-      </ul>
-    </div>
-  </nav>
-  <div class="progress">
-    <div class="indeterminate"></div>
-  </div> 
-  <div class="wrapper">
-    <form id="frm_register" action="#">
-      <div class="container">
-        <div class="row">
-          <div class="col s12 pag-nav">
-            <span class="btn-nav-pag">
-              <a href="#!" class="btn grey lighten-1"><i class="material-icons left">&nbsp;</i>Volver</a>                            
-            </span>
-          </div>
-          <div class="col s12">          
-            <h3 class="center hide-on-med-and-down">Configuración de mi inversión</h3>
-            <br>                        
-            <p class="txt-msg">• Configura las características de tus inversiones.<br></p>
-            <br> 
-          </div>  
+<!--Nav Responsive-->
+<nav class="nav-app">
+<div class="nav-wrapper">
+<a href="#!" class="brand-logo center">Configuración de mi inversión</a>
+<ul class="left ">
+<li><a href="#!" class="back"><i class="material-icons">keyboard_arrow_left</i></a></li>
+</ul>
+</div>
+</nav>
+<div class="progress">
+<div class="indeterminate"></div>
+</div> 
+<div class="wrapper">
+<form id="frm_register" action="#">
+<div class="container">
+<div class="row">
+  <div class="col s12 pag-nav">
+    <span class="btn-nav-pag">
+      <a href="#!" class="btn grey lighten-1"><i class="material-icons left">&nbsp;</i>Volver</a>                            
+    </span>
+  </div>
+  <div class="col s12">          
+    <h3 class="center hide-on-med-and-down">Configuración de mi inversión</h3>
+    <br>                        
+    <p class="txt-msg">• Configura las características de tus inversiones.<br></p>
+    <br> 
+  </div>  
+</div>
+</div>                  
+<div class="col s12 m5 configuration">
+<div class="card-panel white">
+  <div class="container">
+    <div class="row">
+      <div class="col s10 offset-s1">                                
+        <div id="capital"></div>
+        <h6><small>Rango de inversión:</small> <span class="monto1">&nbsp;</span> - <span class="monto2">&nbsp;</span> Mill.</h6>
+        <input type="hidden" id="monto" name="monto" value="2000000">
+        <input type="hidden" id="monto2" name="monto2" value="6000000">
+      </div>
+    </div>                                            
+  </div>
+</div>
+<div class="card-panel white">
+  <div class="container">
+    <div class="row">
+      <div class="col s10 offset-s1">                                
+        <div id="interest"></div>
+        <h6><small>Rango de interés:</small> <span class="interes1">&nbsp;</span> - <span class="interes2">&nbsp;</span> % E.M.</h6>
+        <input type="hidden" id="interes" name="interes" value="0.8">
+        <input type="hidden" id="interes2" name="interes2" value="2.3">
+      </div>
+    </div>                                            
+  </div>
+</div>
+<div class="card-panel white">
+  <div class="container">
+    <div class="row">
+      <div class="col s10 offset-s1">                                
+        <div id="duration"></div>
+        <h6><small>Rango de duración:</small> <span class="duracion">&nbsp;</span> - <span class="duracion2">&nbsp;</span> Meses</h6>
+        <input type="hidden" id="duracion" name="duracion" value="6">
+        <input type="hidden" id="duracion2" name="duracion2" value="12">
+        <input type="hidden" id="action" name="action" value="setDataBusinnes">
+        <input type="hidden" id="type" name="type" value="">
+        <input type="hidden" id="id_u" name="id_u" value="">
+      </div>
+    </div>                                            
+  </div>
+</div>
+</div>
+<div class="col s12 center margin-top-40 btn-register btn-find-proyects configuration">
+<a href="#!" class="waves-effect waves-light green accent-4 btn-large">Buscar proyecto para invertir</a>
+</div>            
+<div class="container margin-top-40">
+
+<!--                 <div class="row">
+                <div class="col s3 m2 center offset-s1 offset-m3">
+                    <input name="calificacion[]" value="1" type="checkbox" class="filled-in" id="A" /> 
+                    <label for="A">A</label>                         
+                </div>
+                <div class="col s3 m2 center">
+                    <input name="calificacion[]" value="2" type="checkbox" class="filled-in" id="AA" /> 
+                    <label for="AA">AA</label>                         
+                </div>
+                <div class="col s3 m2 center">
+                    <input name="calificacion[]" value="3" type="checkbox" class="filled-in" id="AAA" checked="checked" />  
+                    <label for="AAA">AAA</label>                     
+                </div>
+              </div> -->
+
+            </div> 
+          </form>
         </div>
-      </div>                  
-      <div class="col s12 m5 configuration">
-        <div class="card-panel white">
+      </div>
+
+      <!--Nav footer Responsive-->
+      <div class="footer-nav menu_footer"></div>        
+
+      <footer class="page-footer">
+        <div class="footer-copyright">
           <div class="container">
-            <div class="row">
-              <div class="col s10 offset-s1">                                
-                <div id="capital"></div>
-                <h6><small>Rango de inversión:</small> <span class="monto1">&nbsp;</span> - <span class="monto2">&nbsp;</span> Mill.</h6>
-                <input type="hidden" id="monto" name="monto" value="2000000">
-                <input type="hidden" id="monto2" name="monto2" value="6000000">
-              </div>
-            </div>                                            
+            © 2017 BankU                    
           </div>
+          <input type="hidden" id="config" name="config" value="">
         </div>
-        <div class="card-panel white">
-          <div class="container">
-            <div class="row">
-              <div class="col s10 offset-s1">                                
-                <div id="interest"></div>
-                <h6><small>Rango de interés:</small> <span class="interes1">&nbsp;</span> - <span class="interes2">&nbsp;</span> % E.M.</h6>
-                <input type="hidden" id="interes" name="interes" value="0.8">
-                <input type="hidden" id="interes2" name="interes2" value="2.3">
+      </footer> 
+
+      <!-- Modal Structure Load -->
+      <div id="modal3" class="modal">
+        <div class="modal-content content-done valign-wrapper">
+          <!--<a href="#!" class="modal-action modal-close"><i class="material-icons close">close</i></a>-->
+          <div class="row">            
+            <div class="col s12">
+              <div class="icon-donde"><img src="assets/images/logoLoad.png"></div>
+              <div class="progress">
+                <div class="indeterminate green accent-4"></div>
               </div>
-            </div>                                            
-          </div>
-        </div>
-        <div class="card-panel white">
-          <div class="container">
-            <div class="row">
-              <div class="col s10 offset-s1">                                
-                <div id="duration"></div>
-                <h6><small>Rango de duración:</small> <span class="duracion">&nbsp;</span> - <span class="duracion2">&nbsp;</span> Meses</h6>
-                <input type="hidden" id="duracion" name="duracion" value="6">
-                <input type="hidden" id="duracion2" name="duracion2" value="12">
-                <input type="hidden" id="action" name="action" value="setDataBusinnes">
-                <input type="hidden" id="type" name="type" value="">
-                <input type="hidden" id="id_u" name="id_u" value="">
-              </div>
-            </div>                                            
+            </div>
           </div>
         </div>
       </div>
-      <div class="col s12 center margin-top-40 btn-register btn-find-proyects configuration">
-        <a href="#!" class="waves-effect waves-light green accent-4 btn-large">Buscar proyecto para invertir</a>
-      </div>            
-      <div class="container margin-top-40">
+      <div id="info2" class="modal">
+        <div class="modal-content">
+          <h4 class="title-msg">Saldo insuficiente</h4>
+          <p class="txt-msg">Su saldo (<span class="saldo"></span>) no es suficiente para poder invertir el monto especificado.</p>
+        </div>
+        <div class="modal-footer">
+          <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Aceptar</a>
+        </div>
+      </div>
+<script type="text/javascript" src="cordova.js"></script>
+<script type="text/javascript" src="index.js"></script>                     
+<!--Import jQuery before materialize.js-->
+<script type="text/javascript" src="assets/js/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="assets/js/materialize.min.js"></script>
+<script type="text/javascript" src="assets/js/jquery.validate.min.js"></script>
+<script type="text/javascript" src="assets/js/numeral.min.js"></script>
+<script type="text/javascript" src="assets/js/CryptoJS/aes.js"></script>
+<script type="text/javascript" src="assets/js/CryptoJS/aes-json-format.js"></script> 
+<script src="assets/js/socket.io.js"></script>
+<script type="text/javascript" src="assets/js/tools.js?v=1.0.0"></script>         
+<script type="text/javascript" src="assets/js/includes.js?v=1.0.0"></script>         
+<script type="text/javascript" src="assets/js/nouislider.min.js"></script> 
+<script type="text/javascript" src="assets/js/wNumb.js"></script>
+<script type="text/javascript">
+ $( document ).ready(function(){    
+  const socket = io('https://banku-services.herokuapp.com/');
+  $("#id_u").val(localStorage.data);
+  var type=3;
+  if(localStorage.type_user=="prestatario")type=4;
+  $("#type").val(type);                
+  $(".configuration").hide();
+  var data= JSON.parse(decryptData(localStorage.configs));
+  //console.log(JSON.stringify(data));
+  var status_u=data.status_u;
+  if(status_u=="2"){                 
+    $(".configuration").show();
+    getScroll();
+    getConfig();
+    getOffertTemp();
+    setSliders();                 
+  }else{
+    alert("Su perfil esta pendiente de ser aprobado.\nAun no puede realizar transacciones en el sistema.");
+  }
 
-<!--                 <div class="row">
-                        <div class="col s3 m2 center offset-s1 offset-m3">
-                            <input name="calificacion[]" value="1" type="checkbox" class="filled-in" id="A" /> 
-                            <label for="A">A</label>                         
-                        </div>
-                        <div class="col s3 m2 center">
-                            <input name="calificacion[]" value="2" type="checkbox" class="filled-in" id="AA" /> 
-                            <label for="AA">AA</label>                         
-                        </div>
-                        <div class="col s3 m2 center">
-                            <input name="calificacion[]" value="3" type="checkbox" class="filled-in" id="AAA" checked="checked" />  
-                            <label for="AAA">AAA</label>                     
-                        </div>
-                      </div> -->
+  $( ".accent-4" ).click(function() {
+    var inversion= parseInt(localStorage.inversion);
+    var monto2= $("#monto2").val(); 
+    if(inversion < parseInt(monto2) && parseInt(localStorage.saldo) < inversion){
+      $(".saldo").html("$"+numeral(inversion).format('0,0'));
+      $('#info2').modal('open');
+    }else{
+      $(".accent-4").html('<img src="assets/images/ajax-loader.gif" alt="Procesando...">');
+      $.ajax({
+        type: "POST",
+        url: "https://bankucolombia.com/lib/ajax_service_mobil.php",
+        data: $("#frm_register").serialize(),
+        dataType:'JSON',
+        success: function(msg){
+          $(".progress").show();
+          localStorage.setItem("set_offer","true");
+          getUserData();
+          var data = {page:"10_LoansStep3.html?section=solicitar_dinero",action:"new_offer_inv",monto:$("#monto").val(),monto2:$("#monto2").val(),interes:$("#interes").val(),interes2:$("#interes2").val(),duracion:$("#duracion").val(),duracion2:$("#duracion2").val()};                    
+          const socket = io('https://banku-services.herokuapp.com/'); 
+          socket.emit('setOffert', data);
+          $('#modal3').modal('open');
+          setTimeout(function(){ $('#modal3').modal('close');window.location = "08_InvestmentsStep3.html?section=negociar"; }, 2000);
+          Materialize.toast('Datos guardados exitosamente', 3000, 'rounded');
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) { 
+          console.log("Problemas procesando datos: " + textStatus +" - "+errorThrown);
+        }
+      });
+    }
+  });    
+});
 
-                    </div> 
-                  </form>
-                </div>
-              </div>
+function getConfig(){
+//Establecer constantes
+var data= JSON.parse(decryptData(localStorage.configs));
+$(".monto1").html(numeral(data.monto1).format('0,0'));
+$(".monto2").html(numeral(data.monto2).format('0,0'));
+$(".interes1").html(data.interes1);
+$(".interes2").html(data.interes2);
+$(".duracion").html(data.duracion1);
+$(".duracion2").html(data.duracion2);                        
+$.ajax({
+type: "POST",
+url: "https://bankucolombia.com/lib/ajax_service_mobil.php",
+data: "action=getConfig&id_u="+encodeURIComponent(localStorage.data),
+async:false,
+dataType:'JSON',
+success: function(msg){                  
+if(msg.data!==null){
+  //Variables oferta usuario
+  if(msg.data.amount)$("#monto").val(msg.data.amount);
+  var monto2= parseInt(msg.data.amount2);
+  if(parseInt(localStorage.saldo) < monto2){
+    monto2=localStorage.saldo;
+    localStorage.setItem("amount2",monto2);
+  }                        
+  if(monto2!="0")$("#monto2").val(monto2);
+  if(msg.data.interest)$("#interes").val(msg.data.interest);
+  if(msg.data.interest2)$("#interes2").val(msg.data.interest2);
+  if(msg.data.duration)$("#duracion").val(msg.data.duration);
+  if(msg.data.duration2)$("#duracion2").val(msg.data.duration2);
+  if(msg.data.calification){
+    var cal= msg.data.calification.split(',');
+    for (var i = 0; i < cal.length; i++) {
+      $("[value='"+cal[i]+"']").prop('checked', true);
+    }                            
+  }
+}else{
+$("#monto").val(data.monto1);
+$("#monto2").val(data.monto2);
+$("#interes").val(data.interes1);
+$("#interes2").val(data.interes2);
+$("#duracion").val(data.duracion1);
+$("#duracion2").val(data.duracion2); 
+}                      
+},
+error: function(XMLHttpRequest, textStatus, errorThrown) { 
+    console.log("Problemas procesando datos: " + textStatus +" - "+errorThrown);
+}
+});             
+}
+function setSliders(){
+  var data= JSON.parse(decryptData(localStorage.configs));
+  var saldo= parseInt(data.saldo);
+  var inversion= parseInt(data.saldo);
 
-              <!--Nav footer Responsive-->
-              <div class="footer-nav menu_footer"></div>        
+  if(saldo<="0"){
+    $('.title-msg').html('Monto mínimo de inversión');
+    $('.txt-msg').html('Aun no tiene un saldo minímo de inversión definido.<br/>Debe ajustar el valor disponible de inversión para poder continuar.');
+    $(".configuration").hide();
+    $('#info2').modal('open');
+  }
+  var capital = document.getElementById('capital');//div slider capital
+  var interest = document.getElementById('interest');//div slider interest
+  var duration = document.getElementById('duration');//div slider duration
+  //Variables cliente
+  var monto= parseInt($("#monto").val());
+  var monto2= parseInt($("#monto2").val());
+  var interes= parseFloat($("#interes").val());
+  var interes2= parseFloat($("#interes2").val());
+  var duracion= parseInt($("#duracion").val());
+  var duracion2= parseInt($("#duracion2").val());             
 
-              <footer class="page-footer">
-                <div class="footer-copyright">
-                  <div class="container">
-                    © 2017 BankU                    
-                  </div>
-                  <input type="hidden" id="config" name="config" value="">
-                </div>
-              </footer> 
+  //alert(monto+"|"+monto2+"|"+interes+"|"+interes2+"|"+duracion+"|"+duracion2);
 
-              <!-- Modal Structure Load -->
-              <div id="modal3" class="modal">
-                <div class="modal-content content-done valign-wrapper">
-                  <!--<a href="#!" class="modal-action modal-close"><i class="material-icons close">close</i></a>-->
-                  <div class="row">            
-                    <div class="col s12">
-                      <div class="icon-donde"><img src="assets/images/logoLoad.png"></div>
-                      <div class="progress">
-                        <div class="indeterminate green accent-4"></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div id="info2" class="modal">
-                <div class="modal-content">
-                  <h4 class="title-msg">Saldo insuficiente</h4>
-                  <p class="txt-msg">Su saldo (<span class="saldo"></span>) no es suficiente para poder invertir el monto especificado.</p>
-                </div>
-                <div class="modal-footer">
-                  <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Aceptar</a>
-                </div>
-              </div>
-              <!-- <script type="text/javascript" src="cordova.js"></script> -->
-              <script type="text/javascript" src="index.js"></script>                     
-              <!--Import jQuery before materialize.js-->
-              <script type="text/javascript" src="assets/js/jquery-2.1.1.min.js"></script>
-              <script type="text/javascript" src="assets/js/materialize.min.js"></script>
-              <script type="text/javascript" src="assets/js/jquery.validate.min.js"></script>
-              <script type="text/javascript" src="assets/js/numeral.min.js"></script>
-              <script type="text/javascript" src="assets/js/CryptoJS/aes.js"></script>
-              <script type="text/javascript" src="assets/js/CryptoJS/aes-json-format.js"></script> 
-              <script src="assets/js/socket.io.js"></script>
-              <script type="text/javascript" src="assets/js/tools.js?v=1.0.0"></script>         
-              <script type="text/javascript" src="assets/js/includes.js?v=1.0.0"></script>         
-              <script type="text/javascript" src="assets/js/nouislider.min.js"></script> 
-              <script type="text/javascript" src="assets/js/wNumb.js"></script>
-              <script type="text/javascript">
-               $( document ).ready(function(){    
-                const socket = io('https://banku-services.herokuapp.com/');
-                $("#id_u").val(localStorage.data);
-                var type=3;
-                if(localStorage.type_user=="prestatario")type=4;
-                $("#type").val(type);                
-                $(".configuration").hide();
-                var data= JSON.parse(decryptData(localStorage.configs));
-                var status_u=data.status_u;
+  if(monto==null)monto=0;
+  if(interes==null)interes=0;
+  if(duracion==null)duracion=0;
 
-                if(status_u=="2"){
-                  $(".configuration").show();
-                  getScroll();
-                  getConfig();
-                  getOffertTemp();
-                  setSliders();                  
-                }else{
-                  alert("Su perfil esta pendiente de ser aprobado.\nAun no puede realizar transacciones en el sistema.");
-                }
-
-                $( ".accent-4" ).click(function() {
-                  var inversion= parseInt(localStorage.inversion);
-                  var monto2= $("#monto2").val(); 
-                  if(inversion < parseInt(monto2) && parseInt(localStorage.saldo) < inversion){
-                    $(".saldo").html("$"+numeral(inversion).format('0,0'));
-                    $('#info2').modal('open');
-                  }else{
-                    $(".accent-4").html('<img src="assets/images/ajax-loader.gif" alt="Procesando...">');
-                    $.ajax({
-                      type: "POST",
-                      url: "https://bankucolombia.com/lib/ajax_service_mobil.php",
-                      data: $("#frm_register").serialize(),
-                      dataType:'JSON',
-                      success: function(msg){
-                        $(".progress").show();
-                        localStorage.setItem("set_offer","true");
-                        getUserData();
-                        var data = {page:"10_LoansStep3.html?section=solicitar_dinero",action:"new_offer_inv",monto:$("#monto").val(),monto2:$("#monto2").val(),interes:$("#interes").val(),interes2:$("#interes2").val(),duracion:$("#duracion").val(),duracion2:$("#duracion2").val()};                    
-                        const socket = io('https://banku-services.herokuapp.com/'); 
-                        socket.emit('setOffert', data);
-                        $('#modal3').modal('open');
-                        setTimeout(function(){ $('#modal3').modal('close');window.location = "08_InvestmentsStep3.html?section=negociar"; }, 2000);
-                        Materialize.toast('Datos guardados exitosamente', 3000, 'rounded');
-                      },
-                      error: function(XMLHttpRequest, textStatus, errorThrown) { 
-                        console.log("Problemas procesando datos: " + textStatus +" - "+errorThrown);
-                      }
-                    });
-                  }
-
-                });    
-              });
-
-               function getConfig(){
-            //Establecer constantes
-            $(".monto1").html(numeral(localStorage.monto1));
-            $(".monto2").html(numeral(localStorage.monto2));
-            $(".interes1").html(localStorage.interes1);
-            $(".interes2").html(localStorage.interes2);
-            $(".duracion").html(localStorage.duracion1);
-            $(".duracion2").html(localStorage.duracion2);                        
-            $.ajax({
-              type: "POST",
-              url: "https://bankucolombia.com/lib/ajax_service_mobil.php",
-              data: "action=getConfig&id_u="+encodeURIComponent(localStorage.data),
-              async:false,
-              dataType:'JSON',
-              success: function(msg){                  
-                if(msg.data!==null){
-                        //Variables oferta usuario
-                        if(msg.data.amount)$("#monto").val(msg.data.amount);
-                        var monto2= parseInt(msg.data.amount2);
-                        if(parseInt(localStorage.saldo) < monto2){
-                          monto2=localStorage.saldo;
-                          localStorage.setItem("amount2",monto2);
-                        }                        
-                        if(monto2!="0")$("#monto2").val(monto2);
-                        if(msg.data.interest)$("#interes").val(msg.data.interest);
-                        if(msg.data.interest2)$("#interes2").val(msg.data.interest2);
-                        if(msg.data.duration)$("#duracion").val(msg.data.duration);
-                        if(msg.data.duration2)$("#duracion2").val(msg.data.duration2);
-                        if(msg.data.calification){
-                          var cal= msg.data.calification.split(',');
-                          for (var i = 0; i < cal.length; i++) {
-                            $("[value='"+cal[i]+"']").prop('checked', true);
-                          }                            
-                        }
-                      }                      
-                    },
-                    error: function(XMLHttpRequest, textStatus, errorThrown) { 
-                      console.log("Problemas procesando datos: " + textStatus +" - "+errorThrown);
-                    }
-                  });             
-          }
-          function setSliders(){
-            var data= JSON.parse(decryptData(localStorage.configs));
-            var saldo= parseInt(data.saldo);      
-            if(saldo<="0"){
-              $('.title-msg').html('Monto mínimo de inversión');
-              $('.txt-msg').html('Aun no tiene un saldo minímo de inversión definido.<br/>Debe ajustar el valor disponible de inversión para poder continuar.');
-              $(".configuration").hide();
-              $('#info2').modal('open');
-            }
-            var capital = document.getElementById('capital');//div slider capital
-            var interest = document.getElementById('interest');//div slider interest
-            var duration = document.getElementById('duration');//div slider duration
-            //Variables cliente
-            var monto= parseInt($("#monto").val());
-            var monto2= parseInt($("#monto2").val());
-            var interes= parseFloat($("#interes").val());
-            var interes2= parseFloat($("#interes2").val());
-            var duracion= parseInt($("#duracion").val());
-            var duracion2= parseInt($("#duracion2").val());
-
-            //alert(monto+"|"+monto2+"|"+interes+"|"+interes2+"|"+duracion+"|"+duracion2);
-
-            if(monto==null)monto=0;
-            if(interes==null)interes=0;
-            if(duracion==null)duracion=0;
-
-            var find = ["$","%","."];
-            var replace = ['','',''];
-            var montoIn=data.monto1;
-            var max_monto= parseInt(data.monto2); 
-            if(monto>data.monto1){
-              monto=0;
-              montoIn=1;
-              max_monto=data.monto1;
-            }
-            noUiSlider.create(capital, {
-              start: [monto,monto2],
-              connect: true,
-              tooltips: [ true, true ],
-              step: 100000,
-              range: {
-                'min': parseInt(montoIn),
-                'max': parseInt(max_monto)
-              },
-              format: wNumb({
-                decimals: 0,
-                thousand: '.',
-                prefix: '$'
-              })                         
-            });
-            capital.noUiSlider.on('change', function(data){
-              $("#monto").val(rplMoney(data[0].toString()));
-              $("#monto2").val(rplMoney(data[1].toString()));
-            });        
-            noUiSlider.create(interest, {
-              start: [interes,interes2],
-              connect: true,
-              tooltips: [ true, true ],
-              range: {
-                'min': parseFloat(data.interes1),
-                'max': parseFloat(data.interes2)
-              },
-              format: wNumb({
-                decimals: 2,
-                mark: '.',
-                suffix: '%'
-              }) 
-            });
-            interest.noUiSlider.on('change', function(data){
-              $("#interes").val(rplPerc(data[0].toString()));
-              $("#interes2").val(rplPerc(data[1].toString()));
-            });        
-            noUiSlider.create(duration, {
-              start: [duracion,duracion2],
-              connect: true,
-              tooltips: [ true, true ],
-              range: {
-                'min': parseInt(data.duracion1),
-                'max': parseInt(data.duracion2)
-              },
-              format: wNumb({
-                decimals: 0
-              })             
-            });
-            duration.noUiSlider.on('change', function(data){
-              $("#duracion").val(data[0].toString());
-              $("#duracion2").val(data[1].toString());
-            });            
-          }
-          function getOffertTemp(){
-            $.ajax({
-              type: "POST",
-              url: "https://bankucolombia.com/lib/ajax_service_mobil.php",
-              data: "action=getOfferTemp&id_u="+encodeURIComponent(localStorage.data)+"&type_user="+localStorage.type_user,
-              dataType:'JSON',
-              success: function(msg){
-                var data= JSON.parse(decryptData(localStorage.configs));
-                var saldo= data.saldo;   
-                if(saldo<100000){
-                  $(".btn-find-proyects").html("<h4>Saldo insuficiente para negociar.</h4>");
-                }
-              },
-              error: function(XMLHttpRequest, textStatus, errorThrown) { 
-                console.log("Problemas procesando datos: " + textStatus +" - "+errorThrown);
-              }
-            });          
-          }                                   
-        </script>
-      </body>
-      </html>
+  var find = ["$","%","."];
+  var replace = ['','',''];
+  var montoIn= data.monto1;
+  var max_monto= parseInt(data.monto2);
+  //alert(monto2+" "+data.monto2);
+  if(inversion<data.monto1&&monto==data.monto1){
+    monto=0;
+    max_monto= inversion;
+    monto2= inversion;
+  }
+  if(inversion>data.monto1&&inversion<data.monto2&&monto2==data.monto2){
+    monto=0;
+    max_monto= inversion;
+    monto2= inversion;
+  }
+  if(inversion<data.monto2&&monto2<=data.monto2){
+    monto=0;
+    max_monto= inversion;
+    monto2= inversion;
+  }  
+  $(".monto2").html(numeral(inversion).format('0,0'));           
+  //alert(monto+" "+monto2);
+  noUiSlider.create(capital, {
+    start: [monto,monto2],
+    connect: true,
+    tooltips: [ true, true ],
+    step: 100000,
+    range: {
+      'min': parseInt(montoIn),
+      'max': parseInt(max_monto)
+    },
+    format: wNumb({
+      decimals: 0,
+      thousand: '.',
+      prefix: '$'
+    })                         
+  });
+  capital.noUiSlider.on('change', function(data){
+    $("#monto").val(rplMoney(data[0].toString()));
+    $("#monto2").val(rplMoney(data[1].toString()));
+  });        
+  noUiSlider.create(interest, {
+    start: [interes,interes2],
+    connect: true,
+    tooltips: [ true, true ],
+    range: {
+      'min': parseFloat(data.interes1),
+      'max': parseFloat(data.interes2)
+    },
+    format: wNumb({
+      decimals: 2,
+      mark: '.',
+      suffix: '%'
+    }) 
+  });
+  interest.noUiSlider.on('change', function(data){
+    $("#interes").val(rplPerc(data[0].toString()));
+    $("#interes2").val(rplPerc(data[1].toString()));
+  });        
+  noUiSlider.create(duration, {
+    start: [duracion,duracion2],
+    connect: true,
+    tooltips: [ true, true ],
+    range: {
+      'min': parseInt(data.duracion1),
+      'max': parseInt(data.duracion2)
+    },
+    format: wNumb({
+      decimals: 0
+    })             
+  });
+  duration.noUiSlider.on('change', function(data){
+    $("#duracion").val(data[0].toString());
+    $("#duracion2").val(data[1].toString());
+  });            
+}
+function getOffertTemp(){
+  $.ajax({
+    type: "POST",
+    url: "https://bankucolombia.com/lib/ajax_service_mobil.php",
+    data: "action=getOfferTemp&id_u="+encodeURIComponent(localStorage.data)+"&type_user="+localStorage.type_user,
+    dataType:'JSON',
+    success: function(msg){
+      var data= JSON.parse(decryptData(localStorage.configs));
+      var saldo= data.saldo;   
+      if(saldo<100000){
+        $(".btn-find-proyects").html("<h4>Saldo insuficiente para negociar.</h4>");
+      }
+    },
+    error: function(XMLHttpRequest, textStatus, errorThrown) { 
+      console.log("Problemas procesando datos: " + textStatus +" - "+errorThrown);
+    }
+  });          
+}                                   
+</script>
+</body>
+</html>
