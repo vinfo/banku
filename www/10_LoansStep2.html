@@ -53,7 +53,7 @@
             <div class="row">
               <div class="col s10 offset-s1">                                    
                 <div id="capital"></div>
-                <h6><small class="lmonto">Monto a prestar: 2 - 6 Mill.</small></h6>
+                <h6><small class="lmonto">Monto a prestar: $100.000.</small></h6>
                 <input type="hidden" id="monto" name="monto" value="2000000">
               </div>
             </div>                                            
@@ -181,8 +181,8 @@
       getOffertTemp();                 
     }else{
       alert("Su perfil esta pendiente de ser aprobado.\nAun no puede realizar transacciones en el sistema.");
-    }
-    
+    }    
+
     $( ".accent-4" ).click(function() {
       var monto= $("#monto").val();
       var interes= $("#interes").val();
@@ -246,6 +246,7 @@
   }
   function setSliders(){
     var data= JSON.parse(decryptData(localStorage.configs));
+    //console.log(JSON.stringify(data));
     var saldo= parseInt(data.saldo);           
     if(saldo<="0"){
       $('.title-msg').html('Monto mínimo de prestamos');
@@ -276,12 +277,14 @@
     var cuota=0;
     if(saldo < mount2)max_monto= saldo;
     var montoIn= mount1;
-    if(monto>mount1){
-      montoIn=1;
-      max_monto=mount1;
+    if(saldo<mount2){
+      montoIn=100000;
+      max_monto= saldo;
       $(".lmonto").html("Monto a prestar: $"+numeral(max_monto).format('0,0'));
       $("#monto").val(max_monto);
-    }    
+    }
+
+
     //alert(monto+" "+montoIn);
     noUiSlider.create(capital, {
       start: [ monto ],
@@ -337,7 +340,7 @@
     });
     duration.noUiSlider.on('change', function(data){
       $("#duracion").val(data.toString());
-      cuota= calcCuota($("#monto").val(),$("#interes").val(),$("#duracion").val());
+      cuota=calcCuota($("#monto").val(),$("#interes").val(),$("#duracion").val());
       $(".cuota").html(numeral(cuota).format('0,0'));
     });            
   }
