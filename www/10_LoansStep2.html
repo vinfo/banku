@@ -172,9 +172,17 @@
     var type=3;
     if(localStorage.type_user=="prestatario")type=4;
     $("#type").val(type);
-    getConfig();
-    getOffertTemp();
-
+    $(".configuration").hide();
+    var data= JSON.parse(decryptData(localStorage.configs));
+    var status_u=data.status_u;
+    if(status_u=="2"){
+      $(".configuration").show();
+      getConfig();
+      getOffertTemp();                 
+    }else{
+      alert("Su perfil esta pendiente de ser aprobado.\nAun no puede realizar transacciones en el sistema.");
+    }
+    
     $( ".accent-4" ).click(function() {
       var monto= $("#monto").val();
       var interes= $("#interes").val();
