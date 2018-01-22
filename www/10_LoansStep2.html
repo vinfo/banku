@@ -272,6 +272,7 @@
       montoIn=1;
       max_monto=mount1;
       $(".lmonto").html("Monto a prestar: $"+numeral(max_monto).format('0,0'));
+      $("#monto").val(max_monto);
     }    
     //alert(monto+" "+montoIn);
     noUiSlider.create(capital, {
@@ -328,7 +329,7 @@
     });
     duration.noUiSlider.on('change', function(data){
       $("#duracion").val(data.toString());
-      cuota=calcCuota($("#monto").val(),$("#interes").val(),$("#duracion").val());
+      cuota= calcCuota($("#monto").val(),$("#interes").val(),$("#duracion").val());
       $(".cuota").html(numeral(cuota).format('0,0'));
     });            
   }

