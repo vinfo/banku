@@ -283,9 +283,13 @@
       $(".lmonto").html("Monto a prestar: $"+numeral(max_monto).format('0,0'));
       $("#monto").val(max_monto);
     }
+    if(montoIn==max_monto){
+      montoIn=0;
+      $(".lmonto").html("Monto a prestar: $"+numeral(max_monto).format('0,0'));
+      $("#monto").val(max_monto);
+    }
 
-
-    //alert(monto+" "+montoIn);
+    //alert(montoIn+" "+max_monto);
     noUiSlider.create(capital, {
       start: [ monto ],
       connect: true,
@@ -303,7 +307,7 @@
     });
     capital.noUiSlider.on('change', function(data){
       $("#monto").val(rplMoney(data.toString()));
-      console.log(monto +" "+mount1+"  "+max_monto);
+      //console.log(monto +" "+mount1+"  "+max_monto);
       cuota=calcCuota($("#monto").val(),$("#interes").val(),$("#duracion").val());
       $(".cuota").html(numeral(cuota).format('0,0'));
     });        
