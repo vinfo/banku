@@ -559,7 +559,7 @@
     $( ".terminos" ).load( "includes/terminos.html", function() {
       $.ajax({
         type:"GET",
-        url: "https://bankucolombia.com/lib/ajax_service_mobil.php",
+        url: "https://banku.com.co/lib/ajax_service_mobil.php",
         data: "action=getContent&id=7",
         dataType:'JSON',
         success: function(msg){
@@ -675,7 +675,7 @@
         if(pass1!=""&&pass2!=""&&pass3!=""&&pass2!=pass3){
           $.ajax({
             type: "POST",
-            url: "https://bankucolombia.com/lib/ajax_service_mobil.php",
+            url: "https://banku.com.co/lib/ajax_service_mobil.php",
             data: "action=checkPass&pass="+pass3,
             success: function(msg){
               if(msg!=pass2){
@@ -706,7 +706,7 @@
 function updateProfile(){
   $.ajax({
     type: "POST",
-    url: "https://bankucolombia.com/lib/ajax_service_mobil.php",
+    url: "https://banku.com.co/lib/ajax_service_mobil.php",
     data: $("#frm_register").serialize()+"&action=updateUserFull&id_u="+encodeURIComponent(localStorage.data)+"&type_user="+localStorage.type_user,
     dataType:'JSON',
     success: function(msg){
@@ -740,7 +740,7 @@ function takePicture(){
       localStorage.setItem("foto",imageData);
       $.ajax({
         type: "POST",
-        url: "https://bankucolombia.com/lib/ajax_service_mobil.php",
+        url: "https://banku.com.co/lib/ajax_service_mobil.php",
         data: "action=updateUser&id_u="+encodeURIComponent(localStorage.data)+"&cellphone_u="+$("#cellphone_u").val()+"&photo_u="+encodeURIComponent(imageData),
         dataType:'JSON',
         success: function(msg){
@@ -755,7 +755,7 @@ function takePicture(){
    }
    function getProfesions(sel=''){
      $.ajax({
-       url: "https://bankucolombia.com/lib/json/cargos.json?callback=jsonCallback",
+       url: "https://banku.com.co/lib/json/cargos.json?callback=jsonCallback",
        success: function (data) {      
          $.each(data, function( index, value ) {
            $('#occupation_u').append($('<option>', { 
@@ -774,7 +774,7 @@ function takePicture(){
       $(".c"+name[0]).remove();
       $.ajax({
        type: "POST",
-       url: "https://bankucolombia.com/lib/ajax_service_mobil.php",
+       url: "https://banku.com.co/lib/ajax_service_mobil.php",
        data: "action=delFile&mobil=true&id="+encodeURIComponent(localStorage.data)+"&file="+file,
        success: function(data){
        }
@@ -811,7 +811,7 @@ function takePicture(){
     var form_data = new FormData();                  
     form_data.append('file', file_data);   
     $.ajax({
-      url: "https://bankucolombia.com/lib/ajax_service_mobil.php?action=loadFile&id_u="+encodeURIComponent(localStorage.data)+"&id="+id+"&tipo="+tipo+"&type_f="+$("#type_f").val(),
+      url: "https://banku.com.co/lib/ajax_service_mobil.php?action=loadFile&id_u="+encodeURIComponent(localStorage.data)+"&id="+id+"&tipo="+tipo+"&type_f="+$("#type_f").val(),
       dataType: 'text',
       cache: false,
       contentType: false,
@@ -833,7 +833,7 @@ return false;
 function getUserFiles(){  
   $.ajax({
     type: "POST",
-    url: "https://bankucolombia.com/lib/ajax_service_mobil.php",
+    url: "https://banku.com.co/lib/ajax_service_mobil.php",
     data: "action=getFilesUser&id_u="+encodeURIComponent(localStorage.data),
     dataType:'JSON',
     success: function(msg){

@@ -114,7 +114,7 @@
       });
       $.ajax({
         type: "POST",
-        url: "https://bankucolombia.com/lib/ajax_service_mobil.php",
+        url: "https://banku.com.co/lib/ajax_service_mobil.php",
         data: "action=negociar_todos&id_user="+encodeURIComponent(localStorage.data)+"&offerts="+offerts,
         async:false,
         dataType:'JSON',
@@ -134,7 +134,7 @@
 function getAllOffers(){
     $.ajax({
     type: "POST",
-    url: "https://bankucolombia.com/lib/ajax_service_mobil.php",
+    url: "https://banku.com.co/lib/ajax_service_mobil.php",
     data: "action=getAllOffers&id_u="+encodeURIComponent(localStorage.data),
     dataType:'JSON',
     async:false,
@@ -151,7 +151,7 @@ function getAllOffers(){
     var saldo= data.saldo;     
     $.ajax({
     type: "POST",
-    url: "https://bankucolombia.com/lib/ajax_service_mobil.php",
+    url: "https://banku.com.co/lib/ajax_service_mobil.php",
     data: "action=getConfigOffersInv&status=0&search=true&amount="+amount+"&amount2="+amount2+"&interest="+interest+"&interest2="+interest2+"&duration="+duration+"&duration2="+duration2+"&id_u="+encodeURIComponent(localStorage.data)+"&type_user="+localStorage.type_user,
     dataType:'JSON',
     async:false,
@@ -176,7 +176,7 @@ function getAllOffers(){
 function getOffertTemp(){
   $.ajax({
     type: "POST",
-    url: "https://bankucolombia.com/lib/ajax_service_mobil.php",
+    url: "https://banku.com.co/lib/ajax_service_mobil.php",
     data: "action=getOfferTemp&id_u="+encodeURIComponent(localStorage.data)+"&type_user="+localStorage.type_user,
     dataType:'JSON',
     async:false,

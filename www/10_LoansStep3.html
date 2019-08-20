@@ -118,7 +118,7 @@ function getAllOffers(){
     var duration= configs.duration;
     $.ajax({
     type: "POST",
-    url: "https://bankucolombia.com/lib/ajax_service_mobil.php",
+    url: "https://banku.com.co/lib/ajax_service_mobil.php",
     data: "action=getOffersByParams&id_u="+encodeURIComponent(localStorage.data)+"&amount="+amount+"&interest="+interest+"&duration="+duration,
     dataType:'JSON',
     async:false,
@@ -147,7 +147,7 @@ function getOfferts(amount,duration,value){
 function getOffertTemp(){
     $.ajax({
       type: "POST",
-      url: "https://bankucolombia.com/lib/ajax_service_mobil.php",
+      url: "https://banku.com.co/lib/ajax_service_mobil.php",
       data: "action=getOfferTemp&id_u="+encodeURIComponent(localStorage.data)+"&type_user="+localStorage.type_user,
       dataType:'JSON',
       async:false,

@@ -196,7 +196,7 @@
         var rate= $("#calificacion").val();
         $.ajax({
           type: "POST",
-          url: "https://bankucolombia.com/lib/ajax_service_mobil.php",
+          url: "https://banku.com.co/lib/ajax_service_mobil.php",
           data: "action=setCalifications&from_u="+encodeURIComponent(localStorage.data)+"&to_u="+encodeURIComponent(to_u)+"&id_b="+id_b+"&rate="+rate+"&comments="+comentarios,
           dataType:'JSON',
           success: function(msg){
@@ -220,7 +220,7 @@
                 //Obtener datos generales
                 $.ajax({
                   type: "POST",
-                  url: "https://bankucolombia.com/lib/ajax_service_mobil.php",
+                  url: "https://banku.com.co/lib/ajax_service_mobil.php",
                   data: "action=getBusiness&id_b="+id_b+"&id_user="+encodeURIComponent(localStorage.data)+"&type_user="+localStorage.type_user,
                   dataType:'JSON',
                   success: function(msg){
@@ -250,7 +250,7 @@
                 //Obtener detalle de pagos
                 $.ajax({
                   type: "POST",
-                  url: "https://bankucolombia.com/lib/ajax_service_mobil.php",
+                  url: "https://banku.com.co/lib/ajax_service_mobil.php",
                   data: "action=getPaysxBusiness&id_b="+id_b,
                   dataType:'JSON',
                   success: function(msg){

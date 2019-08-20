@@ -137,7 +137,7 @@
                 localStorage.setItem("foto",imageData);
                 $.ajax({
                     type: "POST",
-                    url: "https://bankucolombia.com/lib/ajax_service_mobil.php",
+                    url: "https://banku.com.co/lib/ajax_service_mobil.php",
                     data: "action=updateUser&id_u="+encodeURIComponent(localStorage.data)+"&cellphone_u="+localStorage.cellphone_u+"&photo_u="+encodeURIComponent(imageData),
                     dataType:'JSON',
                     success: function(msg){

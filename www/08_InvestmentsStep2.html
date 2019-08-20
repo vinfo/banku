@@ -193,7 +193,7 @@
       $(".accent-4").html('<img src="assets/images/ajax-loader.gif" alt="Procesando...">');
       $.ajax({
         type: "POST",
-        url: "https://bankucolombia.com/lib/ajax_service_mobil.php",
+        url: "https://banku.com.co/lib/ajax_service_mobil.php",
         data: $("#frm_register").serialize(),
         dataType:'JSON',
         success: function(msg){
@@ -226,7 +226,7 @@ $(".duracion").html(data.duracion1);
 $(".duracion2").html(data.duracion2);                        
 $.ajax({
 type: "POST",
-url: "https://bankucolombia.com/lib/ajax_service_mobil.php",
+url: "https://banku.com.co/lib/ajax_service_mobil.php",
 data: "action=getConfig&id_u="+encodeURIComponent(localStorage.data),
 async:false,
 dataType:'JSON',
@@ -371,7 +371,7 @@ function setSliders(){
 function getOffertTemp(){
   $.ajax({
     type: "POST",
-    url: "https://bankucolombia.com/lib/ajax_service_mobil.php",
+    url: "https://banku.com.co/lib/ajax_service_mobil.php",
     data: "action=getOfferTemp&id_u="+encodeURIComponent(localStorage.data)+"&type_user="+localStorage.type_user,
     dataType:'JSON',
     success: function(msg){

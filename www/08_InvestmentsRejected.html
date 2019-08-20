@@ -109,7 +109,7 @@
    function removeOfferRejected(id_offer,id_u){
     $.ajax({
       type: "POST",
-      url: "https://bankucolombia.com/lib/ajax_service_mobil.php",
+      url: "https://banku.com.co/lib/ajax_service_mobil.php",
       data: "action=remove_reject_offer&id_u="+encodeURIComponent(localStorage.data)+"&id_offer="+id_offer,
       dataType:'JSON',
       success: function(msg){
@@ -127,7 +127,7 @@
    if(amount!="0"&&amount2!="0"){
      $.ajax({
       type: "POST",
-      url: "https://bankucolombia.com/lib/ajax_service_mobil.php",
+      url: "https://banku.com.co/lib/ajax_service_mobil.php",
       data: "action=getConfigOffersInvRej&status=0&search=true&amount="+amount+"&amount2="+amount2+"&id_u="+encodeURIComponent(localStorage.data)+"&type_user="+localStorage.type_user,
       dataType:'JSON',
       success: function(msg){

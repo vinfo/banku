@@ -118,7 +118,7 @@
         if(this.value!=""){
           $.ajax({
             type: "POST",
-            url: "https://bankucolombia.com/lib/ajax_service_mobil.php",
+            url: "https://banku.com.co/lib/ajax_service_mobil.php",
             data: "action=checkExists&email="+this.value+"&type_user="+type_user,
             dataType:'JSON',
             success: function(msg){
@@ -138,7 +138,7 @@
          $(".accent-4").html('<img src="assets/images/ajax-loader.gif" alt="Procesando...">');
          $.ajax({
           type: "POST",
-          url: "https://bankucolombia.com/lib/ajax_service_mobil.php",
+          url: "https://banku.com.co/lib/ajax_service_mobil.php",
           data: $("#frm_register").serialize(),
           dataType:'JSON',
           success: function(msg){

@@ -248,7 +248,7 @@
     var localdata= JSON.parse(decryptData(localStorage.configs));
     $.ajax({
       type: "POST",
-      url: "https://bankucolombia.com/lib/ajax_service_mobil.php",
+      url: "https://banku.com.co/lib/ajax_service_mobil.php",
       data: "action=setOfferFinal&inv_b="+encodeURIComponent(localStorage.data)+"&prest_b="+encodeURIComponent(prest_b)+"&total_b="+monto+"&quota_b="+cuota+"&interes_b="+$("#interes_b").val()+"&plazo_b="+duracion+"&destination_b="+$("#destination_b").val()+"&offer_b="+id_ofert+"&admin="+encodeURIComponent(localStorage.data),
       dataType:'JSON',
       success: function(msg){
@@ -258,7 +258,7 @@
           showMsgConfirm();
           $.ajax({
             type: "POST",
-            url: "https://bankucolombia.com/lib/ajax_service_mobil.php",
+            url: "https://banku.com.co/lib/ajax_service_mobil.php",
             data: "action=setPaysxBusiness&fecha="+localdata.fecha+"&prest="+encodeURIComponent(cryptData($("#prest_b").val()))+"&monto="+$("#total_b").val()+"&quota_b="+$("#quota_b").val()+"&tasa1="+$("#interes_b").val()+"&meses="+$("#plazo_b").val()+"&id_b="+id_b,
             dataType:'JSON',
             success: function(msg){
@@ -282,7 +282,7 @@
     if(conf){
       $.ajax({
         type: "POST",
-        url: "https://bankucolombia.com/lib/ajax_service_mobil.php",
+        url: "https://banku.com.co/lib/ajax_service_mobil.php",
         data: "action=delOfferMatch&inv="+encodeURIComponent(localStorage.data)+"&id="+id_ofert+"&owner_offer="+encodeURIComponent(cryptData($("#prest_b").val())),
         dataType:'JSON',
         success: function(msg){  
@@ -301,7 +301,7 @@
   $( ".btn-favorito" ).click(function() {
     $.ajax({
       type: "POST",
-      url: "https://bankucolombia.com/lib/ajax_service_mobil.php",
+      url: "https://banku.com.co/lib/ajax_service_mobil.php",
       data: "action=setFavorite&admin="+encodeURIComponent(localStorage.data)+"&inv="+encodeURIComponent(localStorage.data)+"&prest="+$("#prest_b").val()+"&id="+id_ofert,
       dataType:'JSON',
       success: function(msg){  
@@ -427,7 +427,7 @@ function setSliders(){
     function getHeaderOffert(id_ofert){
      $.ajax({
       type: "POST",
-      url: "https://bankucolombia.com/lib/ajax_service_mobil.php",
+      url: "https://banku.com.co/lib/ajax_service_mobil.php",
       data: "action=getHeaderOffert&id_ofert="+id_ofert,
       async:false,
       dataType:'JSON',

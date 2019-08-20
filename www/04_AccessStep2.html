@@ -140,7 +140,7 @@
                 if(localStorage.code==code){
                     $.ajax({
                         type: "POST",
-                        url: "https://bankucolombia.com/lib/ajax_service_mobil.php",
+                        url: "https://banku.com.co/lib/ajax_service_mobil.php",
                         data: $("#frm_register").serialize()+"&id_u="+localStorage.id_u+"&cellphone_u="+localStorage.cellphone_u,
                         dataType:'JSON',
                         async:false,

@@ -88,7 +88,7 @@
     if(msg&&msg=="aceptada")$('#info1').modal('open');
     $.ajax({
       type: "POST",
-      url: "https://bankucolombia.com/lib/ajax_service_mobil.php",
+      url: "https://banku.com.co/lib/ajax_service_mobil.php",
       data: "action=getBusiness&id_user="+encodeURIComponent(localStorage.data)+"&type_user="+localStorage.type_user,
       dataType:'JSON',
       success: function(msg){

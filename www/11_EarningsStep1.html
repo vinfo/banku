@@ -139,7 +139,7 @@
                         localStorage.setItem("inversion",amount_u);
                         $.ajax({
                           type: "POST",
-                          url: "https://bankucolombia.com/lib/ajax_service_mobil.php",
+                          url: "https://banku.com.co/lib/ajax_service_mobil.php",
                           data: "action=updateUserAmount&id_u="+localStorage.id_u+"&amount_u="+amount_u,
                           dataType:'JSON',
                           success: function(msg){
