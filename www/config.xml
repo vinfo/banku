@@ -31,7 +31,7 @@
     <plugin name="cordova-plugin-device" version="1.1.6" />
     <plugin name="cordova-plugin-badge" version="0.8.8" />
     <plugin name="cordova-plugin-x-socialsharing" version="5.4.7" />
-    <plugin name="cordova-plugin-local-notifications-mm" version="1.0.13" />
+    <plugin name="de.appplant.cordova.plugin.local-notification" version="0.8.5" />
 
 
     <!-- Define app icon for each platform. -->
