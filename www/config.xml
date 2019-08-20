@@ -17,6 +17,9 @@
     <access origin="*.pushwoosh.com" />
 
     <preference name='phonegap-version' value='cli-8.0.0' />
+    <preference name="EnableViewportScale" value="true"/>
+    <preference name="orientation" value="portrait" />
+    <preference name="android-build-tool" value="gradle" />
 
     <!-- Define app icon for each platform. -->
     <icon src="icon.png" />
